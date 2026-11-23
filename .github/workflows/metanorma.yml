@@ -1,0 +1,46 @@
+name: metanorma
+
+on:
+  pull_request:
+    paths:
+      - 'coridoc/**'
+      - 'coridoc-adoc/**'
+      - 'coridoc-markdown/**'
+      - 'gemfiles/metanorma.gemfile*'
+      - '.github/workflows/metanorma.yml'
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semantic-model:
+    name: Semantic model (Ruby ${{ matrix.ruby }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.3', '4.0']
+    env:
+      BUNDLE_GEMFILE: gemfiles/metanorma.gemfile
+      CORIDOC_METANORMA_TEST: '1'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Verify pinned SDK and record actual runtime
+        run: |
+          bundle exec ruby -rbundler/setup -rjson -e '
+            sdk = Gem.loaded_specs.fetch("metanorma-document")
+            expected = "f3c4accfdc028152d283c8e36ffa5853d6c98b5d"
+            abort "Unexpected SDK source" unless sdk.source.is_a?(Bundler::Source::Git) && sdk.source.revision == expected
+            puts JSON.pretty_generate(ruby: RUBY_DESCRIPTION, sdk_revision: sdk.source.revision,
+              dependencies: Gem.loaded_specs.transform_values { |spec| spec.version.to_s })
+          '
+      - name: Native semantic builder and frontend parity
+        run: bundle exec rspec --options /dev/null coridoc/spec/coridoc/metanorma/builder_spec.rb

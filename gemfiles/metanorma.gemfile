@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+# The SDK is optional for generic Coridoc users. This separate bundle exercises
+# the semantic output integration against the accepted, unreleased model API.
+gem 'coridoc', path: '../coridoc'
+gem 'coridoc-adoc', path: '../coridoc-adoc'
+gem 'coridoc-markdown', path: '../coridoc-markdown'
+gem 'metanorma-document', git: 'https://github.com/metanorma/metanorma-document.git',
+                          ref: 'f3c4accfdc028152d283c8e36ffa5853d6c98b5d'
+gem 'metanorma-standoc', '= 3.5.23'
+# Keep the shared native math/parser stack consistent with the SDK fixture.
+gem 'amath', '= 0.2.0'
+gem 'parsanol', '= 1.3.151'
+gem 'rspec', '~> 3.13'
