@@ -37,7 +37,7 @@ jobs:
         run: |
           bundle exec ruby -rbundler/setup -rjson -e '
             sdk = Gem.loaded_specs.fetch("metanorma-document")
-            expected = "f3c4accfdc028152d283c8e36ffa5853d6c98b5d"
+            expected = "3911acbb4ce9d8497a94579610a42d663b8a78cd"
             abort "Unexpected SDK source" unless sdk.source.is_a?(Bundler::Source::Git) && sdk.source.revision == expected
             puts JSON.pretty_generate(ruby: RUBY_DESCRIPTION, sdk_revision: sdk.source.revision,
               dependencies: Gem.loaded_specs.transform_values { |spec| spec.version.to_s })
