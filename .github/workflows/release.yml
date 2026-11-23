@@ -23,10 +23,10 @@ on:
         default: skip
   repository_dispatch:
     types: [do-release]
-    types: [ do-release ]
-  # The publish leg: when the release PR (head branch release/v*) merges,
-  # metanorma/ci tags the merge commit and publishes (metanorma/ci#515).
-  # Ordinary PR closes are skipped inside the reusable workflow.
+  # The recovery publish leg: if the dispatch run's 20-minute merge wait
+  # timed out, the release PR (head release/*) merging still triggers this
+  # workflow, and the reusable publishes from the merge commit
+  # (metanorma/ci#515). Ordinary PR closes are skipped inside the reusable.
   pull_request:
     types:
       - closed
@@ -58,6 +58,10 @@ jobs:
           (github.event.inputs.gem_name == 'coridoc-mirror' && 'lib/coridoc/mirror/version.rb') ||
           ''
         }}
-    secrets:
-      rubygems-api-key: ${{ secrets.METANORMA_CI_RUBYGEMS_API_KEY }}
-      pat_token: ${{ secrets.METANORMA_CI_PAT_TOKEN }}
+    # No secrets passed: the flow runs on GITHUB_TOKEN (the reusable job
+    # declares pull-requests: write for the release-PR operations,
+    # metanorma/ci#533) and publishes through RubyGems Trusted Publishing
+    # (OIDC, id-token: write above) — the coridoc org carries no
+    # rubygems API-key secret, and the METANORMA_CI_* names this file used
+    # to pass do not exist in this org (they resolved empty, silently
+    # selecting exactly these paths anyway).
