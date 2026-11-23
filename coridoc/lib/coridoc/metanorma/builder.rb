@@ -37,13 +37,20 @@ module Coridoc
                    else
                      raise ArgumentError, "Unsupported source format: #{format}"
                    end
+        parsed = frontend.parse(source)
         core = if format.to_sym == :markdown
                  require 'coridoc/markdown/metanorma_input'
-                 Coridoc::Markdown::MetanormaInput.transform(frontend.parse(source))
+                 Coridoc::Markdown::MetanormaInput.transform(parsed)
                else
                  require 'coridoc/asciidoc/metanorma_input'
-                 Coridoc::AsciiDoc::MetanormaInput.transform(frontend.parse(source))
+                 Coridoc::AsciiDoc::MetanormaInput.transform(parsed)
                end
+        if parsed.frontmatter && !parsed.frontmatter.strip.empty?
+          frontmatter = Array(core.children).grep(CORE::FrontmatterBlock).first
+          if !frontmatter || (Array(frontmatter.entries).empty? && frontmatter.schema.nil?)
+            raise UnsupportedNode, 'Empty or malformed source frontmatter at document/frontmatter'
+          end
+        end
         if format.to_sym == :markdown
           children = Array(core.children)
           title_index = children.index { |node| !node.is_a?(CORE::FrontmatterBlock) }
@@ -68,6 +75,7 @@ module Coridoc
 
         raise ArgumentError, 'Expected a native SDK Root class' unless @root_class.is_a?(Class) && @root_class <= ::Metanorma::Document::Root
 
+        unsupported(document, 'document', 'string document body; use typed children') unless document.content.to_s.empty?
         reserve_ids(document, 'document')
         root = @root_class.new
         root.type = 'semantic' if root.respond_to?(:type=)
@@ -85,10 +93,12 @@ module Coridoc
 
       def reserve_ids(node, path)
         return unless node.is_a?(CORE::Base)
-        return if node.is_a?(CORE::HeaderElement) && node.document_title?
-
         unsupported(node, path, 'element attributes') unless Array(node.element_attributes).empty?
         unsupported(node, path, 'metadata entries') unless Array(node.metadata_entries).empty?
+        if node.is_a?(CORE::HeaderElement) && node.document_title?
+          unsupported(node, path, 'document title has body children') unless Array(node.children).empty?
+          return
+        end
         unless node.id.to_s.empty?
           raise ArgumentError, "Duplicate authored ID #{node.id.inspect} at #{path}" if @ids.key?(node.id)
           @ids[node.id] = path
@@ -203,7 +213,11 @@ module Coridoc
             populate_sections(section, Array(node.children), "#{at}/children")
             stack << [level, section]
           elsif node.is_a?(CORE::PreambleElement)
-            populate_sections(container, Array(node.children), "#{at}/children")
+            children = Array(node.children)
+            if children.empty? && !node.content.to_s.empty?
+              children = [CORE::ParagraphBlock.new(id: node.id, content: node.content)]
+            end
+            populate_sections(container, children, "#{at}/children")
           else
             target = stack.last&.last
             target ||= container if container.is_a?(S::ClauseSection)
@@ -224,6 +238,7 @@ module Coridoc
         end
         if children.empty?
           text = node.respond_to?(:text) ? node.text : node.content
+          text ||= Array(node.lines).join("\n") if node.respond_to?(:lines) && !Array(node.lines).empty?
           append(target, '#text', text.to_s) unless text.nil?
         else
           children.each_with_index { |child, i| inline(target, child, "#{path}/#{i}") }

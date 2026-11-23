@@ -214,6 +214,23 @@ if ENV['CORIDOC_METANORMA_TEST'] == '1'
       expect(out.at_xpath('//bibdata/copyright/owner/organization/name').text).to eq('Example Organization')
     end
 
+    it 'preserves string-only preambles and paragraphs represented as source lines' do
+      input = document(C::PreambleElement.new(id: 'intro', content: 'Preamble text'), C::ParagraphBlock.new(lines: ['line one', 'line two']))
+      out = xml(described_class.build(input))
+      expect(out.at_xpath('//p[@id="intro"]').text).to eq('Preamble text')
+      expect(out.xpath('//p').last.text).to eq("line one\nline two")
+    end
+
+    it 'rejects body content hidden in document/title fields and malformed source metadata' do
+      input = document
+      input.content = 'hidden body'
+      expect { described_class.build(input) }.to raise_error(Coridoc::Metanorma::UnsupportedNode, /string document body/)
+      title = C::HeaderElement.new(level: 0, title: 'Example', children: [C::ParagraphBlock.new(content: 'hidden')])
+      expect { described_class.build(document(title)) }.to raise_error(Coridoc::Metanorma::UnsupportedNode, /body children/)
+      source = "---\nkey: [\n---\n# Example\n\nText\n"
+      expect { described_class.parse(source, format: :markdown) }.to raise_error(Coridoc::Metanorma::UnsupportedNode, /malformed source frontmatter/)
+    end
+
   end
 else
   RSpec.describe 'Optional Metanorma semantic integration' do
