@@ -22,11 +22,14 @@ module Coridoc
         'xref' => ['xref', C::Inline::XrefElement]
       }.freeze
 
+      require_relative 'block_builder'
+      include BlockBuilder
+
       def self.build(document, root_class: ::Metanorma::Standoc::Document::Root)
         new(root_class).build(document)
       end
 
-      def self.parse(source, format: :asciidoc, **options)
+      def self.parse(source, format: :asciidoc, **)
         frontend = case format.to_sym
                    when :asciidoc, :adoc
                      require 'coridoc/asciidoc'
@@ -47,9 +50,7 @@ module Coridoc
                end
         if parsed.frontmatter && !parsed.frontmatter.strip.empty?
           frontmatter = Array(core.children).grep(CORE::FrontmatterBlock).first
-          if !frontmatter || (Array(frontmatter.entries).empty? && frontmatter.schema.nil?)
-            raise UnsupportedNode, 'Empty or malformed source frontmatter at document/frontmatter'
-          end
+          raise UnsupportedNode, 'Empty or malformed source frontmatter at document/frontmatter' if !frontmatter || (Array(frontmatter.entries).empty? && frontmatter.schema.nil?)
         end
         if format.to_sym == :markdown
           children = Array(core.children)
@@ -60,7 +61,7 @@ module Coridoc
             core.children = children.each_with_index.filter_map { |node, i| node unless i == title_index }
           end
         end
-        build(core, **options)
+        build(core, **)
       end
 
       def initialize(root_class)
@@ -93,6 +94,7 @@ module Coridoc
 
       def reserve_ids(node, path)
         return unless node.is_a?(CORE::Base)
+
         unsupported(node, path, 'element attributes') unless Array(node.element_attributes).empty?
         unsupported(node, path, 'metadata entries') unless Array(node.metadata_entries).empty?
         if node.is_a?(CORE::HeaderElement) && node.document_title?
@@ -101,14 +103,17 @@ module Coridoc
         end
         unless node.id.to_s.empty?
           raise ArgumentError, "Duplicate authored ID #{node.id.inspect} at #{path}" if @ids.key?(node.id)
+
           @ids[node.id] = path
         end
         if node.is_a?(CORE::BibliographyEntry) && node.anchor_name && node.anchor_name != node.id
           raise ArgumentError, "Duplicate authored ID #{node.anchor_name.inspect} at #{path}" if @ids.key?(node.anchor_name)
+
           @ids[node.anchor_name] = path
         end
         node.class.attributes.each_key do |name|
           next if name == :id
+
           Array(node.public_send(name)).each_with_index do |value, i|
             reserve_ids(value, "#{path}/#{name}/#{i}") if value.is_a?(CORE::Base)
           end
@@ -119,7 +124,7 @@ module Coridoc
         return node.id unless node.id.to_s.empty?
         return @generated[path] if @generated.key?(path)
 
-        kind = node.class.name.split("::").last
+        kind = node.class.name.split('::').last
         @sequence[kind] += 1
         candidate = "_coridoc_#{kind.downcase}_#{@sequence[kind]}"
         candidate += '_' while @ids.key?(candidate) && @ids[candidate] != path
@@ -144,6 +149,7 @@ module Coridoc
           parent.public_send("#{name}=", Array(parent.public_send(name)) + [value])
         else
           raise UnsupportedNode, "Repeated singular #{tag} in #{parent.class}" if parent.public_send(name)
+
           parent.public_send("#{name}=", value)
         end
         order = tag == '#text' ? Lutaml::Xml::Element.new('Text', 'text', node_type: :text, text_content: value.to_s) : Lutaml::Xml::Element.new('Element', tag, node_type: :element)
@@ -169,9 +175,7 @@ module Coridoc
         end
         bib.title = [::Metanorma::Document::Relaton::TypedTitleString.new(content: [values['title'].to_s])] if values['title']
         if values['copyright-year'] || values['copyright-holder']
-          unless values['copyright-year'] && values['copyright-holder']
-            unsupported(document, 'document/attributes', 'copyright requires copyright-year and copyright-holder')
-          end
+          unsupported(document, 'document/attributes', 'copyright requires copyright-year and copyright-holder') unless values['copyright-year'] && values['copyright-holder']
           relaton = ::Metanorma::Document::Relaton
           organization = relaton::Organization.new(name: [relaton::LocalizedName.new(content: [values['copyright-holder'].to_s])])
           owner = relaton::CopyrightOwner.new(organization: organization)
@@ -179,9 +183,7 @@ module Coridoc
         end
         bib.docnumber = values['docnumber'].to_s if values['docnumber']
         bib.language = [C::DataTypes::Iso639Code.new(value: values['language'])] if values['language']
-        if values['docidentifier']
-          bib.docidentifier = [::Metanorma::Document::Relaton::DocumentIdentifier.new(id: values['docidentifier'])]
-        end
+        bib.docidentifier = [::Metanorma::Document::Relaton::DocumentIdentifier.new(id: values['docidentifier'])] if values['docidentifier']
         bib
       end
 
@@ -199,24 +201,13 @@ module Coridoc
           elsif node.is_a?(CORE::SectionElement) || node.is_a?(CORE::HeaderElement)
             level = node.level || 1
             stack.pop while stack.any? && stack.last[0] >= level
-            section_id = node.id || CORE::IdGenerator.generate_from_title(node.title, parent_id: stack.last&.last&.id)
-            if node.id.nil? && section_id
-              section_id += '_' while @ids.key?(section_id)
-              @ids[section_id] = at
-            end
-            section = S::ClauseSection.new(id: section_id || id(node, at))
-            if node.attributes && !Array(node.attributes.entries).empty?
-              unsupported(node, at, 'section attributes')
-            end
-            section.title = C::Inline::TitleWithAnnotationElement.new(text: [node.title || node.content || ''])
+            section = section_model(node, at, stack.last&.last)
             append(stack.empty? ? container : stack.last[1], 'clause', section)
             populate_sections(section, Array(node.children), "#{at}/children")
             stack << [level, section]
           elsif node.is_a?(CORE::PreambleElement)
             children = Array(node.children)
-            if children.empty? && !node.content.to_s.empty?
-              children = [CORE::ParagraphBlock.new(id: node.id, content: node.content)]
-            end
+            children = [CORE::ParagraphBlock.new(id: node.id, content: node.content)] if children.empty? && !node.content.to_s.empty?
             populate_sections(container, children, "#{at}/children")
           else
             target = stack.last&.last
@@ -228,6 +219,18 @@ module Coridoc
             block(target, node, at)
           end
         end
+      end
+
+      def section_model(node, at, parent)
+        section_id = node.id || CORE::IdGenerator.generate_from_title(node.title, parent_id: parent&.id)
+        if node.id.nil? && section_id
+          section_id += '_' while @ids.key?(section_id)
+          @ids[section_id] = at
+        end
+        section = S::ClauseSection.new(id: section_id || id(node, at))
+        unsupported(node, at, 'section attributes') if node.attributes && !Array(node.attributes.entries).empty?
+        section.title = C::Inline::TitleWithAnnotationElement.new(text: [node.title || node.content || ''])
+        section
       end
 
       def inline_content(target, node, path)
@@ -293,96 +296,6 @@ module Coridoc
         p
       end
 
-      def block(parent, node, path)
-        case node
-        when CORE::StemBlock
-          stem = C::TextElements::StemElement.new(stem_type: node.language)
-          text = node.content || Array(node.lines).join("\n")
-          if node.language.to_s.downcase.include?('latex')
-            stem.latexmath = C::TextElements::LatexmathElement.new(value: text)
-          elsif node.language.to_s.downcase == 'asciimath'
-            stem.asciimath = C::TextElements::Asciiml.new(value: text)
-          else
-            unsupported(node, path, "math language #{node.language}")
-          end
-          append(parent, 'formula', C::AncillaryBlocks::FormulaBlock.new(id: id(node, path), stem: stem))
-        when CORE::QuoteBlock, CORE::ExampleBlock
-          tag, klass = node.is_a?(CORE::QuoteBlock) ? ['quote', C::MultiParagraph::QuoteBlock] : ['example', C::AncillaryBlocks::ExampleBlock]
-          result = klass.new(id: id(node, path))
-          result.name = [C::Inline::NameWithIdElement.new(text: node.title)] if node.title && node.is_a?(CORE::ExampleBlock)
-          result.author = C::MultiParagraph::QuoteAuthorElement.new(text: node.attribution) if node.is_a?(CORE::QuoteBlock) && node.attribution
-          children = Array(node.children)
-          if children.empty? || children.all? { |c| c.is_a?(CORE::TextContent) || c.is_a?(CORE::InlineElement) }
-            append(result, 'p', paragraph(node, "#{path}/p", authored: false))
-          else
-            children.each_with_index { |c, i| block(result, c, "#{path}/#{i}") }
-          end
-          append(parent, tag, result)
-        when CORE::ParagraphBlock
-          unsupported(node, path, 'paragraph caption') if node.title
-          append(parent, 'p', paragraph(node, path))
-        when CORE::DefinitionList
-          list = C::Lists::DefinitionList.new(id: id(node, path))
-          Array(node.items).each_with_index do |item, i|
-            terms = Array(item.terms)
-            terms = [item.term] if terms.empty?
-            terms.each_with_index do |term, j|
-              dt = C::Lists::DtElement.new(content: [term], id: j.zero? ? item.id : nil)
-              append(list, 'dt', dt)
-            end
-            dd = C::Lists::DdElement.new
-            Array(item.definitions).each_with_index do |text, j|
-              append(dd, 'p', paragraph(CORE::ParagraphBlock.new(content: text), "#{path}/#{i}/#{j}"))
-            end
-            block(dd, item.nested, "#{path}/#{i}/nested") if item.nested
-            Array(item.attached_children).each_with_index { |child, j| block(dd, child, "#{path}/#{i}/attached/#{j}") }
-            append(list, 'dd', dd)
-          end
-          append(parent, 'dl', list)
-        when CORE::ListBlock
-          ordered = node.marker_type == 'ordered'
-          unsupported(node, path, "list type #{node.marker_type}") unless %w[ordered unordered].include?(node.marker_type)
-          list = (ordered ? C::Lists::OrderedList : C::Lists::UnorderedList).new(id: id(node, path))
-          list.start = node.start.to_s if ordered && node.start
-          Array(node.items).each_with_index do |item, i|
-            at = "#{path}/items/#{i}"
-            li = C::Lists::ListItem.new(id: id(item, at))
-            append(li, 'p', paragraph(item, "#{at}/p", authored: false))
-            block(li, item.nested_list, "#{at}/nested") if item.nested_list
-            append(list, 'li', li)
-          end
-          append(parent, ordered ? 'ol' : 'ul', list)
-        when CORE::Table
-          append(parent, 'table', table(node, path))
-        when CORE::Image
-          unsupported(node, path, 'linked, floating or styled image') if node.link || node.float || node.role
-          image = C::IdElements::Image.new(source: node.src, alt: node.alt, width: node.width, height: node.height)
-          figure = C::AncillaryBlocks::FigureBlock.new(id: id(node, path), image: image)
-          figure.name = C::Inline::NameWithIdElement.new(text: node.caption || node.title) if node.caption || node.title
-          append(parent, 'figure', figure)
-        when CORE::SourceBlock, CORE::ListingBlock
-          unsupported(node, path, 'source callouts') unless Array(node.callouts).empty?
-          text = node.content || Array(node.lines).join("\n")
-          code = C::AncillaryBlocks::SourcecodeBlock.new(id: id(node, path), lang: node.language, content: text)
-          code.name = C::Inline::NameWithIdElement.new(text: node.title) if node.title
-          append(parent, 'sourcecode', code)
-        when CORE::AnnotationBlock
-          unsupported(node, path, "annotation #{node.annotation_type}") unless node.annotation_type.to_s.downcase == 'note'
-          note = C::Blocks::NoteBlock.new(id: id(node, path))
-          note.name = [C::Inline::NameWithIdElement.new(text: node.title)] if node.title
-          append(note, 'p', paragraph(node, "#{path}/p", authored: false))
-          append(parent, 'note', note)
-        when CORE::Block
-          if node.resolve_semantic_type == :paragraph
-            append(parent, 'p', paragraph(node, path))
-          else
-            unsupported(node, path, "block type #{node.resolve_semantic_type}")
-          end
-        else
-          unsupported(node, path)
-        end
-      end
-
       def bibliography(node, path)
         section = S::StandardReferencesSection.new(id: id(node, path), normative: false)
         section.title = C::Inline::TitleWithAnnotationElement.new(text: [node.title]) if node.title
@@ -401,9 +314,7 @@ module Coridoc
         result = C::Tables::TableBlock.new(id: id(node, path), width: node.width)
         result.name = C::Inline::NameWithIdElement.new(text: node.title) if node.title
         unsupported(node, path, 'table grid') if node.grid
-        unless Array(node.cols).empty?
-          result.colgroup = C::Tables::ColGroupElement.new(col: node.cols.map { |width| C::Tables::ColElement.new(width: width) })
-        end
+        result.colgroup = C::Tables::ColGroupElement.new(col: node.cols.map { |width| C::Tables::ColElement.new(width: width) }) unless Array(node.cols).empty?
         body = C::Tables::TableBodySection.new
         Array(node.rows).each_with_index do |row, i|
           tr = C::Tables::TextTableRow.new(id: row.id)

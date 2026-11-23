@@ -30,10 +30,10 @@ module Coridoc
                      CoreModel::HardLineBreakElement.new
                    when Admonition
                      CoreModel::AnnotationBlock.new(annotation_type: model.admonition_type, title: model.title,
-                       content: model.content, children: Array(model.children).map { |child| transform(child) })
+                                                    content: model.content, children: Array(model.children).map { |child| transform(child) })
                    when ExampleBlock
                      CoreModel::ExampleBlock.new(title: model.caption, content: model.content,
-                       children: Array(model.children).map { |child| transform(child) })
+                                                 children: Array(model.children).map { |child| transform(child) })
                    when Extension
                      CoreModel::Block.new(block_semantic_type: "markdown_extension:#{model.name}", content: model.content)
                    when Blockquote
@@ -65,7 +65,7 @@ module Coridoc
               CoreModel::Image.new(src: node[:semantic_src].to_s, alt: node[:semantic_alt].to_s)
             elsif node.is_a?(Hash) && node.key?(:semantic_target)
               CoreModel::LinkElement.new(target: node[:semantic_target].to_s,
-                children: inline_nodes(node[:semantic_label].to_s))
+                                         children: inline_nodes(node[:semantic_label].to_s))
             elsif node.is_a?(Hash) && node.key?(:strong)
               CoreModel::BoldElement.new(children: raw_inline_nodes(node[:strong]))
             elsif node.is_a?(Hash) && node.key?(:emph)
@@ -74,12 +74,9 @@ module Coridoc
               CoreModel::MonospaceElement.new(content: node[:code].to_s)
             else
               text = node.is_a?(Hash) && node.key?(:text) ? node[:text].to_s : node.to_s
-              if node.is_a?(Hash) && !node.key?(:text)
-                raise Coridoc::Metanorma::UnsupportedNode, "Unknown Markdown inline node at markdown/inline: #{node.keys}"
-              end
-              if text.match?(/\]\(|\[\^|\$\$.*\$\$|<[A-Za-z!\/][^>]*>/m)
-                raise Coridoc::Metanorma::UnsupportedNode, 'Markdown inline syntax is outside the semantic grammar at markdown/inline'
-              end
+              raise Coridoc::Metanorma::UnsupportedNode, "Unknown Markdown inline node at markdown/inline: #{node.keys}" if node.is_a?(Hash) && !node.key?(:text)
+              raise Coridoc::Metanorma::UnsupportedNode, 'Markdown inline syntax is outside the semantic grammar at markdown/inline' if text.match?(%r{\]\(|\[\^|\$\$.*\$\$|<[A-Za-z!/][^>]*>}m)
+
               CoreModel::TextContent.new(text: text)
             end
           end

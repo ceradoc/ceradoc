@@ -18,9 +18,8 @@ module Coridoc
       def sections(source, core)
         source_sections = Array(source.sections)
         core_sections = Array(core.children).grep(CoreModel::SectionElement)
-        unless source_sections.size == core_sections.size
-          raise Coridoc::Metanorma::UnsupportedNode, 'AsciiDoc section shape changed during CoreModel conversion'
-        end
+        raise Coridoc::Metanorma::UnsupportedNode, 'AsciiDoc section shape changed during CoreModel conversion' unless source_sections.size == core_sections.size
+
         source_sections.zip(core_sections).each do |original, converted|
           converted.id = nil if original.id.nil?
           sections(original, converted)
