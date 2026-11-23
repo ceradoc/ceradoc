@@ -8,7 +8,7 @@ nav_order: 5
 
 == Purpose
 
-This guide helps you diagnose and resolve common issues when working with Coradoc.
+This guide helps you diagnose and resolve common issues when working with Coridoc.
 
 == Quick Diagnosis
 
@@ -31,8 +31,8 @@ Use this checklist to quickly identify issues:
 [source,ruby]
 ----
 begin
-  doc = Coradoc.parse(input)
-rescue Coradoc::ParseError => e
+  doc = Coridoc.parse(input)
+rescue Coridoc::ParseError => e
   puts "Parse error: #{e.message}"
   puts "Line: #{e.line}, Column: #{e.column}"
 end
@@ -50,14 +50,14 @@ end
 ----
 # 1. Validate syntax
 # Use a simple document first
-doc = Coradoc.parse("= Test\n\nContent")
+doc = Coridoc.parse("= Test\n\nContent")
 
 # 2. Check encoding
 input = File.read("file.adoc", encoding: "UTF-8")
-doc = Coradoc.parse(input)
+doc = Coridoc.parse(input)
 
 # 3. Use non-strict mode
-doc = Coradoc.parse(input, strict: false)
+doc = Coridoc.parse(input, strict: false)
 ----
 
 ### Issue: "Serialization output is empty"
@@ -68,7 +68,7 @@ doc = Coradoc.parse(input, strict: false)
 
 [source,ruby]
 ----
-doc = Coradoc.parse(input)
+doc = Coridoc.parse(input)
 output = doc.to_adoc
 
 puts "Document: #{doc.inspect}"
@@ -91,7 +91,7 @@ puts "Sections: #{doc.sections.size}"
 puts "Header: #{doc.header.title}"
 
 # 2. Verify serializers are registered
-Coradoc::Output::Adoc::ElementRegistry.each do |klass, serializer|
+Coridoc::Output::Adoc::ElementRegistry.each do |klass, serializer|
   puts "#{klass} => #{serializer}"
 end
 
@@ -110,9 +110,9 @@ end
 [source,ruby]
 ----
 original = "= Title\n\nContent"
-doc = Coradoc.parse(original)
+doc = Coridoc.parse(original)
 roundtrip = doc.to_adoc
-doc2 = Coradoc.parse(roundtrip)
+doc2 = Coridoc.parse(roundtrip)
 
 puts "Original: #{original}"
 puts "Round-trip: #{roundtrip}"
@@ -136,7 +136,7 @@ def equivalent?(doc1, doc2)
 end
 
 # 2. Use preserve option
-doc = Coradoc.parse(input, preserve_whitespace: true)
+doc = Coridoc.parse(input, preserve_whitespace: true)
 ----
 
 ### Issue: "Custom elements aren't recognized"
@@ -148,11 +148,11 @@ doc = Coradoc.parse(input, preserve_whitespace: true)
 [source,ruby]
 ----
 # Check if custom class is defined
-p Coradoc::Model::Block::MyCustomBlock
+p Coridoc::Model::Block::MyCustomBlock
 
 # Check if serializer is registered
-registry = Coradoc::Output::Adoc::ElementRegistry
-p registry[Coradoc::Model::Block::MyCustomBlock]
+registry = Coridoc::Output::Adoc::ElementRegistry
+p registry[Coridoc::Model::Block::MyCustomBlock]
 ----
 
 **Possible Causes:**
@@ -169,8 +169,8 @@ p registry[Coradoc::Model::Block::MyCustomBlock]
 require 'my_custom_blocks'
 
 # 2. Register serializers
-Coradoc::Output::Adoc::ElementRegistry.register(
-  Coradoc::Model::Block::MyCustomBlock,
+Coridoc::Output::Adoc::ElementRegistry.register(
+  Coridoc::Model::Block::MyCustomBlock,
   MyCustomBlockSerializer
 )
 
@@ -187,7 +187,7 @@ Coradoc::Output::Adoc::ElementRegistry.register(
 [source,ruby]
 ----
 # Check registered schemas
-puts Coradoc::Schema.registry.keys
+puts Coridoc::Schema.registry.keys
 ----
 
 **Possible Causes:**
@@ -201,13 +201,13 @@ puts Coradoc::Schema.registry.keys
 [source,ruby]
 ----
 # 1. Register schema
-Coradoc::Schema.register(:my_schema, MySchemaClass)
+Coridoc::Schema.register(:my_schema, MySchemaClass)
 
 # 2. Use correct name
-doc = Coradoc.parse(input, schema: :my_schema)  # not "my_schema"
+doc = Coridoc.parse(input, schema: :my_schema)  # not "my_schema"
 
 # 3. Require schema file
-require 'coradoc/schema/my_schema'
+require 'coridoc/schema/my_schema'
 ----
 
 ### Issue: "Memory usage is high"
@@ -221,7 +221,7 @@ require 'coradoc/schema/my_schema'
 require 'memory_profiler'
 
 report = MemoryProfiler.report do
-  doc = Coradoc.parse_file("large.adoc")
+  doc = Coridoc.parse_file("large.adoc")
 end
 
 report.pretty_print
@@ -241,12 +241,12 @@ report.pretty_print
 # Split large documents and process separately
 
 # 2. Enable caching
-Coradoc::Cache.configure do |config|
+Coridoc::Cache.configure do |config|
   config.enabled = true
 end
 
 # 3. Stream processing (if available)
-doc = Coradoc.parse_file(file, stream: true)
+doc = Coridoc.parse_file(file, stream: true)
 ----
 
 ### Issue: "DOCX conversion fails"
@@ -258,7 +258,7 @@ doc = Coradoc.parse_file(file, stream: true)
 [source,ruby]
 ----
 begin
-  core = Coradoc.parse("document.docx", format: :docx)
+  core = Coridoc.parse("document.docx", format: :docx)
 rescue => e
   puts "Error: #{e.class}: #{e.message}"
 end
@@ -266,7 +266,7 @@ end
 
 **Possible Causes:**
 
-1. **Missing gem** - `coradoc-docx` or `uniword` gem not installed
+1. **Missing gem** - `coridoc-docx` or `uniword` gem not installed
 2. **Invalid file** - File is not a valid DOCX (ZIP archive)
 3. **Unsupported format** - File uses complex OOXML features not yet supported
 
@@ -275,7 +275,7 @@ end
 [source,ruby]
 ----
 # 1. Install required gems
-# gem install coradoc-docx uniword
+# gem install coridoc-docx uniword
 
 # 2. Verify file is valid DOCX
 require 'zip'
@@ -285,10 +285,10 @@ end
 
 # 3. Parse with error handling
 begin
-  require 'coradoc/docx'
-  adoc = Coradoc.convert("document.docx", from: :docx, to: :asciidoc)
+  require 'coridoc/docx'
+  adoc = Coridoc.convert("document.docx", from: :docx, to: :asciidoc)
 rescue LoadError
-  warn "Install coradoc-docx: gem install coradoc-docx"
+  warn "Install coridoc-docx: gem install coridoc-docx"
 rescue => e
   warn "Conversion failed: #{e.message}"
 end
@@ -305,7 +305,7 @@ end
 require 'benchmark'
 
 time = Benchmark.realtime do
-  doc = Coradoc.parse(input)
+  doc = Coridoc.parse(input)
 end
 
 puts "Parsing took: #{time.round(2)}s"
@@ -322,13 +322,13 @@ puts "Parsing took: #{time.round(2)}s"
 [source,ruby]
 ----
 # 1. Enable caching
-doc = Coradoc.parse(input, cache: true)
+doc = Coridoc.parse(input, cache: true)
 
 # 2. Optimize custom serializers
 # Avoid unnecessary string operations
 
 # 3. Use parallel processing for multiple files
-files.map { |f| Thread.new { Coradoc.parse_file(f) } }.map(&:value)
+files.map { |f| Thread.new { Coridoc.parse_file(f) } }.map(&:value)
 ----
 
 ## Error Messages Reference
@@ -337,7 +337,7 @@ files.map { |f| Thread.new { Coradoc.parse_file(f) } }.map(&:value)
 
 [source,text]
 ----
-Coradoc::ParseError: Unexpected character at line 10, column 5
+Coridoc::ParseError: Unexpected character at line 10, column 5
 ----
 
 **Cause:** Invalid AsciiDoc syntax at the specified location.
@@ -346,7 +346,7 @@ Coradoc::ParseError: Unexpected character at line 10, column 5
 
 [source,text]
 ----
-Coradoc::ParseError: Unclosed delimiter starting at line 5
+Coridoc::ParseError: Unclosed delimiter starting at line 5
 ----
 
 **Cause:** A delimited block (quotes, code) is not properly closed.
@@ -357,7 +357,7 @@ Coradoc::ParseError: Unclosed delimiter starting at line 5
 
 [source,text]
 ----
-Coradoc::SerializationError: No serializer found for MyClass
+Coridoc::SerializationError: No serializer found for MyClass
 ----
 
 **Cause:** Custom model class without registered serializer.
@@ -366,7 +366,7 @@ Coradoc::SerializationError: No serializer found for MyClass
 
 [source,text]
 ----
-Coradoc::SerializationError: Circular reference detected
+Coridoc::SerializationError: Circular reference detected
 ----
 
 **Cause:** Document model contains circular references.
@@ -377,7 +377,7 @@ Coradoc::SerializationError: Circular reference detected
 
 [source,text]
 ----
-Coradoc::SchemaError: Unknown schema: :custom
+Coridoc::SchemaError: Unknown schema: :custom
 ----
 
 **Cause:** Schema not registered.
@@ -386,7 +386,7 @@ Coradoc::SchemaError: Unknown schema: :custom
 
 [source,text]
 ----
-Coradoc::SchemaError: Validation failed: missing required section
+Coridoc::SchemaError: Validation failed: missing required section
 ----
 
 **Cause:** Document doesn't meet schema requirements.
@@ -400,12 +400,12 @@ Enable debug output for troubleshooting:
 [source,ruby]
 ----
 # Enable debug mode
-Coradoc.debug = true
+Coridoc.debug = true
 
-doc = Coradoc.parse(input)
+doc = Coridoc.parse(input)
 
 # Or with environment variable
-# CORADOC_DEBUG=1 ruby script.rb
+# CORIDOC_DEBUG=1 ruby script.rb
 ----
 
 ## Getting Help
@@ -414,18 +414,18 @@ If you can't resolve the issue:
 
 ### 1. Check Documentation
 
-* link:/coradoc/pages/[Core Pages] - Conceptual documentation
-* link:/coradoc/guides/[Guides] - Task-oriented help
-* link:/coradoc/references/api-reference[API Reference] - Complete API
+* link:/coridoc/pages/[Core Pages] - Conceptual documentation
+* link:/coridoc/guides/[Guides] - Task-oriented help
+* link:/coridoc/references/api-reference[API Reference] - Complete API
 
 ### 2. Search Issues
 
-https://github.com/metanorma/coradoc/issues[GitHub Issues]
+https://github.com/coridoc/coridoc/issues[GitHub Issues]
 
 ### 3. Ask for Help
 
 * Create a minimal reproducible example
-* Include Coradoc version (`Coradoc::VERSION`)
+* Include Coridoc version (`Coridoc::VERSION`)
 * Include error messages and stack traces
 * Describe what you expected vs. what happened
 
@@ -444,11 +444,11 @@ If you've found a bug:
 
 [source,ruby]
 ----
-# test_coradoc.rb
-require 'coradoc'
+# test_coridoc.rb
+require 'coridoc'
 
 # Test basic parsing
-doc = Coradoc.parse("= Test\n\nContent")
+doc = Coridoc.parse("= Test\n\nContent")
 raise "Parsing failed" unless doc.header.title == "Test"
 
 # Test serialization
@@ -477,7 +477,7 @@ def validate_asciidoc(input)
 end
 
 validate_asciidoc(input)
-doc = Coradoc.parse(input)
+doc = Coridoc.parse(input)
 ----
 
 ### Monitoring Resources
@@ -490,7 +490,7 @@ require 'objspace'
 GC.start
 before = ObjectSpace.memsize_of_all
 
-doc = Coradoc.parse_file("large.adoc")
+doc = Coridoc.parse_file("large.adoc")
 
 GC.start
 after = ObjectSpace.memsize_of_all
@@ -510,10 +510,10 @@ In this guide you learned:
 
 ## Related Documentation
 
-* link:/coradoc/guides/configuration[Configuration Guide] - Configuration options
-* link:/coradoc/guides/schema-system[Schema System Guide] - Schema issues
-* link:/coradoc/references/api-reference[API Reference] - API details
-* https://github.com/metanorma/coradoc/issues[GitHub Issues]
+* link:/coridoc/guides/configuration[Configuration Guide] - Configuration options
+* link:/coridoc/guides/schema-system[Schema System Guide] - Schema issues
+* link:/coridoc/references/api-reference[API Reference] - API details
+* https://github.com/coridoc/coridoc/issues[GitHub Issues]
 
 ## Bibliography
 

@@ -1,0 +1,64 @@
+# frozen_string_literal: true
+
+module Coridoc
+  module Html
+    module Converters
+      class P < Base
+        INSTANCE = new
+
+        def to_coridoc(node, state = {})
+          id = node['id']
+          content = treat_children_coridoc(node, state)
+
+          content = strip_fullwidth_spaces(content)
+
+          Coridoc::CoreModel::ParagraphBlock.new(
+            children: content,
+            id: id
+          )
+        end
+
+        private
+
+        def strip_fullwidth_spaces(content)
+          return content unless content.is_a?(Array)
+
+          content = strip_fullwidth_per_element(content)
+          content = Coridoc::CoreModel::InlineContent.strip_edges(content)
+          reject_empty_elements(content)
+        end
+
+        # Strip CJK fullwidth spaces from the leading/trailing edge of
+        # every InlineElement's content. Returns a new array; inputs
+        # are not mutated.
+        def strip_fullwidth_per_element(content)
+          content.map do |item|
+            next item unless item.is_a?(Coridoc::CoreModel::InlineElement)
+            next item unless item.content.is_a?(String)
+
+            item.with_content(item.content.gsub(/\A　+|　+\z/, ''))
+          end
+        end
+
+        def reject_empty_elements(content)
+          content.reject do |item|
+            if item.is_a?(Coridoc::CoreModel::InlineElement)
+              item.content.to_s.empty? && !has_nested_content?(item)
+            elsif item.is_a?(String)
+              item.empty?
+            else
+              false
+            end
+          end
+        end
+
+        def has_nested_content?(item)
+          item.is_a?(Coridoc::CoreModel::InlineElement) &&
+            item.nested_elements && !item.nested_elements.empty?
+        end
+      end
+
+      register :p, P::INSTANCE
+    end
+  end
+end

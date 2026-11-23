@@ -10,7 +10,7 @@
 
 
 **Severity:** HIGH
-**Location:** `coradoc-adoc/lib/coradoc/asciidoc/parser/list.rb`, `coradoc-adoc/lib/coradoc/asciidoc/transformer/list_rules.rb`
+**Location:** `coridoc-adoc/lib/coridoc/asciidoc/parser/list.rb`, `coridoc-adoc/lib/coridoc/asciidoc/transformer/list_rules.rb`
 
 ## Test file
 
@@ -24,7 +24,7 @@ The AsciiDoc parser captures definition list terms and definitions as raw string
 
 ### 9A. Parser captures term as raw characters
 
-`coradoc-adoc/lib/coradoc/asciidoc/parser/list.rb:109-111`:
+`coridoc-adoc/lib/coridoc/asciidoc/parser/list.rb:109-111`:
 ```ruby
 def dlist_term(_delimiter)
   match("[^\n:]").repeat(1)
@@ -36,7 +36,7 @@ This captures everything before `::` as an opaque string. The `[[term-cham-file]
 
 ### 9B. Parser captures definition as raw text
 
-`coradoc-adoc/lib/coradoc/asciidoc/parser/list.rb:114-117`:
+`coridoc-adoc/lib/coridoc/asciidoc/parser/list.rb:114-117`:
 ```ruby
 def dlist_definition
   text # >> empty_line.repeat(0)
@@ -48,7 +48,7 @@ The `text` parser atom does not invoke the `inline` sub-parser, so backticks, `<
 
 ### 9C. Transformer converts to raw string
 
-`coradoc-adoc/lib/coradoc/asciidoc/transformer/list_rules.rb:65-67`:
+`coridoc-adoc/lib/coridoc/asciidoc/transformer/list_rules.rb:65-67`:
 ```ruby
 rule(dlist_term: simple(:term), delimiter: simple(:_delim)) do
   term.to_s
@@ -59,7 +59,7 @@ The transformer rule calls `.to_s` on the term, producing a plain string. No `Mo
 
 ### 9D. Transformer stores definition as string
 
-`coradoc-adoc/lib/coradoc/asciidoc/transformer/list_rules.rb:100-104`:
+`coridoc-adoc/lib/coridoc/asciidoc/transformer/list_rules.rb:100-104`:
 ```ruby
 contents = definition.to_s
 Model::List::DefinitionItem.new(terms: terms, contents: contents)
@@ -81,7 +81,7 @@ Both the `[[anchor]]` prefix and `<<xref>>` are raw strings. No `Model::Inline::
 
 ### 9F. Same issue in Admonition model
 
-`coradoc-adoc/lib/coradoc/asciidoc/model/admonition.rb:31`:
+`coridoc-adoc/lib/coridoc/asciidoc/model/admonition.rb:31`:
 ```ruby
 attribute :content, :string
 ```

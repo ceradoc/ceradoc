@@ -2,14 +2,14 @@
 
 Guard for the CoreModel hub (stage 2↔3 seam): every format's
 `ToCoreModel` / `FromCoreModel` pair must be a faithful round trip.
-Issue: metanorma/coradoc#304.
+Issue: coridoc/coridoc#304.
 
 ## Run it
 
     bundle exec rake roundtrip              # both formats
     bundle exec rake roundtrip:adoc         # one format
     bundle exec rake roundtrip:markdown
-    CORADOC_ROUNDTRIP_EXTRA=~/mn-samples bundle exec rake roundtrip   # extra corpus
+    CORIDOC_ROUNDTRIP_EXTRA=~/mn-samples bundle exec rake roundtrip   # extra corpus
 
 ## What is checked, per input text `T` in format `F`
 
@@ -21,7 +21,7 @@ Issue: metanorma/coradoc#304.
 | Parse / serialize / re-parse do not raise | — | `parse`, `serialize`, `reparse` |
 | Model stability | `projection(core1) == projection(core2)` | `model` |
 | Canonical fixed point | `T2 == T1` | `canonical` |
-| Termination | each case finishes in 20 s (`CORADOC_ROUNDTRIP_TIMEOUT`) | `timeout` |
+| Termination | each case finishes in 20 s (`CORIDOC_ROUNDTRIP_TIMEOUT`) | `timeout` |
 
 ## What "identity" means: the canonical form
 
@@ -50,7 +50,7 @@ not meaning). Anything else that changes is a model difference.
     first: "RubyGems Version"
     again: "RubyGems Version License ..."
     near canonical output:
-       1| = Coradoc
+       1| = Coridoc
        2| image:https://...[RubyGems Version] image:https://...
 
 The case id names the file (or `edge/<name>` for generated cases), the path
@@ -60,10 +60,10 @@ line number instead), and the excerpt shows the offending text.
 ## Corpus
 
 - `corpus.yml`: fixture globs, relative to the repo root, per format.
-- `CORADOC_ROUNDTRIP_EXTRA`: any directory; `*.adoc` run as AsciiDoc,
+- `CORIDOC_ROUNDTRIP_EXTRA`: any directory; `*.adoc` run as AsciiDoc,
   `*.md`/`*.markdown` as Markdown. Use it for mn-samples and plateau, which
   are not vendored here.
-- `Coradoc::Roundtrip::EdgeCases`: generated edge cases (empty input, unicode,
+- `Coridoc::Roundtrip::EdgeCases`: generated edge cases (empty input, unicode,
   nesting, markers, tables, frontmatter, ...). Add a construct there when a
   bug is found that no fixture isolates.
 

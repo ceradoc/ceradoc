@@ -4,15 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Coradoc is a Ruby hub-and-spoke document transformation library. A canonical `CoreModel` serves as the central hub, and format-specific gems (AsciiDoc, HTML, Markdown) are spokes. Adding a new format requires only two transformers (ToCoreModel, FromCoreModel).
+Coridoc is a Ruby hub-and-spoke document transformation library. A canonical `CoreModel` serves as the central hub, and format-specific gems (AsciiDoc, HTML, Markdown) are spokes. Adding a new format requires only two transformers (ToCoreModel, FromCoreModel).
 
 ## Monorepo Structure
 
-- **`coradoc/`** — Core gem: `CoreModel`, `Registry`, `Transform::Base`, hooks, validation, streaming, query API
-- **`coradoc-adoc/`** — AsciiDoc gem: Parslet-based parser, document model, serializer, transformer (ToCoreModel/FromCoreModel)
-- **`coradoc-html/`** — HTML gem: Leptris-based converter, classic renderer, Vue.js SPA theme
-- **`coradoc-markdown/`** — Markdown gem: Parslet-based CommonMark parser, document model, serializer
-- **`coradoc-docx/`** — DOCX gem: Uniword-based OOXML transformer
+- **`coridoc/`** — Core gem: `CoreModel`, `Registry`, `Transform::Base`, hooks, validation, streaming, query API
+- **`coridoc-adoc/`** — AsciiDoc gem: Parslet-based parser, document model, serializer, transformer (ToCoreModel/FromCoreModel)
+- **`coridoc-html/`** — HTML gem: Leptris-based converter, classic renderer, Vue.js SPA theme
+- **`coridoc-markdown/`** — Markdown gem: Parslet-based CommonMark parser, document model, serializer
+- **`coridoc-docx/`** — DOCX gem: Uniword-based OOXML transformer
 
 Each gem has its own gemspec, `lib/`, `spec/`, and `Rakefile`. All are loaded together via the root `Gemfile` using `path:` references. Run `rake spec` inside any gem directory for standalone specs.
 
@@ -23,26 +23,26 @@ bundle install              # Install dependencies (all gems together)
 
 # Tests (from monorepo root)
 bundle exec rake spec_all                  # Run ALL gem specs (main + sub-gems)
-bundle exec rake spec:coradoc              # Run only coradoc specs
-bundle exec rake spec:coradoc_adoc         # Run only coradoc-adoc specs
-bundle exec rake spec:coradoc_html         # Run only coradoc-html specs
-bundle exec rake spec:coradoc_markdown     # Run only coradoc-markdown specs
-bundle exec rake spec:coradoc_docx         # Run only coradoc-docx specs
+bundle exec rake spec:coridoc              # Run only coridoc specs
+bundle exec rake spec:coridoc_adoc         # Run only coridoc-adoc specs
+bundle exec rake spec:coridoc_html         # Run only coridoc-html specs
+bundle exec rake spec:coridoc_markdown     # Run only coridoc-markdown specs
+bundle exec rake spec:coridoc_docx         # Run only coridoc-docx specs
 
 # Tests (from inside a gem directory)
-cd coradoc && bundle exec rake spec        # Run coradoc specs standalone
-cd coradoc-adoc && bundle exec rake spec   # Run adoc specs standalone
+cd coridoc && bundle exec rake spec        # Run coridoc specs standalone
+cd coridoc-adoc && bundle exec rake spec   # Run adoc specs standalone
 
 # Linting
 bundle exec rubocop
 
 # Console
-bundle exec rake console     # IRB with coradoc preloaded
+bundle exec rake console     # IRB with coridoc preloaded
 ```
 
 ## Architecture
 
-### CoreModel (`coradoc/lib/coradoc/core_model.rb`)
+### CoreModel (`coridoc/lib/coridoc/core_model.rb`)
 
 The canonical document representation using `lutaml-model`. Key types: `StructuralElement`, `Block`, `ListBlock`, `ListItem`, `InlineElement`, `Table`, `Image`, `Metadata`, `Footnote`, `DefinitionList`, `Bibliography`. All inherit from `CoreModel::Base`.
 
@@ -52,21 +52,21 @@ The canonical document representation using `lutaml-model`. Key types: `Structur
 Source text → Format::Parser → Format Model → ToCoreModel → CoreModel → FromCoreModel → Target Model → Serialize → Target text
 ```
 
-- `Coradoc.convert(text, from: :asciidoc, to: :html)` — end-to-end conversion
-- `Coradoc.parse(text, format:)` — parse to CoreModel
-- `Coradoc.serialize(core, to:)` — serialize CoreModel to output
+- `Coridoc.convert(text, from: :asciidoc, to: :html)` — end-to-end conversion
+- `Coridoc.parse(text, format:)` — parse to CoreModel
+- `Coridoc.serialize(core, to:)` — serialize CoreModel to output
 
 ### Format Registration
 
-Format gems register via `Coradoc.register_format(:name, Module)` and must implement `parse_to_core`/`parse` and `serialize`. The `Registry` class in `coradoc/lib/coradoc/registry.rb` manages this.
+Format gems register via `Coridoc.register_format(:name, Module)` and must implement `parse_to_core`/`parse` and `serialize`. The `Registry` class in `coridoc/lib/coridoc/registry.rb` manages this.
 
 ### AsciiDoc Gem Internals
 
-- **Parser** (`coradoc-adoc/lib/coradoc/asciidoc/parser/`) — Parslet-based, rule files: `header`, `inline`, `block`, `list`, `section`, `table`, `bibliography`, `citation`, `stem`, `admonition`
-- **Model** (`coradoc-adoc/lib/coradoc/asciidoc/model/`) — ~40+ model classes inheriting from `Model::Base`, built with `lutaml-model`
-- **Serializer** (`coradoc-adoc/lib/coradoc/asciidoc/serializer/`) — Converts AsciiDoc models back to `.adoc` strings via element-specific serializer classes
-- **Transformer** (`coradoc-adoc/lib/coradoc/asciidoc/transformer.rb`) — Parslet `Transform` subclass with rule modules (HeaderRules, InlineRules, etc.)
-- **Transform** (`coradoc-adoc/lib/coradoc/asciidoc/transform/`) — `ToCoreModel` and `FromCoreModel` with registration-based dispatch
+- **Parser** (`coridoc-adoc/lib/coridoc/asciidoc/parser/`) — Parslet-based, rule files: `header`, `inline`, `block`, `list`, `section`, `table`, `bibliography`, `citation`, `stem`, `admonition`
+- **Model** (`coridoc-adoc/lib/coridoc/asciidoc/model/`) — ~40+ model classes inheriting from `Model::Base`, built with `lutaml-model`
+- **Serializer** (`coridoc-adoc/lib/coridoc/asciidoc/serializer/`) — Converts AsciiDoc models back to `.adoc` strings via element-specific serializer classes
+- **Transformer** (`coridoc-adoc/lib/coridoc/asciidoc/transformer.rb`) — Parslet `Transform` subclass with rule modules (HeaderRules, InlineRules, etc.)
+- **Transform** (`coridoc-adoc/lib/coridoc/asciidoc/transform/`) — `ToCoreModel` and `FromCoreModel` with registration-based dispatch
 
 ### Key Dependencies
 
@@ -80,7 +80,7 @@ Format gems register via `Coradoc.register_format(:name, Module)` and must imple
 - **Release only on user request**: Never trigger gem releases or version bumps autonomously. Only release when the user explicitly asks for it.
 - **NO HASHES IN MODELS**: CoreModel classes must NEVER use `:hash` as an attribute type. Every attribute must be a typed model, string, integer, or array of typed models. No hash bags, no generic key-value stores. This enforces the model-driven architecture.
 - **NO SERIALIZATION IN MODELS**: CoreModel classes must NEVER contain `to_hash`, `to_json`, `serialize`, or any custom serialization methods. Models are pure data structures. Serialization is handled by dedicated serializer classes (lutaml-model handles this automatically).
-- **NO RAW HTML STRINGS**: The HTML gem must use Leptris::XML as both the model layer AND the HTML builder. Never concatenate raw HTML strings. Never manually construct HTML in text. Use `Coradoc::Html::Builder` or `Leptris::XML` node methods to construct HTML output. ALL non-model-driven HTML construction code must be converted to the Builder.
+- **NO RAW HTML STRINGS**: The HTML gem must use Leptris::XML as both the model layer AND the HTML builder. Never concatenate raw HTML strings. Never manually construct HTML in text. Use `Coridoc::Html::Builder` or `Leptris::XML` node methods to construct HTML output. ALL non-model-driven HTML construction code must be converted to the Builder.
 - **Model classes own only their native format**: No `to_adoc` in Markdown models, no `to_md` in AsciiDoc models. Cross-format conversion always routes through CoreModel transformers (ToCoreModel / FromCoreModel). This enforces SRP, OCP, and DIP.
 - **Autoload over require_relative**: Use `autoload` with `#{__dir__}` paths (see `core_model.rb` for pattern). Exception: files with load-time side effects (registrations, `apply` calls) use `require_relative`.
 - **Error-raising in serializers**: Unknown types in `serialize_content` should raise `ArgumentError`, never fall back to `to_s`. This catches missing serializers immediately rather than producing Ruby object dumps.

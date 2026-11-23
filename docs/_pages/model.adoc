@@ -8,11 +8,11 @@ nav_order: 5
 
 == Purpose
 
-This page explains the Coradoc Document Model - the Ruby object representation of AsciiDoc documents. You'll learn about the model classes, their relationships, and how to work with them programmatically.
+This page explains the Coridoc Document Model - the Ruby object representation of AsciiDoc documents. You'll learn about the model classes, their relationships, and how to work with them programmatically.
 
 == Overview
 
-The Document Model represents AsciiDoc structure as Ruby objects. Every element in an AsciiDoc document has a corresponding model class. All model classes inherit from `Coradoc::Model::Base`.
+The Document Model represents AsciiDoc structure as Ruby objects. Every element in an AsciiDoc document has a corresponding model class. All model classes inherit from `Coridoc::Model::Base`.
 
 == Core Model Classes
 
@@ -22,7 +22,7 @@ The root container for all document content.
 
 [source,ruby]
 ----
-Coradoc::Model::Document
+Coridoc::Model::Document
   ├── header: Header
   ├── document_attributes: DocumentAttributes
   └── sections: Array<Section>
@@ -30,8 +30,8 @@ Coradoc::Model::Document
 
 [source,ruby]
 ----
-doc = Coradoc.parse("= Title\n\nContent")
-doc.class  # => Coradoc::Model::Document
+doc = Coridoc.parse("= Title\n\nContent")
+doc.class  # => Coridoc::Model::Document
 ----
 
 === Header
@@ -40,7 +40,7 @@ Document metadata including title, author, and revision information.
 
 [source,ruby]
 ----
-Coradoc::Model::Header
+Coridoc::Model::Header
   ├── title: String
   ├── author: Array<Author>
   └── revision: Revision
@@ -59,7 +59,7 @@ Hierarchical sections organizing document content.
 
 [source,ruby]
 ----
-Coradoc::Model::Section
+Coridoc::Model::Section
   ├── title: Title
   ├── sections: Array<Section>  # Nested sections
   ├── paragraphs: Array<Paragraph>
@@ -68,14 +68,14 @@ Coradoc::Model::Section
 
 [source,ruby]
 ----
-section = Coradoc::Model::Section.new
-section.title = Coradoc::Model::Title.new
+section = Coridoc::Model::Section.new
+section.title = Coridoc::Model::Title.new
 section.title.level_int = 2
 section.title.content = ["Chapter 1"]
 
 # Add paragraphs
-para = Coradoc::Model::Paragraph.new
-para.content = [Coradoc::Model::TextElement.new("Content here")]
+para = Coridoc::Model::Paragraph.new
+para.content = [Coridoc::Model::TextElement.new("Content here")]
 section.blocks = [para]
 ----
 
@@ -85,7 +85,7 @@ Section or block title with level information.
 
 [source,ruby]
 ----
-Coradoc::Model::Title
+Coridoc::Model::Title
   ├── level_int: Integer
   └── content: Array<String>
 ----
@@ -96,24 +96,24 @@ Text paragraph containing inline elements.
 
 [source,ruby]
 ----
-Coradoc::Model::Paragraph
+Coridoc::Model::Paragraph
   ├── content: Array<TextElement | Inline>
   └── attributes: AttributeList
 ----
 
 [source,ruby]
 ----
-para = Coradoc::Model::Paragraph.new
+para = Coridoc::Model::Paragraph.new
 
 # Add mixed content
 para.content = [
-  Coradoc::Model::TextElement.new("Regular text"),
-  Coradoc::Model::Inline::Bold.new,
-  Coradoc::Model::Inline::Link.new(path: "https://example.com"),
+  Coridoc::Model::TextElement.new("Regular text"),
+  Coridoc::Model::Inline::Bold.new,
+  Coridoc::Model::Inline::Link.new(path: "https://example.com"),
 ]
 
 # Add attributes
-para.attributes = Coradoc::Model::AttributeList.new
+para.attributes = Coridoc::Model::AttributeList.new
 para.attributes.add_named("id", "para1")
 ----
 
@@ -127,7 +127,7 @@ Base class for all delimited blocks.
 
 [source,ruby]
 ----
-Coradoc::Model::Block::Core
+Coridoc::Model::Block::Core
   ├── delimiter_char: String
   ├── delimiter_len: Integer
   ├── lines: Array<String>
@@ -145,9 +145,9 @@ Coradoc::Model::Block::Core
 [source,ruby]
 ----
 # Create a listing block
-listing = Coradoc::Model::Block::Listing.new
+listing = Coridoc::Model::Block::Listing.new
 listing.lines = ["def hello", "  puts 'world'", "end"]
-listing.attributes = Coradoc::Model::AttributeList.new
+listing.attributes = Coridoc::Model::AttributeList.new
 listing.attributes.add_positional("ruby")
 ----
 
@@ -161,7 +161,7 @@ Base class for all list types.
 
 [source,ruby]
 ----
-Coradoc::Model::List::Core
+Coridoc::Model::List::Core
   └── items: Array<ListItem>
 ----
 
@@ -174,22 +174,22 @@ Coradoc::Model::List::Core
 [source,ruby]
 ----
 # Unordered list
-list = Coradoc::Model::List::Unordered.new
-item = Coradoc::Model::ListItem.new
-item.content = [Coradoc::Model::TextElement.new("First item")]
+list = Coridoc::Model::List::Unordered.new
+item = Coridoc::Model::ListItem.new
+item.content = [Coridoc::Model::TextElement.new("First item")]
 list.items << item
 
 # Ordered list
-ordered = Coradoc::Model::List::Ordered.new
-item = Coradoc::Model::ListItem.new
-item.content = [Coradoc::Model::TextElement.new("Step one")]
+ordered = Coridoc::Model::List::Ordered.new
+item = Coridoc::Model::ListItem.new
+item.content = [Coridoc::Model::TextElement.new("Step one")]
 ordered.items << item
 
 # Definition list
-definition = Coradoc::Model::List::Definition.new
-def_item = Coradoc::Model::List::DefinitionItem.new
-def_item.terms = [Coradoc::Model::Term.new(term: "Ruby", type: "language")]
-def_item.contents = [Coradoc::Model::TextElement.new("A programming language")]
+definition = Coridoc::Model::List::Definition.new
+def_item = Coridoc::Model::List::DefinitionItem.new
+def_item.terms = [Coridoc::Model::Term.new(term: "Ruby", type: "language")]
+def_item.contents = [Coridoc::Model::TextElement.new("A programming language")]
 definition.items << def_item
 ----
 
@@ -199,24 +199,24 @@ Tables represent tabular data.
 
 [source,ruby]
 ----
-Coradoc::Model::Table
+Coridoc::Model::Table
   ├── rows: Array<TableRow>
   └── attributes: AttributeList
 
-Coradoc::Model::TableRow
+Coridoc::Model::TableRow
   └── columns: Array<TableCell>
 
-Coradoc::Model::TableCell
+Coridoc::Model::TableCell
   └── content: Array<TextElement | Inline>
 ----
 
 [source,ruby]
 ----
-table = Coradoc::Model::Table.new
+table = Coridoc::Model::Table.new
 
-row = Coradoc::Model::TableRow.new
-cell = Coradoc::Model::TableCell.new
-cell.content = [Coradoc::Model::TextElement.new("Cell content")]
+row = Coridoc::Model::TableRow.new
+cell = Coridoc::Model::TableCell.new
+cell.content = [Coridoc::Model::TextElement.new("Cell content")]
 row.columns << cell
 table.rows << row
 ----
@@ -240,16 +240,16 @@ Base class for all inline elements.
 [source,ruby]
 ----
 # Bold text
-bold = Coradoc::Model::Inline::Bold.new
+bold = Coridoc::Model::Inline::Bold.new
 bold.content = "Important text"
 
 # Links
-link = Coradoc::Model::Inline::Link.new
+link = Coridoc::Model::Inline::Link.new
 link.path = "https://example.com"
 link.name = "Example"
 
 # Anchors (cross-reference targets)
-anchor = Coradoc::Model::Inline::Anchor.new
+anchor = Coridoc::Model::Inline::Anchor.new
 anchor.id = "section1"
 ----
 
@@ -261,7 +261,7 @@ Plain text content.
 
 [source,ruby]
 ----
-Coradoc::Model::TextElement.new("Hello, world!")
+Coridoc::Model::TextElement.new("Hello, world!")
 ----
 
 ### AttributeList
@@ -270,7 +270,7 @@ Block or inline attributes.
 
 [source,ruby]
 ----
-attrs = Coradoc::Model::AttributeList.new
+attrs = Coridoc::Model::AttributeList.new
 attrs.add_named("id", "my-id")
 attrs.add_positional("ruby")
 ----
@@ -292,7 +292,7 @@ end
 
 [source,ruby]
 ----
-doc = Coradoc.parse("= Main\n\n== Section 1\n\nContent.\n\n=== Subsection\n\nMore.")
+doc = Coridoc.parse("= Main\n\n== Section 1\n\nContent.\n\n=== Subsection\n\nMore.")
 
 # Navigate to sections
 doc.sections.each do |section|
@@ -307,14 +307,14 @@ end
 
 [source,ruby]
 ----
-doc = Coradoc.parse("= Title\n\n== Section\n\nOld content.")
+doc = Coridoc.parse("= Title\n\n== Section\n\nOld content.")
 
 # Find section
 section = doc.sections.first
 
 # Modify paragraph
 section.paragraphs.first.content = [
-  Coradoc::Model::TextElement.new("New content.")
+  Coridoc::Model::TextElement.new("New content.")
 ]
 
 # Serialize changes
@@ -324,9 +324,9 @@ output = doc.to_adoc
 ## Related Documentation
 
 * link:architecture[Architecture] - Model hierarchy diagrams
-* link:/coradoc/references/model-classes[Model Classes Reference] - Complete catalog
-* link:/coradoc/tutorials/document-modeling[Document Modeling Tutorial] - Hands-on examples
-* link:/coradoc/references/api-reference[API Reference] - Model class API
+* link:/coridoc/references/model-classes[Model Classes Reference] - Complete catalog
+* link:/coridoc/tutorials/document-modeling[Document Modeling Tutorial] - Hands-on examples
+* link:/coridoc/references/api-reference[API Reference] - Model class API
 
 ## Bibliography
 

@@ -8,18 +8,18 @@ has_children: true
 
 == Purpose
 
-This section contains task-oriented guides to help you accomplish specific goals with Coradoc. Each guide focuses on a particular task or problem.
+This section contains task-oriented guides to help you accomplish specific goals with Coridoc. Each guide focuses on a particular task or problem.
 
 == Overview
 
 Guides are organized by task:
 
-* link:/coradoc/guides/ruby-api/[Ruby API Guide] - Complete Ruby API usage guide
-* link:/coradoc/guides/custom-blocks/[Custom Blocks] - Create custom block types
-* link:/coradoc/guides/custom-inline/[Custom Inline Elements] - Create custom inline elements
-* link:/coradoc/guides/schema-system/[Schema System] - Use schemas for document types
-* link:/coradoc/guides/configuration/[Configuration] - Configuration options reference
-* link:/coradoc/guides/troubleshooting/[Troubleshooting] - Common issues and solutions
+* link:/coridoc/guides/ruby-api/[Ruby API Guide] - Complete Ruby API usage guide
+* link:/coridoc/guides/custom-blocks/[Custom Blocks] - Create custom block types
+* link:/coridoc/guides/custom-inline/[Custom Inline Elements] - Create custom inline elements
+* link:/coridoc/guides/schema-system/[Schema System] - Use schemas for document types
+* link:/coridoc/guides/configuration/[Configuration] - Configuration options reference
+* link:/coridoc/guides/troubleshooting/[Troubleshooting] - Common issues and solutions
 
 == Guide Structure
 
@@ -40,15 +40,15 @@ Each guide follows this structure:
 
 Quick links for common tasks:
 
-* *"I need to use the Ruby API"* → link:/coradoc/guides/ruby-api/[Ruby API Guide]
-* *"I need a custom block type"* → link:/coradoc/guides/custom-blocks/[Custom Blocks Guide]
-* *"I want to extend inline formatting"* → link:/coradoc/guides/custom-inline/[Custom Inline Guide]
-* *"I'm working with ISO documents"* → link:/coradoc/guides/schema-system/[Schema System Guide]
-* *"Something isn't working"* → link:/coradoc/guides/troubleshooting/[Troubleshooting Guide]
-* *"I need to configure parsing options"* → link:/coradoc/guides/configuration/[Configuration Guide]
+* *"I need to use the Ruby API"* → link:/coridoc/guides/ruby-api/[Ruby API Guide]
+* *"I need a custom block type"* → link:/coridoc/guides/custom-blocks/[Custom Blocks Guide]
+* *"I want to extend inline formatting"* → link:/coridoc/guides/custom-inline/[Custom Inline Guide]
+* *"I'm working with ISO documents"* → link:/coridoc/guides/schema-system/[Schema System Guide]
+* *"Something isn't working"* → link:/coridoc/guides/troubleshooting/[Troubleshooting Guide]
+* *"I need to configure parsing options"* → link:/coridoc/guides/configuration/[Configuration Guide]
 
 == Related Documentation
 
-* link:/coradoc/pages/[Core Pages] - Conceptual documentation
-* link:/coradoc/tutorials/[Tutorials] - Step-by-step learning
-* link:/coradoc/references/[References] - Technical specifications
+* link:/coridoc/pages/[Core Pages] - Conceptual documentation
+* link:/coridoc/tutorials/[Tutorials] - Step-by-step learning
+* link:/coridoc/references/[References] - Technical specifications

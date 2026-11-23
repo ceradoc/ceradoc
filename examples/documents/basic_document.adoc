@@ -1,10 +1,10 @@
 = Basic Document Example
 
-This is a simple AsciiDoc document to demonstrate basic Coradoc parsing.
+This is a simple AsciiDoc document to demonstrate basic Coridoc parsing.
 
 == Introduction
 
-Coradoc is a parser, model, and serializer for AsciiDoc documents. It provides a complete toolchain for working with AsciiDoc content.
+Coridoc is a parser, model, and serializer for AsciiDoc documents. It provides a complete toolchain for working with AsciiDoc content.
 
 == Features
 
@@ -18,7 +18,7 @@ To parse an AsciiDoc document:
 
 [source,ruby]
 ----
-doc = Coradoc.parse("= Title\n\nContent")
+doc = Coridoc.parse("= Title\n\nContent")
 ----
 
 To serialize back to AsciiDoc:

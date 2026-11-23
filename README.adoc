@@ -1,11 +1,11 @@
-= Coradoc
-image:https://img.shields.io/gem/v/coradoc.svg[RubyGems Version]
-image:https://img.shields.io/github/license/lutaml/coradoc.svg[License]
-image:https://github.com/lutaml/coradoc/actions/workflows/rake.yml/badge.svg["Build Status", link="https://github.com/lutaml/coradoc/actions/workflows/rake.yml"]
+= Coridoc
+image:https://img.shields.io/gem/v/coridoc.svg[RubyGems Version]
+image:https://img.shields.io/github/license/coridoc/coridoc.svg[License]
+image:https://github.com/coridoc/coridoc/actions/workflows/rake.yml/badge.svg["Build Status", link="https://github.com/coridoc/coridoc/actions/workflows/rake.yml"]
 
 == Purpose
 
-Coradoc is a hub-and-spoke document transformation library for Ruby.
+Coridoc is a hub-and-spoke document transformation library for Ruby.
 It provides a canonical CoreModel that serves as the transformation hub,
 enabling seamless conversions between AsciiDoc, HTML, Markdown, DOCX, and other formats.
 
@@ -25,7 +25,7 @@ enabling seamless conversions between AsciiDoc, HTML, Markdown, DOCX, and other 
 
 === Hub-and-Spoke Model
 
-Coradoc uses a hub-and-spoke architecture where all format transformations go through a canonical CoreModel:
+Coridoc uses a hub-and-spoke architecture where all format transformations go through a canonical CoreModel:
 
 ....
                     ┌─────────────────────────────────────┐
@@ -59,7 +59,7 @@ This architecture means:
 
 === CoreModel
 
-The CoreModel (`Coradoc::CoreModel`) is the canonical representation of documents:
+The CoreModel (`Coridoc::CoreModel`) is the canonical representation of documents:
 
 [horizontal]
 `StructuralElement`:: Document structure (document, section)
@@ -75,10 +75,10 @@ Add this line to your application's Gemfile:
 
 [source,ruby]
 ----
-gem 'coradoc'
+gem 'coridoc'
 
 # For DOCX support, also add:
-gem 'coradoc-docx'
+gem 'coridoc-docx'
 gem 'uniword'        # DOCX reader
 ----
 
@@ -93,7 +93,7 @@ Or install it yourself as:
 
 [source,bash]
 ----
-gem install coradoc
+gem install coridoc
 ----
 
 == Quick Start
@@ -102,19 +102,19 @@ gem install coradoc
 
 [source,ruby]
 ----
-require 'coradoc'
-require 'coradoc/html'
-require 'coradoc/markdown'
+require 'coridoc'
+require 'coridoc/html'
+require 'coridoc/markdown'
 
 # Convert Markdown to HTML
-html = Coradoc.convert("# Title\n\nParagraph", from: :markdown, to: :html)
+html = Coridoc.convert("# Title\n\nParagraph", from: :markdown, to: :html)
 
 # Parse to CoreModel
-core = Coradoc.parse("# Title\n\nParagraph", format: :markdown)
+core = Coridoc.parse("# Title\n\nParagraph", format: :markdown)
 
 # Serialize to any format
-markdown = Coradoc.serialize(core, to: :markdown)
-html = Coradoc.serialize(core, to: :html)
+markdown = Coridoc.serialize(core, to: :markdown)
+html = Coridoc.serialize(core, to: :html)
 ----
 
 === DOCX Conversion
@@ -123,23 +123,23 @@ Convert Word documents to AsciiDoc or Markdown:
 
 [source,ruby]
 ----
-require 'coradoc'
-require 'coradoc/docx'
+require 'coridoc'
+require 'coridoc/docx'
 
 # Convert DOCX to AsciiDoc
-adoc = Coradoc.convert("input.docx", from: :docx, to: :asciidoc)
+adoc = Coridoc.convert("input.docx", from: :docx, to: :asciidoc)
 
 # Convert DOCX to Markdown
-md = Coradoc.convert("input.docx", from: :docx, to: :markdown)
+md = Coridoc.convert("input.docx", from: :docx, to: :markdown)
 
 # Parse DOCX to CoreModel for manipulation
-core = Coradoc.parse("input.docx", format: :docx)
+core = Coridoc.parse("input.docx", format: :docx)
 core.title         # => "Document Title"
 core.children      # => Array of sections, paragraphs, tables, etc.
 
 # Serialize to different formats
-adoc = Coradoc.serialize(core, to: :asciidoc)
-md  = Coradoc.serialize(core, to: :markdown)
+adoc = Coridoc.serialize(core, to: :asciidoc)
+md  = Coridoc.serialize(core, to: :markdown)
 ----
 
 === Using the CLI
@@ -147,16 +147,16 @@ md  = Coradoc.serialize(core, to: :markdown)
 [source,bash]
 ----
 # Convert Markdown to HTML
-coradoc convert document.md -o output.html
+coridoc convert document.md -o output.html
 
 # Convert with auto-detection
-coradoc convert document.adoc --to html
+coridoc convert document.adoc --to html
 
 # List supported formats
-coradoc formats
+coridoc formats
 
 # Show version
-coradoc version
+coridoc version
 ----
 
 == Developer API
@@ -164,24 +164,24 @@ coradoc version
 [[format-conversion]]
 === Format Conversion
 
-The `Coradoc.convert` method handles the complete transformation pipeline:
+The `Coridoc.convert` method handles the complete transformation pipeline:
 
 [source,ruby]
 ----
 # AsciiDoc to HTML
-html = Coradoc.convert(adoc_text, from: :asciidoc, to: :html)
+html = Coridoc.convert(adoc_text, from: :asciidoc, to: :html)
 
 # Markdown to HTML
-html = Coradoc.convert(md_text, from: :markdown, to: :html)
+html = Coridoc.convert(md_text, from: :markdown, to: :html)
 
 # HTML to Markdown
-md = Coradoc.convert(html_text, from: :html, to: :markdown)
+md = Coridoc.convert(html_text, from: :html, to: :markdown)
 
-# DOCX to AsciiDoc (requires coradoc-docx gem)
-adoc = Coradoc.convert("document.docx", from: :docx, to: :asciidoc)
+# DOCX to AsciiDoc (requires coridoc-docx gem)
+adoc = Coridoc.convert("document.docx", from: :docx, to: :asciidoc)
 
 # DOCX to Markdown
-md = Coradoc.convert("document.docx", from: :docx, to: :markdown)
+md = Coridoc.convert("document.docx", from: :docx, to: :markdown)
 ----
 
 [[parsing]]
@@ -192,7 +192,7 @@ Parse documents to CoreModel for manipulation:
 [source,ruby]
 ----
 # Parse Markdown
-core = Coradoc.parse("# Title\n\nContent", format: :markdown)
+core = Coridoc.parse("# Title\n\nContent", format: :markdown)
 
 # Access the structure
 core.element_type  # => "document"
@@ -208,17 +208,17 @@ Serialize CoreModel to any supported format:
 [source,ruby]
 ----
 # Create or modify CoreModel
-core = Coradoc::CoreModel::StructuralElement.new(
+core = Coridoc::CoreModel::StructuralElement.new(
   element_type: "document",
   title: "My Document",
   children: [...]
 )
 
 # Serialize to HTML
-html = Coradoc.serialize(core, to: :html)
+html = Coridoc.serialize(core, to: :html)
 
 # Serialize to Markdown
-md = Coradoc.serialize(core, to: :markdown)
+md = Coridoc.serialize(core, to: :markdown)
 ----
 
 === Transform Models
@@ -228,41 +228,41 @@ Transform between format-specific models:
 [source,ruby]
 ----
 # Parse Markdown to its native model
-md_doc = Coradoc::Markdown.parse("# Title\n\nContent")
+md_doc = Coridoc::Markdown.parse("# Title\n\nContent")
 
 # Transform to CoreModel
-core = Coradoc.to_core(md_doc)
+core = Coridoc.to_core(md_doc)
 
 # Transform back to Markdown model
-md_doc2 = Coradoc::Markdown.from_core_model(core)
+md_doc2 = Coridoc::Markdown.from_core_model(core)
 ----
 
 == CLI
 
-The `coradoc` command-line tool provides quick conversions:
+The `coridoc` command-line tool provides quick conversions:
 
 [source,bash]
 ----
 # Basic conversion
-coradoc convert input.md -o output.html
+coridoc convert input.md -o output.html
 
 # Specify formats explicitly
-coradoc convert input.md --from markdown --to html
+coridoc convert input.md --from markdown --to html
 
-# Convert DOCX to AsciiDoc (requires coradoc-docx gem)
-coradoc convert document.docx -o output.adoc
+# Convert DOCX to AsciiDoc (requires coridoc-docx gem)
+coridoc convert document.docx -o output.adoc
 
 # Convert DOCX to Markdown
-coradoc convert document.docx -o output.md
+coridoc convert document.docx -o output.md
 
 # Use different HTML themes
-coradoc convert input.md -o output.html --theme modern
+coridoc convert input.md -o output.html --theme modern
 
 # Verbose output
-coradoc convert input.md -o output.html --verbose
+coridoc convert input.md -o output.html --verbose
 
 # Show supported formats
-coradoc formats
+coridoc formats
 ----
 
 === CLI Options
@@ -284,12 +284,12 @@ To add a new format, create a gem with:
 1. **Format module** with parse/serialize methods
 2. **ToCoreModel transformer** - converts native model to CoreModel
 3. **FromCoreModel transformer** - converts CoreModel to native model
-4. **Register with Coradoc**
+4. **Register with Coridoc**
 
 [source,ruby]
 ----
-# lib/coradoc/my_format.rb
-module Coradoc
+# lib/coridoc/my_format.rb
+module Coridoc
   module MyFormat
     # Parse input to native model
     def self.parse(content)
@@ -320,7 +320,7 @@ module Coradoc
 end
 
 # Register the format
-Coradoc.register_format(:my_format, Coradoc::MyFormat,
+Coridoc.register_format(:my_format, Coridoc::MyFormat,
                         extensions: ['.myf', '.myformat'])
 ----
 
@@ -331,7 +331,7 @@ Hook into the transformation pipeline:
 [source,ruby]
 ----
 # Register hooks via options
-Coradoc.convert(text, from: :markdown, to: :html,
+Coridoc.convert(text, from: :markdown, to: :html,
   before_parse: ->(content) { content.upcase },
   after_transform: ->(core) { process(core) }
 )
@@ -344,14 +344,14 @@ Coradoc.convert(text, from: :markdown, to: :html,
 [source,ruby]
 ----
 # Document
-doc = Coradoc::CoreModel::StructuralElement.new(
+doc = Coridoc::CoreModel::StructuralElement.new(
   element_type: "document",
   title: "My Document",
   children: [...]
 )
 
 # Section
-section = Coradoc::CoreModel::StructuralElement.new(
+section = Coridoc::CoreModel::StructuralElement.new(
   element_type: "section",
   level: 1,
   title: "Section Title",
@@ -364,13 +364,13 @@ section = Coradoc::CoreModel::StructuralElement.new(
 [source,ruby]
 ----
 # Paragraph
-para = Coradoc::CoreModel::Block.new(
+para = Coridoc::CoreModel::Block.new(
   element_type: "paragraph",
   content: "Paragraph text"
 )
 
 # Code block
-code = Coradoc::CoreModel::Block.new(
+code = Coridoc::CoreModel::Block.new(
   element_type: "block",
   delimiter_type: "----",
   content: "def hello; puts 'world'; end",
@@ -383,18 +383,18 @@ code = Coradoc::CoreModel::Block.new(
 [source,ruby]
 ----
 # Unordered list
-list = Coradoc::CoreModel::ListBlock.new(
+list = Coridoc::CoreModel::ListBlock.new(
   marker_type: "unordered",
   items: [
-    Coradoc::CoreModel::ListItem.new(content: "Item 1", marker: "*"),
-    Coradoc::CoreModel::ListItem.new(content: "Item 2", marker: "*"),
+    Coridoc::CoreModel::ListItem.new(content: "Item 1", marker: "*"),
+    Coridoc::CoreModel::ListItem.new(content: "Item 2", marker: "*"),
   ]
 )
 
 # Definition list
-def_list = Coradoc::CoreModel::DefinitionList.new(
+def_list = Coridoc::CoreModel::DefinitionList.new(
   items: [
-    Coradoc::CoreModel::DefinitionItem.new(
+    Coridoc::CoreModel::DefinitionItem.new(
       term: "API",
       definitions: ["Application Programming Interface"]
     ),
@@ -407,20 +407,20 @@ def_list = Coradoc::CoreModel::DefinitionList.new(
 [source,ruby]
 ----
 # Bold
-bold = Coradoc::CoreModel::InlineElement.new(
+bold = Coridoc::CoreModel::InlineElement.new(
   format_type: "bold",
   content: "bold text"
 )
 
 # Link
-link = Coradoc::CoreModel::InlineElement.new(
+link = Coridoc::CoreModel::InlineElement.new(
   format_type: "link",
   target: "https://example.com",
   content: "Example"
 )
 
 # STEM formula
-stem = Coradoc::CoreModel::InlineElement.new(
+stem = Coridoc::CoreModel::InlineElement.new(
   format_type: "stem",
   content: "E = mc^2",
   stem_type: "stem"
@@ -448,7 +448,7 @@ Query documents using CSS-like selectors:
 [source,ruby]
 ----
 # Parse document
-doc = Coradoc.parse(adoc_text, format: :asciidoc)
+doc = Coridoc.parse(adoc_text, format: :asciidoc)
 
 # Find all sections
 sections = doc.query('section')
@@ -489,7 +489,7 @@ Validate documents against schemas:
 [source,ruby]
 ----
 # Define a validation schema
-schema = Coradoc::Validation::Schema.define do
+schema = Coridoc::Validation::Schema.define do
   required :title, type: String, min_length: 1
   required :sections, type: Array, min_count: 1
   optional :author, type: String
@@ -528,25 +528,25 @@ Process large documents without loading everything into memory:
 [source,ruby]
 ----
 # Stream parse large file
-Coradoc::Streaming.parse_large_file("large.adoc", format: :asciidoc,
+Coridoc::Streaming.parse_large_file("large.adoc", format: :asciidoc,
                                     chunk_size: 100) do |chunk|
   chunk.each { |element| process_element(element) }
 end
 
 # Transform in chunks
-results = Coradoc::Streaming.transform_in_chunks(elements, chunk_size: 50) do |chunk|
+results = Coridoc::Streaming.transform_in_chunks(elements, chunk_size: 50) do |chunk|
   chunk.map { |el| transform_element(el) }
 end
 
 # Incremental serialization
 File.open("output.html", "w") do |file|
-  Coradoc::Streaming.serialize_incremental(document, format: :html) do |chunk|
+  Coridoc::Streaming.serialize_incremental(document, format: :html) do |chunk|
     file.write(chunk)
   end
 end
 
 # Process with memory constraints
-progress = Coradoc::Streaming.process_with_memory_limit(
+progress = Coridoc::Streaming.process_with_memory_limit(
   "input.adoc", "output.html",
   format: :asciidoc, output_format: :html,
   max_memory: 50 * 1024 * 1024  # 50MB
@@ -569,13 +569,13 @@ Memory-efficient processing using lazy enumerators and on-demand evaluation:
 [source,ruby]
 ----
 # Wrap document for lazy iteration
-wrapper = Coradoc::Lazy.wrap(document)
+wrapper = Coridoc::Lazy.wrap(document)
 wrapper.each_section do |section|
   process_section(section)  # Processed on-demand
 end
 
 # Lazy transformation pipeline
-result = Coradoc::Lazy.transform(sections) do |p|
+result = Coridoc::Lazy.transform(sections) do |p|
   p.map { |s| transform_section(s) }
    .select { |s| s.visible? }
    .take(10)
@@ -587,7 +587,7 @@ wrapper.each_batch(10) do |batch|
 end
 
 # Lazy reference resolution
-resolver = Coradoc::Lazy.resolver(document, loader: ->(ref, _) {
+resolver = Coridoc::Lazy.resolver(document, loader: ->(ref, _) {
   load_include_file(ref)
 })
 content = resolver.resolve("include::chapter1.adoc[]")
@@ -611,7 +611,7 @@ content = resolver.resolve("include::chapter1.adoc[]")
 bundle exec rspec
 
 # Run specific test file
-bundle exec rspec spec/coradoc/developer_experience_spec.rb
+bundle exec rspec spec/coridoc/developer_experience_spec.rb
 
 # Run with documentation
 bundle exec rspec --format documentation
@@ -627,10 +627,10 @@ bundle exec rubocop
 === Project Structure
 
 ....
-coradoc/
+coridoc/
 ├── lib/
-│   └── coradoc/
-│       ├── coradoc.rb      # Main API (parse, convert, serialize)
+│   └── coridoc/
+│       ├── coridoc.rb      # Main API (parse, convert, serialize)
 │       ├── registry.rb     # Format registry
 │       ├── core_model/     # CoreModel classes
 │       ├── transform/      # Base transformer
@@ -640,13 +640,13 @@ coradoc/
 │       ├── hooks.rb        # Plugin lifecycle hooks
 │       ├── extensions.rb   # Custom element extensions
 │       └── cli.rb          # CLI implementation
-├── coradoc-adoc/           # AsciiDoc format gem
-├── coradoc-docx/           # DOCX format gem (OOXML → CoreModel via Uniword)
-├── coradoc-html/           # HTML format gem
-├── coradoc-markdown/       # Markdown format gem
+├── coridoc-adoc/           # AsciiDoc format gem
+├── coridoc-docx/           # DOCX format gem (OOXML → CoreModel via Uniword)
+├── coridoc-html/           # HTML format gem
+├── coridoc-markdown/       # Markdown format gem
 ├── spec/                   # Test files
 └── exe/
-    └── coradoc             # CLI executable
+    └── coridoc             # CLI executable
 ....
 
 == Contributing

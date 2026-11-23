@@ -9,7 +9,7 @@
 
 
 **Severity:** HIGH  
-**Location:** `lib/coradoc/core_model/inline_element.rb`, `lib/coradoc/core_model/builder/detection.rb`
+**Location:** `lib/coridoc/core_model/inline_element.rb`, `lib/coridoc/core_model/builder/detection.rb`
 
 ## Problem
 
@@ -20,7 +20,7 @@ Additionally, the `constrained` attribute on `InlineElement` is an AsciiDoc-only
 ## Evidence
 
 ### 3A. String-based `format_type` with divergent type lists
-`lib/coradoc/core_model/inline_element.rb:49-61`:
+`lib/coridoc/core_model/inline_element.rb:49-61`:
 ```ruby
 FORMAT_TYPES = %w[
   bold italic monospace underline strikethrough
@@ -47,13 +47,13 @@ Divergence:
 - Strings vs symbols inconsistency
 
 ### 3B. Cascading `case`/`when` chains in every transformer
-- `coradoc-html/lib/coradoc/html/converters/base.rb:109-152` — 20-case chain
-- `coradoc-adoc/lib/coradoc/asciidoc/transform/from_core_model.rb:225-260` — 15-case chain
-- `coradoc-markdown/lib/coradoc/markdown/transform/from_core_model.rb:172-206` — 15-case chain
-- `coradoc-docx/lib/coradoc/docx/transform/from_core_model.rb:43-57` — catches all InlineElement then re-dispatches
+- `coridoc-html/lib/coridoc/html/converters/base.rb:109-152` — 20-case chain
+- `coridoc-adoc/lib/coridoc/asciidoc/transform/from_core_model.rb:225-260` — 15-case chain
+- `coridoc-markdown/lib/coridoc/markdown/transform/from_core_model.rb:172-206` — 15-case chain
+- `coridoc-docx/lib/coridoc/docx/transform/from_core_model.rb:43-57` — catches all InlineElement then re-dispatches
 
 ### 3C. `constrained` attribute — AsciiDoc-only concept
-`lib/coradoc/core_model/inline_element.rb:63-66`:
+`lib/coridoc/core_model/inline_element.rb:63-66`:
 ```ruby
 # whether the formatting uses constrained syntax (true for *text*, false for **text**)
 attribute :constrained, :boolean, default: -> { true }
@@ -61,7 +61,7 @@ attribute :constrained, :boolean, default: -> { true }
 Constrained/unconstrained is uniquely AsciiDoc. Markdown uses `*` vs `**` for italic vs bold — a different semantic. HTML has no such concept.
 
 ### 3D. Builder detection of `_constrained`/`_unconstrained` AST keys
-`lib/coradoc/core_model/builder/detection.rb:126-153`:
+`lib/coridoc/core_model/builder/detection.rb:126-153`:
 ```ruby
 def detect_inline_format(ast)
   ast.each_key do |key|
@@ -85,4 +85,4 @@ These AST key names are artifacts of the AsciiDoc parser's AST structure.
 1. Create typed InlineElement subclasses matching the Block pattern: `BoldElement`, `ItalicElement`, `LinkElement`, etc.
 2. Move `constrained` to the AsciiDoc format gem's own inline model.
 3. Consolidate the two divergent type lists into a single canonical source.
-4. Transformers use class-based dispatch (`when Coradoc::CoreModel::BoldElement`) instead of string matching.
+4. Transformers use class-based dispatch (`when Coridoc::CoreModel::BoldElement`) instead of string matching.

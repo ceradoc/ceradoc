@@ -19,7 +19,7 @@ CoreModel has several structural issues: missing subclass types that are defined
 ## Evidence
 
 ### 6A. `StructuralElement` uses string-based `element_type` instead of subclasses
-`lib/coradoc/core_model/structural_element.rb:40-43,67-74`:
+`lib/coridoc/core_model/structural_element.rb:40-43,67-74`:
 ```ruby
 attribute :element_type, :string
 
@@ -34,7 +34,7 @@ end
 Same anti-pattern as `InlineElement.format_type`. Should have `Section`, `Document`, `Preamble` subclasses matching the Block pattern.
 
 ### 6B. `ListBlock.marker_type` uses AsciiDoc vocabulary
-`lib/coradoc/core_model/list_block.rb:95-98`:
+`lib/coridoc/core_model/list_block.rb:95-98`:
 ```ruby
 attribute :marker_type, :string
 # values: 'asterisk', 'dash', 'numbered', 'labeled'
@@ -42,7 +42,7 @@ attribute :marker_type, :string
 `'asterisk'` and `'labeled'` are AsciiDoc vocabulary. Format-neutral terms should be `'unordered'`, `'ordered'`, `'definition'`. The specific marker character is a rendering detail.
 
 ### 6C. `ListItem.marker` stores raw format-specific marker strings
-`lib/coradoc/core_model/list_item.rb:29`:
+`lib/coridoc/core_model/list_item.rb:29`:
 ```ruby
 attribute :marker, :string
 ```
@@ -58,7 +58,7 @@ The raw marker character (`"*"`, `"**"`, `"::"`) is AsciiDoc-specific.
 `BlockSemanticType` defines constants for these but they have no implementations.
 
 ### 6G. Duplicate `ListBlock` definitions
-`lib/coradoc/core_model/list_block.rb` and `lib/coradoc/core_model/list_item.rb` both define `ListBlock` with different attributes:
+`lib/coridoc/core_model/list_block.rb` and `lib/coridoc/core_model/list_item.rb` both define `ListBlock` with different attributes:
 - `list_block.rb`: `marker_type`, `marker_level`, `start`, `items`
 - `list_item.rb`: `marker_type`, `marker_level`, `items` (no `start`)
 

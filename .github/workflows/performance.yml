@@ -8,12 +8,12 @@ on:
   pull_request:
     # Only run on PRs that might affect performance
     paths:
-      - 'coradoc/lib/**'
-      - 'coradoc-adoc/lib/**'
-      - 'coradoc-html/lib/**'
-      - 'coradoc-markdown/lib/**'
-      - 'coradoc-docx/lib/**'
-      - 'coradoc/spec/**'
+      - 'coridoc/lib/**'
+      - 'coridoc-adoc/lib/**'
+      - 'coridoc-html/lib/**'
+      - 'coridoc-markdown/lib/**'
+      - 'coridoc-docx/lib/**'
+      - 'coridoc/spec/**'
       - '.github/workflows/performance.yml'
 
 permissions:
@@ -41,17 +41,17 @@ jobs:
       - name: Run performance regression tests
         run: |
           bundle exec ruby -e "
-            require 'coradoc'
-            require 'coradoc/asciidoc'
-            require 'coradoc/html'
-            require 'coradoc/markdown'
-            require 'coradoc/performance_regression'
+            require 'coridoc'
+            require 'coridoc/asciidoc'
+            require 'coridoc/html'
+            require 'coridoc/markdown'
+            require 'coridoc/performance_regression'
 
             puts 'Running performance regression tests...'
             puts '=' * 60
 
-            summary = Coradoc::PerformanceRegression.run_all_with_summary(iterations: 3)
-            Coradoc::PerformanceRegression.print_results(summary)
+            summary = Coridoc::PerformanceRegression.run_all_with_summary(iterations: 3)
+            Coridoc::PerformanceRegression.print_results(summary)
 
             if summary[:failed_count] > 0
               puts
@@ -69,14 +69,14 @@ jobs:
         run: |
           mkdir -p benchmark_results
           bundle exec ruby -e "
-            require 'coradoc'
-            require 'coradoc/asciidoc'
-            require 'coradoc/html'
-            require 'coradoc/markdown'
-            require 'coradoc/performance_regression'
+            require 'coridoc'
+            require 'coridoc/asciidoc'
+            require 'coridoc/html'
+            require 'coridoc/markdown'
+            require 'coridoc/performance_regression'
             require 'json'
 
-            results = Coradoc::PerformanceRegression.run_all(iterations: 3)
+            results = Coridoc::PerformanceRegression.run_all(iterations: 3)
             data = results.map(&:to_h)
             File.write('benchmark_results/results.json', JSON.pretty_generate(data))
           "
@@ -118,14 +118,14 @@ jobs:
           if [ -f baseline/results.json ]; then
             echo "Comparing with baseline..."
             bundle exec ruby -e "
-              require 'coradoc'
-              require 'coradoc/asciidoc'
-              require 'coradoc/html'
-              require 'coradoc/markdown'
-              require 'coradoc/performance_regression'
+              require 'coridoc'
+              require 'coridoc/asciidoc'
+              require 'coridoc/html'
+              require 'coridoc/markdown'
+              require 'coridoc/performance_regression'
 
-              results = Coradoc::PerformanceRegression.compare_with_baseline('baseline/results.json', iterations: 3)
-              Coradoc::PerformanceRegression.print_results(results)
+              results = Coridoc::PerformanceRegression.compare_with_baseline('baseline/results.json', iterations: 3)
+              Coridoc::PerformanceRegression.print_results(results)
 
               failed = results.select { |r| r.regressed?(0.2) }
               if failed.any?

@@ -6,18 +6,18 @@ nav_order: 31
 
 = Ruby Methods Reference
 
-This reference documents all Ruby methods available in Coradoc's public API.
+This reference documents all Ruby methods available in Coridoc's public API.
 
 == Main Module Methods
 
-=== Coradoc.parse
+=== Coridoc.parse
 
 Parse a document string into a model.
 
 .Syntax
 [source,ruby]
 ----
-Coradoc.parse(input, format: :asciidoc, **options) -> CoreModel::Base
+Coridoc.parse(input, format: :asciidoc, **options) -> CoreModel::Base
 ----
 
 .Parameters
@@ -29,36 +29,36 @@ Coradoc.parse(input, format: :asciidoc, **options) -> CoreModel::Base
 `attributes`:: `Hash` - Document attributes
 
 .Returns
-`Coradoc::CoreModel::StructuralElement` (document)
+`Coridoc::CoreModel::StructuralElement` (document)
 
 .Examples
 [source,ruby]
 ----
 # Parse AsciiDoc
-doc = Coradoc.parse("= Title\n\nContent", format: :asciidoc)
+doc = Coridoc.parse("= Title\n\nContent", format: :asciidoc)
 
 # Parse Markdown
-doc = Coradoc.parse("# Title\n\nContent", format: :markdown)
+doc = Coridoc.parse("# Title\n\nContent", format: :markdown)
 
 # Parse HTML
-doc = Coradoc.parse("<h1>Title</h1><p>Content</p>", format: :html)
+doc = Coridoc.parse("<h1>Title</h1><p>Content</p>", format: :html)
 
 # With strict mode
 begin
-  doc = Coradoc.parse(input, format: :asciidoc, strict: true)
-rescue Coradoc::ParseError => e
+  doc = Coridoc.parse(input, format: :asciidoc, strict: true)
+rescue Coridoc::ParseError => e
   puts "Error at line #{e.line}: #{e.message}"
 end
 ----
 
-=== Coradoc.convert
+=== Coridoc.convert
 
 Convert a document between formats.
 
 .Syntax
 [source,ruby]
 ----
-Coradoc.convert(input, from:, to:, **options) -> String
+Coridoc.convert(input, from:, to:, **options) -> String
 ----
 
 .Parameters
@@ -76,26 +76,26 @@ Coradoc.convert(input, from:, to:, **options) -> String
 [source,ruby]
 ----
 # Markdown to HTML
-html = Coradoc.convert("# Title", from: :markdown, to: :html)
+html = Coridoc.convert("# Title", from: :markdown, to: :html)
 
 # AsciiDoc to Markdown
-md = Coradoc.convert("= Title\n\nContent", from: :asciidoc, to: :markdown)
+md = Coridoc.convert("= Title\n\nContent", from: :asciidoc, to: :markdown)
 
 # HTML to AsciiDoc
-adoc = Coradoc.convert("<h1>Title</h1>", from: :html, to: :asciidoc)
+adoc = Coridoc.convert("<h1>Title</h1>", from: :html, to: :asciidoc)
 
 # With theme
-html = Coradoc.convert(adoc, from: :asciidoc, to: :html, theme: :modern)
+html = Coridoc.convert(adoc, from: :asciidoc, to: :html, theme: :modern)
 ----
 
-=== Coradoc.serialize
+=== Coridoc.serialize
 
 Serialize a CoreModel to a format string.
 
 .Syntax
 [source,ruby]
 ----
-Coradoc.serialize(model, to:, **options) -> String
+Coridoc.serialize(model, to:, **options) -> String
 ----
 
 .Parameters
@@ -112,87 +112,87 @@ Coradoc.serialize(model, to:, **options) -> String
 [source,ruby]
 ----
 # Parse then serialize
-doc = Coradoc.parse(input, format: :asciidoc)
-html = Coradoc.serialize(doc, to: :html)
+doc = Coridoc.parse(input, format: :asciidoc)
+html = Coridoc.serialize(doc, to: :html)
 
 # With formatting options
-adoc = Coradoc.serialize(doc, to: :asciidoc, indent: 2, line_width: 80)
+adoc = Coridoc.serialize(doc, to: :asciidoc, indent: 2, line_width: 80)
 ----
 
 == Format Module Methods
 
-=== Coradoc::AsciiDoc.parse
+=== Coridoc::AsciiDoc.parse
 
 Parse AsciiDoc to AsciiDoc model.
 
 .Syntax
 [source,ruby]
 ----
-Coradoc::AsciiDoc.parse(input, **options) -> AsciiDoc::Model::Document
+Coridoc::AsciiDoc.parse(input, **options) -> AsciiDoc::Model::Document
 ----
 
 .Examples
 [source,ruby]
 ----
-require 'coradoc/asciidoc'
+require 'coridoc/asciidoc'
 
-doc = Coradoc::AsciiDoc.parse("= Title\n\nParagraph")
+doc = Coridoc::AsciiDoc.parse("= Title\n\nParagraph")
 doc.header.title  # => "Title"
 ----
 
-=== Coradoc::Markdown.parse
+=== Coridoc::Markdown.parse
 
 Parse Markdown to Markdown model.
 
 .Syntax
 [source,ruby]
 ----
-Coradoc::Markdown.parse(input, **options) -> Markdown::Model::Document
+Coridoc::Markdown.parse(input, **options) -> Markdown::Model::Document
 ----
 
 .Examples
 [source,ruby]
 ----
-require 'coradoc/markdown'
+require 'coridoc/markdown'
 
-doc = Coradoc::Markdown.parse("# Title\n\nParagraph")
+doc = Coridoc::Markdown.parse("# Title\n\nParagraph")
 doc.headings.first.content  # => "Title"
 ----
 
-=== Coradoc::Html.serialize_static
+=== Coridoc::Html.serialize_static
 
 Serialize CoreModel to static HTML.
 
 .Syntax
 [source,ruby]
 ----
-Coradoc::Html.serialize_static(model, **options) -> String
+Coridoc::Html.serialize_static(model, **options) -> String
 ----
 
 .Examples
 [source,ruby]
 ----
-require 'coradoc/html'
+require 'coridoc/html'
 
-html = Coradoc::Html.serialize_static(core_model, theme: :modern)
+html = Coridoc::Html.serialize_static(core_model, theme: :modern)
 ----
 
-=== Coradoc::Html.serialize_spa
+=== Coridoc::Html.serialize_spa
 
 Serialize CoreModel to SPA-style HTML.
 
 .Syntax
 [source,ruby]
 ----
-Coradoc::Html.serialize_spa(model, **options) -> String
+Coridoc::Html.serialize_spa(model, **options) -> String
 ----
 
 .Examples
 [source,ruby]
 ----
-require 'coradoc/html'
+require 'coridoc/html'
 
-html = Coradoc::Html.serialize_spa(core_model, theme: :modern)
+html = Coridoc::Html.serialize_spa(core_model, theme: :modern)
 ----
 
 == CoreModel Methods
@@ -202,7 +202,7 @@ html = Coradoc::Html.serialize_spa(core_model, theme: :modern)
 [source,ruby]
 ----
 # Create a document
-doc = Coradoc::CoreModel::StructuralElement.new(
+doc = Coridoc::CoreModel::StructuralElement.new(
   element_type: "document",
   title: "My Document",
   id: "my-doc",
@@ -210,7 +210,7 @@ doc = Coradoc::CoreModel::StructuralElement.new(
 )
 
 # Create a section
-section = Coradoc::CoreModel::StructuralElement.new(
+section = Coridoc::CoreModel::StructuralElement.new(
   element_type: "section",
   level: 1,
   title: "Introduction",
@@ -229,13 +229,13 @@ doc.children      # => []
 [source,ruby]
 ----
 # Paragraph
-para = Coradoc::CoreModel::Block.new(
+para = Coridoc::CoreModel::Block.new(
   element_type: "paragraph",
   content: "Text content"
 )
 
 # Code block
-code = Coradoc::CoreModel::Block.new(
+code = Coridoc::CoreModel::Block.new(
   element_type: "block",
   delimiter_type: "----",
   content: "def hello; end",
@@ -243,7 +243,7 @@ code = Coradoc::CoreModel::Block.new(
 )
 
 # Quote block
-quote = Coradoc::CoreModel::Block.new(
+quote = Coridoc::CoreModel::Block.new(
   element_type: "block",
   delimiter_type: "____",
   content: "Quote text"
@@ -255,20 +255,20 @@ quote = Coradoc::CoreModel::Block.new(
 [source,ruby]
 ----
 # Unordered list
-list = Coradoc::CoreModel::ListBlock.new(
+list = Coridoc::CoreModel::ListBlock.new(
   marker_type: "unordered",
   items: [
-    Coradoc::CoreModel::ListItem.new(content: "Item 1", marker: "*"),
-    Coradoc::CoreModel::ListItem.new(content: "Item 2", marker: "*")
+    Coridoc::CoreModel::ListItem.new(content: "Item 1", marker: "*"),
+    Coridoc::CoreModel::ListItem.new(content: "Item 2", marker: "*")
   ]
 )
 
 # Ordered list
-olist = Coradoc::CoreModel::ListBlock.new(
+olist = Coridoc::CoreModel::ListBlock.new(
   marker_type: "ordered",
   items: [
-    Coradoc::CoreModel::ListItem.new(content: "First", marker: "."),
-    Coradoc::CoreModel::ListItem.new(content: "Second", marker: ".")
+    Coridoc::CoreModel::ListItem.new(content: "First", marker: "."),
+    Coridoc::CoreModel::ListItem.new(content: "Second", marker: ".")
   ]
 )
 ----
@@ -278,28 +278,28 @@ olist = Coradoc::CoreModel::ListBlock.new(
 [source,ruby]
 ----
 # Create a table
-table = Coradoc::CoreModel::Table.new(
+table = Coridoc::CoreModel::Table.new(
   frame: "all",
   grid: "all",
   rows: [
-    Coradoc::CoreModel::TableRow.new(
+    Coridoc::CoreModel::TableRow.new(
       header: true,
       cells: [
-        Coradoc::CoreModel::TableCell.new(content: "Name", header: true),
-        Coradoc::CoreModel::TableCell.new(content: "Value", header: true)
+        Coridoc::CoreModel::TableCell.new(content: "Name", header: true),
+        Coridoc::CoreModel::TableCell.new(content: "Value", header: true)
       ]
     ),
-    Coradoc::CoreModel::TableRow.new(
+    Coridoc::CoreModel::TableRow.new(
       cells: [
-        Coradoc::CoreModel::TableCell.new(content: "Item"),
-        Coradoc::CoreModel::TableCell.new(content: "100")
+        Coridoc::CoreModel::TableCell.new(content: "Item"),
+        Coridoc::CoreModel::TableCell.new(content: "100")
       ]
     )
   ]
 )
 
 # Cell with formatting
-cell = Coradoc::CoreModel::TableCell.new(
+cell = Coridoc::CoreModel::TableCell.new(
   content: "Centered",
   alignment: "center",
   colspan: 2
@@ -311,20 +311,20 @@ cell = Coradoc::CoreModel::TableCell.new(
 [source,ruby]
 ----
 # Bold
-bold = Coradoc::CoreModel::InlineElement.new(
+bold = Coridoc::CoreModel::InlineElement.new(
   format_type: "bold",
   content: "Important text"
 )
 
 # Link
-link = Coradoc::CoreModel::InlineElement.new(
+link = Coridoc::CoreModel::InlineElement.new(
   format_type: "link",
   content: "Click here",
   target: "https://example.com"
 )
 
 # Italic
-italic = Coradoc::CoreModel::InlineElement.new(
+italic = Coridoc::CoreModel::InlineElement.new(
   format_type: "italic",
   content: "Emphasized text"
 )
@@ -336,10 +336,10 @@ italic = Coradoc::CoreModel::InlineElement.new(
 
 [source,ruby]
 ----
-require 'coradoc/document_manipulator'
+require 'coridoc/document_manipulator'
 
 # Create manipulator
-manipulator = Coradoc::DocumentManipulator.new(doc)
+manipulator = Coridoc::DocumentManipulator.new(doc)
 
 # Chain operations
 result = manipulator
@@ -368,7 +368,7 @@ manipulator.to_asciidoc                  # Output as AsciiDoc
 [source,ruby]
 ----
 # Parse document
-doc = Coradoc.parse(input, format: :asciidoc)
+doc = Coridoc.parse(input, format: :asciidoc)
 
 # Find by element type
 sections = doc.query('section')
@@ -411,28 +411,28 @@ doc.query('section')
 
 [source,ruby]
 ----
-require 'coradoc/streaming'
+require 'coridoc/streaming'
 
 # Stream parse large file
-Coradoc::Streaming.parse_large_file("large.adoc", format: :asciidoc,
+Coridoc::Streaming.parse_large_file("large.adoc", format: :asciidoc,
                                     chunk_size: 100) do |chunk|
   chunk.each { |element| process_element(element) }
 end
 
 # Transform in chunks
-results = Coradoc::Streaming.transform_in_chunks(elements, chunk_size: 50) do |chunk|
+results = Coridoc::Streaming.transform_in_chunks(elements, chunk_size: 50) do |chunk|
   chunk.map { |el| transform_element(el) }
 end
 
 # Incremental serialization
 File.open("output.html", "w") do |file|
-  Coradoc::Streaming.serialize_incremental(document, format: :html) do |chunk|
+  Coridoc::Streaming.serialize_incremental(document, format: :html) do |chunk|
     file.write(chunk)
   end
 end
 
 # Memory-limited processing
-progress = Coradoc::Streaming.process_with_memory_limit(
+progress = Coridoc::Streaming.process_with_memory_limit(
   "input.adoc", "output.html",
   format: :asciidoc, output_format: :html,
   max_memory: 50 * 1024 * 1024  # 50MB
@@ -446,10 +446,10 @@ puts progress.to_s  # "100 processed (100.0%) at 10.0/sec"
 
 [source,ruby]
 ----
-require 'coradoc/validation'
+require 'coridoc/validation'
 
 # Define a schema
-schema = Coradoc::Validation::Schema.define do
+schema = Coridoc::Validation::Schema.define do
   required :title, type: String, min_length: 1
   required :sections, type: Array, min_count: 1
   optional :author, type: String
@@ -487,16 +487,16 @@ end
 
 [source,ruby]
 ----
-require 'coradoc/lazy'
+require 'coridoc/lazy'
 
 # Wrap document for lazy iteration
-wrapper = Coradoc::Lazy.wrap(document)
+wrapper = Coridoc::Lazy.wrap(document)
 wrapper.each_section do |section|
   process_section(section)  # Processed on-demand
 end
 
 # Lazy transformation pipeline
-result = Coradoc::Lazy.transform(sections) do |p|
+result = Coridoc::Lazy.transform(sections) do |p|
   p.map { |s| transform_section(s) }
    .select { |s| s.visible? }
    .take(10)
@@ -508,7 +508,7 @@ wrapper.each_batch(10) do |batch|
 end
 
 # Lazy reference resolution
-resolver = Coradoc::Lazy.resolver(document, loader: ->(ref, _) {
+resolver = Coridoc::Lazy.resolver(document, loader: ->(ref, _) {
   load_include_file(ref)
 })
 content = resolver.resolve("include::chapter1.adoc[]")
@@ -521,22 +521,22 @@ content = resolver.resolve("include::chapter1.adoc[]")
 [source,ruby]
 ----
 # Error hierarchy
-Coradoc::Error                          # Base error class
-├── Coradoc::ParseError                 # Parsing errors
-├── Coradoc::ValidationError            # Validation errors
-├── Coradoc::TransformationError        # Transform errors
-├── Coradoc::UnsupportedFormatError     # Unknown format
-└── Coradoc::ConfigurationError         # Config errors
+Coridoc::Error                          # Base error class
+├── Coridoc::ParseError                 # Parsing errors
+├── Coridoc::ValidationError            # Validation errors
+├── Coridoc::TransformationError        # Transform errors
+├── Coridoc::UnsupportedFormatError     # Unknown format
+└── Coridoc::ConfigurationError         # Config errors
 
 # Handling errors
 begin
-  doc = Coradoc.parse(input, format: :asciidoc, strict: true)
-rescue Coradoc::ParseError => e
+  doc = Coridoc.parse(input, format: :asciidoc, strict: true)
+rescue Coridoc::ParseError => e
   puts "Parse error at line #{e.line}, column #{e.column}"
   puts e.message
-rescue Coradoc::ValidationError => e
+rescue Coridoc::ValidationError => e
   puts "Validation failed: #{e.message}"
-rescue Coradoc::UnsupportedFormatError => e
+rescue Coridoc::UnsupportedFormatError => e
   puts "Unknown format: #{e.format}"
 end
 ----
@@ -548,7 +548,7 @@ end
 [source,ruby]
 ----
 # Configure globally
-Coradoc.configure do |config|
+Coridoc.configure do |config|
   config.default_format = :asciidoc
   config.strict = false
   config.warn_on_undefined = true
@@ -556,8 +556,8 @@ Coradoc.configure do |config|
 end
 
 # Access configuration
-Coradoc.config.default_format  # => :asciidoc
+Coridoc.config.default_format  # => :asciidoc
 
 # Debug mode
-Coradoc.debug = true
+Coridoc.debug = true
 ----

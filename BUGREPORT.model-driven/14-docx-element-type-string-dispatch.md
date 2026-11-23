@@ -7,7 +7,7 @@
 
 
 **Severity:** MEDIUM
-**Location:** `coradoc-docx/lib/coradoc/docx/transform/from_core_model.rb`
+**Location:** `coridoc-docx/lib/coridoc/docx/transform/from_core_model.rb`
 
 ## Evidence
 

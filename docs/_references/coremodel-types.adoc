@@ -6,7 +6,7 @@ nav_order: 30
 
 = CoreModel Types Reference
 
-The CoreModel is Coradoc's canonical document representation. All format transformations use CoreModel as the hub.
+The CoreModel is Coridoc's canonical document representation. All format transformations use CoreModel as the hub.
 
 == Architecture
 
@@ -34,7 +34,7 @@ The CoreModel is Coradoc's canonical document representation. All format transfo
 
 == Base Class
 
-=== Coradoc::CoreModel::Base
+=== Coridoc::CoreModel::Base
 
 All CoreModel elements inherit from `Base`.
 
@@ -52,7 +52,7 @@ All CoreModel elements inherit from `Base`.
 
 == Structural Elements
 
-=== Coradoc::CoreModel::StructuralElement
+=== Coridoc::CoreModel::StructuralElement
 
 Represents document structure (document, section).
 
@@ -69,7 +69,7 @@ Represents document structure (document, section).
 [source,ruby]
 ----
 # Create a document
-doc = Coradoc::CoreModel::StructuralElement.new(
+doc = Coridoc::CoreModel::StructuralElement.new(
   element_type: "document",
   title: "My Document",
   id: "my-doc",
@@ -77,7 +77,7 @@ doc = Coradoc::CoreModel::StructuralElement.new(
 )
 
 # Create a section
-section = Coradoc::CoreModel::StructuralElement.new(
+section = Coridoc::CoreModel::StructuralElement.new(
   element_type: "section",
   level: 1,
   title: "Introduction",
@@ -88,7 +88,7 @@ section = Coradoc::CoreModel::StructuralElement.new(
 
 == Block Elements
 
-=== Coradoc::CoreModel::Block
+=== Coridoc::CoreModel::Block
 
 Generic content block.
 
@@ -116,13 +116,13 @@ Generic content block.
 [source,ruby]
 ----
 # Paragraph
-para = Coradoc::CoreModel::Block.new(
+para = Coridoc::CoreModel::Block.new(
   element_type: "paragraph",
   content: "This is a paragraph."
 )
 
 # Code block
-code = Coradoc::CoreModel::Block.new(
+code = Coridoc::CoreModel::Block.new(
   element_type: "block",
   delimiter_type: "----",
   content: "def hello; puts 'world'; end",
@@ -131,7 +131,7 @@ code = Coradoc::CoreModel::Block.new(
 )
 
 # Quote block
-quote = Coradoc::CoreModel::Block.new(
+quote = Coridoc::CoreModel::Block.new(
   element_type: "block",
   delimiter_type: "____",
   content: "To be or not to be.",
@@ -139,7 +139,7 @@ quote = Coradoc::CoreModel::Block.new(
 )
 ----
 
-=== Coradoc::CoreModel::AnnotationBlock
+=== Coridoc::CoreModel::AnnotationBlock
 
 Admonition block (NOTE, TIP, WARNING, etc.).
 
@@ -153,7 +153,7 @@ Admonition block (NOTE, TIP, WARNING, etc.).
 .Example
 [source,ruby]
 ----
-note = Coradoc::CoreModel::AnnotationBlock.new(
+note = Coridoc::CoreModel::AnnotationBlock.new(
   annotation_type: "NOTE",
   content: "This is an important note."
 )
@@ -161,7 +161,7 @@ note = Coradoc::CoreModel::AnnotationBlock.new(
 
 == List Elements
 
-=== Coradoc::CoreModel::ListBlock
+=== Coridoc::CoreModel::ListBlock
 
 List container (ordered, unordered, definition).
 
@@ -182,25 +182,25 @@ List container (ordered, unordered, definition).
 [source,ruby]
 ----
 # Unordered list
-ulist = Coradoc::CoreModel::ListBlock.new(
+ulist = Coridoc::CoreModel::ListBlock.new(
   marker_type: "unordered",
   items: [
-    Coradoc::CoreModel::ListItem.new(content: "First item", marker: "*"),
-    Coradoc::CoreModel::ListItem.new(content: "Second item", marker: "*")
+    Coridoc::CoreModel::ListItem.new(content: "First item", marker: "*"),
+    Coridoc::CoreModel::ListItem.new(content: "Second item", marker: "*")
   ]
 )
 
 # Ordered list
-olist = Coradoc::CoreModel::ListBlock.new(
+olist = Coridoc::CoreModel::ListBlock.new(
   marker_type: "ordered",
   items: [
-    Coradoc::CoreModel::ListItem.new(content: "Step one", marker: "."),
-    Coradoc::CoreModel::ListItem.new(content: "Step two", marker: ".")
+    Coridoc::CoreModel::ListItem.new(content: "Step one", marker: "."),
+    Coridoc::CoreModel::ListItem.new(content: "Step two", marker: ".")
   ]
 )
 ----
 
-=== Coradoc::CoreModel::ListItem
+=== Coridoc::CoreModel::ListItem
 
 Individual list item.
 
@@ -215,17 +215,17 @@ Individual list item.
 .Example
 [source,ruby]
 ----
-item = Coradoc::CoreModel::ListItem.new(
+item = Coridoc::CoreModel::ListItem.new(
   content: "Main item text",
   marker: "*",
   attached: [
-    Coradoc::CoreModel::Block.new(
+    Coridoc::CoreModel::Block.new(
       element_type: "paragraph",
       content: "Attached paragraph via continuation"
     )
   ],
   nested: [
-    Coradoc::CoreModel::ListBlock.new(
+    Coridoc::CoreModel::ListBlock.new(
       marker_type: "unordered",
       items: [...]
     )
@@ -233,7 +233,7 @@ item = Coradoc::CoreModel::ListItem.new(
 )
 ----
 
-=== Coradoc::CoreModel::DefinitionItem
+=== Coridoc::CoreModel::DefinitionItem
 
 Definition list item.
 
@@ -245,7 +245,7 @@ Definition list item.
 .Example
 [source,ruby]
 ----
-def_item = Coradoc::CoreModel::DefinitionItem.new(
+def_item = Coridoc::CoreModel::DefinitionItem.new(
   term: "API",
   definitions: ["Application Programming Interface"]
 )
@@ -253,7 +253,7 @@ def_item = Coradoc::CoreModel::DefinitionItem.new(
 
 == Table Elements
 
-=== Coradoc::CoreModel::Table
+=== Coridoc::CoreModel::Table
 
 Table container.
 
@@ -274,30 +274,30 @@ Table container.
 .Example
 [source,ruby]
 ----
-table = Coradoc::CoreModel::Table.new(
+table = Coridoc::CoreModel::Table.new(
   title: "Data Table",
   frame: "all",
   grid: "all",
   cols: ["1", "2", "1"],
   rows: [
-    Coradoc::CoreModel::TableRow.new(
+    Coridoc::CoreModel::TableRow.new(
       header: true,
       cells: [
-        Coradoc::CoreModel::TableCell.new(content: "Name", header: true),
-        Coradoc::CoreModel::TableCell.new(content: "Value", header: true)
+        Coridoc::CoreModel::TableCell.new(content: "Name", header: true),
+        Coridoc::CoreModel::TableCell.new(content: "Value", header: true)
       ]
     ),
-    Coradoc::CoreModel::TableRow.new(
+    Coridoc::CoreModel::TableRow.new(
       cells: [
-        Coradoc::CoreModel::TableCell.new(content: "Item 1"),
-        Coradoc::CoreModel::TableCell.new(content: "100")
+        Coridoc::CoreModel::TableCell.new(content: "Item 1"),
+        Coridoc::CoreModel::TableCell.new(content: "100")
       ]
     )
   ]
 )
 ----
 
-=== Coradoc::CoreModel::TableRow
+=== Coridoc::CoreModel::TableRow
 
 Table row container.
 
@@ -309,16 +309,16 @@ Table row container.
 .Example
 [source,ruby]
 ----
-header_row = Coradoc::CoreModel::TableRow.new(
+header_row = Coridoc::CoreModel::TableRow.new(
   header: true,
   cells: [
-    Coradoc::CoreModel::TableCell.new(content: "Column A", header: true),
-    Coradoc::CoreModel::TableCell.new(content: "Column B", header: true)
+    Coridoc::CoreModel::TableCell.new(content: "Column A", header: true),
+    Coridoc::CoreModel::TableCell.new(content: "Column B", header: true)
   ]
 )
 ----
 
-=== Coradoc::CoreModel::TableCell
+=== Coridoc::CoreModel::TableCell
 
 Table cell with full formatting support.
 
@@ -351,24 +351,24 @@ Table cell with full formatting support.
 [source,ruby]
 ----
 # Basic cell
-cell = Coradoc::CoreModel::TableCell.new(content: "Data")
+cell = Coridoc::CoreModel::TableCell.new(content: "Data")
 
 # Header cell
-header = Coradoc::CoreModel::TableCell.new(
+header = Coridoc::CoreModel::TableCell.new(
   content: "Title",
   header: true,
   alignment: "center"
 )
 
 # Spanning cell
-spanning = Coradoc::CoreModel::TableCell.new(
+spanning = Coridoc::CoreModel::TableCell.new(
   content: "Spans 2 columns",
   colspan: 2,
   alignment: "center"
 )
 
 # Styled cell
-styled = Coradoc::CoreModel::TableCell.new(
+styled = Coridoc::CoreModel::TableCell.new(
   content: "Important",
   style: "strong",
   bgcolor: "#ffcccc"
@@ -377,7 +377,7 @@ styled = Coradoc::CoreModel::TableCell.new(
 
 == Inline Elements
 
-=== Coradoc::CoreModel::InlineElement
+=== Coridoc::CoreModel::InlineElement
 
 Inline formatting element.
 
@@ -403,20 +403,20 @@ Inline formatting element.
 [source,ruby]
 ----
 # Bold text
-bold = Coradoc::CoreModel::InlineElement.new(
+bold = Coridoc::CoreModel::InlineElement.new(
   format_type: "bold",
   content: "Important text"
 )
 
 # Link
-link = Coradoc::CoreModel::InlineElement.new(
+link = Coridoc::CoreModel::InlineElement.new(
   format_type: "link",
   content: "Click here",
   target: "https://example.com"
 )
 
 # Cross-reference
-xref = Coradoc::CoreModel::InlineElement.new(
+xref = Coridoc::CoreModel::InlineElement.new(
   format_type: "xref",
   content: "See Section 1",
   target: "section-1"
@@ -425,7 +425,7 @@ xref = Coradoc::CoreModel::InlineElement.new(
 
 == Image Elements
 
-=== Coradoc::CoreModel::Image
+=== Coridoc::CoreModel::Image
 
 Block image.
 
@@ -442,7 +442,7 @@ Block image.
 .Example
 [source,ruby]
 ----
-image = Coradoc::CoreModel::Image.new(
+image = Coridoc::CoreModel::Image.new(
   src: "images/diagram.png",
   alt: "System Architecture",
   title: "Figure 1: System Architecture",
@@ -457,16 +457,16 @@ image = Coradoc::CoreModel::Image.new(
 [source,ruby]
 ----
 # Build a document programmatically
-doc = Coradoc::CoreModel::StructuralElement.new(
+doc = Coridoc::CoreModel::StructuralElement.new(
   element_type: "document",
   title: "Generated Document",
   children: [
-    Coradoc::CoreModel::StructuralElement.new(
+    Coridoc::CoreModel::StructuralElement.new(
       element_type: "section",
       level: 1,
       title: "Introduction",
       children: [
-        Coradoc::CoreModel::Block.new(
+        Coridoc::CoreModel::Block.new(
           element_type: "paragraph",
           content: "This is the introduction."
         )
@@ -481,18 +481,18 @@ doc = Coradoc::CoreModel::StructuralElement.new(
 [source,ruby]
 ----
 # Parse existing document
-doc = Coradoc.parse(input, format: :asciidoc)
+doc = Coridoc.parse(input, format: :asciidoc)
 
 # Modify structure
 doc.title = "Updated Title"
 doc.children.each do |child|
-  if child.is_a?(Coradoc::CoreModel::Block)
+  if child.is_a?(Coridoc::CoreModel::Block)
     child.content = child.content.upcase
   end
 end
 
 # Serialize to another format
-html = Coradoc.serialize(doc, to: :html)
+html = Coridoc.serialize(doc, to: :html)
 ----
 
 === Querying Documents
@@ -520,7 +520,7 @@ results = doc.query('section > paragraph:first-child')
 [source,ruby]
 ----
 # Validate document structure
-schema = Coradoc::Validation::Schema.define do
+schema = Coridoc::Validation::Schema.define do
   required :title, type: String, min_length: 1
   required :children, type: Array
 end

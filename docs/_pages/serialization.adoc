@@ -8,11 +8,11 @@ nav_order: 6
 
 == Purpose
 
-This page explains how Coradoc serializes Document Models back to AsciiDoc text. You'll learn about the serialization layer, how it works, and how to customize it for your needs.
+This page explains how Coridoc serializes Document Models back to AsciiDoc text. You'll learn about the serialization layer, how it works, and how to customize it for your needs.
 
 == Overview
 
-All Model objects in Coradoc can be serialized to AsciiDoc through the `to_adoc` method. The serialization layer converts the rich object model back into AsciiDoc text, enabling round-trip document processing.
+All Model objects in Coridoc can be serialized to AsciiDoc through the `to_adoc` method. The serialization layer converts the rich object model back into AsciiDoc text, enabling round-trip document processing.
 
 == Basic Serialization
 
@@ -36,8 +36,8 @@ document.to_adoc
 
 [source,ruby]
 ----
-paragraph = Coradoc::Model::Paragraph.new
-paragraph.content = [Coradoc::Model::TextElement.new("Hello")]
+paragraph = Coridoc::Model::Paragraph.new
+paragraph.content = [Coridoc::Model::TextElement.new("Hello")]
 paragraph.to_adoc  # => "Hello\n"
 ----
 
@@ -45,12 +45,12 @@ paragraph.to_adoc  # => "Hello\n"
 
 [source,ruby]
 ----
-section = Coradoc::Model::Section.new
-section.title = Coradoc::Model::Title.new
+section = Coridoc::Model::Section.new
+section.title = Coridoc::Model::Title.new
 section.title.level_int = 2
 section.title.content = ["Chapter 1"]
-para = Coradoc::Model::Paragraph.new
-para.content = [Coradoc::Model::TextElement.new("Section content")]
+para = Coridoc::Model::Paragraph.new
+para.content = [Coridoc::Model::TextElement.new("Section content")]
 section.blocks = [para]
 
 section.to_adoc
@@ -73,31 +73,31 @@ document.to_adoc
 
 *Returns:* (String) AsciiDoc representation
 
-### Coradoc::Output::Adoc.serialize
+### Coridoc::Output::Adoc.serialize
 
 Explicit serialization through the Output module.
 
 [source,ruby]
 ----
-Coradoc::Output::Adoc.serialize(paragraph)
-Coradoc::Output::Adoc.serialize(section)
+Coridoc::Output::Adoc.serialize(paragraph)
+Coridoc::Output::Adoc.serialize(section)
 ----
 
-### Coradoc.convert
+### Coridoc.convert
 
 Convert with explicit format specification.
 
 [source,ruby]
 ----
-doc = Coradoc.parse_file("input.adoc")
+doc = Coridoc.parse_file("input.adoc")
 
 # Convert to AsciiDoc (same as to_adoc)
-output = Coradoc.convert(doc, to: :adoc)
+output = Coridoc.convert(doc, to: :adoc)
 ----
 
 *Parameters:*
 
-* `document` (Coradoc::Model::Base) - Document model to convert
+* `document` (Coridoc::Model::Base) - Document model to convert
 * `to` (Symbol) - Target format (`:adoc`, `:html`)
 * `**options` (Hash) - Conversion options
 
@@ -111,9 +111,9 @@ The ElementRegistry maps Model classes to their serializers:
 
 [source,ruby]
 ----
-Coradoc::Output::Adoc::ElementRegistry.register(
-  Coradoc::Model::Block::Custom,
-  Coradoc::Output::Adoc::Serializers::Block::CustomSerializer
+Coridoc::Output::Adoc::ElementRegistry.register(
+  Coridoc::Model::Block::Custom,
+  Coridoc::Output::Adoc::Serializers::Block::CustomSerializer
 )
 ----
 
@@ -135,13 +135,13 @@ Each Model type has a corresponding serializer:
 [source,ruby]
 ----
 # Unordered list
-list = Coradoc::Model::List::Unordered.new
-item1 = Coradoc::Model::ListItem.new
-item1.content = [Coradoc::Model::TextElement.new("First item")]
+list = Coridoc::Model::List::Unordered.new
+item1 = Coridoc::Model::ListItem.new
+item1.content = [Coridoc::Model::TextElement.new("First item")]
 list.items << item1
 
-item2 = Coradoc::Model::ListItem.new
-item2.content = [Coradoc::Model::TextElement.new("Second item")]
+item2 = Coridoc::Model::ListItem.new
+item2.content = [Coridoc::Model::TextElement.new("Second item")]
 list.items << item2
 
 puts list.to_adoc
@@ -152,22 +152,22 @@ puts list.to_adoc
 
 [source,ruby]
 ----
-table = Coradoc::Model::Table.new
+table = Coridoc::Model::Table.new
 
 # Add header row
-header_row = Coradoc::Model::TableRow.new
+header_row = Coridoc::Model::TableRow.new
 %w[Name Age City].each do |header_text|
-  cell = Coradoc::Model::TableCell.new
-  cell.content = [Coradoc::Model::TextElement.new(header_text)]
+  cell = Coridoc::Model::TableCell.new
+  cell.content = [Coridoc::Model::TextElement.new(header_text)]
   header_row.columns << cell
 end
 table.rows << header_row
 
 # Add data row
-data_row = Coradoc::Model::TableRow.new
+data_row = Coridoc::Model::TableRow.new
 %w[Alice 25 NYC].each do |cell_text|
-  cell = Coradoc::Model::TableCell.new
-  cell.content = [Coradoc::Model::TextElement.new(cell_text)]
+  cell = Coridoc::Model::TableCell.new
+  cell.content = [Coridoc::Model::TextElement.new(cell_text)]
   data_row.columns << cell
 end
 table.rows << data_row
@@ -181,15 +181,15 @@ puts table.to_adoc
 [source,ruby]
 ----
 # Listing block
-listing = Coradoc::Model::Block::Listing.new
+listing = Coridoc::Model::Block::Listing.new
 listing.lines = ["def hello", "  puts 'Hello, World!'", "end"]
-listing.attributes = Coradoc::Model::AttributeList.new
+listing.attributes = Coridoc::Model::AttributeList.new
 listing.attributes.add_positional("ruby")
 puts listing.to_adoc
 # => [source,ruby]\n----\ndef hello\n  puts 'Hello, World!'\nend\n----\n
 
 # Quote block
-quote = Coradoc::Model::Block::Quote.new
+quote = Coridoc::Model::Block::Quote.new
 quote.lines = ["This is a quote.", "It spans multiple lines."]
 puts quote.to_adoc
 # => ____\nThis is a quote.\nIt spans multiple lines.\n____\n
@@ -200,29 +200,29 @@ puts quote.to_adoc
 [source,ruby]
 ----
 # Create paragraph with various inline elements
-paragraph = Coradoc::Model::Paragraph.new
+paragraph = Coridoc::Model::Paragraph.new
 paragraph.content = [
-  Coradoc::Model::TextElement.new("Text with "),
-  Coradoc::Model::Inline::Bold.new(content: "bold"),
-  Coradoc::Model::TextElement.new(", "),
-  Coradoc::Model::Inline::Italic.new(content: "italic"),
-  Coradoc::Model::TextElement.new(", and "),
-  Coradoc::Model::Inline::Monospace.new(content: "monospace"),
-  Coradoc::Model::TextElement.new(" text."),
+  Coridoc::Model::TextElement.new("Text with "),
+  Coridoc::Model::Inline::Bold.new(content: "bold"),
+  Coridoc::Model::TextElement.new(", "),
+  Coridoc::Model::Inline::Italic.new(content: "italic"),
+  Coridoc::Model::TextElement.new(", and "),
+  Coridoc::Model::Inline::Monospace.new(content: "monospace"),
+  Coridoc::Model::TextElement.new(" text."),
 ]
 
 puts paragraph.to_adoc
 # => Text with *bold*, _italic_, and `monospace` text.\n
 
 # Link
-link = Coradoc::Model::Inline::Link.new
+link = Coridoc::Model::Inline::Link.new
 link.path = "https://example.com"
 link.name = "Example Site"
 puts link.to_adoc
 # => https://example.com[Example Site]
 
 # Anchor
-anchor = Coradoc::Model::Inline::Anchor.new
+anchor = Coridoc::Model::Inline::Anchor.new
 anchor.id = "section1"
 puts anchor.to_adoc
 # => [[section1]]
@@ -237,13 +237,13 @@ Serialization is designed for round-trip processing:
 original = "== My Document\n\nThis is content."
 
 # Parse to model
-doc = Coradoc.parse(original)
+doc = Coridoc.parse(original)
 
 # Serialize back to AsciiDoc
 regenerated = doc.to_adoc
 
 # Parse again to verify semantic equivalence
-doc2 = Coradoc.parse(regenerated)
+doc2 = Coridoc.parse(regenerated)
 
 # The models should be semantically equivalent
 # (formatting may differ, but meaning is preserved)
@@ -257,7 +257,7 @@ To add a serializer for a custom element:
 
 [source,ruby]
 ----
-module Coradoc
+module Coridoc
   module Output
     module Adoc
       module Serializers
@@ -282,9 +282,9 @@ end
 
 [source,ruby]
 ----
-Coradoc::Output::Adoc::ElementRegistry.register(
-  Coradoc::Model::Block::Custom,
-  Coradoc::Output::Adoc::Serializers::Block::CustomSerializer
+Coridoc::Output::Adoc::ElementRegistry.register(
+  Coridoc::Model::Block::Custom,
+  Coridoc::Output::Adoc::Serializers::Block::CustomSerializer
 )
 ----
 
@@ -292,8 +292,8 @@ Coradoc::Output::Adoc::ElementRegistry.register(
 
 * link:architecture[Architecture] - Serialization layer overview
 * link:model[Document Model] - Model class details
-* link:/coradoc/tutorials/serialization[Serialization Tutorial] - Hands-on examples
-* link:/coradoc/references/output-formats[Output Formats] - Format options
+* link:/coridoc/tutorials/serialization[Serialization Tutorial] - Hands-on examples
+* link:/coridoc/references/output-formats[Output Formats] - Format options
 
 ## Bibliography
 

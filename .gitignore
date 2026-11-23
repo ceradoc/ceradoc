@@ -33,7 +33,7 @@ coverage/
 /temp.rb
 /test_*.rb
 /test_registry.rb
-/update_coradoc.rb
+/update_coridoc.rb
 
 # rspec failure tracking
 .rspec_status
@@ -109,7 +109,7 @@ TODO.improve/
 
 
 # Frontend build artifacts
-coradoc-html/frontend/
+coridoc-html/frontend/
 TODO.bugs
 TODO.bugs/
 TODO.kotoshu

@@ -9,7 +9,7 @@
 
 
 **Severity:** HIGH  
-**Location:** `lib/coradoc/core_model/block.rb`, all typed block subclasses
+**Location:** `lib/coridoc/core_model/block.rb`, all typed block subclasses
 
 ## Problem
 
@@ -48,7 +48,7 @@ end
 ```
 
 ### 2B. Four-level fallback chain in `resolve_semantic_type`
-`lib/coradoc/core_model/block.rb:73-77`:
+`lib/coridoc/core_model/block.rb:73-77`:
 ```ruby
 def resolve_semantic_type
   self.class.semantic_type ||
@@ -59,7 +59,7 @@ end
 ```
 
 ### 2C. `BlockSemanticType` module — a FIFTH expression
-`lib/coradoc/core_model/block.rb:10-32`:
+`lib/coridoc/core_model/block.rb:10-32`:
 ```ruby
 module BlockSemanticType
   SOURCE_CODE = :source_code
@@ -71,7 +71,7 @@ end
 Constants like `HORIZONTAL_RULE`, `VIDEO`, `AUDIO`, `COMMENT` have no corresponding subclasses.
 
 ### 2D. `element_type` — a SIXTH expression on Block
-`lib/coradoc/core_model/block.rb:87`:
+`lib/coridoc/core_model/block.rb:87`:
 ```ruby
 attribute :element_type, :string
 ```

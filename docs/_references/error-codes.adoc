@@ -6,46 +6,46 @@ nav_order: 41
 
 = Error Codes Reference
 
-This document describes error classes, codes, and recovery strategies for Coradoc.
+This document describes error classes, codes, and recovery strategies for Coridoc.
 
 == Error Class Hierarchy
 
-.Coradoc Error Hierarchy
+.Coridoc Error Hierarchy
 [source]
 ----
-Coradoc::Error < StandardError (root base class)
+Coridoc::Error < StandardError (root base class)
 │
-├── Coradoc::ParseError
+├── Coridoc::ParseError
 │   └── Raised when document parsing fails
 │
-├── Coradoc::ValidationError
+├── Coridoc::ValidationError
 │   └── Raised when document validation fails
 │
-├── Coradoc::TransformationError
+├── Coridoc::TransformationError
 │   └── Raised when model transformation fails
 │
-├── Coradoc::UnsupportedFormatError
+├── Coridoc::UnsupportedFormatError
 │   └── Raised for unknown format requests
 │
-├── Coradoc::ConfigurationError
+├── Coridoc::ConfigurationError
 │   └── Raised for configuration issues
 │
-├── Coradoc::AsciiDoc::Error
-│   ├── Coradoc::AsciiDoc::ParseError
-│   └── Coradoc::AsciiDoc::Model::Serialization::Errors::AsciidocError
+├── Coridoc::AsciiDoc::Error
+│   ├── Coridoc::AsciiDoc::ParseError
+│   └── Coridoc::AsciiDoc::Model::Serialization::Errors::AsciidocError
 │       ├── ParseError
 │       ├── MappingError
 │       ├── ValidationError
 │       └── SerializationError
 │
-├── Coradoc::Html::Error
+├── Coridoc::Html::Error
 │   ├── UnknownTagError
 │   └── InvalidConfigurationError
 │
-├── Coradoc::Html::ConverterBase::ValidationError
-├── Coradoc::Html::ConverterBase::UnsupportedDocumentError
+├── Coridoc::Html::ConverterBase::ValidationError
+├── Coridoc::Html::ConverterBase::UnsupportedDocumentError
 │
-└── Coradoc::Markdown::Error
+└── Coridoc::Markdown::Error
     ├── ParseError
     ├── SerializationError
     ├── UnsupportedFeatureError
@@ -54,16 +54,16 @@ Coradoc::Error < StandardError (root base class)
 
 == Base Error Classes
 
-=== Coradoc::Error
+=== Coridoc::Error
 
-The root error class for all Coradoc errors.
+The root error class for all Coridoc errors.
 
 [source,ruby]
 ----
 begin
-  # Coradoc operations
-rescue Coradoc::Error => e
-  puts "Coradoc error: #{e.message}"
+  # Coridoc operations
+rescue Coridoc::Error => e
+  puts "Coridoc error: #{e.message}"
 end
 ----
 
@@ -71,13 +71,13 @@ end
 [horizontal]
 `message`:: `String` - Error message
 
-=== Coradoc::ParseError
+=== Coridoc::ParseError
 
 Raised when document parsing fails.
 
 [source,ruby]
 ----
-class Coradoc::ParseError < Coradoc::Error
+class Coridoc::ParseError < Coridoc::Error
   attr_reader :line      # Integer - Line number where error occurred
   attr_reader :column     # Integer - Column number where error occurred
   attr_reader :source     # String - Source text snippet
@@ -89,21 +89,21 @@ end
 [source,ruby]
 ----
 begin
-  doc = Coradoc.parse(invalid_input, format: :asciidoc, strict: true)
-rescue Coradoc::ParseError => e
+  doc = Coridoc.parse(invalid_input, format: :asciidoc, strict: true)
+rescue Coridoc::ParseError => e
   puts "Parse error at line #{e.line}, column #{e.column}"
   puts "Source: #{e.source}"
   puts "Suggestion: #{e.suggestion}" if e.suggestion
 end
 ----
 
-=== Coradoc::ValidationError
+=== Coridoc::ValidationError
 
 Raised when document validation fails against a schema.
 
 [source,ruby]
 ----
-class Coradoc::ValidationError < Coradoc::Error
+class Coridoc::ValidationError < Coridoc::Error
   attr_reader :errors    # Array<ValidationError> - List of errors
   attr_reader :path      # String - Path to invalid element
   attr_reader :expected   # String - Expected value/type
@@ -117,7 +117,7 @@ end
 begin
   result = schema.validate(document)
   raise result.to_error unless result.valid?
-rescue Coradoc::ValidationError => e
+rescue Coridoc::ValidationError => e
   e.errors.each do |err|
     puts "#{err.path}: #{err.message}"
     puts "  Expected: #{err.expected}"
@@ -126,13 +126,13 @@ rescue Coradoc::ValidationError => e
 end
 ----
 
-=== Coradoc::UnsupportedFormatError
+=== Coridoc::UnsupportedFormatError
 
 Raised when requesting an unsupported format.
 
 [source,ruby]
 ----
-class Coradoc::UnsupportedFormatError < Coradoc::Error
+class Coridoc::UnsupportedFormatError < Coridoc::Error
   attr_reader :format    # Symbol - The requested format
   attr_reader :supported # Array<Symbol> - List of supported formats
 end
@@ -142,8 +142,8 @@ end
 [source,ruby]
 ----
 begin
-  Coradoc.convert(input, from: :asciidoc, to: :pdf)
-rescue Coradoc::UnsupportedFormatError => e
+  Coridoc.convert(input, from: :asciidoc, to: :pdf)
+rescue Coridoc::UnsupportedFormatError => e
   puts "Format '#{e.format}' is not supported"
   puts "Supported formats: #{e.supported.join(', ')}"
 end
@@ -151,20 +151,20 @@ end
 
 == AsciiDoc Errors
 
-=== Coradoc::AsciiDoc::Error
+=== Coridoc::AsciiDoc::Error
 
 Base error for AsciiDoc-specific errors.
 
 [source,ruby]
 ----
 begin
-  doc = Coradoc::AsciiDoc.parse(input)
-rescue Coradoc::AsciiDoc::Error => e
+  doc = Coridoc::AsciiDoc.parse(input)
+rescue Coridoc::AsciiDoc::Error => e
   puts "AsciiDoc error: #{e.message}"
 end
 ----
 
-=== Coradoc::AsciiDoc::ParseError
+=== Coridoc::AsciiDoc::ParseError
 
 Raised during AsciiDoc parsing.
 
@@ -185,17 +185,17 @@ Suggestion: Check table cell formatting
 
 == HTML Errors
 
-=== Coradoc::Html::Error
+=== Coridoc::Html::Error
 
 Base error for HTML-related errors.
 
-=== Coradoc::Html::UnknownTagError
+=== Coridoc::Html::UnknownTagError
 
 Raised when encountering unsupported HTML tags.
 
 [source,ruby]
 ----
-class Coradoc::Html::UnknownTagError < Coradoc::Html::Error
+class Coridoc::Html::UnknownTagError < Coridoc::Html::Error
   attr_reader :tag_name # String - The unknown tag
   attr_reader :position  # Integer - Position in document
 end
@@ -205,32 +205,32 @@ end
 [source,ruby]
 ----
 begin
-  doc = Coradoc.parse(html_input, format: :html)
-rescue Coradoc::Html::UnknownTagError => e
+  doc = Coridoc.parse(html_input, format: :html)
+rescue Coridoc::Html::UnknownTagError => e
   puts "Unknown tag: <#{e.tag_name}> at position #{e.position}"
 end
 ----
 
-=== Coradoc::Html::InvalidConfigurationError
+=== Coridoc::Html::InvalidConfigurationError
 
 Raised for invalid HTML converter configuration.
 
 [source,ruby]
 ----
 begin
-  Coradoc::Html.serialize(doc, theme: :nonexistent)
-rescue Coradoc::Html::InvalidConfigurationError => e
+  Coridoc::Html.serialize(doc, theme: :nonexistent)
+rescue Coridoc::Html::InvalidConfigurationError => e
   puts "Invalid configuration: #{e.message}"
 end
 ----
 
 == Markdown Errors
 
-=== Coradoc::Markdown::Error
+=== Coridoc::Markdown::Error
 
 Base error for Markdown-specific errors.
 
-=== Coradoc::Markdown::ParseError
+=== Coridoc::Markdown::ParseError
 
 Raised during Markdown parsing.
 
@@ -240,13 +240,13 @@ Raised during Markdown parsing.
 - Malformed tables
 - Invalid emphasis markers
 
-=== Coradoc::Markdown::UnsupportedFeatureError
+=== Coridoc::Markdown::UnsupportedFeatureError
 
 Raised when using unsupported Markdown features.
 
 [source,ruby]
 ----
-class Coradoc::Markdown::UnsupportedFeatureError < Coradoc::Markdown::Error
+class Coridoc::Markdown::UnsupportedFeatureError < Coridoc::Markdown::Error
   attr_reader :feature # String - The unsupported feature
 end
 ----
@@ -255,8 +255,8 @@ end
 [source,ruby]
 ----
 begin
-  doc = Coradoc.parse(markdown_with_math, format: :markdown)
-rescue Coradoc::Markdown::UnsupportedFeatureError => e
+  doc = Coridoc.parse(markdown_with_math, format: :markdown)
+rescue Coridoc::Markdown::UnsupportedFeatureError => e
   puts "Feature '#{e.feature}' is not supported in Markdown"
 end
 ----
@@ -293,10 +293,10 @@ Suggestion: Ensure cells are separated by '|'
 [source,ruby]
 ----
 begin
-  doc = Coradoc.parse(input, format: :asciidoc, strict: true)
-rescue Coradoc::ParseError => e
+  doc = Coridoc.parse(input, format: :asciidoc, strict: true)
+rescue Coridoc::ParseError => e
   # Try parsing in non-strict mode
-  doc = Coradoc.parse(input, format: :asciidoc, strict: false)
+  doc = Coridoc.parse(input, format: :asciidoc, strict: false)
   warn "Parsed with errors: #{e.message}"
 end
 ----
@@ -324,10 +324,10 @@ def safe_convert(input, to:)
   format = detect_format(input)
 
   begin
-    Coradoc.convert(input, from: format, to: to)
-  rescue Coradoc::UnsupportedFormatError => e
+    Coridoc.convert(input, from: format, to: to)
+  rescue Coridoc::UnsupportedFormatError => e
     # Fall back to AsciiDoc
-    Coradoc.convert(input, from: :asciidoc, to: to)
+    Coridoc.convert(input, from: :asciidoc, to: to)
   end
 end
 ----
@@ -339,10 +339,10 @@ end
 [source,ruby]
 ----
 # Enable verbose error output
-Coradoc.debug = true
+Coridoc.debug = true
 
 # Or via environment variable
-ENV['CORADOC_DEBUG'] = 'true'
+ENV['CORIDOC_DEBUG'] = 'true'
 ----
 
 === Capture Full Error Context
@@ -350,8 +350,8 @@ ENV['CORADOC_DEBUG'] = 'true'
 [source,ruby]
 ----
 begin
-  doc = Coradoc.parse(input, format: :asciidoc)
-rescue Coradoc::ParseError => e
+  doc = Coridoc.parse(input, format: :asciidoc)
+rescue Coridoc::ParseError => e
   puts "Error: #{e.class}"
   puts "Message: #{e.message}"
   puts "Location: line #{e.line}, column #{e.column}"
@@ -367,11 +367,11 @@ end
 ----
 require 'logger'
 
-logger = Logger.new('coradoc_errors.log')
+logger = Logger.new('coridoc_errors.log')
 
 begin
-  result = Coradoc.parse(input, format: format)
-rescue Coradoc::Error => e
+  result = Coridoc.parse(input, format: format)
+rescue Coridoc::Error => e
   logger.error({
     error_class: e.class.name,
     message: e.message,
@@ -429,7 +429,7 @@ When reporting errors, include:
 1. **Error class and message** - From the exception
 2. **Input that caused the error** - Minimal reproducible example
 3. **Expected behavior** - What should have happened
-4. **Environment** - Ruby version, Coradoc version
+4. **Environment** - Ruby version, Coridoc version
 
 [source,ruby]
 ----
@@ -440,7 +440,7 @@ def error_report(error, input)
     Message: #{error.message}
     Location: line #{error.line}, column #{error.column}
     Ruby: #{RUBY_VERSION}
-    Coradoc: #{Coradoc::VERSION}
+    Coridoc: #{Coridoc::VERSION}
 
     Input (first 500 chars):
     #{input[0, 500]}

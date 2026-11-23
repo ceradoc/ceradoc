@@ -8,12 +8,12 @@ nav_order: 1
 
 == Purpose
 
-This tutorial teaches you how to parse AsciiDoc documents with Coradoc. You'll learn to parse strings, files, and access document structure.
+This tutorial teaches you how to parse AsciiDoc documents with Coridoc. You'll learn to parse strings, files, and access document structure.
 
 == Prerequisites
 
 * Ruby installed on your machine
-* Coradoc gem installed (see link:/coradoc/pages/getting-started[Getting Started])
+* Coridoc gem installed (see link:/coridoc/pages/getting-started[Getting Started])
 * Basic familiarity with AsciiDoc syntax
 
 == Tutorial Overview
@@ -33,7 +33,7 @@ You'll learn to:
 
 [source,ruby]
 ----
-require 'coradoc'
+require 'coridoc'
 
 input = <<~ASCIIDOC
   = Hello World
@@ -45,12 +45,12 @@ input = <<~ASCIIDOC
   This is content in section 1.
 ASCIIDOC
 
-doc = Coradoc.parse(input)
+doc = Coridoc.parse(input)
 puts "Document title: #{doc.header.title}"
 puts "Number of sections: #{doc.sections.size}"
 
 # Find the first actual Section
-section = doc.sections.find { |s| s.is_a?(Coradoc::Model::Section) }
+section = doc.sections.find { |s| s.is_a?(Coridoc::Model::Section) }
 if section
   puts "First section title: #{section.title.content}"
 end
@@ -77,10 +77,10 @@ First section title: ["Section 1"]
 
 [source,ruby]
 ----
-require 'coradoc'
+require 'coridoc'
 
 # Create a temporary file
-temp_file = "/tmp/coradoc_example.adoc"
+temp_file = "/tmp/coridoc_example.adoc"
 File.write(temp_file, <<~ASCIIDOC)
   = Document Title
   Author Name <author@example.com>
@@ -94,14 +94,14 @@ File.write(temp_file, <<~ASCIIDOC)
   * List item 3
 ASCIIDOC
 
-doc = Coradoc.parse_file(temp_file)
+doc = Coridoc.parse_file(temp_file)
 puts "Document title: #{doc.header.title}"
 puts "Author: #{doc.header.author&.first&.name}"
 
-section = doc.sections.find { |s| s.is_a?(Coradoc::Model::Section) }
+section = doc.sections.find { |s| s.is_a?(Coridoc::Model::Section) }
 if section
-  paragraphs = section.contents.select { |c| c.is_a?(Coradoc::Model::Paragraph) }
-  lists = section.contents.select { |c| c.is_a?(Coradoc::Model::List::Core) }
+  paragraphs = section.contents.select { |c| c.is_a?(Coridoc::Model::Paragraph) }
+  lists = section.contents.select { |c| c.is_a?(Coridoc::Model::List::Core) }
   puts "Number of paragraphs: #{paragraphs.size}"
   puts "Number of lists: #{lists.size}"
 end
@@ -132,7 +132,7 @@ Number of lists: 1
 
 [source,ruby]
 ----
-require 'coradoc'
+require 'coridoc'
 
 input = <<~ASCIIDOC
   = Formatting Examples
@@ -142,13 +142,13 @@ input = <<~ASCIIDOC
   This has `monospace text` and a https://example.com[link].
 ASCIIDOC
 
-doc = Coradoc.parse(input)
+doc = Coridoc.parse(input)
 
 # Find a paragraph (may be at document level)
-paragraph = doc.sections.find { |s| s.is_a?(Coradoc::Model::Paragraph) }
+paragraph = doc.sections.find { |s| s.is_a?(Coridoc::Model::Paragraph) }
 if !paragraph
   # Try nested in first section
-  section = doc.sections.find { |s| s.is_a?(Coradoc::Model::Section) }
+  section = doc.sections.find { |s| s.is_a?(Coridoc::Model::Section) }
   paragraph = section&.paragraphs&.first
 end
 
@@ -171,13 +171,13 @@ end
 
 ----
 Paragraph has 7 content elements
-  - Coradoc::Model::TextElement
-  - Coradoc::Model::Inline::Bold
-  - Coradoc::Model::TextElement
-  - Coradoc::Model::Inline::Italic
-  - Coradoc::Model::TextElement
-  - Coradoc::Model::Inline::Monospace
-  - Coradoc::Model::Inline::Link
+  - Coridoc::Model::TextElement
+  - Coridoc::Model::Inline::Bold
+  - Coridoc::Model::TextElement
+  - Coridoc::Model::Inline::Italic
+  - Coridoc::Model::TextElement
+  - Coridoc::Model::Inline::Monospace
+  - Coridoc::Model::Inline::Link
 ----
 
 == Example 4: Parse Lists
@@ -186,7 +186,7 @@ Paragraph has 7 content elements
 
 [source,ruby]
 ----
-require 'coradoc'
+require 'coridoc'
 
 input = <<~ASCIIDOC
   = Lists
@@ -204,10 +204,10 @@ input = <<~ASCIIDOC
   Term 2:: Definition 2
 ASCIIDOC
 
-doc = Coradoc.parse(input)
+doc = Coridoc.parse(input)
 
 # Find all list objects at document level
-lists = doc.sections.select { |s| s.is_a?(Coradoc::Model::List::Core) }
+lists = doc.sections.select { |s| s.is_a?(Coridoc::Model::List::Core) }
 puts "Number of lists: #{lists.size}"
 
 lists.each_with_index do |list, i|
@@ -225,9 +225,9 @@ end
 
 ----
 Number of lists: 3
-  List 1: Coradoc::Model::List::Unordered with 2 items
-  List 2: Coradoc::Model::List::Ordered with 3 items
-  List 3: Coradoc::Model::List::Definition with 2 items
+  List 1: Coridoc::Model::List::Unordered with 2 items
+  List 2: Coridoc::Model::List::Ordered with 3 items
+  List 3: Coridoc::Model::List::Definition with 2 items
 ----
 
 == Example 5: Parse Blocks
@@ -236,7 +236,7 @@ Number of lists: 3
 
 [source,ruby]
 ----
-require 'coradoc'
+require 'coridoc'
 
 input = <<~ASCIIDOC
   = Blocks
@@ -255,10 +255,10 @@ input = <<~ASCIIDOC
   NOTE: This is a note admonition.
 ASCIIDOC
 
-doc = Coradoc.parse(input)
+doc = Coridoc.parse(input)
 
 # Find section with blocks
-section = doc.sections.find { |s| s.is_a?(Coradoc::Model::Section) }
+section = doc.sections.find { |s| s.is_a?(Coridoc::Model::Section) }
 if section
   puts "Block types in document:"
   section.contents.each do |block|
@@ -283,11 +283,11 @@ end
 
 ----
 Block types in document:
-  - Coradoc::Model::Block::Listing
+  - Coridoc::Model::Block::Listing
     Lines: 3
-  - Coradoc::Model::Block::Quote
+  - Coridoc::Model::Block::Quote
     Lines: 2
-  - Coradoc::Model::Admonition
+  - Coridoc::Model::Admonition
     Content: [["This", " ", "is", " ", "a", " ", "note", " ", "admonition."]]
 ----
 
@@ -295,8 +295,8 @@ Block types in document:
 
 In this tutorial you learned:
 
-* How to parse AsciiDoc strings with `Coradoc.parse`
-* How to parse files with `Coradoc.parse_file`
+* How to parse AsciiDoc strings with `Coridoc.parse`
+* How to parse files with `Coridoc.parse_file`
 * How to access document headers
 * How to navigate sections
 * How to work with paragraphs and content elements
@@ -314,11 +314,11 @@ Practice your skills:
 == Next Steps
 
 * link:document-modeling[Document Modeling Tutorial] - Learn to manipulate the model
-* link:/coradoc/pages/parsing[Parsing Layer] - Deep dive into the parser
-* link:/coradoc/references/api-reference[API Reference] - Complete parsing API
+* link:/coridoc/pages/parsing[Parsing Layer] - Deep dive into the parser
+* link:/coridoc/references/api-reference[API Reference] - Complete parsing API
 
 == Source Code
 
 The source code for these examples is available at:
 
-* link:https://github.com/metanorma/coradoc/tree/main/examples/basic_parsing.rb[examples/basic_parsing.rb]
+* link:https://github.com/coridoc/coridoc/tree/main/examples/basic_parsing.rb[examples/basic_parsing.rb]

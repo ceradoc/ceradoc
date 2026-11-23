@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+module Coridoc
+  module CoreModel
+    # Quote block — a delimited block for quotations
+    class QuoteBlock < Block
+      def self.semantic_type
+        :quote
+      end
+
+      attribute :attribution, :string
+    end
+  end
+end

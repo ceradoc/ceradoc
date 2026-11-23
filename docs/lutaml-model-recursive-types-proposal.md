@@ -136,10 +136,10 @@ This issue affects any document model that supports:
 - Tree structures (sections containing sections)
 - Graph-like data structures
 
-## Related Classes in coradoc
+## Related Classes in coridoc
 
-- `Coradoc::CoreModel::InlineElement` - nested inline formatting
-- `Coradoc::CoreModel::StructuralElement` - sections containing sections
+- `Coridoc::CoreModel::InlineElement` - nested inline formatting
+- `Coridoc::CoreModel::StructuralElement` - sections containing sections
 
 ---
 

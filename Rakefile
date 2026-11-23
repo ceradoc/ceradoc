@@ -3,10 +3,10 @@
 require 'fileutils'
 
 # Monorepo gems listed in dependency order.
-GEMS = %w[coradoc coradoc-adoc coradoc-docx coradoc-markdown coradoc-html].freeze
+GEMS = %w[coridoc coridoc-adoc coridoc-docx coridoc-markdown coridoc-html].freeze
 # Gems with known pre-existing failures (Uniword API incompatibility).
 # Their spec failures won't block CI but are still run individually.
-KNOWN_FAILING = %w[coradoc-docx].freeze
+KNOWN_FAILING = %w[coridoc-docx].freeze
 
 def task_name(name) = name.tr('-', '_')
 
@@ -53,8 +53,8 @@ namespace :roundtrip do
   desc 'Rewrite roundtrip/known_failures.yml from the current failures'
   task :baseline do
     $LOAD_PATH.unshift File.expand_path('roundtrip/lib', __dir__)
-    require 'coradoc/roundtrip'
-    Coradoc::Roundtrip::KnownFailures.write_baseline(Coradoc::Roundtrip::Corpus.cases)
+    require 'coridoc/roundtrip'
+    Coridoc::Roundtrip::KnownFailures.write_baseline(Coridoc::Roundtrip::Corpus.cases)
   end
 end
 
@@ -114,7 +114,7 @@ task default: 'spec:all'
 
 desc 'Open an irb session preloaded with this library'
 task :console do
-  sh 'irb -Icoradoc/lib -rcoradoc'
+  sh 'irb -Icoridoc/lib -rcoridoc'
 end
 
 require 'bundler/audit/task'

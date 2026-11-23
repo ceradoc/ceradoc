@@ -11,7 +11,7 @@ on:
         default: 'skip'
       gems:
         description: |
-          Comma-separated list of gems to release (e.g. 'coradoc,coradoc-adoc').
+          Comma-separated list of gems to release (e.g. 'coridoc,coridoc-adoc').
           Leave empty to release ALL gems.
         required: false
         default: ''
@@ -49,7 +49,7 @@ jobs:
     - name: Determine gems to release
       id: gems
       run: |
-        ALL_GEMS="coradoc coradoc-adoc coradoc-docx coradoc-markdown coradoc-html"
+        ALL_GEMS="coridoc coridoc-adoc coridoc-docx coridoc-markdown coridoc-html"
         INPUT="${{ inputs.gems }}"
         if [ -z "$INPUT" ]; then
           echo "targets=$ALL_GEMS" >> "$GITHUB_OUTPUT"
@@ -98,11 +98,11 @@ jobs:
 
         for gem in ${{ steps.gems.outputs.targets }}; do
           case "$gem" in
-            coradoc)        version_file="coradoc/lib/coradoc/version.rb" ;;
-            coradoc-adoc)   version_file="coradoc-adoc/lib/coradoc/asciidoc/version.rb" ;;
-            coradoc-docx)   version_file="coradoc-docx/lib/coradoc/docx/version.rb" ;;
-            coradoc-html)   version_file="coradoc-html/lib/coradoc/html/version.rb" ;;
-            coradoc-markdown) version_file="coradoc-markdown/lib/coradoc/markdown/version.rb" ;;
+            coridoc)        version_file="coridoc/lib/coridoc/version.rb" ;;
+            coridoc-adoc)   version_file="coridoc-adoc/lib/coridoc/asciidoc/version.rb" ;;
+            coridoc-docx)   version_file="coridoc-docx/lib/coridoc/docx/version.rb" ;;
+            coridoc-html)   version_file="coridoc-html/lib/coridoc/html/version.rb" ;;
+            coridoc-markdown) version_file="coridoc-markdown/lib/coridoc/markdown/version.rb" ;;
           esac
 
           current=$(grep -oP "VERSION\s*=\s*'\K[^']+" "$version_file")
@@ -123,11 +123,11 @@ jobs:
           echo "No version changes to commit"
         else
           git add \
-            coradoc/lib/coradoc/version.rb \
-            coradoc-adoc/lib/coradoc/asciidoc/version.rb \
-            coradoc-docx/lib/coradoc/docx/version.rb \
-            coradoc-html/lib/coradoc/html/version.rb \
-            coradoc-markdown/lib/coradoc/markdown/version.rb
+            coridoc/lib/coridoc/version.rb \
+            coridoc-adoc/lib/coridoc/asciidoc/version.rb \
+            coridoc-docx/lib/coridoc/docx/version.rb \
+            coridoc-html/lib/coridoc/html/version.rb \
+            coridoc-markdown/lib/coridoc/markdown/version.rb
           git commit -m "chore: bump gem versions for release"
           git push origin main
         fi

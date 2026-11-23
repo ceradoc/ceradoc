@@ -7,7 +7,7 @@
 
 
 **Severity:** MEDIUM
-**Location:** `coradoc-adoc/lib/coradoc/asciidoc/parser/base.rb`
+**Location:** `coridoc-adoc/lib/coridoc/asciidoc/parser/base.rb`
 
 ## Evidence
 

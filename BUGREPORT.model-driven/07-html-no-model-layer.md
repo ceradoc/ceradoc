@@ -9,7 +9,7 @@
 
 
 **Severity:** CRITICAL  
-**Location:** Entire `coradoc-html/lib/` tree (~80 files, 435+ CoreModel references)
+**Location:** Entire `coridoc-html/lib/` tree (~80 files, 435+ CoreModel references)
 
 ## Problem
 
@@ -20,7 +20,7 @@ This means the HTML gem is not a "spoke" — it is a direct consumer of the hub,
 ## Evidence
 
 ### 7A. No model directory exists
-No `coradoc-html/lib/coradoc/html/model/` directory. Zero HTML-specific model classes.
+No `coridoc-html/lib/coridoc/html/model/` directory. Zero HTML-specific model classes.
 
 ### 7B. Both transformers are pass-throughs
 - `transform/to_core_model.rb:22-29` — returns `model` if `is_a?(CoreModel::Base)`
@@ -35,11 +35,11 @@ All files in `input/converters/` create CoreModel instances:
 - Plus 26 more converters
 
 ### 7D. Output converters directly consume CoreModel (195 refs, 50 files)
-`converters/base.rb:48-106` — 25 consecutive `is_a?(Coradoc::CoreModel::*)` checks:
+`converters/base.rb:48-106` — 25 consecutive `is_a?(Coridoc::CoreModel::*)` checks:
 ```ruby
-when Coradoc::CoreModel::InlineElement
-when Coradoc::CoreModel::AnnotationBlock
-when Coradoc::CoreModel::Block
+when Coridoc::CoreModel::InlineElement
+when Coridoc::CoreModel::AnnotationBlock
+when Coridoc::CoreModel::Block
 # ... 22 more
 ```
 Lines 111-207 directly access CoreModel attributes (`format_type`, `block_semantic_type`, `content`, `target`).
@@ -48,11 +48,11 @@ Lines 111-207 directly access CoreModel attributes (`format_type`, `block_semant
 Lines 107-166:
 ```ruby
 HTML_TO_MODEL = {
-  p: 'Coradoc::CoreModel::Block',
-  section: 'Coradoc::CoreModel::StructuralElement',
-  table: 'Coradoc::CoreModel::Table',
-  img: 'Coradoc::CoreModel::Image',
-  h1: 'Coradoc::CoreModel::StructuralElement',
+  p: 'Coridoc::CoreModel::Block',
+  section: 'Coridoc::CoreModel::StructuralElement',
+  table: 'Coridoc::CoreModel::Table',
+  img: 'Coridoc::CoreModel::Image',
+  h1: 'Coridoc::CoreModel::StructuralElement',
   # ... 50+ more
 }
 ```
@@ -60,17 +60,17 @@ HTML_TO_MODEL = {
 ### 7F. Renderer dispatches on CoreModel class names
 `renderer.rb:40-72` — `TEMPLATE_TYPE_MAP`:
 ```ruby
-'Coradoc::CoreModel::Bibliography' => 'bibliography',
-'Coradoc::CoreModel::Block' => 'block',
-'Coradoc::CoreModel::SourceBlock' => 'source_block',
+'Coridoc::CoreModel::Bibliography' => 'bibliography',
+'Coridoc::CoreModel::Block' => 'block',
+'Coridoc::CoreModel::SourceBlock' => 'source_block',
 # ...
 ```
-Line 400: `element.is_a?(Coradoc::CoreModel::StructuralElement)`
+Line 400: `element.is_a?(Coridoc::CoreModel::StructuralElement)`
 
 ### 7G. ConverterBase enforces CoreModel-only input
 `converter_base.rb:106-111`:
 ```ruby
-unless document.is_a?(Coradoc::CoreModel::Base)
+unless document.is_a?(Coridoc::CoreModel::Base)
   raise UnsupportedDocumentError,
     "Expected CoreModel document, got: #{document.class}."
 end
@@ -84,8 +84,8 @@ end
 ### 7I. Top-level `html.rb` rejects non-CoreModel input
 Lines 92-99:
 ```ruby
-unless document.is_a?(Coradoc::CoreModel::Base)
-  raise ArgumentError, 'coradoc-html only accepts CoreModel types.'
+unless document.is_a?(Coridoc::CoreModel::Base)
+  raise ArgumentError, 'coridoc-html only accepts CoreModel types.'
 end
 ```
 
@@ -95,4 +95,4 @@ Any CoreModel attribute change requires updating ~80 files in the HTML gem. The 
 
 ## Fix
 
-Create an HTML model layer under `coradoc-html/lib/coradoc/html/model/` with HTML-native types. Implement proper ToCoreModel (HTML models → CoreModel) and FromCoreModel (CoreModel → HTML models) transformers. All converters, renderers, and serializers work only with HTML model types.
+Create an HTML model layer under `coridoc-html/lib/coridoc/html/model/` with HTML-native types. Implement proper ToCoreModel (HTML models → CoreModel) and FromCoreModel (CoreModel → HTML models) transformers. All converters, renderers, and serializers work only with HTML model types.

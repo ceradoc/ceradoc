@@ -9,7 +9,7 @@
 
 
 **Severity:** MEDIUM  
-**Location:** `lib/coradoc/core_model/table.rb`, `lib/coradoc/core_model/image.rb`
+**Location:** `lib/coridoc/core_model/table.rb`, `lib/coridoc/core_model/image.rb`
 
 ## Problem
 
@@ -18,7 +18,7 @@ CoreModel carries CSS/HTML-specific attributes that the comments explicitly mark
 ## Evidence
 
 ### 4A. TableCell: `bgcolor`, `color`, `width`, `height` — marked "HTML converter only"
-`lib/coradoc/core_model/table.rb:53-71`:
+`lib/coridoc/core_model/table.rb:53-71`:
 ```ruby
 # @note Populated by HTML converter only
 attribute :bgcolor, :string
@@ -34,14 +34,14 @@ attribute :height, :string
 ```
 
 ### 4B. Table: `frame` — marked "HTML converter only"
-`lib/coradoc/core_model/table.rb:149-152`:
+`lib/coridoc/core_model/table.rb:149-152`:
 ```ruby
 # @note Populated by HTML converter only
 attribute :frame, :string
 ```
 
 ### 4C. Image: `caption` — marked "HTML converter only"
-`lib/coradoc/core_model/image.rb:34-36`:
+`lib/coridoc/core_model/image.rb:34-36`:
 ```ruby
 # @note Populated by HTML converter only
 attribute :caption, :string
