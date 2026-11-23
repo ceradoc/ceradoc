@@ -27,6 +27,12 @@ module Coridoc
         ISO::Sections::IsoClauseSection
       end
 
+      def section_model(node, at, parent)
+        section = super
+        section.type = 'scope' if parent.nil? && node.title.to_s.strip.casecmp('Scope').zero?
+        section
+      end
+
       def metadata_keys
         super + %w[mn-document-class doctype]
       end

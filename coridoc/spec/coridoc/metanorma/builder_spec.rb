@@ -163,6 +163,11 @@ if ENV['CORIDOC_METANORMA_TEST'] == '1'
       expect(described_class.build(input).bibdata.id).to eq('docid')
     end
 
+    it 'preserves an explicitly empty Markdown image alternative text' do
+      out = xml(described_class.parse("# Example\n\n![](diagram.svg)\n", format: :markdown))
+      expect(out.at_xpath('//image')['alt'].to_s).to eq('')
+    end
+
     it 'maps actual Markdown authored anchors and internal links to semantic cross references' do
       source = "# Example\n\n## Scope\n{: #scope}\n\nSee [](#method) and [chosen label](#method).\n\n## Method\n{: #method}\n\nBody.\n"
       out = xml(described_class.parse(source, format: :markdown))
@@ -266,6 +271,7 @@ if ENV['CORIDOC_METANORMA_TEST'] == '1'
       expect(root.bibdata).to be_a(Metanorma::Iso::Document::Metadata::IsoBibliographicItem)
       expect(root.sections).to be_a(Metanorma::Iso::Document::Sections::IsoSections)
       expect(root.sections.clause.first).to be_a(Metanorma::Iso::Document::Sections::IsoClauseSection)
+      expect(root.sections.clause.first.type).to eq('scope')
       expect(root.bibdata.doc_identifier.first.value).to eq('STD 123')
       expect(root.bibdata.titles.items.first.value).to eq('Example')
       expect(root_class).not_to have_received(:from_xml)
@@ -278,6 +284,14 @@ if ENV['CORIDOC_METANORMA_TEST'] == '1'
       markdown = described_class.parse(File.read(File.join(fixtures, 'semantic-metadata.md')), format: :markdown, root_class: root_class)
       expect(markdown.to_xml).to eq(adoc.to_xml)
       expect(xml(adoc).at_xpath('//p/strong').text).to eq('world')
+    end
+
+    it 'keeps a nested clause named Scope distinct from the top-level ISO Scope' do
+      nested = core_models::SectionElement.new(title: 'Scope', children: [core_models::ParagraphBlock.new(content: 'Nested body')])
+      parent = core_models::SectionElement.new(title: 'Method', children: [nested])
+      root = described_class.build(document(parent), root_class: Metanorma::Iso::Document::Root)
+      expect(root.sections.clause.first.type).to be_nil
+      expect(root.sections.clause.first.clause.first.type).to be_nil
     end
 
     it 'preserves authored ISO section anchors and rejects unrepresentable root anchors' do

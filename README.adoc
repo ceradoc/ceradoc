@@ -258,6 +258,9 @@ iso_root = Coridoc::Metanorma::Builder.parse(source,
 xml = root.to_xml
 ----
 
+ISO output classifies a top-level heading named `Scope` as the native scope
+clause. A nested heading with that name remains an ordinary clause.
+
 In Markdown, an authored block ID uses a following Kramdown IAL such as
 `{: #method}`. Internal links such as `[label](#method)` produce semantic cross
 references; `[](#method)` leaves the display label to the downstream presenter.

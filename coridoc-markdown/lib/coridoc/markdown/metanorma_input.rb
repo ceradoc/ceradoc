@@ -74,6 +74,10 @@ module Coridoc
                                          children: prepend_frontmatter(children, doc.frontmatter))
         end
 
+        def captured_text(value)
+          value == [] ? '' : value.to_s
+        end
+
         def inline_nodes(text)
           raw_inline_nodes(MetanormaInlineParser.new.parse(text.to_s))
         end
@@ -81,10 +85,10 @@ module Coridoc
         def raw_inline_nodes(nodes)
           (nodes.is_a?(Array) ? nodes : [nodes]).map do |node|
             if node.is_a?(Hash) && node.key?(:semantic_src)
-              CoreModel::Image.new(src: node[:semantic_src].to_s, alt: node[:semantic_alt].to_s)
+              CoreModel::Image.new(src: node[:semantic_src].to_s, alt: captured_text(node[:semantic_alt]))
             elsif node.is_a?(Hash) && node.key?(:semantic_target)
               target = node[:semantic_target].to_s
-              label = node[:semantic_label] == [] ? '' : node[:semantic_label].to_s
+              label = captured_text(node[:semantic_label])
               if target.start_with?('#')
                 CoreModel::CrossReferenceElement.new(target: target.delete_prefix('#'),
                                                      children: label.empty? ? [] : inline_nodes(label))

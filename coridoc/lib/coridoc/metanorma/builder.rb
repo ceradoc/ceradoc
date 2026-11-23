@@ -229,7 +229,8 @@ module Coridoc
           elsif node.is_a?(CORE::SectionElement) || node.is_a?(CORE::HeaderElement)
             level = node.level || 1
             stack.pop while stack.any? && stack.last[0] >= level
-            section = section_model(node, at, stack.last&.last)
+            parent = stack.last&.last || (container if container.is_a?(clause_class))
+            section = section_model(node, at, parent)
             append(stack.empty? ? container : stack.last[1], 'clause', section)
             populate_sections(section, Array(node.children), "#{at}/children")
             stack << [level, section]
