@@ -32,8 +32,8 @@ GIT
 
 GIT
   remote: https://github.com/metanorma/metanorma-iso.git
-  revision: 5b259d7ea9d7bd160d23512750bc88790aed68c9
-  ref: 5b259d7ea9d7bd160d23512750bc88790aed68c9
+  revision: 1c21c36e935c8a7d0681214aa821b5497877d9cf
+  ref: 1c21c36e935c8a7d0681214aa821b5497877d9cf
   specs:
     metanorma-iso (3.5.30)
       base64

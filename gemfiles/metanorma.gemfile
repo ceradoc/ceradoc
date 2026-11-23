@@ -12,7 +12,7 @@ gem 'metanorma-core', git: 'https://github.com/metanorma/metanorma-core.git',
 gem 'metanorma-document', git: 'https://github.com/metanorma/metanorma-document.git',
                           ref: '3911acbb4ce9d8497a94579610a42d663b8a78cd'
 gem 'metanorma-iso', git: 'https://github.com/metanorma/metanorma-iso.git',
-                     ref: '5b259d7ea9d7bd160d23512750bc88790aed68c9'
+                     ref: '1c21c36e935c8a7d0681214aa821b5497877d9cf'
 gem 'metanorma-ladl', git: 'https://github.com/metanorma/metanorma-ladl.git',
                       ref: '361b29106e7dd7ffa753e0e35b097cd0cbf622f5'
 gem 'metanorma-standoc', git: 'https://github.com/metanorma/metanorma-standoc.git',
