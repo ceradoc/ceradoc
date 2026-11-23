@@ -258,6 +258,11 @@ iso_root = Coridoc::Metanorma::Builder.parse(source,
 xml = root.to_xml
 ----
 
+In Markdown, an authored block ID uses a following Kramdown IAL such as
+`{: #method}`. Internal links such as `[label](#method)` produce semantic cross
+references; `[](#method)` leaves the display label to the downstream presenter.
+Other block attributes fail explicitly when the native model cannot represent them.
+
 Install the optional SDK dependencies through
 `gemfiles/metanorma.gemfile`. This separate bundle pins the accepted SDK
 revision until its model changes are released; generic Coridoc users do not

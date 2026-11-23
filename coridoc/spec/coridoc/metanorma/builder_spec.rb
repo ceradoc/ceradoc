@@ -163,6 +163,15 @@ if ENV['CORIDOC_METANORMA_TEST'] == '1'
       expect(described_class.build(input).bibdata.id).to eq('docid')
     end
 
+    it 'maps actual Markdown authored anchors and internal links to semantic cross references' do
+      source = "# Example\n\n## Scope\n{: #scope}\n\nSee [](#method) and [chosen label](#method).\n\n## Method\n{: #method}\n\nBody.\n"
+      out = xml(described_class.parse(source, format: :markdown))
+      expect(out.xpath('//sections/clause/@id').map(&:value)).to eq(%w[scope method])
+      expect(out.xpath('//xref/@target').map(&:value)).to eq(%w[method method])
+      expect(out.xpath('//xref').map(&:text)).to eq(['', 'chosen label'])
+      expect { described_class.parse("# Example\n\n## Scope\n{: .hidden}\n", format: :markdown) }.to raise_error(Coridoc::Metanorma::UnsupportedNode, /Markdown block/)
+    end
+
     it 'preserves authored Markdown IDs and ordered-list starts in the optional adapter' do
       heading = Coridoc::Markdown::Heading.new(id: 'authored', text: 'Scope', level: 2)
       core = Coridoc::Markdown::MetanormaInput.transform(heading)

@@ -55,6 +55,25 @@ module Coridoc
 
         private
 
+        def transform_document(doc)
+          children = []
+          Array(doc.blocks).each do |block|
+            if block.is_a?(AttributeList)
+              meaningful = Array(block.attributes).any? { |item| item.name || item.value }
+              raise Coridoc::Metanorma::UnsupportedNode, 'Only an ID on the preceding Markdown block is representable at markdown/attributes' if !block.id || block.name || !Array(block.classes).empty? || meaningful || children.empty?
+
+              previous = children.last
+              raise Coridoc::Metanorma::UnsupportedNode, 'Conflicting Markdown block IDs at markdown/attributes' if previous.id && previous.id != block.id
+
+              previous.id = block.id
+            else
+              children << transform(block)
+            end
+          end
+          CoreModel::DocumentElement.new(id: doc.id, title: extract_title(doc),
+                                         children: prepend_frontmatter(children, doc.frontmatter))
+        end
+
         def inline_nodes(text)
           raw_inline_nodes(MetanormaInlineParser.new.parse(text.to_s))
         end
@@ -64,8 +83,14 @@ module Coridoc
             if node.is_a?(Hash) && node.key?(:semantic_src)
               CoreModel::Image.new(src: node[:semantic_src].to_s, alt: node[:semantic_alt].to_s)
             elsif node.is_a?(Hash) && node.key?(:semantic_target)
-              CoreModel::LinkElement.new(target: node[:semantic_target].to_s,
-                                         children: inline_nodes(node[:semantic_label].to_s))
+              target = node[:semantic_target].to_s
+              label = node[:semantic_label] == [] ? '' : node[:semantic_label].to_s
+              if target.start_with?('#')
+                CoreModel::CrossReferenceElement.new(target: target.delete_prefix('#'),
+                                                     children: label.empty? ? [] : inline_nodes(label))
+              else
+                CoreModel::LinkElement.new(target: target, children: inline_nodes(label))
+              end
             elsif node.is_a?(Hash) && node.key?(:strong)
               CoreModel::BoldElement.new(children: raw_inline_nodes(node[:strong]))
             elsif node.is_a?(Hash) && node.key?(:emph)
