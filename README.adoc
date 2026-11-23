@@ -250,6 +250,11 @@ require 'coridoc/metanorma'
 root = Coridoc::Metanorma::Builder.parse(source, format: :asciidoc)
 root = Coridoc::Metanorma::Builder.parse(markdown, format: :markdown)
 root = Coridoc::Metanorma::Builder.build(core_document)
+
+# Explicit ISO output uses actual ISO root, metadata and section classes.
+require 'metanorma/iso/document'
+iso_root = Coridoc::Metanorma::Builder.parse(source,
+  root_class: Metanorma::Iso::Document::Root)
 xml = root.to_xml
 ----
 

@@ -12,6 +12,7 @@ module Coridoc
       def transform(document)
         core = Transform::ToCoreModel.transform(document)
         sections(document, core)
+        cross_references(document, core)
         core
       end
 
@@ -25,7 +26,34 @@ module Coridoc
           sections(original, converted)
         end
       end
-      private_class_method :sections
+
+      def cross_references(source, core)
+        originals = collect_nodes(source, Model::Inline::CrossReference)
+        converted = collect_nodes(core, CoreModel::CrossReferenceElement)
+        raise Coridoc::Metanorma::UnsupportedNode, 'AsciiDoc cross-reference shape changed during CoreModel conversion' unless originals.size == converted.size
+
+        originals.zip(converted).each do |original, node|
+          node.content = nil if Array(original.args).empty?
+        end
+      end
+
+      def collect_nodes(node, klass, seen = {}.compare_by_identity)
+        return [] if seen[node]
+
+        seen[node] = true
+        return node.flat_map { |child| collect_nodes(child, klass, seen) } if node.is_a?(Array)
+        return [] unless node.is_a?(Lutaml::Model::Serializable)
+
+        out = node.is_a?(klass) ? [node] : []
+        node.class.attributes.each_key do |name|
+          value = node.public_send(name)
+          next unless value.is_a?(Array) || value.is_a?(Lutaml::Model::Serializable)
+
+          out.concat(collect_nodes(value, klass, seen))
+        end
+        out
+      end
+      private_class_method :sections, :cross_references, :collect_nodes
     end
   end
 end

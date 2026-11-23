@@ -3,6 +3,7 @@
 # The SDK is an optional output dependency, absent from generic frontend CI.
 if ENV['CORIDOC_METANORMA_TEST'] == '1'
   require 'coridoc/metanorma'
+  require 'metanorma/iso/document'
   require 'coridoc/asciidoc'
   require 'coridoc/markdown'
   require 'coridoc/markdown/metanorma_input'
@@ -244,6 +245,50 @@ if ENV['CORIDOC_METANORMA_TEST'] == '1'
       expect { described_class.build(document(title)) }.to raise_error(Coridoc::Metanorma::UnsupportedNode, /body children/)
       source = "---\nkey: [\n---\n# Example\n\nText\n"
       expect { described_class.parse(source, format: :markdown) }.to raise_error(Coridoc::Metanorma::UnsupportedNode, /malformed source frontmatter/)
+    end
+
+    it 'constructs actual ISO root, metadata and section types directly from source' do
+      root_class = Metanorma::Iso::Document::Root
+      allow(root_class).to receive(:from_xml).and_call_original
+      fixture = File.read(File.join(__dir__, 'fixtures', 'semantic-metadata.adoc'))
+      root = described_class.parse(fixture, format: :asciidoc, root_class: root_class)
+      expect(root).to be_a(root_class)
+      expect(root).not_to be_a(Metanorma::Document::Root)
+      expect(root.bibdata).to be_a(Metanorma::Iso::Document::Metadata::IsoBibliographicItem)
+      expect(root.sections).to be_a(Metanorma::Iso::Document::Sections::IsoSections)
+      expect(root.sections.clause.first).to be_a(Metanorma::Iso::Document::Sections::IsoClauseSection)
+      expect(root.bibdata.doc_identifier.first.value).to eq('STD 123')
+      expect(root.bibdata.titles.items.first.value).to eq('Example')
+      expect(root_class).not_to have_received(:from_xml)
+    end
+
+    it 'produces identical ISO native artifacts from the two real source frontends' do
+      fixtures = File.join(__dir__, 'fixtures')
+      root_class = Metanorma::Iso::Document::Root
+      adoc = described_class.parse(File.read(File.join(fixtures, 'semantic-metadata.adoc')), format: :asciidoc, root_class: root_class)
+      markdown = described_class.parse(File.read(File.join(fixtures, 'semantic-metadata.md')), format: :markdown, root_class: root_class)
+      expect(markdown.to_xml).to eq(adoc.to_xml)
+      expect(xml(adoc).at_xpath('//p/strong').text).to eq('world')
+    end
+
+    it 'preserves authored ISO section anchors and rejects unrepresentable root anchors' do
+      root_class = Metanorma::Iso::Document::Root
+      core = document(core_models::SectionElement.new(id: 'authored', title: 'Scope', children: [core_models::ParagraphBlock.new(content: 'Body')]))
+      root = described_class.build(core, root_class: root_class)
+      expect(root.sections.clause.first.id).to eq('authored')
+      core.id = 'document-anchor'
+      expect { described_class.build(core, root_class: root_class) }.to raise_error(Coridoc::Metanorma::UnsupportedNode, /document anchor/)
+    end
+
+    it 'keeps automatic source xrefs empty and preserves explicitly authored labels' do
+      source = "= Example\n:mn-document-class: iso\n:doctype: international-standard\n\n[[scope]]\n== Scope\n\nSee <<scope>> and <<scope,Authored>>.\n"
+      root = described_class.parse(source, root_class: Metanorma::Iso::Document::Root)
+      refs = root.sections.clause.first.paragraphs.first.xref
+      expect(Array(refs.first.text)).to be_empty
+      expect(refs.last.text).to eq(['Authored'])
+      expect(root.bibdata.ext.doctype_element.first.value).to eq('international-standard')
+      generic = Coridoc::AsciiDoc.parse_to_core(source)
+      expect(generic.children.grep(core_models::SectionElement).first.children.first.children.grep(core_models::CrossReferenceElement).first.content).to eq('scope')
     end
   end
 else

@@ -26,6 +26,10 @@ module Coridoc
       include BlockBuilder
 
       def self.build(document, root_class: ::Metanorma::Standoc::Document::Root)
+        if defined?(::Metanorma::Iso::Document::Root) && root_class.is_a?(Class) && root_class <= ::Metanorma::Iso::Document::Root
+          require_relative 'iso_builder'
+          return IsoBuilder.new(root_class).build(document)
+        end
         new(root_class).build(document)
       end
 
@@ -74,14 +78,14 @@ module Coridoc
         @generated = {}
         raise ArgumentError, 'Expected CoreModel::DocumentElement' unless document.is_a?(CORE::DocumentElement)
 
-        raise ArgumentError, 'Expected a native SDK Root class' unless @root_class.is_a?(Class) && @root_class <= ::Metanorma::Document::Root
+        raise ArgumentError, 'Expected a native SDK Root class' unless native_root_class?
 
         unsupported(document, 'document', 'string document body; use typed children') unless document.content.to_s.empty?
         reserve_ids(document, 'document')
         root = @root_class.new
         root.type = 'semantic' if root.respond_to?(:type=)
         root.bibdata = bibliography_data(document)
-        root.sections = S::Sections.new
+        root.sections = sections_class.new
         @root = root
         body = Array(document.children)
         # Both formats can express headings as flat siblings. Normalize them
@@ -157,30 +161,54 @@ module Coridoc
         value
       end
 
-      def bibliography_data(document)
+      def native_root_class?
+        @root_class.is_a?(Class) && @root_class <= ::Metanorma::Document::Root
+      end
+
+      def sections_class
+        S::Sections
+      end
+
+      def clause_class
+        S::ClauseSection
+      end
+
+      def metadata_keys
+        %w[docnumber docidentifier language title copyright-year copyright-holder]
+      end
+
+      def document_metadata(document)
         title = document.title
         title ||= Array(document.children).find { |n| n.is_a?(CORE::HeaderElement) && n.document_title? }&.title
-        bib = C::BibData::BibliographicItem.new(id: document.id)
-        bib.title = [::Metanorma::Document::Relaton::TypedTitleString.new(content: [title])] if title
         values = Array(document.attributes&.entries).to_h { |entry| [entry.key, entry.value] }
         Array(document.children).grep(CORE::FrontmatterBlock).each do |frontmatter|
           unsupported(frontmatter, 'document/frontmatter', 'schema-bound frontmatter') if frontmatter.schema
           native = CORE::FrontmatterBlock::Codec.to_hash(frontmatter)
           values = values.merge(native.transform_keys(&:to_s))
         end
-        unknown = values.keys - %w[docnumber docidentifier language title copyright-year copyright-holder]
+        unknown = values.keys - metadata_keys
         unsupported(document, 'document/attributes', "unsupported metadata: #{unknown.join(', ')}") unless unknown.empty?
         values.each do |key, value|
           unsupported(document, 'document/attributes', "non-scalar #{key}") unless value.is_a?(String) || value.is_a?(Numeric)
         end
-        bib.title = [::Metanorma::Document::Relaton::TypedTitleString.new(content: [values['title'].to_s])] if values['title']
-        if values['copyright-year'] || values['copyright-holder']
-          unsupported(document, 'document/attributes', 'copyright requires copyright-year and copyright-holder') unless values['copyright-year'] && values['copyright-holder']
-          relaton = ::Metanorma::Document::Relaton
-          organization = relaton::Organization.new(name: [relaton::LocalizedName.new(content: [values['copyright-holder'].to_s])])
-          owner = relaton::CopyrightOwner.new(organization: organization)
-          bib.copyright = [relaton::CopyrightAssociation.new(from: relaton::DateTime.new(content: values['copyright-year'].to_s), owner: [owner])]
-        end
+        [values['title']&.to_s || title, values]
+      end
+
+      def copyright_data(document, values)
+        return nil unless values['copyright-year'] || values['copyright-holder']
+
+        unsupported(document, 'document/attributes', 'copyright requires copyright-year and copyright-holder') unless values['copyright-year'] && values['copyright-holder']
+        relaton = ::Metanorma::Document::Relaton
+        organization = relaton::Organization.new(name: [relaton::LocalizedName.new(content: [values['copyright-holder'].to_s])])
+        owner = relaton::CopyrightOwner.new(organization: organization)
+        [relaton::CopyrightAssociation.new(from: relaton::DateTime.new(content: values['copyright-year'].to_s), owner: [owner])]
+      end
+
+      def bibliography_data(document)
+        title, values = document_metadata(document)
+        bib = C::BibData::BibliographicItem.new(id: document.id)
+        bib.title = [::Metanorma::Document::Relaton::TypedTitleString.new(content: [title])] if title
+        bib.copyright = copyright_data(document, values)
         bib.docnumber = values['docnumber'].to_s if values['docnumber']
         bib.language = [C::DataTypes::Iso639Code.new(value: values['language'])] if values['language']
         bib.docidentifier = [::Metanorma::Document::Relaton::DocumentIdentifier.new(id: values['docidentifier'])] if values['docidentifier']
@@ -211,9 +239,9 @@ module Coridoc
             populate_sections(container, children, "#{at}/children")
           else
             target = stack.last&.last
-            target ||= container if container.is_a?(S::ClauseSection)
+            target ||= container if container.is_a?(clause_class)
             unless target
-              loose ||= append(container, 'clause', S::ClauseSection.new(id: id(CORE::SectionElement.new, "#{path}/preamble")))
+              loose ||= append(container, 'clause', clause_class.new(id: id(CORE::SectionElement.new, "#{path}/preamble")))
               target = loose
             end
             block(target, node, at)
@@ -227,9 +255,10 @@ module Coridoc
           section_id += '_' while @ids.key?(section_id)
           @ids[section_id] = at
         end
-        section = S::ClauseSection.new(id: section_id || id(node, at))
+        section = clause_class.new(id: section_id || id(node, at))
         unsupported(node, at, 'section attributes') if node.attributes && !Array(node.attributes.entries).empty?
-        section.title = C::Inline::TitleWithAnnotationElement.new(text: [node.title || node.content || ''])
+        section.title = C::Inline::TitleWithAnnotationElement.new
+        append(section.title, '#text', node.title || node.content || '')
         section
       end
 
