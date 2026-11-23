@@ -8,13 +8,13 @@ nav_order: 2
 
 == Task
 
-Create a custom inline element in Coradoc to handle specialized inline formatting.
+Create a custom inline element in Coridoc to handle specialized inline formatting.
 
 == Approach
 
 To add a custom inline element:
 
-1. Create an inline class inheriting from `Coradoc::Model::Inline::Base`
+1. Create an inline class inheriting from `Coridoc::Model::Inline::Base`
 2. Define the element's attributes
 3. Create a serializer class
 4. Register the serializer in the ElementRegistry
@@ -27,7 +27,7 @@ Define your custom inline element by inheriting from `Inline::Base`:
 
 [source,ruby]
 ----
-module Coradoc
+module Coridoc
   module Model
         module Inline
           class Highlight < Base
@@ -50,7 +50,7 @@ Implement the serializer for your custom inline element:
 
 [source,ruby]
 ----
-module Coradoc
+module Coridoc
   module Output
     module Adoc
       module Serializers
@@ -84,9 +84,9 @@ Register your serializer in the ElementRegistry:
 
 [source,ruby]
 ----
-Coradoc::Output::Adoc::ElementRegistry.register(
-  Coradoc::Model::Inline::Highlight,
-  Coradoc::Output::Adoc::Serializers::Inline::HighlightSerializer
+Coridoc::Output::Adoc::ElementRegistry.register(
+  Coridoc::Model::Inline::Highlight,
+  Coridoc::Output::Adoc::Serializers::Inline::HighlightSerializer
 )
 ----
 
@@ -98,10 +98,10 @@ Here's a complete example of a custom highlight element:
 
 [source,ruby]
 ----
-require 'coradoc'
+require 'coridoc'
 
 # 1. Define the inline class
-module Coradoc
+module Coridoc
   module Model
     module Inline
       class Highlight < Base
@@ -113,7 +113,7 @@ module Coradoc
 end
 
 # 2. Define the serializer
-module Coradoc
+module Coridoc
   module Output
     module Adoc
       module Serializers
@@ -134,13 +134,13 @@ module Coradoc
 end
 
 # 3. Register the serializer
-Coradoc::Output::Adoc::ElementRegistry.register(
-  Coradoc::Model::Inline::Highlight,
-  Coradoc::Output::Adoc::Serializers::Inline::HighlightSerializer
+Coridoc::Output::Adoc::ElementRegistry.register(
+  Coridoc::Model::Inline::Highlight,
+  Coridoc::Output::Adoc::Serializers::Inline::HighlightSerializer
 )
 
 # 4. Use the custom inline element
-highlight = Coradoc::Model::Inline::Highlight.new
+highlight = Coridoc::Model::Inline::Highlight.new
 highlight.text = "important text"
 highlight.marker = "#"
 
@@ -161,7 +161,7 @@ For elements that wrap text with delimiters:
 
 [source,ruby]
 ----
-class Underline < Coradoc::Model::Inline::Base
+class Underline < Coridoc::Model::Inline::Base
   attribute :text, :string
   attribute :delimiter, :string, default: -> { "_" }
 end
@@ -183,7 +183,7 @@ For elements with attributes:
 
 [source,ruby]
 ----
-class StyledText < Coradoc::Model::Inline::Base
+class StyledText < Coridoc::Model::Inline::Base
   attribute :text, :string
   attribute :style, :string
 end
@@ -205,7 +205,7 @@ For elements similar to links:
 
 [source,ruby]
 ----
-class Reference < Coradoc::Model::Inline::Base
+class Reference < Coridoc::Model::Inline::Base
   attribute :target, :string
   attribute :text, :string
 end
@@ -231,11 +231,11 @@ end
 
 [source,ruby]
 ----
-paragraph = Coradoc::Model::Paragraph.new
+paragraph = Coridoc::Model::Paragraph.new
 paragraph.content = [
-  Coradoc::Model::TextElement.new("This has "),
-  Coradoc::Model::Inline::Highlight.new(text: "highlighted"),
-  Coradoc::Model::TextElement.new(" text.")
+  Coridoc::Model::TextElement.new("This has "),
+  Coridoc::Model::Inline::Highlight.new(text: "highlighted"),
+  Coridoc::Model::TextElement.new(" text.")
 ]
 
 puts paragraph.to_adoc
@@ -245,12 +245,12 @@ puts paragraph.to_adoc
 
 [source,ruby]
 ----
-paragraph = Coradoc::Model::Paragraph.new
+paragraph = Coridoc::Model::Paragraph.new
 paragraph.content = [
-  Coradoc::Model::TextElement.new("Text with "),
-  Coradoc::Model::Inline::Bold.new(
+  Coridoc::Model::TextElement.new("Text with "),
+  Coridoc::Model::Inline::Bold.new(
     content: [
-      Coradoc::Model::Inline::Highlight.new(text: "nested")
+      Coridoc::Model::Inline::Highlight.new(text: "nested")
     ]
   )
 ]
@@ -264,7 +264,7 @@ Choose delimiters based on attributes:
 
 [source,ruby]
 ----
-class FlexibleHighlight < Coradoc::Model::Inline::Base
+class FlexibleHighlight < Coridoc::Model::Inline::Base
   attribute :text, :string
   attribute :level, :integer, default: -> { 1 }
 end
@@ -294,7 +294,7 @@ Handle special characters properly:
 
 [source,ruby]
 ----
-class CodeInline < Coradoc::Model::Inline::Base
+class CodeInline < Coridoc::Model::Inline::Base
   attribute :text, :string
 
   def escaped_text
@@ -344,10 +344,10 @@ end
 
 [source,ruby]
 ----
-require 'coradoc'
+require 'coridoc'
 
 # Define custom inline element
-module Coradoc
+module Coridoc
   module Model
     module Inline
       class Mark < Base
@@ -359,7 +359,7 @@ module Coradoc
 end
 
 # Define serializer
-module Coradoc
+module Coridoc
   module Output
     module Adoc
       module Serializers
@@ -380,19 +380,19 @@ module Coradoc
 end
 
 # Register
-Coradoc::Output::Adoc::ElementRegistry.register(
-  Coradoc::Model::Inline::Mark,
-  Coradoc::Output::Adoc::Serializers::Inline::MarkSerializer
+Coridoc::Output::Adoc::ElementRegistry.register(
+  Coridoc::Model::Inline::Mark,
+  Coridoc::Output::Adoc::Serializers::Inline::MarkSerializer
 )
 
 # Use in paragraph
-paragraph = Coradoc::Model::Paragraph.new
+paragraph = Coridoc::Model::Paragraph.new
 paragraph.content = [
-  Coradoc::Model::TextElement.new("This is "),
-  Coradoc::Model::Inline::Mark.new(text: "marked"),
-  Coradoc::Model::TextElement.new(" text with "),
-  Coradoc::Model::Inline::Bold.new(content: "bold"),
-  Coradoc::Model::TextElement.new(" formatting.")
+  Coridoc::Model::TextElement.new("This is "),
+  Coridoc::Model::Inline::Mark.new(text: "marked"),
+  Coridoc::Model::TextElement.new(" text with "),
+  Coridoc::Model::Inline::Bold.new(content: "bold"),
+  Coridoc::Model::TextElement.new(" formatting.")
 ]
 
 puts paragraph.to_adoc
@@ -432,9 +432,9 @@ In this guide you learned:
 ## Related Documentation
 
 * link:custom-blocks[Custom Blocks Guide] - Create block types
-* link:/coradoc/pages/model[Document Model] - Inline element architecture
-* link:/coradoc/references/extension-points[Extension Points] - Extension API
-* link:https://github.com/metanorma/coradoc/tree/main/examples/custom_inline.rb[examples/custom_inline.rb] - Example code
+* link:/coridoc/pages/model[Document Model] - Inline element architecture
+* link:/coridoc/references/extension-points[Extension Points] - Extension API
+* link:https://github.com/coridoc/coridoc/tree/main/examples/custom_inline.rb[examples/custom_inline.rb] - Example code
 
 ## Bibliography
 

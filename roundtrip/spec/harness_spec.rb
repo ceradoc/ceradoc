@@ -5,27 +5,27 @@ require_relative 'spec_helper'
 
 # The harness must itself be trusted: each property it checks is shown to
 # fail on an injected defect and to pass on a clean round trip.
-RSpec.describe Coradoc::Roundtrip do
-  let(:checker) { Coradoc::Roundtrip::Checker.new }
-  let(:kase) { Coradoc::Roundtrip::Case.new('markdown:t', :markdown, "# T\n\nhello\n", 't') }
-  let(:core) { Coradoc::Markdown.parse_to_core("# T\n\nhello\n") }
+RSpec.describe Coridoc::Roundtrip do
+  let(:checker) { Coridoc::Roundtrip::Checker.new }
+  let(:kase) { Coridoc::Roundtrip::Case.new('markdown:t', :markdown, "# T\n\nhello\n", 't') }
+  let(:core) { Coridoc::Markdown.parse_to_core("# T\n\nhello\n") }
 
-  describe Coradoc::Roundtrip::Checker do
+  describe Coridoc::Roundtrip::Checker do
     it 'accepts a construct that round-trips' do
       expect(checker.call(kase)).to be_nil
     end
 
     it 'reports a parse crash with the stage' do
-      allow(Coradoc).to receive(:parse).and_raise(ArgumentError, 'boom')
+      allow(Coridoc).to receive(:parse).and_raise(ArgumentError, 'boom')
 
       expect(checker.call(kase)).to have_attributes(stage: :parse, message: 'ArgumentError: boom')
     end
 
     it 'locates a model change by path' do
       outputs = ["# T\n\nhello\n", "# T\n\nCHANGED\n"]
-      allow(Coradoc).to receive(:serialize).and_return(outputs.first)
+      allow(Coridoc).to receive(:serialize).and_return(outputs.first)
       parsed = false
-      allow(Coradoc).to receive(:parse).and_wrap_original do |original, text, **opts|
+      allow(Coridoc).to receive(:parse).and_wrap_original do |original, text, **opts|
         source = parsed ? outputs.last : text
         parsed = true
         original.call(source, **opts)
@@ -39,8 +39,8 @@ RSpec.describe Coradoc::Roundtrip do
 
     it 'reports a non-fixed-point serialization with line and both passes' do
       calls = 0
-      allow(Coradoc).to receive(:parse).and_return(core)
-      allow(Coradoc).to receive(:serialize) { "pass #{calls += 1}\n" }
+      allow(Coridoc).to receive(:parse).and_return(core)
+      allow(Coridoc).to receive(:serialize) { "pass #{calls += 1}\n" }
 
       failure = checker.call(kase)
 
@@ -49,14 +49,14 @@ RSpec.describe Coradoc::Roundtrip do
     end
 
     it 'turns a hang into a timeout failure' do
-      stub_const('Coradoc::Roundtrip::Checker::TIMEOUT', 0.05)
-      allow(Coradoc).to receive(:parse) { sleep 1 }
+      stub_const('Coridoc::Roundtrip::Checker::TIMEOUT', 0.05)
+      allow(Coridoc).to receive(:parse) { sleep 1 }
 
       expect(checker.call(kase)).to have_attributes(stage: :timeout)
     end
   end
 
-  describe Coradoc::Roundtrip::Projection do
+  describe Coridoc::Roundtrip::Projection do
     it 'finds the first differing path and ignores source_line' do
       left = { 'a' => [{ 'b' => 1 }, { 'b' => 2 }] }
       right = { 'a' => [{ 'b' => 1 }, { 'b' => 3 }] }
@@ -65,14 +65,14 @@ RSpec.describe Coradoc::Roundtrip do
     end
 
     it 'drops positional attributes from the projection' do
-      one = Coradoc::CoreModel::Block.new(content: 'x', source_line: 1)
-      two = Coradoc::CoreModel::Block.new(content: 'x', source_line: 9)
+      one = Coridoc::CoreModel::Block.new(content: 'x', source_line: 1)
+      two = Coridoc::CoreModel::Block.new(content: 'x', source_line: 9)
 
       expect(described_class.of(one)).to eq(described_class.of(two))
     end
   end
 
-  describe Coradoc::Roundtrip::Corpus do
+  describe Coridoc::Roundtrip::Corpus do
     it 'restricts to one format' do
       expect(described_class.cases(format: :markdown).map(&:format).uniq).to eq([:markdown])
     end

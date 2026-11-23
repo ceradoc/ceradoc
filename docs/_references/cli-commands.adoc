@@ -6,21 +6,21 @@ nav_order: 20
 
 = CLI Command Reference
 
-The `coradoc` command-line interface provides document conversion and processing capabilities.
+The `coridoc` command-line interface provides document conversion and processing capabilities.
 
 == Installation
 
 [source,bash]
 ----
-gem install coradoc
+gem install coridoc
 ----
 
 Verify installation:
 
 [source,bash]
 ----
-coradoc version
-# => coradoc 1.0.0
+coridoc version
+# => coridoc 1.0.0
 ----
 
 == Global Options
@@ -30,7 +30,7 @@ These options apply to all commands:
 [horizontal]
 `--verbose`, `-v`:: Enable verbose output
 `--quiet`, `-q`:: Suppress non-essential output
-`--config FILE`:: Path to configuration file (default: `.coradoc.yml`)
+`--config FILE`:: Path to configuration file (default: `.coridoc.yml`)
 `--help`, `-h`:: Show help message
 `--version`:: Show version information
 
@@ -42,7 +42,7 @@ Convert documents between formats.
 
 .Syntax
 ----
-coradoc convert INPUT [OPTIONS]
+coridoc convert INPUT [OPTIONS]
 ----
 
 .Arguments
@@ -65,36 +65,36 @@ coradoc convert INPUT [OPTIONS]
 `asciidoc`, `adoc`:: AsciiDoc format
 `markdown`, `md`:: CommonMark Markdown
 `html`:: HTML5
-`docx`:: Microsoft Word DOCX (requires coradoc-docx gem)
+`docx`:: Microsoft Word DOCX (requires coridoc-docx gem)
 
 .Examples
 ----
 # Convert Markdown to HTML (output to stdout)
-coradoc convert document.md
+coridoc convert document.md
 
 # Convert to specific output file
-coradoc convert document.md -o output.html
+coridoc convert document.md -o output.html
 
 # Convert AsciiDoc to Markdown
-coradoc convert input.adoc --to markdown -o output.md
+coridoc convert input.adoc --to markdown -o output.md
 
-# Convert DOCX to AsciiDoc (requires coradoc-docx gem)
-coradoc convert document.docx -o output.adoc
+# Convert DOCX to AsciiDoc (requires coridoc-docx gem)
+coridoc convert document.docx -o output.adoc
 
 # Convert DOCX to Markdown
-coradoc convert document.docx -o output.md
+coridoc convert document.docx -o output.md
 
 # Auto-detect output format from extension
-coradoc convert input.md -o output.adoc
+coridoc convert input.md -o output.adoc
 
 # Convert with modern HTML theme
-coradoc convert input.adoc -o output.html --theme modern
+coridoc convert input.adoc -o output.html --theme modern
 
 # Convert with validation
-coradoc convert important.adoc -o output.html --validate
+coridoc convert important.adoc -o output.html --validate
 
 # Verbose output
-coradoc convert document.md -o output.html --verbose
+coridoc convert document.md -o output.html --verbose
 ----
 
 .Exit Codes
@@ -112,7 +112,7 @@ Parse a document and output the document structure.
 
 .Syntax
 ----
-coradoc parse INPUT [OPTIONS]
+coridoc parse INPUT [OPTIONS]
 ----
 
 .Arguments
@@ -131,16 +131,16 @@ coradoc parse INPUT [OPTIONS]
 .Examples
 ----
 # Parse and show document structure
-coradoc parse document.adoc
+coridoc parse document.adoc
 
 # Parse and output as JSON
-coradoc parse document.md --json -o structure.json
+coridoc parse document.md --json -o structure.json
 
 # Show CoreModel representation
-coradoc parse input.adoc --show-model
+coridoc parse input.adoc --show-model
 
 # Show raw AST
-coradoc parse input.md --show-ast
+coridoc parse input.md --show-ast
 ----
 
 ---
@@ -151,7 +151,7 @@ List supported formats and their capabilities.
 
 .Syntax
 ----
-coradoc formats [OPTIONS]
+coridoc formats [OPTIONS]
 ----
 
 .Options
@@ -162,13 +162,13 @@ coradoc formats [OPTIONS]
 .Examples
 ----
 # List supported formats
-coradoc formats
+coridoc formats
 
 # Detailed feature matrix
-coradoc formats --detailed
+coridoc formats --detailed
 
 # JSON output for scripting
-coradoc formats --json
+coridoc formats --json
 ----
 
 .Output Format
@@ -198,7 +198,7 @@ Validate a document against its format specification.
 
 .Syntax
 ----
-coradoc validate INPUT [OPTIONS]
+coridoc validate INPUT [OPTIONS]
 ----
 
 .Arguments
@@ -215,13 +215,13 @@ coradoc validate INPUT [OPTIONS]
 .Examples
 ----
 # Validate a document
-coradoc validate document.adoc
+coridoc validate document.adoc
 
 # Validate with strict mode
-coradoc validate important.adoc --strict
+coridoc validate important.adoc --strict
 
 # Validate with custom schema
-coradoc validate custom.xml --schema schemas/custom.yml
+coridoc validate custom.xml --schema schemas/custom.yml
 ----
 
 .Exit Codes
@@ -238,7 +238,7 @@ Show version information.
 
 .Syntax
 ----
-coradoc version [OPTIONS]
+coridoc version [OPTIONS]
 ----
 
 .Options
@@ -249,20 +249,20 @@ coradoc version [OPTIONS]
 .Examples
 ----
 # Full version info
-coradoc version
-# => coradoc 1.0.0
-# => coradoc-adoc 1.0.0
-# => coradoc-html 1.0.0
-# => coradoc-markdown 1.0.0
+coridoc version
+# => coridoc 1.0.0
+# => coridoc-adoc 1.0.0
+# => coridoc-html 1.0.0
+# => coridoc-markdown 1.0.0
 
 # Short version
-coradoc version --short
+coridoc version --short
 # => 1.0.0
 ----
 
 == Configuration File
 
-Create `.coradoc.yml` in your project directory:
+Create `.coridoc.yml` in your project directory:
 
 [source,yaml]
 ----
@@ -291,17 +291,17 @@ includes:
 == Environment Variables
 
 [horizontal]
-`CORADOC_CONFIG`:: Path to configuration file
-`CORADOC_THEME`:: Default HTML theme
-`CORADOC_VERBOSE`:: Enable verbose mode (1 or 0)
-`CORADOC_FORMAT`:: Default output format
+`CORIDOC_CONFIG`:: Path to configuration file
+`CORIDOC_THEME`:: Default HTML theme
+`CORIDOC_VERBOSE`:: Enable verbose mode (1 or 0)
+`CORIDOC_FORMAT`:: Default output format
 
 .Example
 [source,bash]
 ----
-export CORADOC_THEME=modern
-export CORADOC_VERBOSE=1
-coradoc convert document.adoc -o output.html
+export CORIDOC_THEME=modern
+export CORIDOC_VERBOSE=1
+coridoc convert document.adoc -o output.html
 ----
 
 == Shell Integration
@@ -312,7 +312,7 @@ Add to `~/.bashrc`:
 
 [source,bash]
 ----
-eval "$(coradoc completion bash)"
+eval "$(coridoc completion bash)"
 ----
 
 === Zsh Completion
@@ -321,7 +321,7 @@ Add to `~/.zshrc`:
 
 [source,bash]
 ----
-eval "$(coradoc completion zsh)"
+eval "$(coridoc completion zsh)"
 ----
 
 == CI/CD Integration
@@ -341,10 +341,10 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
-      - run: gem install coradoc
+      - run: gem install coridoc
       - run: |
           for f in docs/*.adoc; do
-            coradoc convert "$f" -o "build/${f%.adoc}.html"
+            coridoc convert "$f" -o "build/${f%.adoc}.html"
           done
       - uses: actions/upload-artifact@v4
         with:
@@ -359,10 +359,10 @@ jobs:
 convert-docs:
   image: ruby:3.3
   script:
-    - gem install coradoc
+    - gem install coridoc
     - mkdir -p build
     - find docs -name '*.adoc' -exec sh -c
-        'coradoc convert "$1" -o "build/$(basename "${1%.adoc}").html"' _ {} \;
+        'coridoc convert "$1" -o "build/$(basename "${1%.adoc}").html"' _ {} \;
   artifacts:
     paths:
       - build/
@@ -381,7 +381,7 @@ all: $(HTML_FILES)
 
 build/%.html: docs/%.adoc
 	@mkdir -p build
-	coradoc convert $< -o $@
+	coridoc convert $< -o $@
 
 clean:
 	rm -rf build/
@@ -403,7 +403,7 @@ Check file path and current directory.
 ----
 Error: Unsupported format: .xyz
 ----
-Use `coradoc formats` to see supported formats.
+Use `coridoc formats` to see supported formats.
 
 .Parse Error
 ----
@@ -425,14 +425,14 @@ Use `--verbose` for detailed output:
 
 [source,bash]
 ----
-coradoc convert input.adoc -o output.html --verbose
+coridoc convert input.adoc -o output.html --verbose
 ----
 
 Check document structure:
 
 [source,bash]
 ----
-coradoc parse input.adoc --show-model
+coridoc parse input.adoc --show-model
 ----
 
 === Getting Help
@@ -440,12 +440,12 @@ coradoc parse input.adoc --show-model
 [source,bash]
 ----
 # General help
-coradoc --help
+coridoc --help
 
 # Command-specific help
-coradoc convert --help
-coradoc parse --help
+coridoc convert --help
+coridoc parse --help
 
 # Version info
-coradoc version --all
+coridoc version --all
 ----

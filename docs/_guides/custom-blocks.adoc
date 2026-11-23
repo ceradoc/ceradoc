@@ -8,13 +8,13 @@ nav_order: 1
 
 == Task
 
-Create a custom block type in Coradoc to handle specialized AsciiDoc content.
+Create a custom block type in Coridoc to handle specialized AsciiDoc content.
 
 == Approach
 
 To add a custom block type:
 
-1. Create a block class inheriting from `Coradoc::Model::Block::Core`
+1. Create a block class inheriting from `Coridoc::Model::Block::Core`
 2. Define delimiter characters and length
 3. Create a serializer class
 4. Register the serializer in the ElementRegistry
@@ -27,7 +27,7 @@ Define your custom block by inheriting from `Block::Core`:
 
 [source,ruby]
 ----
-module Coradoc
+module Coridoc
   module Model
     module Block
       class Callout < Core
@@ -53,7 +53,7 @@ Implement the serializer for your custom block:
 
 [source,ruby]
 ----
-module Coradoc
+module Coridoc
   module Output
     module Adoc
       module Serializers
@@ -94,9 +94,9 @@ Register your serializer in the ElementRegistry:
 
 [source,ruby]
 ----
-Coradoc::Output::Adoc::ElementRegistry.register(
-  Coradoc::Model::Block::Callout,
-  Coradoc::Output::Adoc::Serializers::Block::CalloutSerializer
+Coridoc::Output::Adoc::ElementRegistry.register(
+  Coridoc::Model::Block::Callout,
+  Coridoc::Output::Adoc::Serializers::Block::CalloutSerializer
 )
 ----
 
@@ -108,10 +108,10 @@ Here's a complete example of a custom note block:
 
 [source,ruby]
 ----
-require 'coradoc'
+require 'coridoc'
 
 # 1. Define the block class
-module Coradoc
+module Coridoc
   module Model
     module Block
       class NoteBlock < Core
@@ -125,7 +125,7 @@ module Coradoc
 end
 
 # 2. Define the serializer
-module Coradoc
+module Coridoc
   module Output
     module Adoc
       module Serializers
@@ -155,13 +155,13 @@ module Coradoc
 end
 
 # 3. Register the serializer
-Coradoc::Output::Adoc::ElementRegistry.register(
-  Coradoc::Model::Block::NoteBlock,
-  Coradoc::Output::Adoc::Serializers::Block::NoteBlockSerializer
+Coridoc::Output::Adoc::ElementRegistry.register(
+  Coridoc::Model::Block::NoteBlock,
+  Coridoc::Output::Adoc::Serializers::Block::NoteBlockSerializer
 )
 
 # 4. Use the custom block
-note = Coradoc::Model::Block::NoteBlock.new
+note = Coridoc::Model::Block::NoteBlock.new
 note.lines = ["This is an important note.", "Pay attention to it."]
 note.title = "Important"
 note.note_type = "warning"
@@ -188,7 +188,7 @@ For blocks with single-character delimiters (like quotes):
 
 [source,ruby]
 ----
-class SimpleBlock < Coradoc::Model::Block::Core
+class SimpleBlock < Coridoc::Model::Block::Core
   attribute :delimiter_char, :string, default: -> { '"' }
   attribute :delimiter_len, :integer, default: -> { 1 }
 end
@@ -200,7 +200,7 @@ For blocks with multi-character delimiters (like code blocks):
 
 [source,ruby]
 ----
-class CodeBlock < Coradoc::Model::Block::Core
+class CodeBlock < Coridoc::Model::Block::Core
   attribute :delimiter_char, :string, default: -> { "-" }
   attribute :delimiter_len, :integer, default: -> { 4 }
 end
@@ -212,7 +212,7 @@ For blocks with specific attributes:
 
 [source,ruby]
 ----
-class AttributedBlock < Coradoc::Model::Block::Core
+class AttributedBlock < Coridoc::Model::Block::Core
   attribute :delimiter_char, :string, default: -> { "|" }
   attribute :delimiter_len, :integer, default: -> { 4 }
   attribute :custom_attr, :string
@@ -232,7 +232,7 @@ For blocks that can contain other blocks:
 
 [source,ruby]
 ----
-class ContainerBlock < Coradoc::Model::Block::Core
+class ContainerBlock < Coridoc::Model::Block::Core
   attribute :nested_blocks, :array, default: -> { [] }
 
   def gen_lines
@@ -247,7 +247,7 @@ For code blocks with language specification:
 
 [source,ruby]
 ----
-class SourceBlock < Coradoc::Model::Block::Core
+class SourceBlock < Coridoc::Model::Block::Core
   attribute :language, :string
   attribute :lines, :array, default: -> { [] }
 
@@ -282,7 +282,7 @@ Block attributes must be an `AttributeList` object:
 
 [source,ruby]
 ----
-block.attributes = Coradoc::Model::AttributeList.new
+block.attributes = Coridoc::Model::AttributeList.new
 block.attributes.add_named("id", "my-block")
 block.attributes.add_positional("ruby")
 ----
@@ -314,9 +314,9 @@ In this guide you learned:
 ## Related Documentation
 
 * link:custom-inline[Custom Inline Guide] - Create inline elements
-* link:/coradoc/pages/serialization[Serialization Layer] - Serializer architecture
-* link:/coradoc/references/extension-points[Extension Points] - Extension API
-* link:https://github.com/metanorma/coradoc/tree/main/examples/custom_blocks.rb[examples/custom_blocks.rb] - Example code
+* link:/coridoc/pages/serialization[Serialization Layer] - Serializer architecture
+* link:/coridoc/references/extension-points[Extension Points] - Extension API
+* link:https://github.com/coridoc/coridoc/tree/main/examples/custom_blocks.rb[examples/custom_blocks.rb] - Example code
 
 ## Bibliography
 

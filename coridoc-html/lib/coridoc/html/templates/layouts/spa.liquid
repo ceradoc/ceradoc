@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Coridoc {{ generator_version }}">
+{% if author %}<meta name="author" content="{{ author }}">{% endif %}
+{% if description %}<meta name="description" content="{{ description }}">{% endif %}
+{% for meta in meta_tags %}<meta name="{{ meta.name }}" content="{{ meta.content }}">
+{% endfor %}
+{% for link in link_tags %}<link rel="{{ link.rel }}" href="{{ link.href }}">
+{% endfor %}
+<title>{{ title }}</title>
+<style>{{ css }}</style>
+</head>
+<body>
+<div id="coridoc-app"></div>
+<script>window.CORIDOC_DATA = {{ data | safe_json }};</script>
+<script>{{ js }}</script>
+</body>
+</html>

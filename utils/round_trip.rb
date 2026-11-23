@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift('../coradoc/lib')
+$LOAD_PATH.unshift('../coridoc/lib')
 
-require 'coradoc'
-require 'coradoc/input/html'
+require 'coridoc'
+require 'coridoc/input/html'
 
 require 'pp'
 require 'stringio'
@@ -37,16 +37,16 @@ adoc_files.each do |file_path|
   next if adoc_file.empty?
 
   puts 'parsing...'
-  ast = Coradoc::Parser::Base.new.parse(adoc_file)
+  ast = Coridoc::Parser::Base.new.parse(adoc_file)
   sio = StringIO.new
   PP.pp(ast, sio)
   ast_string = sio.string
   File.write(file_path_ast, ast_string)
   puts 'transforming...'
-  doc = Coradoc::Transformer.transform(ast[:document])
+  doc = Coridoc::Transformer.transform(ast[:document])
   puts 'generating...'
-  generated_adoc = Coradoc::Generator.gen_adoc(doc)
-  cleaned_adoc = Coradoc::Html.cleaner.tidy(generated_adoc)
+  generated_adoc = Coridoc::Generator.gen_adoc(doc)
+  cleaned_adoc = Coridoc::Html.cleaner.tidy(generated_adoc)
   File.write("#{file_path}.roundtrip", cleaned_adoc)
   `diff -B #{file_path} #{file_path}.roundtrip > #{file_path}.roundtrip.diff`
   # rescue

@@ -4,15 +4,15 @@ parent: Core Pages
 nav_order: 2
 ---
 
-= Coradoc Architecture
+= Coridoc Architecture
 
 == Purpose
 
-This page explains Coradoc's architecture, including the data flow pipeline and layer structure. Understanding the architecture helps you use Coradoc effectively and extend it when needed.
+This page explains Coridoc's architecture, including the data flow pipeline and layer structure. Understanding the architecture helps you use Coridoc effectively and extend it when needed.
 
 == Data Flow Pipeline
 
-Coradoc processes documents through a hub-and-spoke pipeline:
+Coridoc processes documents through a hub-and-spoke pipeline:
 
 [source,ascii]
 ----
@@ -75,7 +75,7 @@ DOCX files follow a specialized path through Uniword:
 DOCX file
   → Uniword::DocumentFactory.from_file
   → OOXML model tree (Uniword::Wordprocessingml::*)
-  → Coradoc::Docx::Transform::ToCoreModel (rule-based dispatch)
+  → Coridoc::Docx::Transform::ToCoreModel (rule-based dispatch)
   → CoreModel tree (canonical hub)
   → FromCoreModel (AsciiDoc or Markdown)
   → Format model tree → Serializer → .adoc or .md file
@@ -88,35 +88,35 @@ is handled by `StyleResolver` and `NumberingResolver`.
 
 == Layer Structure
 
-Coradoc is organized into logical layers:
+Coridoc is organized into logical layers:
 
 === Parser Layer
 
-*Location:* `lib/coradoc/parser/`
+*Location:* `lib/coridoc/parser/`
 
 Parses AsciiDoc text using Parslet parsing expressions. This layer produces an AST that represents the syntactic structure of the input.
 
 === Transformer Layer
 
-*Location:* `lib/coradoc/transformer.rb`
+*Location:* `lib/coridoc/transformer.rb`
 
 Converts the AST into Model objects. This is where syntactic structures become semantic document elements.
 
 === Model Layer
 
-*Location:* `lib/coradoc/model/`
+*Location:* `lib/coridoc/model/`
 
-Defines the document structure as Ruby objects. All model elements inherit from `Coradoc::Model::Base`.
+Defines the document structure as Ruby objects. All model elements inherit from `Coridoc::Model::Base`.
 
 === Serialization Layer
 
-*Location:* `lib/coradoc/output/`
+*Location:* `lib/coridoc/output/`
 
 Converts Model objects back to AsciiDoc text. Each model class has a corresponding serializer.
 
 === Schema Layer
 
-*Location:* `lib/coradoc/schema/`
+*Location:* `lib/coridoc/schema/`
 
 Provides customizable schemas for different document types (e.g., ISO documents, standards).
 
@@ -125,7 +125,7 @@ Provides customizable schemas for different document types (e.g., ISO documents,
 [source,ruby]
 ----
                     ┌─────────────────────────┐
-                    │     Coradoc::Model::Base    │
+                    │     Coridoc::Model::Base    │
                     │     (All Model classes     │
                     │      inherit from Base)      │
                     └───────────────┬─────────────┘

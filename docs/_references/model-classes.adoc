@@ -8,13 +8,13 @@ nav_order: 2
 
 == Purpose
 
-Complete catalog of all Coradoc Model classes with their inheritance hierarchy and attributes.
+Complete catalog of all Coridoc Model classes with their inheritance hierarchy and attributes.
 
 == Class Hierarchy
 
 [source,ruby]
 ----
-                    Coradoc::Model::Base
+                    Coridoc::Model::Base
                            |
         +------------------+------------------+
         |                  |                  |
@@ -36,20 +36,20 @@ Complete catalog of all Coradoc Model classes with their inheritance hierarchy a
 
 Root document container.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `header` (Header) - Document header with title and metadata
 * `document_attributes` (DocumentAttributes) - Document-level attributes
 * `sections` (Array<Section>) - Top-level sections
 
-*Location:* `lib/coradoc/model/document.rb`
+*Location:* `lib/coridoc/model/document.rb`
 
 === Section
 
 Document section with title and content.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `title` (Title) - Section title
@@ -57,56 +57,56 @@ Document section with title and content.
 * `paragraphs` (Array<Paragraph>) - Paragraphs in this section
 * `blocks` (Array<Block::Core>) - Blocks in this section
 
-*Location:* `lib/coradoc/model/section.rb`
+*Location:* `lib/coridoc/model/section.rb`
 
 === Header
 
 Document metadata.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `title` (String) - Document title
 * `author` (Array<Author>) - Document authors
 * `revision` (Revision) - Revision information
 
-*Location:* `lib/coradoc/model/header.rb`
+*Location:* `lib/coridoc/model/header.rb`
 
 === Title
 
 Section or block title.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `level_int` (Integer) - Heading level (1-6)
 * `content` (Array<String>) - Title text
 
-*Location:* `lib/coradoc/model/title.rb`
+*Location:* `lib/coridoc/model/title.rb`
 
 === Author
 
 Document author.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `name` (String) - Author name
 * `email` (String) - Author email
 
-*Location:* `lib/coradoc/model/author.rb`
+*Location:* `lib/coridoc/model/author.rb`
 
 === Revision
 
 Document revision.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `number` (String) - Revision number
 * `date` (String) - Revision date
 
-*Location:* `lib/coradoc/model/revision.rb`
+*Location:* `lib/coridoc/model/revision.rb`
 
 == Content Elements
 
@@ -114,24 +114,24 @@ Document revision.
 
 Text paragraph.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `content` (Array<TextElement|Inline>) - Paragraph content
 * `attributes` (AttributeList) - Paragraph attributes
 
-*Location:* `lib/coradoc/model/paragraph.rb`
+*Location:* `lib/coridoc/model/paragraph.rb`
 
 === TextElement
 
 Plain text content.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `text` (String) - Text content
 
-*Location:* `lib/coradoc/model/text_element.rb`
+*Location:* `lib/coridoc/model/text_element.rb`
 
 == Block Classes
 
@@ -139,7 +139,7 @@ Plain text content.
 
 Base class for delimited blocks.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `delimiter_char` (String) - Delimiter character
@@ -154,7 +154,7 @@ Base class for delimited blocks.
 * `Block::Quote` - Quote block
 * `Block::Pass` - Pass-through content
 
-*Location:* `lib/coradoc/model/block/core.rb`
+*Location:* `lib/coridoc/model/block/core.rb`
 
 === Block::Listing
 
@@ -165,7 +165,7 @@ Code listing block.
 *Attributes:*
 * Inherits all from `Block::Core`
 
-*Location:* `lib/coradoc/model/block/listing.rb`
+*Location:* `lib/coridoc/model/block/listing.rb`
 
 === Block::Literal
 
@@ -173,7 +173,7 @@ Literal text block.
 
 *Inherits:* `Block::Core`
 
-*Location:* `lib/coradoc/model/block/literal.rb`
+*Location:* `lib/coridoc/model/block/literal.rb`
 
 === Block::Example
 
@@ -181,7 +181,7 @@ Example block.
 
 *Inherits:* `Block::Core`
 
-*Location:* `lib/coradoc/model/block/example.rb`
+*Location:* `lib/coridoc/model/block/example.rb`
 
 === Block::Quote
 
@@ -189,7 +189,7 @@ Quote block.
 
 *Inherits:* `Block::Core`
 
-*Location:* `lib/coradoc/model/block/quote.rb`
+*Location:* `lib/coridoc/model/block/quote.rb`
 
 === Block::Pass
 
@@ -197,7 +197,7 @@ Pass-through block.
 
 *Inherits:* `Block::Core`
 
-*Location:* `lib/coradoc/model/block/pass.rb`
+*Location:* `lib/coridoc/model/block/pass.rb`
 
 == List Classes
 
@@ -205,7 +205,7 @@ Pass-through block.
 
 Base list class.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `items` (Array<ListItem>) - List items
@@ -215,7 +215,7 @@ Base list class.
 * `List::Ordered` - Numbered list
 * `List::Definition` - Definition list
 
-*Location:* `lib/coradoc/model/list/core.rb`
+*Location:* `lib/coridoc/model/list/core.rb`
 
 === List::Unordered
 
@@ -223,7 +223,7 @@ Bulleted list.
 
 *Inherits:* `List::Core`
 
-*Location:* `lib/coradoc/model/list/unordered.rb`
+*Location:* `lib/coridoc/model/list/unordered.rb`
 
 === List::Ordered
 
@@ -231,7 +231,7 @@ Numbered list.
 
 *Inherits:* `List::Core`
 
-*Location:* `lib/coradoc/model/list/ordered.rb`
+*Location:* `lib/coridoc/model/list/ordered.rb`
 
 === List::Definition
 
@@ -239,7 +239,7 @@ Definition list.
 
 *Inherits:* `List::Core`
 
-*Location:* `lib/coradoc/asciidoc/model/list/definition.rb`
+*Location:* `lib/coridoc/asciidoc/model/list/definition.rb`
 
 === List::Item
 
@@ -253,7 +253,7 @@ List item for ordered and unordered lists.
 * `marker` (String) - List marker character
 * `id` (String) - Item identifier
 
-*Location:* `lib/coradoc/asciidoc/model/list/item.rb`
+*Location:* `lib/coridoc/asciidoc/model/list/item.rb`
 
 === List::DefinitionItem
 
@@ -265,19 +265,19 @@ Definition list item.
 * `terms` (Array<Term>) - Definition terms
 * `contents` (Array<TextElement|Inline>) - Definition content
 
-*Location:* `lib/coradoc/asciidoc/model/list/definition_item.rb`
+*Location:* `lib/coridoc/asciidoc/model/list/definition_item.rb`
 
 === Term
 
 Definition term.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `term` (String) - Term text
 * `type` (String) - Term type
 
-*Location:* `lib/coradoc/model/term.rb`
+*Location:* `lib/coridoc/model/term.rb`
 
 == Table Classes
 
@@ -285,36 +285,36 @@ Definition term.
 
 Table structure.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `rows` (Array<TableRow>) - Table rows
 * `attributes` (AttributeList) - Table attributes
 
-*Location:* `lib/coradoc/model/table.rb`
+*Location:* `lib/coridoc/model/table.rb`
 
 === TableRow
 
 Table row.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `columns` (Array<TableCell>) - Row cells
 
-*Location:* `lib/coradoc/model/table_row.rb`
+*Location:* `lib/coridoc/model/table_row.rb`
 
 === TableCell
 
 Table cell.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `content` (Array<TextElement|Inline>) - Cell content
 * `attributes` (AttributeList) - Cell attributes
 
-*Location:* `lib/coradoc/model/table_cell.rb`
+*Location:* `lib/coridoc/model/table_cell.rb`
 
 == Inline Classes
 
@@ -322,7 +322,7 @@ Table cell.
 
 Base class for inline elements.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `content` (String or Array) - Inline content
@@ -336,7 +336,7 @@ Base class for inline elements.
 * `Inline::CrossReference` - Cross-reference
 * `Inline::Stem` - STEM formula (mathematical notation)
 
-*Location:* `lib/coradoc/model/inline/base.rb`
+*Location:* `lib/coridoc/model/inline/base.rb`
 
 === Inline::Bold
 
@@ -347,7 +347,7 @@ Bold text.
 *Attributes:*
 * `content` (String) - Bold text
 
-*Location:* `lib/coradoc/model/inline/bold.rb`
+*Location:* `lib/coridoc/model/inline/bold.rb`
 
 === Inline::Italic
 
@@ -355,7 +355,7 @@ Italic text.
 
 *Inherits:* `Inline::Base`
 
-*Location:* `lib/coradoc/model/inline/italic.rb`
+*Location:* `lib/coridoc/model/inline/italic.rb`
 
 === Inline::Monospace
 
@@ -363,7 +363,7 @@ Monospace text.
 
 *Inherits:* `Inline::Base`
 
-*Location:* `lib/coradoc/model/inline/monospace.rb`
+*Location:* `lib/coridoc/model/inline/monospace.rb`
 
 === Inline::Link
 
@@ -375,7 +375,7 @@ Hyperlink.
 * `path` (String) - Link URL
 * `name` (String) - Link text
 
-*Location:* `lib/coradoc/model/inline/link.rb`
+*Location:* `lib/coridoc/model/inline/link.rb`
 
 === Inline::Anchor
 
@@ -386,7 +386,7 @@ Cross-reference target.
 *Attributes:*
 * `id` (String) - Anchor ID
 
-*Location:* `lib/coradoc/model/inline/anchor.rb`
+*Location:* `lib/coridoc/model/inline/anchor.rb`
 
 === Inline::CrossReference
 
@@ -398,7 +398,7 @@ Cross-reference.
 * `target` (String) - Reference target ID
 * `text` (String) - Reference text
 
-*Location:* `lib/coradoc/model/inline/cross_reference.rb`
+*Location:* `lib/coridoc/model/inline/cross_reference.rb`
 
 === Inline::Stem
 
@@ -410,7 +410,7 @@ STEM formula (mathematical notation).
 * `type` (String) - Stem type (stem, latexmath, asciimath)
 * `content` (String) - Formula content
 
-*Location:* `lib/coradoc/model/inline/stem.rb`
+*Location:* `lib/coridoc/model/inline/stem.rb`
 
 == Helper Classes
 
@@ -418,7 +418,7 @@ STEM formula (mathematical notation).
 
 Block or inline attributes.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Methods:*
 * `add_positional(value)` - Add positional attribute
@@ -426,30 +426,30 @@ Block or inline attributes.
 * `get(name)` - Get named attribute
 * `to_h()` - Convert to hash
 
-*Location:* `lib/coradoc/model/attribute_list.rb`
+*Location:* `lib/coridoc/model/attribute_list.rb`
 
 === DocumentAttributes
 
 Document-level attributes.
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `data` (Hash<String, String>) - Attribute key-value pairs
 
-*Location:* `lib/coradoc/model/document_attributes.rb`
+*Location:* `lib/coridoc/model/document_attributes.rb`
 
 === Admonition
 
 Admonition block (note, warning, tip).
 
-*Inherits:* `Coradoc::Model::Base`
+*Inherits:* `Coridoc::Model::Base`
 
 *Attributes:*
 * `content` (Array) - Admonition content
 * `attributes` (AttributeList) - Admonition attributes
 
-*Location:* `lib/coradoc/model/admonition.rb`
+*Location:* `lib/coridoc/model/admonition.rb`
 
 == Complete Class List
 
@@ -525,10 +525,10 @@ Admonition block (note, warning, tip).
 == Related Documentation
 
 * link:api-reference[API Reference] - Method signatures
-* link:/coradoc/pages/model[Document Model] - Model architecture
-* link:/coradoc/tutorials/document-modeling[Document Modeling Tutorial] - Working with models
+* link:/coridoc/pages/model[Document Model] - Model architecture
+* link:/coridoc/tutorials/document-modeling[Document Modeling Tutorial] - Working with models
 
 == Bibliography
 
 * https://github.com/lutaml/lutaml-model[lutaml-model documentation]
-* https://github.com/metanorma/coradoc/tree/main/lib/coradoc/model[Source Code]
+* https://github.com/coridoc/coridoc/tree/main/lib/coridoc/model[Source Code]

@@ -10,10 +10,10 @@ on:
     branches: [main, master]
   pull_request:
     paths:
-      - 'coradoc-adoc/lib/**'
-      - 'coradoc-adoc/grammar/**'
-      - 'coradoc-adoc/spec/**'
-      - 'coradoc-markdown/spec/**'
+      - 'coridoc-adoc/lib/**'
+      - 'coridoc-adoc/grammar/**'
+      - 'coridoc-adoc/spec/**'
+      - 'coridoc-markdown/spec/**'
       - 'Gemfile'
       - '.github/workflows/engine-differential.yml'
 
@@ -44,19 +44,19 @@ jobs:
           '
 
       - name: Run grammar self-tests (PARG test section)
-        run: bundle exec parsanol parg test grammar/coradoc-adoc.parg
-        working-directory: coradoc-adoc
+        run: bundle exec parsanol parg test grammar/coridoc-adoc.parg
+        working-directory: coridoc-adoc
 
       - name: Run engine identity + differential specs (adoc)
         run: bundle exec rspec
-          spec/coradoc/asciidoc/engine_identity_spec.rb
-          spec/coradoc/asciidoc/engine_differential_spec.rb
-        working-directory: coradoc-adoc
+          spec/coridoc/asciidoc/engine_identity_spec.rb
+          spec/coridoc/asciidoc/engine_differential_spec.rb
+        working-directory: coridoc-adoc
         env:
           REQUIRE_NATIVE: '1'
 
       - name: Run engine identity specs (markdown)
-        run: bundle exec rspec spec/coradoc/markdown/engine_identity_spec.rb
-        working-directory: coradoc-markdown
+        run: bundle exec rspec spec/coridoc/markdown/engine_identity_spec.rb
+        working-directory: coridoc-markdown
         env:
           REQUIRE_NATIVE: '1'

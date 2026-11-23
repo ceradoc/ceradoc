@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+
+require_relative 'base'
+
+module Coridoc
+  module Markdown
+    class Serializer
+      module Strategies
+        module Admonition
+          # Container syntax (VitePress, markdown-it-container):
+          #
+          #   :::note
+          #   content
+          #   :::
+          #
+          # Custom title:
+          #
+          #   :::note[Custom Title]
+          #   content
+          #   :::
+          class Container < Base
+            class << self
+              def render(admonition, ctx)
+                type = admonition.admonition_type.to_s
+                title_suffix = admonition.title ? "[#{admonition.title}]" : ''
+                ":::#{type}#{title_suffix}\n#{render_body(admonition, ctx)}\n:::"
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end

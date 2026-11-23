@@ -10,7 +10,7 @@
 
 
 **Severity:** HIGH
-**Location:** `lib/coradoc/core_model/definition_item.rb`, `lib/coradoc/core_model/definition_list.rb`
+**Location:** `lib/coridoc/core_model/definition_item.rb`, `lib/coridoc/core_model/definition_list.rb`
 
 ## Test file
 
@@ -26,7 +26,7 @@ Meanwhile, the ToCoreModel transformer actively discards inline structure by cal
 
 ### 10A. DefinitionItem has no children support
 
-`lib/coradoc/core_model/definition_item.rb:14-15`:
+`lib/coridoc/core_model/definition_item.rb:14-15`:
 ```ruby
 class DefinitionItem < Base
   attribute :term, :string
@@ -38,13 +38,13 @@ No `include ChildrenContent`. No `children` array. The class inherits from `Base
 
 ### 10B. Block has children support — the pattern to follow
 
-`lib/coradoc/core_model/block.rb:58-59`:
+`lib/coridoc/core_model/block.rb:58-59`:
 ```ruby
 class Block < Base
   include ChildrenContent
 ```
 
-`lib/coradoc/core_model/children_content.rb:31-36`:
+`lib/coridoc/core_model/children_content.rb:31-36`:
 ```ruby
 def renderable_content
   return content if children.nil? || children.none?
@@ -57,9 +57,9 @@ Block can carry both a `content` string (for simple text) and a `children` array
 
 ### 10C. ToCoreModel collapses definition list structure to strings
 
-`coradoc-adoc/lib/coradoc/asciidoc/transform/to_core_model.rb:229-236`:
+`coridoc-adoc/lib/coridoc/asciidoc/transform/to_core_model.rb:229-236`:
 ```ruby
-Coradoc::CoreModel::DefinitionItem.new(
+Coridoc::CoreModel::DefinitionItem.new(
   term: extract_text_content(term_content),
   definitions: [extract_text_content(def_content)]
 )
@@ -71,7 +71,7 @@ Coradoc::CoreModel::DefinitionItem.new(
 content_val = item.content
 children = transform_inline_content(content_val)
 
-li = Coradoc::CoreModel::ListItem.new(
+li = Coridoc::CoreModel::ListItem.new(
   content: extract_text_content(content_val),
   marker: item.marker
 )
@@ -82,7 +82,7 @@ Regular list items call both `extract_text_content` (for the flat text fallback)
 
 ### 10D. ToCoreModel collapses admonition content to string
 
-`coradoc-adoc/lib/coradoc/asciidoc/transform/to_core_model.rb:274-278`:
+`coridoc-adoc/lib/coridoc/asciidoc/transform/to_core_model.rb:274-278`:
 ```ruby
 def transform_admonition(admonition)
   CoreModel::AnnotationBlock.new(

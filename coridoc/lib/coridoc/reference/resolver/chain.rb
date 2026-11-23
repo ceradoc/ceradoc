@@ -1,0 +1,33 @@
+# frozen_string_literal: true
+
+module Coridoc
+  module Reference
+    module Resolver
+      # Tries each child resolver in order. First non-Missing result
+      # wins (Resolved or Ambiguous short-circuit). Use to combine a
+      # local catalog with a remote one without composite catalog
+      # indirection.
+      class Chain < Resolver::Base
+        attr_reader :resolvers
+
+        def initialize(*resolvers)
+          super()
+          @resolvers = resolvers.flatten
+        end
+
+        def resolve(edge)
+          last = nil
+          @resolvers.each do |resolver|
+            result = resolver.resolve(edge)
+            return result unless result.is_a?(Coridoc::Reference::Result::Missing)
+
+            last = result
+          end
+          last || Coridoc::Reference::Result::Missing.build(
+            edge: edge, address: edge.address
+          )
+        end
+      end
+    end
+  end
+end

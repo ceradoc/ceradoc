@@ -2,7 +2,7 @@
 
 [abstract]
 --
-This article demonstrates how to write articles using AsciiDoc and Coradoc.
+This article demonstrates how to write articles using AsciiDoc and Coridoc.
 It includes various formatting options and structural elements.
 --
 
@@ -53,4 +53,4 @@ AsciiDoc provides a simple, readable format for writing articles while supportin
 == References
 
 * https://asciidoctor.org[AsciiDoctor Documentation]
-* https://github.com/metanorma/coradoc[Coradoc Repository]
+* https://github.com/coridoc/coridoc[Coridoc Repository]

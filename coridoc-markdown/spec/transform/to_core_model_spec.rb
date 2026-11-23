@@ -1,0 +1,338 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+RSpec.describe Coridoc::Markdown::Transform::ToCoreModel do
+  describe '.transform' do
+    subject(:transform) { described_class.transform(markdown_model) }
+
+    context 'with Document' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Document.new(
+          id: 'test-doc',
+          blocks: [
+            Coridoc::Markdown::Heading.new(
+              level: 1,
+              text: 'Title'
+            ),
+            Coridoc::Markdown::Paragraph.new(
+              text: 'Paragraph content'
+            )
+          ]
+        )
+      end
+
+      it 'transforms to CoreModel::DocumentElement' do
+        expect(transform).to be_a(Coridoc::CoreModel::DocumentElement)
+        expect(transform.document?).to be true
+        expect(transform.id).to eq('test-doc')
+        expect(transform.title).to eq('Title')
+      end
+
+      it 'transforms children blocks' do
+        expect(transform.children).to be_an(Array)
+        expect(transform.children.length).to eq(2)
+      end
+    end
+
+    context 'with Heading' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Heading.new(
+          level: 2,
+          text: 'Section Title'
+        )
+      end
+
+      it 'transforms to CoreModel::SectionElement' do
+        expect(transform).to be_a(Coridoc::CoreModel::SectionElement)
+        expect(transform.section?).to be true
+        expect(transform.level).to eq(2)
+        expect(transform.title).to eq('Section Title')
+      end
+    end
+
+    context 'with Paragraph' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Paragraph.new(text: 'Some paragraph text')
+      end
+
+      it 'transforms to CoreModel::ParagraphBlock' do
+        expect(transform).to be_a(Coridoc::CoreModel::ParagraphBlock)
+        expect(transform.content).to eq('Some paragraph text')
+      end
+    end
+
+    context 'with CodeBlock' do
+      let(:markdown_model) do
+        Coridoc::Markdown::CodeBlock.new(
+          code: "def hello\n  puts 'world'\nend",
+          language: 'ruby'
+        )
+      end
+
+      it 'transforms to CoreModel::SourceBlock with code content' do
+        expect(transform).to be_a(Coridoc::CoreModel::SourceBlock)
+        expect(transform.content).to eq("def hello\n  puts 'world'\nend")
+        expect(transform.language).to eq('ruby')
+      end
+    end
+
+    context 'with Blockquote' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Blockquote.new(content: 'Quoted text')
+      end
+
+      it 'transforms to CoreModel::QuoteBlock with blockquote content' do
+        expect(transform).to be_a(Coridoc::CoreModel::QuoteBlock)
+        expect(transform.content).to eq('Quoted text')
+      end
+    end
+
+    context 'with List (unordered)' do
+      let(:markdown_model) do
+        Coridoc::Markdown::List.new(
+          ordered: false,
+          items: [
+            Coridoc::Markdown::ListItem.new(text: 'Item 1'),
+            Coridoc::Markdown::ListItem.new(text: 'Item 2')
+          ]
+        )
+      end
+
+      it 'transforms to CoreModel::ListBlock with unordered marker type' do
+        expect(transform).to be_a(Coridoc::CoreModel::ListBlock)
+        expect(transform.marker_type).to eq('unordered')
+        expect(transform.items.length).to eq(2)
+        expect(transform.items.first.content).to eq('Item 1')
+      end
+    end
+
+    context 'with List (ordered)' do
+      let(:markdown_model) do
+        Coridoc::Markdown::List.new(
+          ordered: true,
+          items: [
+            Coridoc::Markdown::ListItem.new(text: 'First')
+          ]
+        )
+      end
+
+      it 'transforms to CoreModel::ListBlock with ordered marker type' do
+        expect(transform).to be_a(Coridoc::CoreModel::ListBlock)
+        expect(transform.marker_type).to eq('ordered')
+      end
+    end
+
+    context 'with Image' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Image.new(
+          src: 'https://example.com/image.png',
+          alt: 'Alt text'
+        )
+      end
+
+      it 'transforms to CoreModel::Image' do
+        expect(transform).to be_a(Coridoc::CoreModel::Image)
+        expect(transform.src).to eq('https://example.com/image.png')
+        expect(transform.alt).to eq('Alt text')
+      end
+    end
+
+    context 'with Link' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Link.new(
+          url: 'https://example.com',
+          text: 'Example'
+        )
+      end
+
+      it 'transforms to CoreModel::LinkElement' do
+        expect(transform).to be_a(Coridoc::CoreModel::LinkElement)
+        expect(transform.resolve_format_type).to eq('link')
+        expect(transform.target).to eq('https://example.com')
+        expect(transform.content).to eq('Example')
+      end
+    end
+
+    context 'with Emphasis (italic)' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Emphasis.new(text: 'italic text')
+      end
+
+      it 'transforms to CoreModel::ItalicElement' do
+        expect(transform).to be_a(Coridoc::CoreModel::ItalicElement)
+        expect(transform.resolve_format_type).to eq('italic')
+        expect(transform.content).to eq('italic text')
+      end
+    end
+
+    context 'with Strong (bold)' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Strong.new(text: 'bold text')
+      end
+
+      it 'transforms to CoreModel::BoldElement' do
+        expect(transform).to be_a(Coridoc::CoreModel::BoldElement)
+        expect(transform.resolve_format_type).to eq('bold')
+        expect(transform.content).to eq('bold text')
+      end
+    end
+
+    context 'with Code (inline)' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Code.new(text: 'inline code')
+      end
+
+      it 'transforms to CoreModel::MonospaceElement' do
+        expect(transform).to be_a(Coridoc::CoreModel::MonospaceElement)
+        expect(transform.resolve_format_type).to eq('monospace')
+        expect(transform.content).to eq('inline code')
+      end
+    end
+
+    context 'with Highlight' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Highlight.new(text: 'marked text')
+      end
+
+      it 'transforms to CoreModel::HighlightElement' do
+        expect(transform).to be_a(Coridoc::CoreModel::HighlightElement)
+        expect(transform.resolve_format_type).to eq('highlight')
+        expect(transform.content).to eq('marked text')
+      end
+    end
+
+    context 'with Strikethrough' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Strikethrough.new(text: 'deleted text')
+      end
+
+      it 'transforms to CoreModel::StrikethroughElement' do
+        expect(transform).to be_a(Coridoc::CoreModel::StrikethroughElement)
+        expect(transform.resolve_format_type).to eq('strikethrough')
+        expect(transform.content).to eq('deleted text')
+      end
+    end
+
+    context 'with HorizontalRule' do
+      let(:markdown_model) do
+        Coridoc::Markdown::HorizontalRule.new
+      end
+
+      it 'transforms to CoreModel::HorizontalRuleBlock' do
+        expect(transform).to be_a(Coridoc::CoreModel::HorizontalRuleBlock)
+        expect(transform.resolve_semantic_type).to eq(:horizontal_rule)
+      end
+    end
+
+    context 'with Text' do
+      let(:markdown_model) do
+        Coridoc::Markdown::Text.new(content: 'plain text')
+      end
+
+      it 'returns a TextContent carrying the text' do
+        expect(transform).to be_a(Coridoc::CoreModel::TextContent)
+        expect(transform.text).to eq('plain text')
+      end
+    end
+
+    context 'with Array' do
+      let(:markdown_model) do
+        [
+          Coridoc::Markdown::Paragraph.new(text: 'Para 1'),
+          Coridoc::Markdown::Paragraph.new(text: 'Para 2')
+        ]
+      end
+
+      it 'transforms each element' do
+        expect(transform).to be_an(Array)
+        expect(transform.length).to eq(2)
+        expect(transform.first).to be_a(Coridoc::CoreModel::Block)
+        expect(transform.last).to be_a(Coridoc::CoreModel::Block)
+      end
+    end
+
+    context 'with unknown type' do
+      let(:markdown_model) { 'plain string' }
+
+      it 'returns the value unchanged' do
+        expect(transform).to eq('plain string')
+      end
+    end
+
+    context 'with Comment' do
+      let(:markdown_model) { Coridoc::Markdown::Comment.new(text: 'hidden note') }
+
+      it 'produces a CoreModel::CommentBlock preserving text as content' do
+        expect(transform).to be_a(Coridoc::CoreModel::CommentBlock)
+        expect(transform.content).to eq('hidden note')
+      end
+    end
+  end
+
+  describe 'inline formatting through parse_to_core' do
+    def paragraph_children(markdown)
+      core = Coridoc::Markdown.parse_to_core(markdown)
+      core.children.find { |c| c.is_a?(Coridoc::CoreModel::ParagraphBlock) }
+          &.children || []
+    end
+
+    it 'preserves bold as a bold InlineElement' do
+      bold = paragraph_children('**bold** and rest').find do |c|
+        c.is_a?(Coridoc::CoreModel::InlineElement)
+      end
+
+      expect(bold).not_to be_nil
+      expect(bold.resolve_format_type).to eq('bold')
+      expect(bold.content).to eq('bold')
+    end
+
+    it 'preserves italic as an italic InlineElement' do
+      italic = paragraph_children('plain *ital* plain').find do |c|
+        c.is_a?(Coridoc::CoreModel::InlineElement)
+      end
+
+      expect(italic).not_to be_nil
+      expect(italic.resolve_format_type).to eq('italic')
+      expect(italic.content).to eq('ital')
+    end
+
+    it 'preserves mixed bold and italic as separate styled nodes' do
+      children = paragraph_children('**bold** and *ital*')
+      types = children.select { |c| c.is_a?(Coridoc::CoreModel::InlineElement) }
+                      .map(&:resolve_format_type)
+
+      expect(types).to eq(%w[bold italic])
+    end
+
+    it 'collapses nested emphasis to the outermost style with literal text' do
+      nested = paragraph_children('***both***').find do |c|
+        c.is_a?(Coridoc::CoreModel::InlineElement)
+      end
+
+      expect(nested).not_to be_nil
+      expect(nested.resolve_format_type).to eq('italic')
+      expect(nested.content).to eq('both')
+    end
+
+    it 'keeps a code span inside bold as literal text' do
+      bold = paragraph_children('**x `code` y**').find do |c|
+        c.is_a?(Coridoc::CoreModel::InlineElement)
+      end
+
+      expect(bold.resolve_format_type).to eq('bold')
+      expect(bold.content).to eq('x `code` y')
+    end
+
+    it 'preserves bold and italic inside list items as styled children' do
+      core = Coridoc::Markdown.parse_to_core('- item with **bold** and *ital*')
+      item = core.children.find { |c| c.is_a?(Coridoc::CoreModel::ListBlock) }
+                 &.items&.first
+
+      types = item.children.select { |c| c.is_a?(Coridoc::CoreModel::InlineElement) }
+                  .map(&:resolve_format_type)
+
+      expect(types).to eq(%w[bold italic])
+    end
+  end
+end

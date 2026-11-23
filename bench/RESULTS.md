@@ -1,4 +1,4 @@
-# Plateau corpus parse benchmark (coradoc#308)
+# Plateau corpus parse benchmark (coridoc#308)
 
 Corpus: metanorma/mn-samples-plateau @ 5609b32 (Project PLATEAU, MLIT), the
 `*.adoc` files of at most 5000 bytes: 496 of 793 files, about 0.6 MB. Larger files
@@ -35,7 +35,7 @@ a few slow files dominate. Stage 2 is the layer the binding work changed.
   9 were not diagnosed (one inspected showed only the title PositionedString).
 - Regression in NEW: `sources/001-v5/sections/section-04/section-25.adoc` raises
   `TypeError: no implicit conversion of Symbol into Integer` in
-  `Bindings::StructureHooks.comment_line` (coradoc-adoc structure_hooks.rb:103,
+  `Bindings::StructureHooks.comment_line` (coridoc-adoc structure_hooks.rb:103,
   `raw[:comment_text]` on a String). OLD parses it.
 - In the three timed runs, a few ~4 s files flipped between ok and the 8 s
   timeout in either side; that is load noise (the 30 s identity pass has 12

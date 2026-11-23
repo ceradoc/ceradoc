@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+module Coridoc
+  module AsciiDoc
+    module Serializer
+      module Serializers
+        # Serializer for TextElement models
+        class TextElement < Base
+          def to_adoc(model, _options = {})
+            result = ''
+            result += "[[#{model.id}]] " if model.id
+            content = serialize_content(model.content)
+            content = Coridoc::Util::AsciiDoc.escape_text_delimiters(content) if content.is_a?(String)
+            result += content
+            result += model.line_break.to_s
+            result
+          end
+        end
+      end
+
+      # Self-register this serializer
+      ElementRegistry.register(Coridoc::AsciiDoc::Model::TextElement, Serializers::TextElement)
+    end
+  end
+end

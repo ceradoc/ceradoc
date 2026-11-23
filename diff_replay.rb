@@ -4,8 +4,8 @@
 # PARG artifact and compares trees with the captured Ruby-DSL trees.
 
 $LOAD_PATH.unshift '/Users/mulgogi/src/parsanol/parsanol-ruby/lib'
-$LOAD_PATH.unshift File.expand_path('coradoc/lib', __dir__)
-$LOAD_PATH.unshift File.expand_path('coradoc-adoc/lib', __dir__)
+$LOAD_PATH.unshift File.expand_path('coridoc/lib', __dir__)
+$LOAD_PATH.unshift File.expand_path('coridoc-adoc/lib', __dir__)
 require 'parsanol/parg'
 require 'json'
 
@@ -20,7 +20,7 @@ end
 
 captures = JSON.parse(File.read(ENV.fetch('CAPTURES', '/tmp/diff_captures.json')))
 artifact = Parsanol::PARG::Artifact.load(
-  File.expand_path('coradoc-adoc/grammar/coradoc-adoc.artifact.json', __dir__)
+  File.expand_path('coridoc-adoc/grammar/coridoc-adoc.artifact.json', __dir__)
 )
 
 same = same_err = 0

@@ -1,0 +1,530 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+require 'json'
+
+RSpec.describe Coridoc::Mirror::CoreModelToMirror do
+  let(:registry) { Coridoc::Mirror.default_registry }
+  let(:transformer) { described_class.new(registry: registry) }
+
+  def make_section(title: 'Section', level: 1, children: [], id: nil)
+    Coridoc::CoreModel::SectionElement.new(
+      title: title,
+      level: level,
+      children: children,
+      id: id
+    )
+  end
+
+  def make_paragraph(text, id: nil)
+    Coridoc::CoreModel::ParagraphBlock.new(
+      content: text,
+      id: id
+    )
+  end
+
+  def make_document(title: 'Doc', children: [])
+    Coridoc::CoreModel::DocumentElement.new(
+      title: title,
+      children: children
+    )
+  end
+
+  describe '#call' do
+    it 'transforms a simple document with title' do
+      doc = make_document(title: 'My Document')
+      result = transformer.call(doc)
+
+      expect(result).to be_a(Coridoc::Mirror::Node::Document)
+      expect(result.attrs.title).to eq('My Document')
+    end
+
+    it 'transforms a document with sections' do
+      doc = make_document(title: 'Doc', children: [
+                            make_section(title: 'Introduction', level: 1, children: [
+                                           make_paragraph('Hello world')
+                                         ])
+                          ])
+      result = transformer.call(doc)
+
+      expect(result.content.length).to eq(1)
+      section = result.content.first
+      expect(section).to be_a(Coridoc::Mirror::Node::Section)
+      expect(section.attrs.title).to eq('Introduction')
+      expect(section.attrs.level).to eq(1)
+
+      para = section.content.first
+      expect(para).to be_a(Coridoc::Mirror::Node::Paragraph)
+      expect(para.content.first.text).to eq('Hello world')
+    end
+
+    it 'produces valid JSON' do
+      doc = make_document(title: 'Test', children: [
+                            make_paragraph('Content')
+                          ])
+      result = transformer.call(doc)
+      json = JSON.generate(result.to_hash)
+
+      parsed = JSON.parse(json)
+      expect(parsed['type']).to eq('doc')
+      expect(parsed['attrs']['title']).to eq('Test')
+    end
+  end
+
+  describe 'block transformations' do
+    it 'transforms source block' do
+      block = Coridoc::CoreModel::SourceBlock.new(
+        content: 'def hello; end',
+        language: 'ruby'
+      )
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      code = result.content.first
+      expect(code).to be_a(Coridoc::Mirror::Node::CodeBlock)
+      expect(code.attrs.language).to eq('ruby')
+    end
+
+    it 'transforms quote block' do
+      block = Coridoc::CoreModel::QuoteBlock.new(
+        content: 'To be or not to be',
+        attribution: 'Shakespeare'
+      )
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      quote = result.content.first
+      expect(quote).to be_a(Coridoc::Mirror::Node::Blockquote)
+      expect(quote.attrs.attribution).to eq('Shakespeare')
+    end
+
+    it 'transforms example block' do
+      block = Coridoc::CoreModel::ExampleBlock.new(
+        content: 'Example content',
+        title: 'Example 1'
+      )
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      example = result.content.first
+      expect(example).to be_a(Coridoc::Mirror::Node::Example)
+      expect(example.attrs.title).to eq('Example 1')
+    end
+
+    it 'transforms sidebar block' do
+      block = Coridoc::CoreModel::SidebarBlock.new(content: 'Side info')
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      sidebar = result.content.first
+      expect(sidebar).to be_a(Coridoc::Mirror::Node::Sidebar)
+    end
+
+    it 'transforms open block' do
+      block = Coridoc::CoreModel::OpenBlock.new(content: 'Open content')
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      open = result.content.first
+      expect(open).to be_a(Coridoc::Mirror::Node::OpenBlock)
+    end
+
+    it 'transforms verse block' do
+      block = Coridoc::CoreModel::VerseBlock.new(
+        content: 'Roses are red',
+        attribution: 'Anonymous'
+      )
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      verse = result.content.first
+      expect(verse).to be_a(Coridoc::Mirror::Node::Verse)
+      expect(verse.attrs.attribution).to eq('Anonymous')
+    end
+
+    it 'transforms horizontal rule' do
+      block = Coridoc::CoreModel::HorizontalRuleBlock.new
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      hr = result.content.first
+      expect(hr).to be_a(Coridoc::Mirror::Node::HorizontalRule)
+    end
+
+    it 'skips comment blocks' do
+      block = Coridoc::CoreModel::CommentBlock.new(content: 'Hidden')
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      expect(result.content).to be_empty
+    end
+
+    it 'skips reviewer blocks' do
+      block = Coridoc::CoreModel::ReviewerBlock.new(content: 'Review')
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      expect(result.content).to be_empty
+    end
+
+    it 'transforms annotation / admonition block' do
+      block = Coridoc::CoreModel::AnnotationBlock.new(
+        annotation_type: 'note',
+        content: 'This is a note'
+      )
+      doc = make_document(children: [block])
+      result = transformer.call(doc)
+
+      admonition = result.content.first
+      expect(admonition).to be_a(Coridoc::Mirror::Node::Admonition)
+      expect(admonition.attrs.admonition_type).to eq('note')
+    end
+  end
+
+  describe 'list transformations' do
+    it 'transforms unordered list' do
+      list = Coridoc::CoreModel::ListBlock.new(
+        marker_type: 'unordered',
+        items: [
+          Coridoc::CoreModel::ListItem.new(content: 'First'),
+          Coridoc::CoreModel::ListItem.new(content: 'Second')
+        ]
+      )
+      doc = make_document(children: [list])
+      result = transformer.call(doc)
+
+      ul = result.content.first
+      expect(ul).to be_a(Coridoc::Mirror::Node::BulletList)
+      expect(ul.content.length).to eq(2)
+      expect(ul.content.first).to be_a(Coridoc::Mirror::Node::ListItem)
+      expect(ul.content.first.content.first.text).to eq('First')
+    end
+
+    it 'transforms ordered list' do
+      list = Coridoc::CoreModel::ListBlock.new(
+        marker_type: 'ordered',
+        items: [
+          Coridoc::CoreModel::ListItem.new(content: 'Step 1'),
+          Coridoc::CoreModel::ListItem.new(content: 'Step 2')
+        ]
+      )
+      doc = make_document(children: [list])
+      result = transformer.call(doc)
+
+      ol = result.content.first
+      expect(ol).to be_a(Coridoc::Mirror::Node::OrderedList)
+      expect(ol.content.length).to eq(2)
+    end
+
+    it 'transforms list with nested list' do
+      inner = Coridoc::CoreModel::ListBlock.new(
+        marker_type: 'unordered',
+        items: [Coridoc::CoreModel::ListItem.new(content: 'Nested')]
+      )
+      list = Coridoc::CoreModel::ListBlock.new(
+        marker_type: 'unordered',
+        items: [
+          Coridoc::CoreModel::ListItem.new(
+            content: 'Parent',
+            nested_list: inner
+          )
+        ]
+      )
+      doc = make_document(children: [list])
+      result = transformer.call(doc)
+
+      ul = result.content.first
+      item = ul.content.first
+      nested = item.content.last
+      expect(nested).to be_a(Coridoc::Mirror::Node::BulletList)
+    end
+
+    it 'transforms definition list' do
+      dl = Coridoc::CoreModel::DefinitionList.new(
+        items: [
+          Coridoc::CoreModel::DefinitionItem.new(
+            term: 'API',
+            definitions: ['Application Programming Interface']
+          )
+        ]
+      )
+      doc = make_document(children: [dl])
+      result = transformer.call(doc)
+
+      mirror_dl = result.content.first
+      expect(mirror_dl).to be_a(Coridoc::Mirror::Node::DefinitionList)
+      expect(mirror_dl.content.length).to eq(2) # term + description
+      expect(mirror_dl.content.first).to be_a(Coridoc::Mirror::Node::DefinitionTerm)
+      expect(mirror_dl.content.last).to be_a(Coridoc::Mirror::Node::DefinitionDescription)
+    end
+
+    # Regression: previously the handler emitted dd text twice when both
+    # `definitions` and `definition_children` were populated (the latter is
+    # built from the former by ToCoreModel). Each definition source must
+    # produce exactly one text node — never both.
+    it 'does not duplicate definition description text from rich children' do
+      text_inline = Coridoc::CoreModel::InlineElement.new(
+        format_type: 'text', content: 'Bathymetric Publications'
+      )
+      dl = Coridoc::CoreModel::DefinitionList.new(
+        items: [
+          Coridoc::CoreModel::DefinitionItem.new(
+            term: 'B-series',
+            definitions: ['Bathymetric Publications'],
+            definition_children: [text_inline]
+          )
+        ]
+      )
+      doc = make_document(children: [dl])
+      result = transformer.call(doc)
+
+      dd = result.content.first.content.last
+      expect(dd).to be_a(Coridoc::Mirror::Node::DefinitionDescription)
+      expect(dd.content.size).to eq(1)
+      expect(dd.content.first.text).to eq('Bathymetric Publications')
+    end
+  end
+
+  describe 'table transformation' do
+    it 'transforms table with header and body' do
+      table = Coridoc::CoreModel::Table.new(
+        title: 'Data',
+        rows: [
+          Coridoc::CoreModel::TableRow.new(
+            header: true,
+            cells: [
+              Coridoc::CoreModel::TableCell.new(content: 'Name', header: true),
+              Coridoc::CoreModel::TableCell.new(content: 'Value', header: true)
+            ]
+          ),
+          Coridoc::CoreModel::TableRow.new(
+            cells: [
+              Coridoc::CoreModel::TableCell.new(content: 'Foo'),
+              Coridoc::CoreModel::TableCell.new(content: 'Bar')
+            ]
+          )
+        ]
+      )
+      doc = make_document(children: [table])
+      result = transformer.call(doc)
+
+      mirror_table = result.content.first
+      expect(mirror_table).to be_a(Coridoc::Mirror::Node::Table)
+      expect(mirror_table.attrs.title).to eq('Data')
+      expect(mirror_table.content.length).to eq(2) # head + body
+
+      head = mirror_table.content.first
+      expect(head).to be_a(Coridoc::Mirror::Node::TableHead)
+      body = mirror_table.content.last
+      expect(body).to be_a(Coridoc::Mirror::Node::TableBody)
+    end
+  end
+
+  describe 'image transformation' do
+    it 'transforms image with all attributes' do
+      image = Coridoc::CoreModel::Image.new(
+        src: 'images/diagram.png',
+        alt: 'Diagram',
+        caption: 'Figure 1',
+        width: '800px'
+      )
+      doc = make_document(children: [image])
+      result = transformer.call(doc)
+
+      mirror_img = result.content.first
+      expect(mirror_img).to be_a(Coridoc::Mirror::Node::Image)
+      expect(mirror_img.attrs.src).to eq('images/diagram.png')
+      expect(mirror_img.attrs.alt).to eq('Diagram')
+      expect(mirror_img.attrs.caption).to eq('Figure 1')
+      expect(mirror_img.attrs.width).to eq('800px')
+    end
+  end
+
+  describe 'inline element transformation' do
+    it 'transforms bold text' do
+      bold = Coridoc::CoreModel::BoldElement.new(content: 'important')
+      para = Coridoc::CoreModel::ParagraphBlock.new(children: [bold])
+      doc = make_document(children: [para])
+      result = transformer.call(doc)
+
+      para_node = result.content.first
+      text_node = para_node.content.first
+      expect(text_node).to be_a(Coridoc::Mirror::Node::Text)
+      expect(text_node.text).to eq('important')
+      expect(text_node.marks.first).to be_a(Coridoc::Mirror::Mark::Bold)
+    end
+
+    it 'transforms italic text' do
+      italic = Coridoc::CoreModel::ItalicElement.new(content: 'emphasis')
+      para = Coridoc::CoreModel::ParagraphBlock.new(children: [italic])
+      doc = make_document(children: [para])
+      result = transformer.call(doc)
+
+      text_node = result.content.first.content.first
+      expect(text_node.marks.first).to be_a(Coridoc::Mirror::Mark::Italic)
+    end
+
+    it 'transforms monospace text' do
+      mono = Coridoc::CoreModel::MonospaceElement.new(content: 'code')
+      para = Coridoc::CoreModel::ParagraphBlock.new(children: [mono])
+      doc = make_document(children: [para])
+      result = transformer.call(doc)
+
+      text_node = result.content.first.content.first
+      expect(text_node.marks.first).to be_a(Coridoc::Mirror::Mark::Monospace)
+    end
+
+    it 'transforms link' do
+      link = Coridoc::CoreModel::LinkElement.new(
+        content: 'Click here',
+        target: 'https://example.com'
+      )
+      para = Coridoc::CoreModel::ParagraphBlock.new(children: [link])
+      doc = make_document(children: [para])
+      result = transformer.call(doc)
+
+      text_node = result.content.first.content.first
+      expect(text_node.text).to eq('Click here')
+      expect(text_node.marks.first).to be_a(Coridoc::Mirror::Mark::Link)
+      expect(text_node.marks.first.attrs.href).to eq('https://example.com')
+    end
+
+    it 'transforms cross-reference' do
+      xref = Coridoc::CoreModel::CrossReferenceElement.new(
+        content: 'Section 1',
+        target: 'section-1'
+      )
+      para = Coridoc::CoreModel::ParagraphBlock.new(children: [xref])
+      doc = make_document(children: [para])
+      result = transformer.call(doc)
+
+      text_node = result.content.first.content.first
+      expect(text_node.marks.first).to be_a(Coridoc::Mirror::Mark::CrossReference)
+      expect(text_node.marks.first.attrs.target).to eq('section-1')
+    end
+
+    it 'transforms subscript and superscript' do
+      sub = Coridoc::CoreModel::SubscriptElement.new(content: '2')
+      sup = Coridoc::CoreModel::SuperscriptElement.new(content: 'nd')
+      para = Coridoc::CoreModel::ParagraphBlock.new(children: [sub, sup])
+      doc = make_document(children: [para])
+      result = transformer.call(doc)
+
+      nodes = result.content.first.content
+      expect(nodes[0].marks.first).to be_a(Coridoc::Mirror::Mark::Subscript)
+      expect(nodes[1].marks.first).to be_a(Coridoc::Mirror::Mark::Superscript)
+    end
+
+    it 'transforms highlight' do
+      highlight = Coridoc::CoreModel::HighlightElement.new(content: 'noted')
+      para = Coridoc::CoreModel::ParagraphBlock.new(children: [highlight])
+      doc = make_document(children: [para])
+      result = transformer.call(doc)
+
+      text_node = result.content.first.content.first
+      expect(text_node.marks.first).to be_a(Coridoc::Mirror::Mark::Highlight)
+    end
+
+    it 'transforms text content' do
+      text = Coridoc::CoreModel::TextContent.new(text: 'plain text')
+      para = Coridoc::CoreModel::ParagraphBlock.new(children: [text])
+      doc = make_document(children: [para])
+      result = transformer.call(doc)
+
+      text_node = result.content.first.content.first
+      expect(text_node.text).to eq('plain text')
+      expect(text_node.marks).to be_empty
+    end
+  end
+
+  describe 'bibliography transformation' do
+    it 'transforms bibliography with entries' do
+      bib = Coridoc::CoreModel::Bibliography.new(
+        title: 'References',
+        entries: [
+          Coridoc::CoreModel::BibliographyEntry.new(
+            anchor_name: 'ISO712',
+            document_id: 'ISO 712',
+            ref_text: 'Cereals and cereal products'
+          )
+        ]
+      )
+      doc = make_document(children: [bib])
+      result = transformer.call(doc)
+
+      mirror_bib = result.content.first
+      expect(mirror_bib).to be_a(Coridoc::Mirror::Node::Bibliography)
+      expect(mirror_bib.attrs.title).to eq('References')
+      entry = mirror_bib.content.first
+      expect(entry).to be_a(Coridoc::Mirror::Node::BibliographyEntry)
+      expect(entry.attrs.document_id).to eq('ISO 712')
+    end
+  end
+
+  describe 'footnote transformation' do
+    it 'transforms footnote and collects at document end' do
+      fn = Coridoc::CoreModel::Footnote.new(id: 'fn1', content: 'A footnote.')
+      para = make_paragraph('Text with footnote')
+      doc = make_document(children: [para, fn])
+      result = transformer.call(doc)
+
+      # Last content should be footnotes block
+      footnotes = result.content.last
+      expect(footnotes).to be_a(Coridoc::Mirror::Node::Footnotes)
+      entry = footnotes.content.first
+      expect(entry).to be_a(Coridoc::Mirror::Node::FootnoteEntry)
+      expect(entry.attrs.number).to eq(1)
+    end
+  end
+
+  describe 'kitchen sink' do
+    it 'transforms a complex document with multiple element types' do
+      doc = make_document(title: 'Kitchen Sink', children: [
+                            make_section(title: 'Overview', level: 1, children: [
+                                           make_paragraph('Welcome to the test document.'),
+                                           Coridoc::CoreModel::SourceBlock.new(
+                                             content: "puts 'hello'",
+                                             language: 'ruby'
+                                           ),
+                                           Coridoc::CoreModel::ListBlock.new(
+                                             marker_type: 'unordered',
+                                             items: [
+                                               Coridoc::CoreModel::ListItem.new(content: 'Item 1'),
+                                               Coridoc::CoreModel::ListItem.new(content: 'Item 2')
+                                             ]
+                                           )
+                                         ]),
+                            make_section(title: 'Details', level: 2, children: [
+                                           Coridoc::CoreModel::AnnotationBlock.new(
+                                             annotation_type: 'warning',
+                                             content: 'Be careful!'
+                                           ),
+                                           Coridoc::CoreModel::Image.new(
+                                             src: 'diagram.png',
+                                             alt: 'Architecture'
+                                           )
+                                         ])
+                          ])
+
+      result = transformer.call(doc)
+      json = JSON.pretty_generate(result.to_hash)
+      parsed = JSON.parse(json)
+
+      # Verify structure
+      expect(parsed['type']).to eq('doc')
+      expect(parsed['attrs']['title']).to eq('Kitchen Sink')
+      expect(parsed['content'].length).to eq(2)
+
+      # Section 1
+      s1 = parsed['content'][0]
+      expect(s1['type']).to eq('section')
+      expect(s1['attrs']['title']).to eq('Overview')
+      expect(s1['content'].length).to eq(3)
+
+      # Section 2
+      s2 = parsed['content'][1]
+      expect(s2['type']).to eq('section')
+      expect(s2['attrs']['title']).to eq('Details')
+    end
+  end
+end

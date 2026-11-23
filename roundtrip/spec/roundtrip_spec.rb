@@ -9,16 +9,16 @@ require_relative 'spec_helper'
 # failing (RSpec fails a pending example that passes), so fixing a bug
 # forces its entry out of the list.
 RSpec.describe 'CoreModel round trip' do
-  let(:checker) { Coradoc::Roundtrip::Checker.new }
-  let(:known) { Coradoc::Roundtrip::KnownFailures.new }
+  let(:checker) { Coridoc::Roundtrip::Checker.new }
+  let(:known) { Coridoc::Roundtrip::KnownFailures.new }
 
   wanted = ENV['ROUNDTRIP_FORMAT']&.to_sym
 
-  Coradoc::Roundtrip::FORMATS.each do |format|
+  Coridoc::Roundtrip::FORMATS.each do |format|
     next if wanted && wanted != format
 
     describe format.to_s do
-      Coradoc::Roundtrip::Corpus.cases(format: format).each do |kase|
+      Coridoc::Roundtrip::Corpus.cases(format: format).each do |kase|
         it kase.id do
           pending(known.reason(kase.id)) if known.include?(kase.id)
 
@@ -31,7 +31,7 @@ RSpec.describe 'CoreModel round trip' do
   end
 
   it 'lists only cases that exist in the corpus' do
-    ids = Coradoc::Roundtrip::Corpus.cases.map(&:id)
+    ids = Coridoc::Roundtrip::Corpus.cases.map(&:id)
 
     expect(known.ids - ids).to eq([])
   end

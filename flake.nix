@@ -48,9 +48,9 @@
             category = "App";
           }
           {
-            name = "coradoc";
-            command = "exe/coradoc \"$@\"";
-            help = "Run coradoc CLI";
+            name = "coridoc";
+            command = "exe/coridoc \"$@\"";
+            help = "Run coridoc CLI";
             category = "App";
           }
           {

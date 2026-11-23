@@ -8,12 +8,12 @@ on:
         required: true
         type: choice
         options:
-          - coradoc
-          - coradoc-adoc
-          - coradoc-html
-          - coradoc-markdown
-          - coradoc-docx
-          - coradoc-mirror
+          - coridoc
+          - coridoc-adoc
+          - coridoc-html
+          - coridoc-markdown
+          - coridoc-docx
+          - coridoc-mirror
       next_version:
         description: >-
           Next release version. Possible values: x.y.z, major, minor,
@@ -41,21 +41,21 @@ jobs:
   release:
     uses: metanorma/ci/.github/workflows/monorepo-rubygems-release.yml@main
     with:
-      # gated=false: coradoc has no test→do-release relay wired up, and
+      # gated=false: coridoc has no test→do-release relay wired up, and
       # metanorma/ci's do-release payload doesn't carry gem-name, so gated
       # mode can never publish the right gem. Publish immediately on
       # workflow_dispatch; the idempotency guard handles any duplicates.
       gated: false
-      gem_name: ${{ github.event.client_payload.gem-name || github.event.inputs.gem_name || 'coradoc' }}
+      gem_name: ${{ github.event.client_payload.gem-name || github.event.inputs.gem_name || 'coridoc' }}
       gem_directory: '.'
       next_version: ${{ github.event.inputs.next_version || 'skip' }}
       version_file: >-
         ${{
-          (github.event.inputs.gem_name == 'coradoc-adoc' && 'lib/coradoc/asciidoc/version.rb') ||
-          (github.event.inputs.gem_name == 'coradoc-html' && 'lib/coradoc/html/version.rb') ||
-          (github.event.inputs.gem_name == 'coradoc-markdown' && 'lib/coradoc/markdown/version.rb') ||
-          (github.event.inputs.gem_name == 'coradoc-docx' && 'lib/coradoc/docx/version.rb') ||
-          (github.event.inputs.gem_name == 'coradoc-mirror' && 'lib/coradoc/mirror/version.rb') ||
+          (github.event.inputs.gem_name == 'coridoc-adoc' && 'lib/coridoc/asciidoc/version.rb') ||
+          (github.event.inputs.gem_name == 'coridoc-html' && 'lib/coridoc/html/version.rb') ||
+          (github.event.inputs.gem_name == 'coridoc-markdown' && 'lib/coridoc/markdown/version.rb') ||
+          (github.event.inputs.gem_name == 'coridoc-docx' && 'lib/coridoc/docx/version.rb') ||
+          (github.event.inputs.gem_name == 'coridoc-mirror' && 'lib/coridoc/mirror/version.rb') ||
           ''
         }}
     # No secrets passed: the flow runs on GITHUB_TOKEN (the reusable job
