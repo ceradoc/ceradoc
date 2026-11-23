@@ -1,0 +1,32 @@
+= Example
+:docnumber: 123
+:docidentifier: STD 123
+:language: en
+:copyright-year: 2026
+:copyright-holder: Example Organization
+
+== Scope
+
+Hello *world*.
+
+* One
+* Two
+
+[source,ruby]
+----
+puts 1
+----
+
+[cols="1,1",options="header"]
+|===
+|Name |Value
+
+|A |B
+|===
+
+image::diagram.svg[Diagram]
+
+[latexmath]
+++++
+x^2
+++++
