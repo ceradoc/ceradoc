@@ -96,13 +96,14 @@ module Coridoc
       #
       # @param document [Coridoc::AsciiDoc::Model::Document, Coridoc::CoreModel::Base]
       #   Document model to serialize
+      # @param options [Hash] Serialization options forwarded to the serializer
       # @return [String] AsciiDoc representation
-      def serialize(document)
+      def serialize(document, options = {})
         case document
         when Coridoc::CoreModel::Base
           # Convert CoreModel to AsciiDoc model first
           adoc_model = Coridoc::AsciiDoc::Transform::FromCoreModel.transform(document)
-          adoc_model.to_adoc
+          Serializer.serialize(adoc_model, options)
         else
           document.to_adoc
         end

@@ -74,6 +74,24 @@ module Coridoc
           str('*').repeat(1) | str('_').repeat(1)
         end
 
+        # Inline link: [text](url). The text span stops at the first `]`,
+        # the URL span at the first `)` — balanced brackets and parenthesised
+        # URL segments are not modelled (CommonMark's nested-inline link
+        # text is beyond the flat inline node shape this parser produces).
+        # Inline image: ![alt](src) — matched before link so the `!` bang
+        # attaches to the image rather than becoming stray text.
+        rule(:link_body) do
+          str('[') >>
+            (str(']').absent? >> any).repeat(1).as(:link_text) >>
+            str(']') >> str('(') >>
+            (str(')').absent? >> any).repeat(1).as(:link_url) >>
+            str(')')
+        end
+
+        rule(:link) { link_body.as(:link) }
+
+        rule(:image) { (str('!') >> link_body).as(:image) }
+
         rule(:both_flanking_delimiter_run) do
           Parsanol::Atoms::Lookbehind.regex('[\\s\\S]') >>
             Parsanol::Atoms::Lookbehind.regex('[\\p{Zs}\\t\\r\\n\\f]', positive: false) >> (
@@ -139,7 +157,7 @@ module Coridoc
           run_surrounded_by_punctuation | run_preceded_by_punctuation | run_followed_by_punctuation | flanking_delimiter_run
         end
 
-        rule(:element) { code_span | checked_delimiter_run }
+        rule(:element) { code_span | image | link | checked_delimiter_run }
 
         rule(:inline) { (text | element).repeat }
 

@@ -48,11 +48,15 @@ module Coridoc
       attribute :nested_elements, InlineElement, collection: true
       attribute :target, :string
       attribute :stem_type, :string
+      # Emphasis marker spelling recorded by formats that know it
+      # (AsciiDoc constrained `*x*` vs unconstrained `**x**`). nil =
+      # unknown — serializers fall back to flank inference.
+      attribute :constraint, :string
 
       private
 
       def comparable_attributes
-        %i[format_type content nested_elements stem_type]
+        %i[format_type content nested_elements stem_type constraint]
       end
     end
 
@@ -113,6 +117,13 @@ module Coridoc
 
       def link_kind
         :link
+      end
+
+      # Flat text carries both the visible label and the target so
+      # text-extraction contexts (conformance flatten, docx runs) keep
+      # the destination that raw-string paragraphs used to include.
+      def flat_text
+        "#{content}#{target}"
       end
     end
 
