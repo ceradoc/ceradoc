@@ -9,14 +9,18 @@ module Coridoc
 
       def build(document)
         root = super
-        root.flavor = 'iso'
+        root.flavor = flavor_name if root.respond_to?(:flavor=)
         root
       end
 
       private
 
+      def flavor_name
+        @root_class.name.to_s[/\AMetanorma::(\w+)::Document::Root\z/, 1]&.downcase || 'iso'
+      end
+
       def native_root_class?
-        @root_class.is_a?(Class) && @root_class <= ISO::Root
+        self.class.native_root?(@root_class)
       end
 
       def sections_class

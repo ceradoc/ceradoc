@@ -277,6 +277,48 @@ if ENV['CORIDOC_METANORMA_TEST'] == '1'
       expect(root_class).not_to have_received(:from_xml)
     end
 
+    describe 'flavor roots that do not inherit the SDK or ISO root' do
+      let(:fixture) { File.read(File.join(__dir__, 'fixtures', 'semantic-metadata.adoc')) }
+
+      def flavor_root(sections_type:, bibdata_type:, collection:)
+        Class.new(Lutaml::Model::Serializable) do
+          attribute :type, :string
+          attribute :flavor, :string
+          attribute :bibdata, bibdata_type
+          attribute :sections, sections_type, collection: collection
+        end
+      end
+
+      it 'builds an ISO-vocabulary flavor root (IEC style) with the ISO builder' do
+        iso = Metanorma::Iso::Document
+        stub_const('Metanorma::Fancy::Document::Root',
+                   flavor_root(sections_type: iso::Sections::IsoSections,
+                               bibdata_type: iso::Metadata::IsoBibliographicItem, collection: false))
+        root = described_class.parse(fixture, format: :asciidoc, root_class: Metanorma::Fancy::Document::Root)
+        expect(root).to be_a(Metanorma::Fancy::Document::Root)
+        expect(root.flavor).to eq('fancy')
+        expect(root.sections).to be_a(iso::Sections::IsoSections)
+        expect(root.bibdata.doc_identifier.first.value).to eq('STD 123')
+      end
+
+      it 'wraps the single built Sections when the root declares a sections collection (generic style)' do
+        std = Metanorma::Standoc::Document
+        stub_const('Metanorma::Plain::Document::Root',
+                   flavor_root(sections_type: std::Sections::Sections,
+                               bibdata_type: Metanorma::Document::Components::BibData::BibliographicItem,
+                               collection: true))
+        root = described_class.parse(fixture, format: :asciidoc, root_class: Metanorma::Plain::Document::Root)
+        expect(root.sections).to be_an(Array)
+        expect(root.sections.first).to be_a(std::Sections::Sections)
+        expect(root.sections.first.clause.first).not_to be_nil
+      end
+
+      it 'still rejects classes that are not roots' do
+        expect { described_class.build(document, root_class: String) }
+          .to raise_error(ArgumentError, /native SDK Root/)
+      end
+    end
+
     it 'produces identical ISO native artifacts from the two real source frontends' do
       fixtures = File.join(__dir__, 'fixtures')
       root_class = Metanorma::Iso::Document::Root

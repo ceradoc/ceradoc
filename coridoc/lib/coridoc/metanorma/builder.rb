@@ -26,11 +26,38 @@ module Coridoc
       include BlockBuilder
 
       def self.build(document, root_class: ::Metanorma::Standoc::Document::Root)
-        if defined?(::Metanorma::Iso::Document::Root) && root_class.is_a?(Class) && root_class <= ::Metanorma::Iso::Document::Root
-          require_relative 'iso_builder'
-          return IsoBuilder.new(root_class).build(document)
-        end
-        new(root_class).build(document)
+        builder_class(root_class).new(root_class).build(document)
+      end
+
+      FLAVOR_ROOT_NAME = /\AMetanorma::\w+::Document::Root\z/
+
+      # A native root is the shared SDK root, any flavor root named
+      # Metanorma::<Flavor>::Document::Root (ISO, IEC, generic, ...), or any
+      # Lutaml root that declares bibdata and sections.
+      def self.native_root?(root_class)
+        return false unless root_class.is_a?(Class)
+
+        return true if root_class <= ::Metanorma::Document::Root
+        return true if root_class.ancestors.any? { |k| FLAVOR_ROOT_NAME.match?(k.name.to_s) }
+
+        root_class.respond_to?(:attributes) && %i[bibdata sections].all? { |a| root_class.attributes.key?(a) }
+      end
+
+      # Type of the root's sections attribute, which selects the vocabulary
+      # (ISO sections for ISO and IEC, Standoc sections otherwise).
+      def self.sections_type(root_class)
+        root_class.attributes[:sections]&.type if root_class.respond_to?(:attributes)
+      end
+
+      def self.builder_class(root_class)
+        return self unless root_class.is_a?(Class)
+
+        iso = defined?(::Metanorma::Iso::Document::Sections::IsoSections) && ::Metanorma::Iso::Document::Sections::IsoSections
+        iso_root = defined?(::Metanorma::Iso::Document::Root) && root_class <= ::Metanorma::Iso::Document::Root
+        return self unless iso_root || (iso && sections_type(root_class) == iso)
+
+        require_relative 'iso_builder'
+        IsoBuilder
       end
 
       def self.parse(source, format: :asciidoc, **)
@@ -85,12 +112,13 @@ module Coridoc
         root = @root_class.new
         root.type = 'semantic' if root.respond_to?(:type=)
         root.bibdata = bibliography_data(document)
-        root.sections = sections_class.new
+        sections = sections_class.new
+        root.sections = root_sections_collection? ? [sections] : sections
         @root = root
         body = Array(document.children)
         # Both formats can express headings as flat siblings. Normalize them
         # without changing the input graph, preserving explicitly nested sections.
-        populate_sections(root.sections, body, 'document')
+        populate_sections(sections, body, 'document')
         root
       end
 
@@ -162,7 +190,11 @@ module Coridoc
       end
 
       def native_root_class?
-        @root_class.is_a?(Class) && @root_class <= ::Metanorma::Document::Root
+        self.class.native_root?(@root_class)
+      end
+
+      def root_sections_collection?
+        @root_class.attributes[:sections]&.collection? || false
       end
 
       def sections_class
