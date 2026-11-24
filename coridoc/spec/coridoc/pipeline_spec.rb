@@ -54,8 +54,8 @@ RSpec.describe Coridoc::Pipeline do
       adoc = "= Hello\n\nWorld"
       out = described_class.convert(
         adoc, from: :asciidoc, to: :asciidoc,
-        lang: 'en', toc_levels: 2, section_number_levels: 3,
-        theme: :classic, asset_delivery: :embedded
+              lang: 'en', toc_levels: 2, section_number_levels: 3,
+              theme: :classic, asset_delivery: :embedded
       )
       expect(out).to include('Hello')
     end

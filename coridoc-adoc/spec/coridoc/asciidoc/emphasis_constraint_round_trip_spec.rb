@@ -28,6 +28,7 @@ RSpec.describe 'emphasis constraint round-trip' do
     bold = nil
     walker = lambda do |node, depth|
       return if bold || node.nil?
+
       if node.is_a?(Coridoc::CoreModel::InlineElement)
         bold = node
       elsif node.respond_to?(:children) && depth < 5

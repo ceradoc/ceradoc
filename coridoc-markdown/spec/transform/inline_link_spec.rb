@@ -15,6 +15,7 @@ RSpec.describe 'Markdown inline links' do
     para = nil
     walker = lambda do |node, depth|
       return if para || node.nil?
+
       if node.is_a?(Coridoc::CoreModel::ParagraphBlock)
         para = node
       elsif node.respond_to?(:children) && depth < 4
