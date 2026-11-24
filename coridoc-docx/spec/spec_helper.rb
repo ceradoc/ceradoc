@@ -1,7 +1,17 @@
 # frozen_string_literal: true
 
+# The moxml/uniword adapter resolves at uniword load time; without an
+# XML library already loaded the pin evaluates to nil and every
+# DocumentRoot#save fails with `nil.to_sym`. Load the preferred adapter
+# before the document stack (order-dependent suite flake, #322).
+require 'leptris'
 require 'coridoc/docx'
 require 'coridoc/asciidoc'
+
+# Seed lutaml's xml adapter pin: uniword's with_boot_adapter restores the
+# prior value in an ensure block, and an unset (nil) prior crashes
+# `nil.to_sym` inside lutaml's adapter writer.
+Lutaml::Model::Config.xml_adapter_type = Uniword::UNIWORD_XML_ADAPTER
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
