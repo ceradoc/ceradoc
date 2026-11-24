@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'coridoc', '~> 3.0'
   spec.add_dependency 'coridoc-adoc', '~> 2.0'
-  spec.add_dependency 'kotoshu', '~> 0.3'
+  spec.add_dependency 'kotoshu', '~> 1.0'
   spec.add_dependency 'lutaml-model', '~> 0.8'
   spec.add_dependency 'thor', '~> 1.3'
 
