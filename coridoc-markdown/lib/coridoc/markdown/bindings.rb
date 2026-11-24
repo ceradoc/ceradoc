@@ -181,6 +181,24 @@ module Coridoc
           { text: attrs[:code].to_s }
         end
 
+        def link(attrs)
+          node = attrs[:link]
+          if node.is_a?(Hash)
+            model('Link').new(text: node[:link_text].to_s, url: node[:link_url].to_s)
+          else
+            { content: node.to_s }
+          end
+        end
+
+        def image(attrs)
+          node = attrs[:image]
+          if node.is_a?(Hash)
+            model('Image').new(alt: node[:link_text].to_s, src: node[:link_url].to_s)
+          else
+            { content: node.to_s }
+          end
+        end
+
         def text(attrs)
           { content: attrs[:text].to_s }
         end
@@ -239,6 +257,8 @@ module Coridoc
         { model: 'Strong', via: :strong, raw: %i[strong] },
         { model: 'Emphasis', via: :emphasis, raw: %i[emph] },
         { model: 'Code', via: :code, raw: %i[code] },
+        { model: 'Link', via: :link, raw: %i[link] },
+        { model: 'Image', via: :image, raw: %i[image] },
         { model: 'Text', via: :text, raw: %i[text] }
       ].freeze
 

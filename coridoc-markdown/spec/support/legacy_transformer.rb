@@ -557,6 +557,12 @@ module Coridoc
             Emphasis.new(text: flatten_inline_text(el[:emph]))
           elsif el.key?(:code)
             Code.new(text: el[:code].to_s)
+          elsif el.key?(:link)
+            link = el[:link]
+            link.is_a?(Hash) ? Link.new(text: link[:link_text].to_s, url: link[:link_url].to_s) : Text.new(content: link.to_s)
+          elsif el.key?(:image)
+            image = el[:image]
+            image.is_a?(Hash) ? Image.new(alt: image[:link_text].to_s, src: image[:link_url].to_s) : Text.new(content: image.to_s)
           elsif el.key?(:text)
             Text.new(content: el[:text].to_s)
           else
@@ -577,6 +583,12 @@ module Coridoc
               subtree[:text].to_s
             elsif subtree.key?(:code)
               "`#{subtree[:code]}`"
+            elsif subtree.key?(:link) && subtree[:link].is_a?(Hash)
+              link = subtree[:link]
+              "[#{flatten_inline_text(link[:link_text])}](#{flatten_inline_text(link[:link_url])})"
+            elsif subtree.key?(:image) && subtree[:image].is_a?(Hash)
+              image = subtree[:image]
+              "![#{flatten_inline_text(image[:link_text])}](#{flatten_inline_text(image[:link_url])})"
             else
               subtree.values.map { |v| flatten_inline_text(v) }.join
             end

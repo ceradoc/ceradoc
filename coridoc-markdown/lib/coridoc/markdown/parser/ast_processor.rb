@@ -359,16 +359,11 @@ module Coridoc
               # Convert parsed result to expected format
               result = convert_inline_result(parsed)
 
-              # Check if any emphasis was found
-              has_emphasis = contains_emphasis?(result)
-
-              if has_emphasis
-                # Return emphasis wrapped in :ln to match expected structure
-                if result.is_a?(Hash) && (result.key?(:em) || result.key?(:strong))
-                end
+              # Keep the parse tree when it carries structured inline nodes
+              # (emphasis or links); otherwise join the text back together.
+              if contains_emphasis?(result) || contains_link?(result)
                 { ln: result }
               else
-                # No emphasis found - join all text content back together
                 joined = extract_text_content(result)
                 { ln: joined }
               end
@@ -486,6 +481,21 @@ module Coridoc
             end
           end
 
+          # Check if result contains structured inline nodes (links or
+          # images) — these must survive into the model tree rather than
+          # being flattened back to text.
+          def contains_link?(result)
+            case result
+            when Hash
+              result.key?(:link) || result.key?(:image) ||
+                result.values.any? { |v| contains_link?(v) }
+            when Array
+              result.any? { |item| contains_link?(item) }
+            else
+              false
+            end
+          end
+
           # Extract all text content from result, joining strings
           def extract_text_content(result)
             case result
@@ -494,6 +504,20 @@ module Coridoc
                 extract_text_content(result[:em])
               elsif result.key?(:strong)
                 extract_text_content(result[:strong])
+              elsif result.key?(:link)
+                link = result[:link]
+                if link.is_a?(Hash)
+                  "[#{extract_text_content(link[:link_text])}](#{extract_text_content(link[:link_url])})"
+                else
+                  link.to_s
+                end
+              elsif result.key?(:image)
+                image = result[:image]
+                if image.is_a?(Hash)
+                  "![#{extract_text_content(image[:link_text])}](#{extract_text_content(image[:link_url])})"
+                else
+                  image.to_s
+                end
               elsif result.key?(:ln)
                 result[:ln].to_s
               elsif result.key?(:text)

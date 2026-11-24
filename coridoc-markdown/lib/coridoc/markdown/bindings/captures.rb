@@ -102,6 +102,12 @@ module Coridoc
               subtree[:text].to_s
             elsif subtree.key?(:code)
               "`#{subtree[:code]}`"
+            elsif subtree.key?(:link) && subtree[:link].is_a?(Hash)
+              link = subtree[:link]
+              "[#{flatten_inline_text(link[:link_text])}](#{flatten_inline_text(link[:link_url])})"
+            elsif subtree.key?(:image) && subtree[:image].is_a?(Hash)
+              image = subtree[:image]
+              "![#{flatten_inline_text(image[:link_text])}](#{flatten_inline_text(image[:link_url])})"
             else
               subtree.values.map { |v| flatten_inline_text(v) }.join
             end

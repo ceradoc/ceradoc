@@ -114,6 +114,13 @@ module Coridoc
       def link_kind
         :link
       end
+
+      # Flat text carries both the visible label and the target so
+      # text-extraction contexts (conformance flatten, docx runs) keep
+      # the destination that raw-string paragraphs used to include.
+      def flat_text
+        "#{content}#{target}"
+      end
     end
 
     class CrossReferenceElement < InlineElement
