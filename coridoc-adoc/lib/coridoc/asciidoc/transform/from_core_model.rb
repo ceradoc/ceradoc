@@ -322,7 +322,13 @@ module Coridoc
           def transform_inline(inline, siblings: nil, index: 0)
             left = siblings && index.positive? ? sibling_edge(siblings, index - 1, :last) : nil
             right = siblings ? sibling_edge(siblings, index + 1, :first) : nil
-            unconstrained = unconstrained_flanks?(left, right)
+            # Honor the recorded marker spelling (#332); the flank walk is
+            # only the fallback for constraint-less sources (e.g. docx).
+            unconstrained = case inline.constraint
+                            when 'unconstrained' then true
+                            when 'constrained' then false
+                            else unconstrained_flanks?(left, right)
+                            end
             case inline.resolve_format_type
             when 'bold'
               inline_model(Coridoc::AsciiDoc::Model::Inline::Bold, inline,
