@@ -222,20 +222,23 @@ module Coridoc
         end
 
         def add_list_to_builder(list_block, builder)
-          list_method = list_block.marker_type == 'ordered' ? :numbered_list : :bullet_list
-
-          if list_method == :numbered_list
+          if list_block.marker_type == 'ordered'
             builder.numbered_list do |list|
-              list_block.items.each do |item|
-                list.item(item.flat_text)
-              end
+              list_block.items.each { |item| add_list_item_to_builder(item, list) }
             end
           else
             builder.bullet_list do |list|
-              list_block.items.each do |item|
-                list.item(item.flat_text)
-              end
+              list_block.items.each { |item| add_list_item_to_builder(item, list) }
             end
+          end
+        end
+
+        # List items carry the same inline children paragraphs do — push
+        # styled runs (bold/italic/links) rather than the flattened text
+        # (#321).
+        def add_list_item_to_builder(item, list)
+          list.item do |para|
+            content_runs(item.renderable_content).each { |run| para << run }
           end
         end
 
@@ -283,29 +286,36 @@ module Coridoc
 
         def build_ooxml_paragraph(block)
           para = Uniword::Wordprocessingml::Paragraph.new
+          para.runs.concat(content_runs(block.renderable_content))
+          para.id = block.id if block.id
+          para
+        end
 
-          content = block.renderable_content
+        # Convert CoreModel inline content to OOXML runs. Shared by the
+        # paragraph and list-item paths so styling survives both.
+        def content_runs(content)
+          runs = []
           if content.is_a?(Array)
             content.each do |child|
               case child
               when Coridoc::CoreModel::TextContent
-                run = Uniword::Wordprocessingml::Run.new
-                run.text = Uniword::Wordprocessingml::Text.new(content: child.text)
-                para.runs << run
+                runs << plain_run(child.text)
               when Coridoc::CoreModel::InlineElement
-                para.runs << build_ooxml_run(child)
+                runs << build_ooxml_run(child)
               when Coridoc::CoreModel::FootnoteReference
-                para.runs << build_ooxml_footnote_reference(child)
+                runs << build_ooxml_footnote_reference(child)
               end
             end
           else
-            run = Uniword::Wordprocessingml::Run.new
-            run.text = Uniword::Wordprocessingml::Text.new(content: content.to_s)
-            para.runs << run
+            runs << plain_run(content.to_s)
           end
+          runs
+        end
 
-          para.id = block.id if block.id
-          para
+        def plain_run(text)
+          run = Uniword::Wordprocessingml::Run.new
+          run.text = Uniword::Wordprocessingml::Text.new(content: text)
+          run
         end
 
         def build_ooxml_run(inline)
