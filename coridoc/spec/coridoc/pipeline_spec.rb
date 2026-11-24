@@ -45,6 +45,20 @@ RSpec.describe Coridoc::Pipeline do
       out = described_class.convert(adoc, from: :asciidoc, to: :asciidoc)
       expect(out).to include('Hello')
     end
+
+    # coridoc/coridoc#337: the CLI always forwards convert options (lang,
+    # toc_levels, ... carry thor defaults), so serializers must accept an
+    # options hash. The AsciiDoc facade previously had strict arity and
+    # raised on every `convert -t adoc`.
+    it 'converts to adoc with CLI-style options forwarded' do
+      adoc = "= Hello\n\nWorld"
+      out = described_class.convert(
+        adoc, from: :asciidoc, to: :asciidoc,
+        lang: 'en', toc_levels: 2, section_number_levels: 3,
+        theme: :classic, asset_delivery: :embedded
+      )
+      expect(out).to include('Hello')
+    end
   end
 
   describe '.to_core' do
