@@ -124,9 +124,13 @@ module Ceradoc
         end
 
         def build_attribute(ast)
+          value = ast[:value]
+          # A zero-or-more value capture yields [] for valueless
+          # attributes (`:key:` lines) — flatten to the empty string.
+          value = value.join if value.is_a?(Array)
           Ceradoc::CoreModel::ElementAttribute.new(
             name: ast[:key],
-            value: ast[:value]
+            value: value.to_s
           )
         end
       end

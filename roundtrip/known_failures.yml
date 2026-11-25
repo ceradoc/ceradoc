@@ -58,18 +58,6 @@ asciidoc:roundtrip/corpus/iso/rice2023.adoc: 'untriaged: model at $.children[1].
 asciidoc:roundtrip/corpus/iso/rice2023/body/body-en.adoc: 'untriaged: model at $.children[0].@type'
 asciidoc:roundtrip/corpus/iso/rice2023/body/body-fr.adoc: 'untriaged: model at $.children[8].items[1].children[1]'
 asciidoc:roundtrip/corpus/iso/rice2023/document-en.adoc: 'untriaged: model at $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.awi.adoc: 'untriaged: model at
-  $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.cd.adoc: 'untriaged: model at $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.dis.adoc: 'untriaged: model at
-  $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.fdis.adoc: 'untriaged: model at
-  $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.np.adoc: 'untriaged: model at $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.prf.adoc: 'untriaged: model at
-  $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.wd.adoc: 'untriaged: model at $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/document-fr.adoc: 'untriaged: model at $.children[1].@type'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-foreword.adoc: 'untriaged: model
   at $.children[0].children[0].text'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-introduction.adoc: 'untriaged:

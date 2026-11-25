@@ -9,6 +9,7 @@ module Ceradoc
     class Transformer < Parsanol::Transform
       # Module containing miscellaneous transformation rules
       module LegacyMiscRules
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         def self.apply(transformer_class)
           transformer_class.class_eval do
             # Comments
@@ -101,6 +102,21 @@ module Ceradoc
               )
             end
 
+            # Valueless attribute lines: the native engine materializes a
+            # zero-repeat value capture as an empty array (the DSL path
+            # yields the empty string, which the simple(:value) rule
+            # above matches). Flatten to the empty string for parity
+            # (#364).
+            rule(
+              key: simple(:key),
+              value: sequence(:value)
+            ) do
+              Model::Attribute.new(
+                key: key.to_s,
+                value: value.map(&:to_s).join
+              )
+            end
+
             # Document attributes
             rule(document_attributes: sequence(:document_attribute)) do
               Model::DocumentAttributes.new(data: document_attribute)
@@ -180,6 +196,7 @@ module Ceradoc
             end
           end
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
       end
     end
   end

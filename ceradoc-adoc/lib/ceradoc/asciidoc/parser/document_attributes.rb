@@ -8,8 +8,14 @@ module Ceradoc
           match('[a-zA-Z0-9_-]').repeat(1)
         end
 
+        # Zero-or-more non-newline chars: a valueless attribute line
+        # (`:key:` at end of line) must still parse as an attribute —
+        # the former ordered choice (text / not-newline lookahead)
+        # required one char either way and dropped the line into
+        # paragraph capture, gluing the next line's content as the
+        # value (#364).
         def attribute_value
-          text | (str('') >> str("\n").absent?)
+          match("[^\n]").repeat
         end
 
         def document_attributes
