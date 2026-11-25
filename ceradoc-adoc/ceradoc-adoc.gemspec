@@ -29,7 +29,9 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'ceradoc', '~> 3.0'
   spec.add_dependency 'lutaml-model', '~> 0.8.0'
-  spec.add_dependency 'parsanol', '~> 1.3.123'
+  # ~> 1.5.1: admit the expressir >= 2.4.75 chain (parsanol ~> 1.5.1);
+  # the 1.3 pin made any bundle carrying both unresolvable
+  spec.add_dependency 'parsanol', '~> 1.5.1'
 
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
