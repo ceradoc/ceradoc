@@ -423,4 +423,4 @@ In this guide you learned:
 ## Bibliography
 
 * https://www.iso.org/standards[ISO Standards]
-* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Reference]
+* https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[AsciiDoc Syntax Reference]

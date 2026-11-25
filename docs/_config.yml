@@ -2,7 +2,7 @@
 title: Ceradoc Documentation
 description: Parser, model, and serializer for AsciiDoc documents
 baseurl: "/ceradoc"
-url: "https://metanorma.github.io"
+url: "https://www.ceradoc.org"
 
 # Repository Information
 repository: ceradoc/ceradoc
@@ -28,8 +28,8 @@ asciidoc:
     stylesheet:
     imagesdir: /assets/images/
     # Set site attributes for proper link resolution
-    site-uri: https://metanorma.github.io/ceradoc/
-    site-url: https://metanorma.github.io/ceradoc/
+    site-uri: https://www.ceradoc.org/ceradoc/
+    site-url: https://www.ceradoc.org/ceradoc/
     relfilesuffix: /
 
 # Collections Configuration

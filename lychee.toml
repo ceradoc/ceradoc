@@ -11,6 +11,18 @@ exclude = [
   "github.com/ceradoc/ceradoc/pull/",
   "github.com/ceradoc/ceradoc/pull/[0-9]+$",
 
+  # Docs sites that serve UA/CDN-dependent responses to datacenter IPs
+  "docs.asciidoctor.org",
+  "developer.mozilla.org",
+
+  # rubygems.org rate-limits CI runners (sporadic 404/429 on real pages)
+  "rubygems.org",
+  # wikipedia rate-limits non-browser agents intermittently
+  "en.wikipedia.org",
+  # iso.org bot-blocks (403); rubydoc flaps on freshly published gems
+  "www.iso.org",
+  "rubydoc.info",
+
   # Example domains
   "example.com",
   "example.org",

@@ -320,5 +320,5 @@ In this guide you learned:
 
 ## Bibliography
 
-* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#delimited-blocks[AsciiDoc Delimited Blocks]
+* https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/#delimited-blocks[AsciiDoc Delimited Blocks]
 * https://github.com/lutaml/lutaml-model[lutaml-model documentation]
