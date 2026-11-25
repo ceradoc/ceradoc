@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module Mirror
+    module ReverseBuilder
+      class BiblioEntry < Base
+        def build(node)
+          attrs = node.attrs
+          CoreModel::BibliographyEntry.new(
+            anchor_name: attrs&.anchor_name,
+            document_id: attrs&.document_id,
+            ref_text: extract_text(node)
+          )
+        end
+      end
+    end
+  end
+end

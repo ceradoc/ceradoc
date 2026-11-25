@@ -1,0 +1,36 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+RSpec.describe 'Text delimiter escaping (#92)' do
+  def conv(html)
+    Ceradoc.convert(html, from: :html, to: :asciidoc)
+  end
+
+  it 'escapes unconstrained delimiter runs in plain text' do
+    expect(conv('<p>a __literal__ pair</p>')).to eq('a \\_\\_literal\\_\\_ pair')
+  end
+
+  it 'escapes space-flanked constrained pairs' do
+    expect(conv('<p>see *this* here</p>')).to eq('see \\*this\\* here')
+    expect(conv('<p>an _em_ candidate</p>')).to eq('an \\_em\\_ candidate')
+  end
+
+  it 'escapes a closing delimiter followed by punctuation' do
+    expect(conv('<p>see *this*, ok</p>')).to eq('see \\*this\\*, ok')
+  end
+
+  it 'escapes backticks anywhere' do
+    expect(conv('<p>run `cmd` now</p>')).to eq('run \\`cmd\\` now')
+  end
+
+  it 'leaves intraword single delimiters alone' do
+    expect(conv('<p>foo_bar_baz and 2 * 3</p>')).to eq('foo_bar_baz and 2 * 3')
+  end
+
+  it 'keeps escaped output stable across an adoc reparse' do
+    out = conv('<p>a __literal__ pair</p>')
+    again = Ceradoc.convert(out, from: :asciidoc, to: :asciidoc)
+    expect(again).to eq(out)
+  end
+end

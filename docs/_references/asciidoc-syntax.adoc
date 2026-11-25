@@ -6,7 +6,7 @@ nav_order: 10
 
 = AsciiDoc Syntax Reference
 
-This guide describes the AsciiDoc syntax supported by Coridoc.
+This guide describes the AsciiDoc syntax supported by Ceradoc.
 It covers document structure, blocks, lists, tables, and advanced features.
 
 == Document Structure
@@ -184,7 +184,7 @@ code block here
 * Install the gem:
 +
 ----
-gem install coridoc
+gem install ceradoc
 ----
 ----
 
@@ -269,7 +269,7 @@ Explanation for level 2.
 
 Cell format is: `[colspan][.rowspan][halign][valign][style][*]`
 
-Coridoc fully supports cell format specifications including multi-row tables with complex spanning and alignment.
+Ceradoc fully supports cell format specifications including multi-row tables with complex spanning and alignment.
 
 | Component | Syntax | Values | Example
 | `colspan` | `N` | digits | `2` (2 columns)
@@ -687,11 +687,11 @@ Text with a footnote.footnote:[This is the footnote content.]
 <<<
 ----
 
-== Coridoc-Specific Features
+== Ceradoc-Specific Features
 
-=== Coridoc Extensions
+=== Ceradoc Extensions
 
-Coridoc extends AsciiDoc with:
+Ceradoc extends AsciiDoc with:
 
 1. **Enhanced table cell formatting** - Full colspan/rowspan/alignment support
 2. **Variable table delimiters** - Tables can use `|`, `!`, `,`, `:`, `;` as cell separators

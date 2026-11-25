@@ -1,5 +1,5 @@
-# Run the coridoc-markdown specs against the classes generated from
-# coridoc-markdown/schemas/*.yml instead of the hand-written models.
+# Run the ceradoc-markdown specs against the classes generated from
+# ceradoc-markdown/schemas/*.yml instead of the hand-written models.
 name: markdown-generated
 
 on:
@@ -7,7 +7,7 @@ on:
     branches: [main, master]
   pull_request:
     paths:
-      - 'coridoc-markdown/**'
+      - 'ceradoc-markdown/**'
       - 'Gemfile'
       - '.github/workflows/markdown-generated.yml'
 
@@ -28,5 +28,5 @@ jobs:
 
       - name: Markdown specs on generated classes
         env:
-          CORIDOC_MARKDOWN_GENERATED: '1'
-        run: bundle exec rake spec:coridoc_markdown
+          CERADOC_MARKDOWN_GENERATED: '1'
+        run: bundle exec rake spec:ceradoc_markdown

@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module CoreModel
+    # Literal block — a delimited block for preformatted literal text
+    class LiteralBlock < Block
+      def self.semantic_type
+        :literal
+      end
+
+      def prose?
+        false
+      end
+    end
+  end
+end

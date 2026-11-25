@@ -1,0 +1,86 @@
+# frozen_string_literal: true
+
+# Autoload FallbackSerializer - only needed when no registered serializer is found
+autoload :FallbackSerializer, 'ceradoc/asciidoc/serializer/fallback_serializer'
+
+module Ceradoc
+  module AsciiDoc
+    module Serializer
+      # Main orchestrator for serializing Ceradoc models to AsciiDoc format.
+      # Dispatches to appropriate serializer via ElementRegistry.
+      #
+      # This class is ONLY responsible for orchestration and dispatch.
+      # Element registration is handled by ElementRegistry.
+      class AdocSerializer
+        class << self
+          # Serialize a Ceradoc model to AsciiDoc string
+          # @param model [Ceradoc::AsciiDoc::Model::Base, Array, String] Model to serialize
+          # @param options [Hash] Serialization options
+          # @return [String] AsciiDoc representation
+          def serialize(model, options = {})
+            case model
+            when nil
+              ''
+            when String
+              model
+            when Array
+              serialize_array(model, options)
+            when Ceradoc::AsciiDoc::Model::Base
+              serialize_model(model, options)
+            when Lutaml::Model::Serializable
+              raise ArgumentError,
+                    "Cannot serialize #{model.class.name} to AsciiDoc. " \
+                    'Expected a Ceradoc::AsciiDoc::Model::Base with a registered serializer.'
+            else
+              raise ArgumentError,
+                    "Unknown element type for AsciiDoc serialization: #{model.class}. " \
+                    'Expected String, Array, or Ceradoc::AsciiDoc::Model::Base.'
+            end
+          end
+
+          # Get appropriate serializer instance for a model
+          # @param model [Ceradoc::AsciiDoc::Model::Base] Model to serialize
+          # @return [Serializers::Base] Serializer instance
+          def serializer_for(model)
+            # Try to find registered serializer
+            if ElementRegistry.registered?(model.class)
+              serializer_class = ElementRegistry.lookup(model.class)
+              return serializer_class.new
+            end
+
+            # Fallback: use FallbackSerializer which raises a clear error
+            return FallbackSerializer.new
+
+            raise ArgumentError, "No serializer registered for #{model.class.name} and model doesn't respond to to_adoc"
+          end
+
+          private
+
+          # Serialize an array of models
+          # @param models [Array] Array of models
+          # @param options [Hash] Serialization options
+          # @return [String] Serialized array
+          def serialize_array(models, options = {})
+            results = models.map { |model| serialize(model, options) }
+
+            # Apply spacing if needed
+            if options[:apply_spacing]
+              SpacingStrategy.apply(models.zip(results).map(&:first), options)
+            else
+              results.join
+            end
+          end
+
+          # Serialize a single model
+          # @param model [Ceradoc::AsciiDoc::Model::Base] Model to serialize
+          # @param options [Hash] Serialization options
+          # @return [String] Serialized model
+          def serialize_model(model, options = {})
+            serializer = serializer_for(model)
+            serializer.serialize(model, options)
+          end
+        end
+      end
+    end
+  end
+end

@@ -1,5 +1,5 @@
 ---
-title: Coridoc Markdown Serialization Specification
+title: Ceradoc Markdown Serialization Specification
 parent: References
 nav_order: 12
 ---
@@ -8,7 +8,7 @@ nav_order: 12
 :revdate: 2026-06-18
 :copyright-year: 2026
 :language: en
-:title: Coridoc Markdown Serialization Specification
+:title: Ceradoc Markdown Serialization Specification
 :doctype: standard
 :status: draft
 :mn-document-class: ribose
@@ -16,11 +16,11 @@ nav_order: 12
 
 == Introduction
 
-This document specifies the requirements for the `coridoc-markdown` gem's
-serialization layer — the component that transforms a `Coridoc::CoreModel`
+This document specifies the requirements for the `ceradoc-markdown` gem's
+serialization layer — the component that transforms a `Ceradoc::CoreModel`
 document tree into a Markdown string.
 
-The Coridoc Markdown serializer is the output endpoint for the
+The Ceradoc Markdown serializer is the output endpoint for the
 `CoreModel → Markdown` transformation path. It must produce Markdown that:
 
 * Round-trips losslessly through `Markdown → CoreModel → Markdown`
@@ -42,14 +42,14 @@ This specification:
 
 This specification does NOT cover:
 
-* The `coridoc-markdown` parser (`Markdown → CoreModel`) — covered in the
+* The `ceradoc-markdown` parser (`Markdown → CoreModel`) — covered in the
   Markdown Syntax Reference
-* The `coridoc-adoc` parser (`AsciiDoc → CoreModel`)
-* The `coridoc-html` renderer
+* The `ceradoc-adoc` parser (`AsciiDoc → CoreModel`)
+* The `ceradoc-html` renderer
 
 === Conformance
 
-A conforming Coridoc Markdown serializer SHALL:
+A conforming Ceradoc Markdown serializer SHALL:
 
 * Implement serialization for every element type listed in this specification
 * Produce output that renders correctly in at least one of: CommonMark, GFM,
@@ -83,7 +83,7 @@ A conforming serializer MAY:
 
 === CoreModel
 format-agnostic document model used as the canonical representation
-inside Coridoc; the hub of all format-to-format transformations
+inside Ceradoc; the hub of all format-to-format transformations
 
 === Serialization
 process of converting a CoreModel document tree into a format-specific
@@ -1266,8 +1266,8 @@ of the output.
 ----
 it "preserves section body content" do
   source = "== Title\n\nParagraph text."
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).to include("Paragraph text.")
 end
 ----
@@ -1278,8 +1278,8 @@ end
 ----
 it "preserves flat definition lists" do
   source = "term1:: def1\nterm2:: def2\n"
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).to include("term1")
   expect(md).to include("def1")
 end
@@ -1298,8 +1298,8 @@ it "preserves nested definition lists" do
 `child1`::: child def 1
 `child2`::: child def 2
 ADOC
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).to include("parent")
   expect(md).to include("child def 1")
   expect(md).to include("child def 2")
@@ -1312,8 +1312,8 @@ end
 ----
 it "preserves admonition type" do
   source = "NOTE: This is a note.\n"
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).to match(/NOTE/i)
   expect(md).to include("This is a note.")
 end
@@ -1325,8 +1325,8 @@ end
 ----
 it "suppresses comments from output" do
   source = "Paragraph one.\n\n// editorial comment\n\nParagraph two.\n"
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).not_to include("editorial comment")
   expect(md).not_to include("<!--")
 end
@@ -1338,8 +1338,8 @@ end
 ----
 it "serializes bare URLs as autolinks" do
   source = "See https://example.com for info.\n"
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).not_to match(/\[https:\/\/example\.com\]\(/) # Reject [url](url) form
   expect(md).to include("https://example.com")
 end
@@ -1351,8 +1351,8 @@ end
 ----
 it "joins paragraph lines with spaces" do
   source = "First line.\nSecond line.\n"
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).to include("First line. Second line.")
   expect(md).not_to include("line.Second") # No concatenated words
 end
@@ -1370,8 +1370,8 @@ it "preserves example block captions" do
 Example content.
 ====
 ADOC
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).to include("Example caption")
   expect(md).to include("Example content.")
 end
@@ -1383,8 +1383,8 @@ end
 ----
 it "preserves multi-line definition list items" do
   source = "`term::\nDefinition starts here.\nSecond line.\n"
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).to include("term")
   expect(md).to include("Definition starts here.")
   expect(md).to include("Second line.")
@@ -1403,8 +1403,8 @@ First paragraph.
 Second paragraph.
 --
 ADOC
-  core = Coridoc.parse(source, format: :asciidoc)
-  md = Coridoc.serialize(Coridoc::Markdown.from_core_model(core), to: :markdown)
+  core = Ceradoc.parse(source, format: :asciidoc)
+  md = Ceradoc.serialize(Ceradoc::Markdown.from_core_model(core), to: :markdown)
   expect(md).to include("First paragraph.")
   expect(md).to include("Second paragraph.")
 end

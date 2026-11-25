@@ -3,12 +3,12 @@
 source 'https://rubygems.org'
 
 # Load all monorepo gems
-gem 'coridoc', path: './coridoc'
-gem 'coridoc-adoc', path: './coridoc-adoc'
-gem 'coridoc-docx', path: './coridoc-docx'
-gem 'coridoc-html', path: './coridoc-html'
-gem 'coridoc-markdown', path: './coridoc-markdown'
-gem 'coridoc-mirror', path: './coridoc-mirror'
+gem 'ceradoc', path: './ceradoc'
+gem 'ceradoc-adoc', path: './ceradoc-adoc'
+gem 'ceradoc-docx', path: './ceradoc-docx'
+gem 'ceradoc-html', path: './ceradoc-html'
+gem 'ceradoc-markdown', path: './ceradoc-markdown'
+gem 'ceradoc-mirror', path: './ceradoc-mirror'
 
 gem 'lutaml-model', '~> 0.8.164'
 gem 'lutaml-xsd'

@@ -6,30 +6,30 @@ has_children: true
 
 = Core Pages
 
-This section contains the foundational documentation for Coridoc. These pages explain the core concepts, architecture, and features of the library.
+This section contains the foundational documentation for Ceradoc. These pages explain the core concepts, architecture, and features of the library.
 
 == Overview
 
-The Core Pages are organized to help you understand Coridoc from multiple perspectives:
+The Core Pages are organized to help you understand Ceradoc from multiple perspectives:
 
-* link:/coridoc/pages/getting-started/[Getting Started] - Begin here if you're new to Coridoc
-* link:/coridoc/pages/architecture/[Architecture] - Understand how Coridoc works internally
-* link:/coridoc/pages/parsing/[Parsing] - Learn about the parsing layer
-* link:/coridoc/pages/transformation/[Transformation] - Understand AST to Model conversion
-* link:/coridoc/pages/model/[Document Model] - Explore the document object model
-* link:/coridoc/pages/serialization/[Serialization] - Learn about output generation
+* link:/ceradoc/pages/getting-started/[Getting Started] - Begin here if you're new to Ceradoc
+* link:/ceradoc/pages/architecture/[Architecture] - Understand how Ceradoc works internally
+* link:/ceradoc/pages/parsing/[Parsing] - Learn about the parsing layer
+* link:/ceradoc/pages/transformation/[Transformation] - Understand AST to Model conversion
+* link:/ceradoc/pages/model/[Document Model] - Explore the document object model
+* link:/ceradoc/pages/serialization/[Serialization] - Learn about output generation
 
 == Navigation
 
-* link:/coridoc/pages/getting-started/[Getting Started] - Installation and quick start
-* link:/coridoc/pages/architecture/[Architecture] - System architecture and data flow
-* link:/coridoc/pages/parsing/[Parsing] - AsciiDoc parsing with Parslet
-* link:/coridoc/pages/transformation/[Transformation] - Transformer layer explanation
-* link:/coridoc/pages/model/[Document Model] - Document model classes
-* link:/coridoc/pages/serialization/[Serialization] - AsciiDoc serialization
+* link:/ceradoc/pages/getting-started/[Getting Started] - Installation and quick start
+* link:/ceradoc/pages/architecture/[Architecture] - System architecture and data flow
+* link:/ceradoc/pages/parsing/[Parsing] - AsciiDoc parsing with Parslet
+* link:/ceradoc/pages/transformation/[Transformation] - Transformer layer explanation
+* link:/ceradoc/pages/model/[Document Model] - Document model classes
+* link:/ceradoc/pages/serialization/[Serialization] - AsciiDoc serialization
 
 == Related Documentation
 
-* link:/coridoc/tutorials/[Tutorials] - Hands-on learning with examples
-* link:/coridoc/guides/[Guides] - Task-oriented documentation
-* link:/coridoc/references/[References] - Technical specifications
+* link:/ceradoc/tutorials/[Tutorials] - Hands-on learning with examples
+* link:/ceradoc/guides/[Guides] - Task-oriented documentation
+* link:/ceradoc/references/[References] - Technical specifications

@@ -8,10 +8,10 @@ on:
     branches: [main, master]
   pull_request:
     paths:
-      - 'coridoc/lib/**'
-      - 'coridoc-adoc/lib/**'
-      - 'coridoc-markdown/lib/**'
-      - 'coridoc-markdown/schemas/**'
+      - 'ceradoc/lib/**'
+      - 'ceradoc-adoc/lib/**'
+      - 'ceradoc-markdown/lib/**'
+      - 'ceradoc-markdown/schemas/**'
       - 'roundtrip/**'
       - 'Gemfile'
       - '.github/workflows/roundtrip.yml'

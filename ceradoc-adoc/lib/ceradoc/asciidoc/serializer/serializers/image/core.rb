@@ -1,0 +1,32 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module AsciiDoc
+    module Serializer
+      module Serializers
+        module Image
+          class Core < Base
+            def to_adoc(model, options = {})
+              missing = if model.annotate_missing
+                          "// Missing image: #{model.annotate_missing}\n"
+                        else
+                          ''
+                        end
+              _anchor = model.anchor.nil? ? '' : "#{serialize_child(model.anchor)}\n"
+              _title = model.title.to_s.empty? ? '' : ".#{model.title}\n"
+              composed = Model::Image::AttributeExtractor.compose(model)
+              attrs = serialize_child(composed, options)
+              [missing, _anchor, _title, 'image', model.colons, model.src, attrs,
+               model.line_break].join
+            end
+          end
+        end
+
+        # Self-register this serializer
+        ElementRegistry.register(Ceradoc::AsciiDoc::Model::Image::Core, Image::Core)
+        ElementRegistry.register(Ceradoc::AsciiDoc::Model::Image::BlockImage, Image::Core)
+        ElementRegistry.register(Ceradoc::AsciiDoc::Model::Image::InlineImage, Image::Core)
+      end
+    end
+  end
+end

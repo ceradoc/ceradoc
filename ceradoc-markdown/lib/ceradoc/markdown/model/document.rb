@@ -1,0 +1,33 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module Markdown
+    # Document model representing a Markdown document.
+    #
+    # The Document class is the main container for parsed Markdown content.
+    # It holds the document's blocks (headings, paragraphs, lists, etc.).
+    #
+    # @example Create a new document
+    #   doc = Ceradoc::Markdown::Document.new(
+    #     blocks: [
+    #       Ceradoc::Markdown::Heading.new(level: 1, text: "My Document"),
+    #       Ceradoc::Markdown::Paragraph.new(text: "Hello World")
+    #     ]
+    #   )
+    #
+    class Document < Base
+      attribute :blocks, Ceradoc::Markdown::Base, collection: true
+
+      # Raw YAML frontmatter text, or nil if absent.
+      #
+      # Markdown treats frontmatter as opaque text — the YAML is only
+      # parsed/emitted at the CoreModel boundary by
+      # CoreModel::FrontmatterBlock::Codec (single source of truth).
+      # Storing raw text keeps Markdown's parser/serializer symmetric
+      # without dragging YAML semantics into the Markdown model (MECE).
+      attribute :frontmatter, :string
+
+      prepend Behaviors::Document
+    end
+  end
+end

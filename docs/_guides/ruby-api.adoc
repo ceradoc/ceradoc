@@ -6,7 +6,7 @@ nav_order: 50
 
 = Ruby API Guide
 
-This guide provides practical examples and patterns for using Coridoc's Ruby API.
+This guide provides practical examples and patterns for using Ceradoc's Ruby API.
 
 == Getting Started
 
@@ -16,31 +16,31 @@ Add to your Gemfile:
 
 [source,ruby]
 ----
-gem 'coridoc'
-gem 'coridoc-html'      # For HTML support
-gem 'coridoc-markdown'   # For Markdown support
+gem 'ceradoc'
+gem 'ceradoc-html'      # For HTML support
+gem 'ceradoc-markdown'   # For Markdown support
 ----
 
 Or install directly:
 
 [source,bash]
 ----
-gem install coridoc coridoc-html coridoc-markdown
+gem install ceradoc ceradoc-html ceradoc-markdown
 ----
 
 === Quick Start
 
 [source,ruby]
 ----
-require 'coridoc'
-require 'coridoc/html'
-require 'coridoc/markdown'
+require 'ceradoc'
+require 'ceradoc/html'
+require 'ceradoc/markdown'
 
 # Simple conversion
-html = Coridoc.convert("# Title\n\nParagraph", from: :markdown, to: :html)
+html = Ceradoc.convert("# Title\n\nParagraph", from: :markdown, to: :html)
 
 # Parse to model
-doc = Coridoc.parse("# Title\n\nParagraph", format: :markdown)
+doc = Ceradoc.parse("# Title\n\nParagraph", format: :markdown)
 
 # Access content
 puts doc.title           # => "Title"
@@ -56,13 +56,13 @@ Parse a document to work with its structure:
 [source,ruby]
 ----
 # Parse from string
-doc = Coridoc.parse(asciidoc_content, format: :asciidoc)
+doc = Ceradoc.parse(asciidoc_content, format: :asciidoc)
 
 # Parse from file
-doc = Coridoc.parse_file("document.adoc", format: :asciidoc)
+doc = Ceradoc.parse_file("document.adoc", format: :asciidoc)
 
 # Parse with options
-doc = Coridoc.parse(content,
+doc = Ceradoc.parse(content,
   format: :asciidoc,
   strict: true,           # Raise on errors
   attributes: {           # Document attributes
@@ -85,12 +85,12 @@ Convert a model to string output:
 [source,ruby]
 ----
 # Serialize to different formats
-html = Coridoc.serialize(doc, to: :html)
-markdown = Coridoc.serialize(doc, to: :markdown)
-asciidoc = Coridoc.serialize(doc, to: :asciidoc)
+html = Ceradoc.serialize(doc, to: :html)
+markdown = Ceradoc.serialize(doc, to: :markdown)
+asciidoc = Ceradoc.serialize(doc, to: :asciidoc)
 
 # With formatting options
-output = Coridoc.serialize(doc,
+output = Ceradoc.serialize(doc,
   to: :html,
   theme: :modern,
   indent: 2
@@ -104,10 +104,10 @@ Convert directly between formats:
 [source,ruby]
 ----
 # Direct conversion
-html = Coridoc.convert(markdown_content, from: :markdown, to: :html)
+html = Ceradoc.convert(markdown_content, from: :markdown, to: :html)
 
 # With options
-html = Coridoc.convert(content,
+html = Ceradoc.convert(content,
   from: :asciidoc,
   to: :html,
   theme: :modern,
@@ -115,7 +115,7 @@ html = Coridoc.convert(content,
 )
 
 # Auto-detect source format (by extension)
-html = Coridoc.convert(File.read("input.adoc"), to: :html)
+html = Ceradoc.convert(File.read("input.adoc"), to: :html)
 ----
 
 == Working with CoreModel
@@ -127,7 +127,7 @@ Build documents programmatically:
 [source,ruby]
 ----
 # Create a document
-doc = Coridoc::CoreModel::StructuralElement.new(
+doc = Ceradoc::CoreModel::StructuralElement.new(
   element_type: "document",
   title: "My Document",
   id: "my-doc",
@@ -135,7 +135,7 @@ doc = Coridoc::CoreModel::StructuralElement.new(
 )
 
 # Add a section
-section = Coridoc::CoreModel::StructuralElement.new(
+section = Ceradoc::CoreModel::StructuralElement.new(
   element_type: "section",
   level: 1,
   title: "Introduction",
@@ -144,7 +144,7 @@ section = Coridoc::CoreModel::StructuralElement.new(
 )
 
 # Add a paragraph
-para = Coridoc::CoreModel::Block.new(
+para = Ceradoc::CoreModel::Block.new(
   element_type: "paragraph",
   content: "This is the introduction."
 )
@@ -160,27 +160,27 @@ Create different list types:
 [source,ruby]
 ----
 # Unordered list
-ulist = Coridoc::CoreModel::ListBlock.new(
+ulist = Ceradoc::CoreModel::ListBlock.new(
   marker_type: "unordered",
   items: [
-    Coridoc::CoreModel::ListItem.new(content: "First item", marker: "*"),
-    Coridoc::CoreModel::ListItem.new(content: "Second item", marker: "*")
+    Ceradoc::CoreModel::ListItem.new(content: "First item", marker: "*"),
+    Ceradoc::CoreModel::ListItem.new(content: "Second item", marker: "*")
   ]
 )
 
 # Ordered list
-olist = Coridoc::CoreModel::ListBlock.new(
+olist = Ceradoc::CoreModel::ListBlock.new(
   marker_type: "ordered",
   items: [
-    Coridoc::CoreModel::ListItem.new(content: "Step 1", marker: "."),
-    Coridoc::CoreModel::ListItem.new(content: "Step 2", marker: ".")
+    Ceradoc::CoreModel::ListItem.new(content: "Step 1", marker: "."),
+    Ceradoc::CoreModel::ListItem.new(content: "Step 2", marker: ".")
   ]
 )
 
 # Definition list
-def_list = Coridoc::CoreModel::DefinitionList.new(
+def_list = Ceradoc::CoreModel::DefinitionList.new(
   items: [
-    Coridoc::CoreModel::DefinitionItem.new(
+    Ceradoc::CoreModel::DefinitionItem.new(
       term: "API",
       definitions: ["Application Programming Interface"]
     )
@@ -188,14 +188,14 @@ def_list = Coridoc::CoreModel::DefinitionList.new(
 )
 
 # Nested list
-parent_item = Coridoc::CoreModel::ListItem.new(
+parent_item = Ceradoc::CoreModel::ListItem.new(
   content: "Parent item",
   marker: "*",
   nested: [
-    Coridoc::CoreModel::ListBlock.new(
+    Ceradoc::CoreModel::ListBlock.new(
       marker_type: "unordered",
       items: [
-        Coridoc::CoreModel::ListItem.new(content: "Child item", marker: "**")
+        Ceradoc::CoreModel::ListItem.new(content: "Child item", marker: "**")
       ]
     )
   ]
@@ -209,37 +209,37 @@ Create tables with full formatting:
 [source,ruby]
 ----
 # Simple table
-table = Coridoc::CoreModel::Table.new(
+table = Ceradoc::CoreModel::Table.new(
   frame: "all",
   grid: "all",
   rows: [
     # Header row
-    Coridoc::CoreModel::TableRow.new(
+    Ceradoc::CoreModel::TableRow.new(
       header: true,
       cells: [
-        Coridoc::CoreModel::TableCell.new(content: "Name", header: true),
-        Coridoc::CoreModel::TableCell.new(content: "Value", header: true)
+        Ceradoc::CoreModel::TableCell.new(content: "Name", header: true),
+        Ceradoc::CoreModel::TableCell.new(content: "Value", header: true)
       ]
     ),
     # Data row
-    Coridoc::CoreModel::TableRow.new(
+    Ceradoc::CoreModel::TableRow.new(
       cells: [
-        Coridoc::CoreModel::TableCell.new(content: "Item 1"),
-        Coridoc::CoreModel::TableCell.new(content: "100")
+        Ceradoc::CoreModel::TableCell.new(content: "Item 1"),
+        Ceradoc::CoreModel::TableCell.new(content: "100")
       ]
     )
   ]
 )
 
 # Table with cell formatting
-formatted_cell = Coridoc::CoreModel::TableCell.new(
+formatted_cell = Ceradoc::CoreModel::TableCell.new(
   content: "Centered and bold",
   alignment: "center",
   style: "strong",
   colspan: 2
 )
 
-spanning_cell = Coridoc::CoreModel::TableCell.new(
+spanning_cell = Ceradoc::CoreModel::TableCell.new(
   content: "Spans 2 rows",
   rowspan: 2,
   alignment: "center"
@@ -253,13 +253,13 @@ Create different block types:
 [source,ruby]
 ----
 # Paragraph
-para = Coridoc::CoreModel::Block.new(
+para = Ceradoc::CoreModel::Block.new(
   element_type: "paragraph",
   content: "Simple paragraph text."
 )
 
 # Code block
-code = Coridoc::CoreModel::Block.new(
+code = Ceradoc::CoreModel::Block.new(
   element_type: "block",
   delimiter_type: "----",
   content: "def hello\n  puts 'world'\nend",
@@ -268,7 +268,7 @@ code = Coridoc::CoreModel::Block.new(
 )
 
 # Quote block
-quote = Coridoc::CoreModel::Block.new(
+quote = Ceradoc::CoreModel::Block.new(
   element_type: "block",
   delimiter_type: "____",
   content: "Quote text here.",
@@ -276,7 +276,7 @@ quote = Coridoc::CoreModel::Block.new(
 )
 
 # Example block
-example = Coridoc::CoreModel::Block.new(
+example = Ceradoc::CoreModel::Block.new(
   element_type: "block",
   delimiter_type: "====",
   content: "Example content.",
@@ -284,7 +284,7 @@ example = Coridoc::CoreModel::Block.new(
 )
 
 # Admonition
-note = Coridoc::CoreModel::AnnotationBlock.new(
+note = Ceradoc::CoreModel::AnnotationBlock.new(
   annotation_type: "NOTE",
   content: "This is an important note."
 )
@@ -297,26 +297,26 @@ Create inline formatting:
 [source,ruby]
 ----
 # Bold text
-bold = Coridoc::CoreModel::InlineElement.new(
+bold = Ceradoc::CoreModel::InlineElement.new(
   format_type: "bold",
   content: "Important text"
 )
 
 # Italic text
-italic = Coridoc::CoreModel::InlineElement.new(
+italic = Ceradoc::CoreModel::InlineElement.new(
   format_type: "italic",
   content: "Emphasized text"
 )
 
 # Link
-link = Coridoc::CoreModel::InlineElement.new(
+link = Ceradoc::CoreModel::InlineElement.new(
   format_type: "link",
   content: "Click here",
   target: "https://example.com"
 )
 
 # Image
-image = Coridoc::CoreModel::Image.new(
+image = Ceradoc::CoreModel::Image.new(
   src: "images/diagram.png",
   alt: "System Diagram",
   title: "Figure 1: Architecture",
@@ -332,9 +332,9 @@ Chain operations on documents:
 
 [source,ruby]
 ----
-require 'coridoc/document_manipulator'
+require 'ceradoc/document_manipulator'
 
-manipulator = Coridoc::DocumentManipulator.new(doc)
+manipulator = Ceradoc::DocumentManipulator.new(doc)
 
 # Chain multiple operations
 result = manipulator
@@ -353,7 +353,7 @@ Find elements using CSS-like selectors:
 [source,ruby]
 ----
 # Parse document
-doc = Coridoc.parse(input, format: :asciidoc)
+doc = Ceradoc.parse(input, format: :asciidoc)
 
 # Find all sections
 sections = doc.query('section')
@@ -393,8 +393,8 @@ Build a reusable document processor:
 ----
 class DocumentProcessor
   def initialize(input, format: :asciidoc)
-    @doc = Coridoc.parse(input, format: format)
-    @manipulator = Coridoc::DocumentManipulator.new(@doc)
+    @doc = Ceradoc.parse(input, format: format)
+    @manipulator = Ceradoc::DocumentManipulator.new(@doc)
   end
 
   def process(steps)
@@ -456,11 +456,11 @@ class BatchConverter
     output_file = output_path(input_file)
 
     content = File.read(input_file)
-    result = Coridoc.convert(content, from: @from, to: @to)
+    result = Ceradoc.convert(content, from: @from, to: @to)
 
     File.write(output_file, result)
     puts "Converted: #{input_file} -> #{output_file}"
-  rescue Coridoc::Error => e
+  rescue Ceradoc::Error => e
     puts "Error converting #{input_file}: #{e.message}"
   end
 
@@ -489,7 +489,7 @@ Process large files without loading everything into memory:
 [source,ruby]
 ----
 # Stream parse large file
-Coridoc::Streaming.parse_large_file("large.adoc",
+Ceradoc::Streaming.parse_large_file("large.adoc",
                                     format: :asciidoc,
                                     chunk_size: 100) do |chunk|
   chunk.each do |element|
@@ -498,13 +498,13 @@ Coridoc::Streaming.parse_large_file("large.adoc",
 end
 
 # Transform in chunks
-results = Coridoc::Streaming.transform_in_chunks(elements, chunk_size: 50) do |chunk|
+results = Ceradoc::Streaming.transform_in_chunks(elements, chunk_size: 50) do |chunk|
   chunk.map { |el| transform_element(el) }
 end
 
 # Incremental serialization
 File.open("output.html", "w") do |file|
-  Coridoc::Streaming.serialize_incremental(document, format: :html) do |chunk|
+  Ceradoc::Streaming.serialize_incremental(document, format: :html) do |chunk|
     file.write(chunk)
   end
 end
@@ -517,7 +517,7 @@ Process documents efficiently:
 [source,ruby]
 ----
 # Wrap for lazy iteration
-wrapper = Coridoc::Lazy.wrap(document)
+wrapper = Ceradoc::Lazy.wrap(document)
 
 # Process sections on-demand
 wrapper.each_section do |section|
@@ -525,7 +525,7 @@ wrapper.each_section do |section|
 end
 
 # Lazy transformation pipeline
-result = Coridoc::Lazy.transform(sections) do |p|
+result = Ceradoc::Lazy.transform(sections) do |p|
   p.map { |s| transform_section(s) }
    .select { |s| s.visible? }
    .take(10)
@@ -546,7 +546,7 @@ Validate documents against schemas:
 [source,ruby]
 ----
 # Define a validation schema
-schema = Coridoc::Validation::Schema.define do
+schema = Ceradoc::Validation::Schema.define do
   required :title, type: String, min_length: 1
   required :sections, type: Array, min_count: 1
   optional :author, type: String
@@ -616,9 +616,9 @@ end
 [source,ruby]
 ----
 def safe_convert(input, from:, to:)
-  doc = Coridoc.parse(input, format: from, strict: true)
-  Coridoc.serialize(doc, to: to)
-rescue Coridoc::ParseError => e
+  doc = Ceradoc.parse(input, format: from, strict: true)
+  Ceradoc.serialize(doc, to: to)
+rescue Ceradoc::ParseError => e
   {
     success: false,
     error: :parse_error,
@@ -626,21 +626,21 @@ rescue Coridoc::ParseError => e
     line: e.line,
     column: e.column
   }
-rescue Coridoc::ValidationError => e
+rescue Ceradoc::ValidationError => e
   {
     success: false,
     error: :validation_error,
     message: e.message,
     errors: e.errors
   }
-rescue Coridoc::UnsupportedFormatError => e
+rescue Ceradoc::UnsupportedFormatError => e
   {
     success: false,
     error: :unsupported_format,
     message: "Format '#{e.format}' not supported",
     supported: e.supported
   }
-rescue Coridoc::Error => e
+rescue Ceradoc::Error => e
   {
     success: false,
     error: :unknown,
@@ -653,7 +653,7 @@ end
 
 === Rails Integration
 
-Use Coridoc in a Rails application:
+Use Ceradoc in a Rails application:
 
 [source,ruby]
 ----
@@ -664,7 +664,7 @@ class DocumentService
   end
 
   def to_html
-    @html ||= Coridoc.convert(
+    @html ||= Ceradoc.convert(
       @document.content,
       from: @document.format.to_sym,
       to: :html,
@@ -701,7 +701,7 @@ class DocumentConversionJob < ApplicationJob
   def perform(document_id)
     document = Document.find(document_id)
 
-    html = Coridoc.convert(
+    html = Ceradoc.convert(
       document.content,
       from: document.format.to_sym,
       to: :html
@@ -711,7 +711,7 @@ class DocumentConversionJob < ApplicationJob
       html_content: html,
       converted_at: Time.current
     )
-  rescue Coridoc::Error => e
+  rescue Ceradoc::Error => e
     document.update!(
       conversion_error: e.message,
       converted_at: nil
@@ -728,29 +728,29 @@ Create helpers for testing:
 
 [source,ruby]
 ----
-# spec/support/coridoc_helpers.rb
-module CoridocHelpers
+# spec/support/ceradoc_helpers.rb
+module CeradocHelpers
   def parse_adoc(content)
-    Coridoc.parse(content, format: :asciidoc)
+    Ceradoc.parse(content, format: :asciidoc)
   end
 
   def parse_markdown(content)
-    Coridoc.parse(content, format: :markdown)
+    Ceradoc.parse(content, format: :markdown)
   end
 
   def convert_to_html(content, from: :asciidoc)
-    Coridoc.convert(content, from: from, to: :html)
+    Ceradoc.convert(content, from: from, to: :html)
   end
 
   def assert_roundtrip(content, format: :asciidoc)
-    doc = Coridoc.parse(content, format: format)
-    output = Coridoc.serialize(doc, to: format)
+    doc = Ceradoc.parse(content, format: format)
+    output = Ceradoc.serialize(doc, to: format)
     expect(output.strip).to eq(content.strip)
   end
 end
 
 RSpec.configure do |config|
-  config.include CoridocHelpers
+  config.include CeradocHelpers
 end
 ----
 

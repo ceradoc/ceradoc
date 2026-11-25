@@ -1,0 +1,316 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module AsciiDoc
+    module Transform
+      module ElementTransformers
+        class BlockTransformer
+          class << self
+            def transform_paragraph(para)
+              children = ToCoreModel.transform_inline_content(para.content)
+              source_lines = ToCoreModel.extract_source_lines(para.content)
+
+              Ceradoc::CoreModel::ParagraphBlock.new(
+                id: para.id,
+                content: ToCoreModel.extract_text_content(para.content),
+                lines: source_lines,
+                source_line: para.source_line,
+                children: children
+              )
+            end
+
+            # Verbatim blocks (source, listing, literal, pass) must round-trip
+            # their body byte-for-byte. Each source line becomes one content
+            # line; we join with "\n" so whitespace, indentation, and blank
+            # lines are preserved. Treating these as paragraphs would collapse
+            # whitespace and join consecutive lines into a single flowing text.
+            def transform_verbatim_block(block, klass, language_override: nil)
+              source_lines = ToCoreModel.extract_source_lines(block.lines)
+
+              klass.new(
+                id: block.id,
+                title: ToCoreModel.extract_title_text(block.title),
+                content: source_lines.join("\n"),
+                lines: source_lines,
+                language: language_override || ToCoreModel.extract_block_language(block),
+                source_line: block.source_line
+              )
+            end
+
+            def transform_source_block(block)
+              transform_verbatim_block(block, Ceradoc::CoreModel::SourceBlock)
+            end
+
+            def transform_literal_block(block)
+              transform_verbatim_block(block, Ceradoc::CoreModel::LiteralBlock)
+            end
+
+            def transform_pass_block(block)
+              style = first_positional_attr(block)
+              return transform_stem_block(block, style) if STEM_STYLES.key?(style.to_s.downcase)
+
+              transform_verbatim_block(block, Ceradoc::CoreModel::PassBlock)
+            end
+
+            # AsciiDoc recognizes three STEM block styles. The default
+            # `[stem]` resolves to LaTeX; the other two name their
+            # interpreter explicitly. Single source of truth for the
+            # style→language mapping.
+            STEM_STYLES = {
+              'stem' => 'latex',
+              'latexmath' => 'latex',
+              'asciimath' => 'asciimath'
+            }.freeze
+
+            def transform_stem_block(block, style)
+              language = STEM_STYLES.fetch(style.to_s.downcase, 'latex')
+              transform_verbatim_block(block, Ceradoc::CoreModel::StemBlock,
+                                       language_override: language)
+            end
+
+            # Dispatch entry point for any block whose AsciiDoc model carries
+            # an attribute list (delimited blocks + open blocks). Per the
+            # AsciiDoc spec, every delimited block accepts both admonition
+            # labels and verbatim/stem casts in its attribute line. The cast
+            # is resolved by +block_cast_semantic+ in MECE order:
+            # admonition > stem > verbatim > typed-cast > fallback.
+            def transform_with_admonition_check(block, native_class)
+              semantic = block_cast_semantic(block)
+              case semantic
+              when :admonition
+                transform_admonition_block(block, first_positional_attr(block))
+              when :stem
+                transform_stem_block(block, first_positional_attr(block))
+              when :source
+                transform_source_block(block)
+              when :listing
+                transform_listing_from_open(block)
+              when :literal
+                transform_literal_from_open(block)
+              when :typed_cast
+                style = first_positional_attr(block).to_s.downcase
+                transform_typed_block(block, TYPED_BLOCK_CAST_STYLES.fetch(style))
+              else
+                transform_typed_block(block, native_class)
+              end
+            end
+
+            def transform_example_block(block)
+              transform_with_admonition_check(block, Ceradoc::CoreModel::ExampleBlock)
+            end
+
+            def transform_sidebar_block(block)
+              transform_with_admonition_check(block, Ceradoc::CoreModel::SidebarBlock)
+            end
+
+            def transform_quote_block(block)
+              transform_with_admonition_check(block, Ceradoc::CoreModel::QuoteBlock)
+            end
+
+            # Open blocks (`--`) are generic containers. AsciiDoc allows
+            # casting them to a different block type via positional
+            # attributes: verbatim types (`[source]`, `[listing]`,
+            # `[literal]`), STEM types (`[stem]`, `[latexmath]`,
+            # `[asciimath]`), and admonition labels (`[NOTE]`, `[TIP]`,
+            # `[WARNING]`, `[CAUTION]`, `[IMPORTANT]`). When such a cast
+            # is present, the block behaves like the corresponding
+            # delimited block. Anything else stays an OpenBlock.
+            def transform_open_block(block)
+              transform_with_admonition_check(block, Ceradoc::CoreModel::OpenBlock)
+            end
+
+            VERBATILE_CAST_STYLES = %w[source listing literal].freeze
+
+            # Positional style → typed CoreModel class for blocks whose
+            # attribute line casts an open block into a richer semantic
+            # type (e.g. `[sidebar]\n--\n...\n--`). Single source of
+            # truth: adding a new style cast is one line here, no edits
+            # to dispatch (OCP).
+            TYPED_BLOCK_CAST_STYLES = {
+              'sidebar' => Ceradoc::CoreModel::SidebarBlock,
+              'example' => Ceradoc::CoreModel::ExampleBlock,
+              'quote' => Ceradoc::CoreModel::QuoteBlock,
+              'abstract' => Ceradoc::CoreModel::AbstractBlock,
+              'partintro' => Ceradoc::CoreModel::PartintroBlock
+            }.freeze
+
+            # Resolve a delimited block's cast from its first positional
+            # attribute. Single source of truth for the cast ladder used
+            # by every block-form transformer (example/sidebar/quote/open).
+            # Returns one of: :admonition, :stem, :source, :listing,
+            # :literal, :typed_cast, or nil (no cast — use the block's
+            # native class).
+            def block_cast_semantic(block)
+              style = first_positional_attr(block)
+              return nil unless style
+
+              style_str = style.to_s.downcase
+              return :admonition if AdmonitionStyles.admonition?(style)
+              return :stem if STEM_STYLES.key?(style_str)
+              return :typed_cast if TYPED_BLOCK_CAST_STYLES.key?(style_str)
+              return style_str.to_sym if VERBATILE_CAST_STYLES.include?(style_str)
+
+              nil
+            end
+
+            # Returns the first positional attribute on the block's
+            # attribute list as a String, or nil if absent. Centralizes the
+            # shape-walking that was previously inlined in
+            # `transform_admonition_from_open` and `open_block_semantic`.
+            def first_positional_attr(block)
+              attrs = block.attributes
+              return nil unless attrs.is_a?(Ceradoc::AsciiDoc::Model::AttributeList)
+
+              first = attrs.positional&.first
+              return nil unless first.is_a?(Ceradoc::AsciiDoc::Model::AttributeListAttribute)
+
+              first.value.to_s
+            end
+
+            # Single admonition dispatch used by every block-form path
+            # (example / sidebar / quote / pass / open). Builds an
+            # AnnotationBlock by delegating to +transform_typed_block+
+            # with +annotation_type+ injected via +extra_attrs+. This
+            # preserves inline formatting (links, monospace, bold), list
+            # structure, and paragraph breaks — the typed-block pipeline
+            # already groups lines into ParagraphBlock children and
+            # dispatches block-level lines (lists, tables) through
+            # ToCoreModel.transform. Type is canonicalised via
+            # AdmonitionStyles so every code path (line admonition, block
+            # admonition, attribute-cast admonition) produces the same
+            # uppercase key.
+            def transform_admonition_block(block, type)
+              canonical = AdmonitionStyles.canonicalize(type) || type.to_s
+              transform_typed_block(
+                block,
+                Ceradoc::CoreModel::AnnotationBlock,
+                annotation_type: canonical
+              )
+            end
+
+            def transform_listing_from_open(block)
+              transform_verbatim_block(block, Ceradoc::CoreModel::ListingBlock)
+            end
+
+            def transform_literal_from_open(block)
+              transform_verbatim_block(block, Ceradoc::CoreModel::LiteralBlock)
+            end
+
+            def transform_block(block, semantic_type_or_delimiter)
+              source_lines = ToCoreModel.extract_source_lines(block.lines)
+              semantic_type = if semantic_type_or_delimiter.is_a?(Symbol)
+                                semantic_type_or_delimiter
+                              else
+                                ToCoreModel.asciidoc_delimiter_to_semantic(semantic_type_or_delimiter)
+                              end
+
+              Ceradoc::CoreModel::Block.new(
+                block_semantic_type: semantic_type,
+                delimiter_type: semantic_type_or_delimiter.is_a?(String) ? semantic_type_or_delimiter : nil,
+                id: block.id,
+                title: ToCoreModel.extract_title_text(block.title),
+                content: source_lines.join("\n"),
+                lines: source_lines,
+                language: ToCoreModel.extract_block_language(block),
+                source_line: block.source_line
+              )
+            end
+
+            def transform_typed_block(block, klass, extra_attrs = {})
+              children, content = build_typed_block_children(block.lines)
+
+              klass.new(
+                id: block.id,
+                title: ToCoreModel.extract_title_text(block.title),
+                content: content,
+                children: children,
+                language: ToCoreModel.extract_block_language(block),
+                source_line: block.source_line,
+                **extra_attrs
+              )
+            end
+
+            # Walks block.lines in document order and emits the typed
+            # block's children alongside the prose-string view of its
+            # paragraphs.
+            #
+            # Consecutive inline lines coalesce into one ParagraphBlock
+            # (preserving AsciiDoc paragraph semantics: soft-wrapped
+            # source lines are one paragraph, blank lines split them).
+            # Block-level lines (lists, tables, nested blocks — anything
+            # whose AsciiDoc model returns true from +block_level?+)
+            # dispatch through +ToCoreModel.transform+ and slot in at
+            # their original document-order position. LineBreak /
+            # PageBreak lines flush the pending inline paragraph.
+            #
+            # Returns [+children+, +content+] where +content+ is the
+            # paragraph text joined with blank-line separators (nil when
+            # the block has no paragraphs, e.g. contains only nested
+            # blocks).
+            #
+            # Single source of truth for typed-block body construction.
+            # Used by every typed-block transformer (example, sidebar,
+            # quote, open, typed-cast, admonition) so they all preserve
+            # inline formatting, list structure, and paragraph breaks
+            # identically.
+            def build_typed_block_children(lines)
+              children = []
+              paragraph_texts = []
+              pending_inline = []
+
+              Array(lines).each do |line|
+                if line.is_a?(Ceradoc::AsciiDoc::Model::LineBreak) ||
+                   line.is_a?(Ceradoc::AsciiDoc::Model::Break::PageBreak)
+                  flush_inline_paragraph(pending_inline, children, paragraph_texts)
+                  pending_inline.clear
+                elsif block_level_child?(line)
+                  flush_inline_paragraph(pending_inline, children, paragraph_texts)
+                  pending_inline.clear
+                  dispatched = ToCoreModel.transform(line)
+                  children << dispatched if dispatched
+                else
+                  pending_inline << line
+                end
+              end
+              flush_inline_paragraph(pending_inline, children, paragraph_texts)
+
+              content = paragraph_texts.any? ? paragraph_texts.join("\n\n") : nil
+              [children, content]
+            end
+
+            # Materialises +pending_inline+ into a ParagraphBlock and
+            # appends it to +children+, recording its flat text in
+            # +paragraph_texts+ for later content-string joining. No-op
+            # when +pending_inline+ is empty so callers can flush
+            # unconditionally at every boundary (blank line, block-level
+            # child, end-of-input) without producing empty paragraphs.
+            def flush_inline_paragraph(pending_inline, children, paragraph_texts)
+              return if pending_inline.empty?
+
+              inline = ToCoreModel.transform_inline_content(pending_inline)
+              inline = [Ceradoc::CoreModel::TextContent.new(text: '')] if inline.empty?
+              text = ToCoreModel.extract_text_content(pending_inline)
+              paragraph_texts << text
+              children << Ceradoc::CoreModel::ParagraphBlock.new(
+                content: text,
+                children: Array(inline),
+                source_line: ToCoreModel.extract_source_line(pending_inline)
+              )
+            end
+
+            # A line that should be emitted as a direct child of the
+            # enclosing block rather than joined into a paragraph sibling.
+            # The AsciiDoc model layer declares level via `block_level?`
+            # (true for Block::Core delimited blocks, BlockImage, Table,
+            # List::Core, Section, CommentBlock, Attached). Inline content
+            # (String, TextElement, LineBreak, PageBreak) returns false and
+            # stays inside paragraphs.
+            def block_level_child?(line)
+              line.is_a?(Ceradoc::AsciiDoc::Model::Base) && line.block_level?
+            end
+          end
+        end
+      end
+    end
+  end
+end

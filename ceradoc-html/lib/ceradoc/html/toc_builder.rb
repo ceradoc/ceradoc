@@ -1,0 +1,114 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module Html
+    # Builds a CoreModel::Toc from a document's StructuralElement tree.
+    #
+    # Walks the section hierarchy, assigns section numbers, and returns
+    # a Toc model with nested TocEntry children. Section numbers are
+    # derived from tree position — single source of truth for both
+    # TOC rendering and heading numbering.
+    class TocBuilder
+      def initialize(max_level: 6, numbered: false, section_number_levels: 3)
+        @max_level = max_level
+        @numbered = numbered
+        @section_number_levels = section_number_levels
+      end
+
+      # Build a TocBuilder from renderer-style options hash.
+      #
+      # @param options [Hash] options with :section_number_levels, :toc_levels, :section_numbers
+      # @return [TocBuilder]
+      def self.from_options(opts)
+        opts = RenderOptions.new(**opts) unless opts.is_a?(RenderOptions)
+        section_number_levels = opts.section_number_levels || 3
+        toc_levels = opts.toc_levels || 2
+        max_level = [toc_levels, section_number_levels].min
+        new(max_level: max_level, numbered: opts.section_numbers == true, section_number_levels: section_number_levels)
+      end
+
+      # Build a Toc model from a document.
+      #
+      # @param document [CoreModel::StructuralElement] the root document
+      # @return [CoreModel::Toc] the built TOC with entries and section numbers
+      def build(document)
+        toc, = build_with_numbers(document)
+        toc
+      end
+
+      # Build TOC and section number map in a single tree walk.
+      #
+      # @param document [CoreModel::StructuralElement] the root document
+      # @return [Array(CoreModel::Toc, Hash)] tuple of TOC model and section number map
+      def build_with_numbers(document)
+        entries = []
+        counters = [0]
+        collect_entries(document.children, entries, 1, counters, always_number: true) if document.children
+
+        map = {}
+        flatten_numbers(entries, map)
+
+        strip_numbers(entries) unless @numbered
+
+        toc = CoreModel::Toc.new(
+          entries: entries,
+          min_level: 1,
+          max_level: @max_level,
+          numbered: @numbered
+        )
+        [toc, map]
+      end
+
+      private
+
+      def collect_entries(items, entries, level, counters, always_number: false)
+        return unless items && level <= @max_level
+
+        items.each do |item|
+          next unless item.is_a?(CoreModel::StructuralElement)
+          next unless item.section? || item.header?
+          next if item.document_title?
+
+          counters[level] = (counters[level] || 0) + 1
+          ((level + 1)..@section_number_levels).each { |i| counters[i] = 0 }
+
+          use_number = always_number || @numbered
+          number = use_number && level <= @section_number_levels ? counters[1..level].join('.') : nil
+
+          children = []
+          collect_entries(item.children, children, level + 1, counters, always_number: always_number) if item.children
+
+          entries << CoreModel::TocEntry.new(
+            id: entry_id(item),
+            title: entry_title(item),
+            level: level,
+            number: number,
+            children: children
+          )
+        end
+      end
+
+      def flatten_numbers(entries, map)
+        entries.each do |entry|
+          map[entry.id] = entry.number if entry.id && entry.number
+          flatten_numbers(entry.children, map) if entry.children
+        end
+      end
+
+      def strip_numbers(entries)
+        entries.each do |entry|
+          entry.number = nil
+          strip_numbers(entry.children) if entry.children
+        end
+      end
+
+      def entry_title(section)
+        TitleText.resolve(section.title)
+      end
+
+      def entry_id(section)
+        section.id
+      end
+    end
+  end
+end

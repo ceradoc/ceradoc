@@ -1,4 +1,4 @@
-# Lychee link checker configuration for Coridoc documentation
+# Lychee link checker configuration for Ceradoc documentation
 
 # Exclude patterns
 exclude = [
@@ -8,8 +8,8 @@ exclude = [
   "^http://0.0.0.0",
 
   # Unmerged/draft PRs
-  "github.com/coridoc/coridoc/pull/",
-  "github.com/coridoc/coridoc/pull/[0-9]+$",
+  "github.com/ceradoc/ceradoc/pull/",
+  "github.com/ceradoc/ceradoc/pull/[0-9]+$",
 
   # Example domains
   "example.com",
@@ -20,10 +20,10 @@ exclude = [
   "^#",
 
   # GitHub features that may not have stable URLs
-  "github.com/coridoc/coridoc/actions",
-  "github.com/coridoc/coridoc/projects",
-  "github.com/coridoc/coridoc/wiki",
-  "github.com/coridoc/coridoc/security",
+  "github.com/ceradoc/ceradoc/actions",
+  "github.com/ceradoc/ceradoc/projects",
+  "github.com/ceradoc/ceradoc/wiki",
+  "github.com/ceradoc/ceradoc/security",
 
   # GitHub user/profile links (may change)
   "github.com/*",

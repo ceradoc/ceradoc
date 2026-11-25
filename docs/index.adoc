@@ -1,17 +1,17 @@
 ---
-title: Coridoc Documentation
+title: Ceradoc Documentation
 nav_order: 1
 ---
 
-= Coridoc Documentation
+= Ceradoc Documentation
 
-image:https://img.shields.io/gem/v/coridoc.svg[Gem Version]
-image:https://img.shields.io/github/license/coridoc/coridoc[License]
-image:https://github.com/coridoc/coridoc/actions/workflows/rake.yml/badge.svg["Build Status", link="https://github.com/coridoc/coridoc/actions/workflows/rake.yml"]
+image:https://img.shields.io/gem/v/ceradoc.svg[Gem Version]
+image:https://img.shields.io/github/license/ceradoc/ceradoc[License]
+image:https://github.com/ceradoc/ceradoc/actions/workflows/rake.yml/badge.svg["Build Status", link="https://github.com/ceradoc/ceradoc/actions/workflows/rake.yml"]
 
 == Purpose
 
-Coridoc is a parser, model, and serializer for AsciiDoc documents.
+Ceradoc is a parser, model, and serializer for AsciiDoc documents.
 
 It provides a complete toolchain for working with AsciiDoc:
 
@@ -20,14 +20,14 @@ It provides a complete toolchain for working with AsciiDoc:
 * *Serialization* - Generate AsciiDoc output from document models
 * *Round-tripping* - Parse and serialize while preserving semantic meaning
 
-Coridoc uses https://parslet.rubygem[Parslet] for parsing and https://github.com/metanorma/lutaml-model[lutaml-model] for model definition, providing a robust foundation for AsciiDoc document processing.
+Ceradoc uses https://parslet.rubygem[Parslet] for parsing and https://github.com/metanorma/lutaml-model[lutaml-model] for model definition, providing a robust foundation for AsciiDoc document processing.
 
 == Quick Start
 
 [source,ruby]
 ----
 # Parse AsciiDoc input
-doc = Coridoc.parse("== Hello World\n\nThis is a paragraph.")
+doc = Ceradoc.parse("== Hello World\n\nThis is a paragraph.")
 
 # Access document structure
 doc.header.title                    # => "Hello World"
@@ -43,7 +43,7 @@ This documentation is organized into four collections to help you find what you 
 
 === Core Pages (link:pages/[Conceptual Documentation])
 
-Foundational documentation about Coridoc's architecture and features:
+Foundational documentation about Ceradoc's architecture and features:
 
 * link:pages/getting-started[Getting Started] - Installation and quick start guide
 * link:pages/architecture[Architecture] - Data flow and layer structure
@@ -54,7 +54,7 @@ Foundational documentation about Coridoc's architecture and features:
 
 === Tutorials (link:tutorials/[Step-by-Step Learning])
 
-Learn Coridoc through hands-on tutorials:
+Learn Ceradoc through hands-on tutorials:
 
 * link:tutorials/basic-parsing[Basic Parsing] - Parse your first document
 * link:tutorials/document-modeling[Document Modeling] - Work with the document model
@@ -104,7 +104,7 @@ Add this line to your application's Gemfile:
 
 [source,ruby]
 ----
-gem 'coridoc'
+gem 'ceradoc'
 ----
 
 And then execute:
@@ -118,7 +118,7 @@ Or install it yourself as:
 
 [source,bash]
 ----
-gem install coridoc
+gem install ceradoc
 ----
 
 == Resources
@@ -126,5 +126,5 @@ gem install coridoc
 * link:pages/getting-started[Getting Started Guide]
 * link:tutorials/[All Tutorials]
 * link:references/api-reference[API Reference]
-* https://github.com/coridoc/coridoc[GitHub Repository]
-* https://rubygems.org/gems/coridoc[RubyGems Page]
+* https://github.com/ceradoc/ceradoc[GitHub Repository]
+* https://rubygems.org/gems/ceradoc[RubyGems Page]

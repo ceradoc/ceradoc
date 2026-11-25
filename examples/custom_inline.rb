@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-# Custom inline element examples for Coridoc
+# Custom inline element examples for Ceradoc
 #
 # This file demonstrates how to create and use custom inline elements.
 
-require_relative '../lib/coridoc'
+require_relative '../lib/ceradoc'
 
 # Example 1: Create a custom highlight inline element
 puts '=== Example 1: Create a custom highlight inline element ==='
 
 # Define the custom inline class
-module Coridoc
+module Ceradoc
   module Model
     module Inline
       class Highlight < Base
@@ -22,7 +22,7 @@ module Coridoc
 end
 
 # Create a custom serializer
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -41,13 +41,13 @@ module Coridoc
 end
 
 # Register the serializer
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Inline::Highlight,
-  Coridoc::Output::Adoc::Serializers::HighlightSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Inline::Highlight,
+  Ceradoc::Output::Adoc::Serializers::HighlightSerializer
 )
 
 # Use the custom inline element
-highlight = Coridoc::Model::Inline::Highlight.new
+highlight = Ceradoc::Model::Inline::Highlight.new
 highlight.text = 'important text'
 
 puts 'Custom highlight element:'
@@ -57,7 +57,7 @@ puts
 # Example 2: Create a custom code inline element
 puts '=== Example 2: Create a custom code inline element ==='
 
-module Coridoc
+module Ceradoc
   module Model
     module Inline
       class Code < Base
@@ -68,7 +68,7 @@ module Coridoc
   end
 end
 
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -86,12 +86,12 @@ module Coridoc
   end
 end
 
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Inline::Code,
-  Coridoc::Output::Adoc::Serializers::CodeSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Inline::Code,
+  Ceradoc::Output::Adoc::Serializers::CodeSerializer
 )
 
-code = Coridoc::Model::Inline::Code.new
+code = Ceradoc::Model::Inline::Code.new
 code.code = "puts 'Hello'"
 
 puts 'Custom code element:'
@@ -101,7 +101,7 @@ puts
 # Example 3: Create a custom mark inline element
 puts '=== Example 3: Create a custom mark inline element ==='
 
-module Coridoc
+module Ceradoc
   module Model
     module Inline
       class Mark < Base
@@ -111,7 +111,7 @@ module Coridoc
   end
 end
 
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -129,12 +129,12 @@ module Coridoc
   end
 end
 
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Inline::Mark,
-  Coridoc::Output::Adoc::Serializers::MarkSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Inline::Mark,
+  Ceradoc::Output::Adoc::Serializers::MarkSerializer
 )
 
-mark = Coridoc::Model::Inline::Mark.new
+mark = Ceradoc::Model::Inline::Mark.new
 mark.text = 'marked text'
 
 puts 'Custom mark element:'
@@ -144,7 +144,7 @@ puts
 # Example 4: Create a custom keycap inline element
 puts '=== Example 4: Create a custom keycap inline element ==='
 
-module Coridoc
+module Ceradoc
   module Model
     module Inline
       class Keycap < Base
@@ -154,7 +154,7 @@ module Coridoc
   end
 end
 
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -172,12 +172,12 @@ module Coridoc
   end
 end
 
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Inline::Keycap,
-  Coridoc::Output::Adoc::Serializers::KeycapSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Inline::Keycap,
+  Ceradoc::Output::Adoc::Serializers::KeycapSerializer
 )
 
-keycap = Coridoc::Model::Inline::Keycap.new
+keycap = Ceradoc::Model::Inline::Keycap.new
 keycap.key = 'Ctrl'
 
 puts 'Custom keycap element:'
@@ -187,15 +187,15 @@ puts
 # Example 5: Use custom inline elements in a paragraph
 puts '=== Example 5: Use custom inline elements in a paragraph ==='
 
-paragraph = Coridoc::Model::Paragraph.new
+paragraph = Ceradoc::Model::Paragraph.new
 paragraph.content = [
-  Coridoc::Model::TextElement.new('Press '),
-  Coridoc::Model::Inline::Keycap.new(key: 'Ctrl'),
-  Coridoc::Model::TextElement.new(' + '),
-  Coridoc::Model::Inline::Keycap.new(key: 'C'),
-  Coridoc::Model::TextElement.new(' to copy, and '),
-  Coridoc::Model::Inline::Highlight.new(text: 'this is highlighted'),
-  Coridoc::Model::TextElement.new(' text.')
+  Ceradoc::Model::TextElement.new('Press '),
+  Ceradoc::Model::Inline::Keycap.new(key: 'Ctrl'),
+  Ceradoc::Model::TextElement.new(' + '),
+  Ceradoc::Model::Inline::Keycap.new(key: 'C'),
+  Ceradoc::Model::TextElement.new(' to copy, and '),
+  Ceradoc::Model::Inline::Highlight.new(text: 'this is highlighted'),
+  Ceradoc::Model::TextElement.new(' text.')
 ]
 
 puts 'Paragraph with custom inline elements:'
@@ -205,13 +205,13 @@ puts
 # Example 6: Mix custom and built-in inline elements
 puts '=== Example 6: Mix custom and built-in inline elements ==='
 
-paragraph = Coridoc::Model::Paragraph.new
+paragraph = Ceradoc::Model::Paragraph.new
 paragraph.content = [
-  Coridoc::Model::TextElement.new('This has '),
-  Coridoc::Model::Inline::Bold.new(content: 'built-in bold'),
-  Coridoc::Model::TextElement.new(' and '),
-  Coridoc::Model::Inline::Highlight.new(text: 'custom highlight'),
-  Coridoc::Model::TextElement.new(' together.')
+  Ceradoc::Model::TextElement.new('This has '),
+  Ceradoc::Model::Inline::Bold.new(content: 'built-in bold'),
+  Ceradoc::Model::TextElement.new(' and '),
+  Ceradoc::Model::Inline::Highlight.new(text: 'custom highlight'),
+  Ceradoc::Model::TextElement.new(' together.')
 ]
 
 puts 'Mixed inline elements:'
@@ -221,7 +221,7 @@ puts
 # Example 7: Create a custom icon inline element
 puts '=== Example 7: Create a custom icon inline element ==='
 
-module Coridoc
+module Ceradoc
   module Model
     module Inline
       class Icon < Base
@@ -232,7 +232,7 @@ module Coridoc
   end
 end
 
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -250,12 +250,12 @@ module Coridoc
   end
 end
 
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Inline::Icon,
-  Coridoc::Output::Adoc::Serializers::IconSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Inline::Icon,
+  Ceradoc::Output::Adoc::Serializers::IconSerializer
 )
 
-icon = Coridoc::Model::Inline::Icon.new
+icon = Ceradoc::Model::Inline::Icon.new
 icon.icon_name = 'fire'
 icon.size = '2x'
 
@@ -266,17 +266,17 @@ puts
 # Example 8: Custom inline elements in document sections
 puts '=== Example 8: Custom inline elements in document sections ==='
 
-section = Coridoc::Model::Section.new
-section.title = Coridoc::Model::Title.new
+section = Ceradoc::Model::Section.new
+section.title = Ceradoc::Model::Title.new
 section.title.content = ['Keyboard Shortcuts']
 
-paragraph = Coridoc::Model::Paragraph.new
+paragraph = Ceradoc::Model::Paragraph.new
 paragraph.content = [
-  Coridoc::Model::TextElement.new('Use '),
-  Coridoc::Model::Inline::Keycap.new(key: 'Ctrl'),
-  Coridoc::Model::TextElement.new(' + '),
-  Coridoc::Model::Inline::Keycap.new(key: 'S'),
-  Coridoc::Model::TextElement.new(' to save your work.')
+  Ceradoc::Model::TextElement.new('Use '),
+  Ceradoc::Model::Inline::Keycap.new(key: 'Ctrl'),
+  Ceradoc::Model::TextElement.new(' + '),
+  Ceradoc::Model::Inline::Keycap.new(key: 'S'),
+  Ceradoc::Model::TextElement.new(' to save your work.')
 ]
 section.blocks = [paragraph]
 
@@ -287,7 +287,7 @@ puts
 # Example 9: Create a menu inline element
 puts '=== Example 9: Create a menu inline element ==='
 
-module Coridoc
+module Ceradoc
   module Model
     module Inline
       class Menu < Base
@@ -297,7 +297,7 @@ module Coridoc
   end
 end
 
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -315,12 +315,12 @@ module Coridoc
   end
 end
 
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Inline::Menu,
-  Coridoc::Output::Adoc::Serializers::MenuSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Inline::Menu,
+  Ceradoc::Output::Adoc::Serializers::MenuSerializer
 )
 
-menu = Coridoc::Model::Inline::Menu.new
+menu = Ceradoc::Model::Inline::Menu.new
 menu.menu_path = 'File[Save]'
 
 puts 'Custom menu element:'

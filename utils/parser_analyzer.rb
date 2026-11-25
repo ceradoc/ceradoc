@@ -18,7 +18,7 @@ def is_def?(arr)
   end
 end
 
-path = 'lib/coridoc/parser/asciidoc/'
+path = 'lib/ceradoc/parser/asciidoc/'
 class_files = Dir.entries(path).select { |x| File.file?(path + x) }
 
 $all_defs = {}

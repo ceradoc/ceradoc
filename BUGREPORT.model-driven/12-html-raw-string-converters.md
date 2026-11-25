@@ -2,13 +2,13 @@
 
 ## Status: FIXED
 
-- 23 converter files in `coridoc-html/lib/coridoc/html/converters/` construct HTML via string interpolation
+- 23 converter files in `ceradoc-html/lib/ceradoc/html/converters/` construct HTML via string interpolation
 - 26 files already use NodeBuilder correctly (bold, paragraph, section, table, etc.)
 - The clean pattern exists and is well-established — conversion is mechanical
 
 
 **Severity:** HIGH
-**Location:** `coridoc-html/lib/coridoc/html/converters/` (23 files)
+**Location:** `ceradoc-html/lib/ceradoc/html/converters/` (23 files)
 
 ## Problem
 

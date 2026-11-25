@@ -1,0 +1,33 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module AsciiDoc
+    module Model
+      # Thematic break elements for AsciiDoc documents.
+      #
+      module Break
+        # Thematic break (horizontal rule) for AsciiDoc documents.
+        #
+        # Represented by a line of three or more asterisks ('***') in AsciiDoc.
+        # Used to separate content sections visually.
+        #
+        # @example Create a thematic break
+        #   break = Ceradoc::AsciiDoc::Model::Break::ThematicBreak.new
+        #
+        # @example Serialize to AsciiDoc
+        #   break = Ceradoc::AsciiDoc::Model::Break::ThematicBreak.new
+        #   break.to_adoc # => "'''\n"
+        #
+        class ThematicBreak < Base
+        end
+
+        # Page break for AsciiDoc documents.
+        #
+        # Represented by <<< in AsciiDoc. Layout-only element;
+        # has no CoreModel equivalent and is filtered during ToCoreModel.
+        class PageBreak < Base
+        end
+      end
+    end
+  end
+end

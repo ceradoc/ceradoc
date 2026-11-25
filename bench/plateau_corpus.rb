@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Plateau-corpus parse benchmark (coridoc#308 acceptance).
+# Plateau-corpus parse benchmark (ceradoc#308 acceptance).
 #
 #   ruby bench/plateau_corpus.rb CORPUS_DIR OUT.json
 #
@@ -10,8 +10,8 @@
 # records a digest of each stage's output so identity can be compared.
 require 'json'
 require 'digest'
-require 'coridoc'
-require 'coridoc/asciidoc'
+require 'ceradoc'
+require 'ceradoc/asciidoc'
 
 dir, out = ARGV
 max = Integer(ENV.fetch('MAX_BYTES', 250_000))
@@ -22,7 +22,7 @@ if ENV['CHUNK'] # "i/n": process every n-th file starting at i, so a driver can 
   files = files.each_slice(n).map { |sl| sl[i] }.compact
 end
 warn "skipping #{(all - files).size} files > #{max} bytes"
-A = Coridoc::AsciiDoc
+A = Ceradoc::AsciiDoc
 
 def dump(obj)
   obj.respond_to?(:to_yaml) ? obj.to_yaml : obj.inspect

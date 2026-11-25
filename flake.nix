@@ -48,9 +48,9 @@
             category = "App";
           }
           {
-            name = "coridoc";
-            command = "exe/coridoc \"$@\"";
-            help = "Run coridoc CLI";
+            name = "ceradoc";
+            command = "exe/ceradoc \"$@\"";
+            help = "Run ceradoc CLI";
             category = "App";
           }
           {

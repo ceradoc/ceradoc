@@ -8,11 +8,11 @@ nav_order: 4
 
 == Task
 
-Understand and configure Coridoc's parsing and serialization options.
+Understand and configure Ceradoc's parsing and serialization options.
 
 == Overview
 
-Coridoc provides various configuration options for:
+Ceradoc provides various configuration options for:
 
 * Parsing behavior
 * Serialization output
@@ -26,7 +26,7 @@ Coridoc provides various configuration options for:
 
 [source,ruby]
 ----
-doc = Coridoc.parse(input, options)
+doc = Ceradoc.parse(input, options)
 ----
 
 **Available options:**
@@ -34,25 +34,25 @@ doc = Coridoc.parse(input, options)
 [source,ruby]
 ----
 # Schema selection
-doc = Coridoc.parse(input, schema: :iso)
-doc = Coridoc.parse(input, schema: :custom)
+doc = Ceradoc.parse(input, schema: :iso)
+doc = Ceradoc.parse(input, schema: :custom)
 
 # Error handling
-doc = Coridoc.parse(input, strict: true)        # Raise on errors
-doc = Coridoc.parse(input, strict: false)       # Skip errors (default)
+doc = Ceradoc.parse(input, strict: true)        # Raise on errors
+doc = Ceradoc.parse(input, strict: false)       # Skip errors (default)
 
 # Preserve whitespace
-doc = Coridoc.parse(input, preserve_whitespace: true)
+doc = Ceradoc.parse(input, preserve_whitespace: true)
 
 # Custom attributes
-doc = Coridoc.parse(input, attributes: { "key" => "value" })
+doc = Ceradoc.parse(input, attributes: { "key" => "value" })
 ----
 
 === File Parse Options
 
 [source,ruby]
 ----
-doc = Coridoc.parse_file(filename, options)
+doc = Ceradoc.parse_file(filename, options)
 ----
 
 **Additional file options:**
@@ -60,13 +60,13 @@ doc = Coridoc.parse_file(filename, options)
 [source,ruby]
 ----
 # Encoding
-doc = Coridoc.parse_file("file.adoc", encoding: "UTF-8")
+doc = Ceradoc.parse_file("file.adoc", encoding: "UTF-8")
 
 # Base directory for includes
-doc = Coridoc.parse_file("main.adoc", base_dir: "/path/to/docs")
+doc = Ceradoc.parse_file("main.adoc", base_dir: "/path/to/docs")
 
 # Cache parsing results
-doc = Coridoc.parse_file("file.adoc", cache: true)
+doc = Ceradoc.parse_file("file.adoc", cache: true)
 ----
 
 == Serialization Configuration
@@ -99,7 +99,7 @@ output = doc.to_adoc(preserve: true)
 
 [source,ruby]
 ----
-output = Coridoc.convert(doc, to: :adoc, options)
+output = Ceradoc.convert(doc, to: :adoc, options)
 ----
 
 **Additional convert options:**
@@ -107,12 +107,12 @@ output = Coridoc.convert(doc, to: :adoc, options)
 [source,ruby]
 ----
 # Format-specific options
-output = Coridoc.convert(doc, to: :html, options)
-output = Coridoc.convert(doc, to: :adoc, options)
+output = Ceradoc.convert(doc, to: :html, options)
+output = Ceradoc.convert(doc, to: :adoc, options)
 
 # Output stream
 File.open("output.adoc", "w") do |f|
-  Coridoc.convert(doc, to: :adoc, output: f)
+  Ceradoc.convert(doc, to: :adoc, output: f)
 end
 ----
 
@@ -120,11 +120,11 @@ end
 
 === Global Configuration
 
-Create a `.coridoc.yml` file in your project root:
+Create a `.ceradoc.yml` file in your project root:
 
 [source,yaml]
 ----
-# .coridoc.yml
+# .ceradoc.yml
 parsing:
   schema: default
   strict: false
@@ -143,13 +143,13 @@ output:
   encoding: UTF-8
 ----
 
-Coridoc automatically loads this configuration if present.
+Ceradoc automatically loads this configuration if present.
 
 === Environment-Specific Configuration
 
 [source,ruby]
 ----
-# .coridoc.yml
+# .ceradoc.yml
 development:
   parsing:
     strict: true
@@ -167,7 +167,7 @@ Load with:
 
 [source,ruby]
 ----
-Coridoc.config.load_env(:production)
+Ceradoc.config.load_env(:production)
 ----
 
 ## Schema Configuration
@@ -178,7 +178,7 @@ Set the default schema globally:
 
 [source,ruby]
 ----
-Coridoc.config.default_schema = :iso
+Ceradoc.config.default_schema = :iso
 ----
 
 === Schema-Specific Options
@@ -186,7 +186,7 @@ Coridoc.config.default_schema = :iso
 [source,ruby]
 ----
 # Configure a schema
-Coridoc::Schema.configure(:iso) do |config|
+Ceradoc::Schema.configure(:iso) do |config|
   config.strict_sections = true
   config.require_metadata = true
   config.allow_extensions = false
@@ -201,7 +201,7 @@ Set default document attributes:
 
 [source,ruby]
 ----
-# In .coridoc.yml
+# In .ceradoc.yml
 parsing:
   default_attributes:
     author: John Doe
@@ -214,7 +214,7 @@ parsing:
 
 [source,ruby]
 ----
-doc = Coridoc.parse(input, attributes: {
+doc = Ceradoc.parse(input, attributes: {
   "author" => "Jane Doe",
   "version" => "2.0"
 })
@@ -227,7 +227,7 @@ doc = Coridoc.parse(input, attributes: {
 [source,ruby]
 ----
 # Configure parser behavior
-Coridoc::Parser.configure do |config|
+Ceradoc::Parser.configure do |config|
   config.strict_syntax = true
   config.warn_on_undefined = true
   config.allow_extensions = true
@@ -239,7 +239,7 @@ end
 [source,ruby]
 ----
 # Add custom parser rules
-Coridoc::Parser.add_rule(:custom_block) do |parser|
+Ceradoc::Parser.add_rule(:custom_block) do |parser|
   # Custom parsing logic
 end
 ----
@@ -251,7 +251,7 @@ end
 [source,ruby]
 ----
 # Configure output formatting
-Coridoc::Output::Adoc.configure do |config|
+Ceradoc::Output::Adoc.configure do |config|
   config.indent_sections = true
   config.blank_line_after_block = true
   config compact_lists = false
@@ -263,7 +263,7 @@ end
 [source,ruby]
 ----
 # Configure specific element serialization
-Coridoc::Output::Adoc.configure(:section) do |config|
+Ceradoc::Output::Adoc.configure(:section) do |config|
   config.underline_style = false
   config.anchor_before_title = true
 end
@@ -275,7 +275,7 @@ end
 
 [source,ruby]
 ----
-# In .coridoc.yml
+# In .ceradoc.yml
 extensions:
   custom_blocks:
     - MyCustomBlock
@@ -290,7 +290,7 @@ Or programmatically:
 
 [source,ruby]
 ----
-Coridoc.config.extensions do |ext|
+Ceradoc.config.extensions do |ext|
   ext.register_block(MyCustomBlock)
   ext.register_inline(MyInline)
   ext.register_serializer(MyCustomSerializer)
@@ -304,7 +304,7 @@ end
 [source,ruby]
 ----
 # Configure error handling
-Coridoc::Errors.configure do |config|
+Ceradoc::Errors.configure do |config|
   config.raise_on_parse_error = false
   config.collect_errors = true
   config.max_errors = 10
@@ -316,7 +316,7 @@ end
 [source,ruby]
 ----
 # Set error callback
-Coridoc.config.on_error do |error|
+Ceradoc.config.on_error do |error|
   puts "Parse error: #{error.message}"
   # Log to external service
 end
@@ -329,7 +329,7 @@ end
 [source,ruby]
 ----
 # Enable caching
-Coridoc::Cache.configure do |config|
+Ceradoc::Cache.configure do |config|
   config.enabled = true
   config.size = 100
   config.ttl = 3600
@@ -341,7 +341,7 @@ end
 [source,ruby]
 ----
 # Configure parallel processing
-Coridoc.config.parallel do |config|
+Ceradoc.config.parallel do |config|
   config.enabled = true
   config.workers = 4
 end
@@ -351,8 +351,8 @@ end
 
 [source,ruby]
 ----
-# config/initializers/coridoc.rb
-Coridoc.configure do |config|
+# config/initializers/ceradoc.rb
+Ceradoc.configure do |config|
   # General settings
   config.default_schema = :iso
   config.strict = false
@@ -384,28 +384,28 @@ Coridoc.configure do |config|
 
   # Error handling
   config.error_handler do |err|
-    Rails.logger.error("Coridoc error: #{err.message}")
+    Rails.logger.error("Ceradoc error: #{err.message}")
   end
 end
 ----
 
 ## Environment Variables
 
-Coridoc respects the following environment variables:
+Ceradoc respects the following environment variables:
 
 [source,bash]
 ----
 # Schema
-export CORIDOC_SCHEMA=iso
+export CERADOC_SCHEMA=iso
 
 # Strict mode
-export CORIDOC_STRICT=true
+export CERADOC_STRICT=true
 
 # Debug mode
-export CORIDOC_DEBUG=1
+export CERADOC_DEBUG=1
 
 # Cache directory
-export CORIDOC_CACHE=/tmp/coridoc
+export CERADOC_CACHE=/tmp/ceradoc
 ----
 
 ## Configuration Precedence
@@ -413,7 +413,7 @@ export CORIDOC_CACHE=/tmp/coridoc
 Configuration is applied in this order (later overrides earlier):
 
 1. Default configuration
-2. `.coridoc.yml` file
+2. `.ceradoc.yml` file
 3. Environment variables
 4. Runtime options (`parse(input, options)`)
 
@@ -421,11 +421,11 @@ Configuration is applied in this order (later overrides earlier):
 
 **Problem:** Configuration file isn't being loaded.
 
-**Solution:** Ensure `.coridoc.yml` is in the project root or current working directory. Check YAML syntax.
+**Solution:** Ensure `.ceradoc.yml` is in the project root or current working directory. Check YAML syntax.
 
 **Problem:** Schema options aren't being applied.
 
-**Solution:** Verify schema is loaded before parsing. Check `Coridoc::Schema.registered?` to confirm registration.
+**Solution:** Verify schema is loaded before parsing. Check `Ceradoc::Schema.registered?` to confirm registration.
 
 **Problem:** Custom extensions aren't working.
 
@@ -444,11 +444,11 @@ In this guide you learned:
 
 ## Related Documentation
 
-* link:/coridoc/pages/architecture[Architecture] - Configuration layer
+* link:/ceradoc/pages/architecture[Architecture] - Configuration layer
 * link:schema-system[Schema System Guide] - Schema configuration
-* link:/coridoc/references/api-reference[API Reference] - Configuration API
+* link:/ceradoc/references/api-reference[API Reference] - Configuration API
 
 ## Bibliography
 
-* https://github.com/coridoc/coridoc/blob/main/lib/coridoc/configuration.rb[Configuration implementation]
+* https://github.com/ceradoc/ceradoc/blob/main/lib/ceradoc/configuration.rb[Configuration implementation]
 * https://www.rubyguides.com/2018/10/ruby-yaml/[Ruby YAML Guide]
