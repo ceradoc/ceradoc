@@ -15,6 +15,11 @@ exclude = [
   "docs.asciidoctor.org",
   "developer.mozilla.org",
 
+  # rubygems.org rate-limits CI runners (sporadic 404/429 on real pages)
+  "rubygems.org",
+  # wikipedia rate-limits non-browser agents intermittently
+  "en.wikipedia.org",
+
   # Example domains
   "example.com",
   "example.org",

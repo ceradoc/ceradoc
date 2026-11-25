@@ -348,5 +348,5 @@ Practice your skills:
 
 ## Bibliography
 
-* https://en.wikipedia.org/wiki/RipProtocol[Round-trip protocols]
+* https://en.wikipedia.org/wiki/Routing_Information_Protocol[Round-trip protocols]
 * https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[AsciiDoc Syntax Reference]
