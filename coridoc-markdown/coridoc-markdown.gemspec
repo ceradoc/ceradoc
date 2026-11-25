@@ -21,9 +21,11 @@ Gem::Specification.new do |spec|
   spec.metadata['source_code_uri'] = 'https://github.com/coridoc/coridoc'
   spec.metadata['changelog_uri'] = 'https://github.com/coridoc/coridoc/releases'
 
-  # Include all lib/ files
+  # Include all lib/ files and the frozen parser grammar (the parser
+  # loads grammar/coridoc-markdown.artifact.json relative to the gem
+  # root at runtime)
   spec.files = Dir.chdir(__dir__) do
-    Dir['lib/**/*.rb', 'schemas/*.yml', 'grammar/*'] + ['LICENSE.txt']
+    Dir['lib/**/*.rb', 'schemas/*.yml', 'grammar/**/*'] + ['LICENSE.txt']
   end
 
   spec.bindir = 'exe'
