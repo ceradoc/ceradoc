@@ -123,7 +123,12 @@ module Ceradoc
         end
 
         def attribute(attributes)
-          { key: attributes.fetch(:key).to_s, value: attributes.fetch(:value).to_s,
+          value = attributes.fetch(:value)
+          # A zero-repeat value capture materializes as [] on the native
+          # path (valueless attribute lines, #364) — flatten before the
+          # string conversion or the model carries the literal "[]".
+          value = value.join if value.is_a?(Array)
+          { key: attributes.fetch(:key).to_s, value: value.to_s,
             **(attributes.key?(:line_break) ? { line_break: attributes[:line_break].to_s } : {}) }
         end
 

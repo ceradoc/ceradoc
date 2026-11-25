@@ -101,6 +101,21 @@ module Ceradoc
               )
             end
 
+            # Valueless attribute lines: the native engine materializes a
+            # zero-repeat value capture as an empty array (the DSL path
+            # yields the empty string, which the simple(:value) rule
+            # above matches). Flatten to the empty string for parity
+            # (#364).
+            rule(
+              key: simple(:key),
+              value: sequence(:value)
+            ) do
+              Model::Attribute.new(
+                key: key.to_s,
+                value: value.map(&:to_s).join
+              )
+            end
+
             # Document attributes
             rule(document_attributes: sequence(:document_attribute)) do
               Model::DocumentAttributes.new(data: document_attribute)
