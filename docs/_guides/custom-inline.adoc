@@ -438,5 +438,5 @@ In this guide you learned:
 
 ## Bibliography
 
-* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#text-formatting[AsciiDoc Text Formatting]
+* https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/#text-formatting[AsciiDoc Text Formatting]
 * https://github.com/lutaml/lutaml-model[lutaml-model documentation]

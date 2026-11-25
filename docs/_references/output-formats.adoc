@@ -376,5 +376,5 @@ Paragraph with *bold* text.
 
 ## Bibliography
 
-* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Reference]
+* https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[AsciiDoc Syntax Reference]
 * https://developer.mozilla.org/en-US/docs/Web/HTML[MDN HTML Documentation]

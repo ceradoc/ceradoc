@@ -11,6 +11,10 @@ exclude = [
   "github.com/ceradoc/ceradoc/pull/",
   "github.com/ceradoc/ceradoc/pull/[0-9]+$",
 
+  # Docs sites that serve UA/CDN-dependent responses to datacenter IPs
+  "docs.asciidoctor.org",
+  "developer.mozilla.org",
+
   # Example domains
   "example.com",
   "example.org",
