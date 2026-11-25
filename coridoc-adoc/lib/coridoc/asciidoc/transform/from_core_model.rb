@@ -47,7 +47,8 @@ module Coridoc
                 id: element.id,
                 header: header,
                 sections: flatten_children(without_title_heading),
-                frontmatter: frontmatter
+                frontmatter: frontmatter,
+                document_attributes: build_document_attributes(element)
               )
             when CoreModel::SectionElement
               Coridoc::AsciiDoc::Model::Section.new(
@@ -75,6 +76,20 @@ module Coridoc
 
           def flatten_one(result)
             result.is_a?(Array) ? result : [result]
+          end
+
+          # CoreModel document attributes (MetadataEntry key/value pairs)
+          # ride back into the adoc model so serialization re-emits the
+          # document attribute block (#52 corpus: ISO front matter).
+          def build_document_attributes(element)
+            entries = Array(element.attributes&.entries)
+            return nil if entries.empty?
+
+            Coridoc::AsciiDoc::Model::DocumentAttributes.new(
+              data: entries.map do |entry|
+                Coridoc::AsciiDoc::Model::Attribute.new(key: entry.key, value: entry.value.to_s)
+              end
+            )
           end
 
           def transform_block(block)
