@@ -297,4 +297,4 @@ Ceradoc::Output::Adoc::ElementRegistry.register(
 
 ## Bibliography
 
-* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Reference]
+* https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[AsciiDoc Syntax Reference]

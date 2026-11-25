@@ -349,4 +349,4 @@ Practice your skills:
 ## Bibliography
 
 * https://en.wikipedia.org/wiki/RipProtocol[Round-trip protocols]
-* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Reference]
+* https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[AsciiDoc Syntax Reference]
