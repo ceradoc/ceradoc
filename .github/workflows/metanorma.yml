@@ -3,9 +3,9 @@ name: metanorma
 on:
   pull_request:
     paths:
-      - 'coridoc/**'
-      - 'coridoc-adoc/**'
-      - 'coridoc-markdown/**'
+      - 'ceradoc/**'
+      - 'ceradoc-adoc/**'
+      - 'ceradoc-markdown/**'
       - 'gemfiles/metanorma.gemfile*'
       - '.github/workflows/metanorma.yml'
   push:
@@ -26,7 +26,7 @@ jobs:
         ruby: ['3.3', '4.0']
     env:
       BUNDLE_GEMFILE: gemfiles/metanorma.gemfile
-      CORIDOC_METANORMA_TEST: '1'
+      CERADOC_METANORMA_TEST: '1'
     steps:
       - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
@@ -60,4 +60,4 @@ jobs:
               dependencies: Gem.loaded_specs.transform_values { |spec| spec.version.to_s })
           '
       - name: Native semantic builder and frontend parity
-        run: bundle exec rspec --options /dev/null coridoc/spec/coridoc/metanorma/builder_spec.rb
+        run: bundle exec rspec --options /dev/null ceradoc/spec/ceradoc/metanorma/builder_spec.rb

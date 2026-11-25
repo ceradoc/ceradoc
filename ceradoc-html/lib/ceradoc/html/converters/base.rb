@@ -1,0 +1,100 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module Html
+    module Converters
+      class Base
+        def treat_children_ceradoc(node, state)
+          results = node.children.map do |child|
+            treat_ceradoc(child, state)
+          end.flatten
+
+          results.reject do |x|
+            x.nil? || (x.is_a?(String) && x.strip.empty?)
+          end
+        end
+
+        def treat_ceradoc(node, state)
+          Converters.process_ceradoc(node, state)
+        end
+
+        def extract_title(node)
+          node['title'].to_s
+        end
+
+        def node_has_ancestor?(node, name)
+          names = Array(name)
+          parent = node.parent
+          while parent
+            return true if parent.element? && names.include?(parent.name)
+
+            parent = parent.parent
+          end
+          false
+        end
+
+        def textnode_before_end_with?(node, str)
+          return false unless [String, Regexp].include?(str.class)
+          return false if str.is_a?(String) && str.empty?
+
+          str = /#{Regexp.escape(str)}/ if str.is_a?(String)
+          str = /(?:#{str})\z/
+
+          node2 = node.at_xpath('preceding-sibling::node()[1]')
+          node2.is_a?(Leptris::XML::Text) && node2.content.match?(str)
+        end
+
+        def textnode_after_start_with?(node, str)
+          return false unless [String, Regexp].include?(str.class)
+          return false if str.is_a?(String) && str.empty?
+
+          str = /#{Regexp.escape(str)}/ if str.is_a?(String)
+          str = /\A(?:#{str})/
+
+          node2 = node.at_xpath('following-sibling::node()[1]')
+          node2.is_a?(Leptris::XML::Text) && node2.content.match?(str)
+        end
+
+        def extract_leading_trailing_whitespace(node)
+          node.text =~ /^(\s+)/
+          leading_whitespace = ::Regexp.last_match(1)
+          unless leading_whitespace.nil?
+            first_text = node.at_xpath('./text()[1]')
+            first_text&.content = first_text.content.lstrip
+            leading_whitespace = ' '
+          end
+          node.text =~ /(\s+)$/
+          trailing_whitespace = ::Regexp.last_match(1)
+          unless trailing_whitespace.nil?
+            last_text = node.at_xpath('./text()[last()]')
+            last_text&.content = last_text.content.rstrip
+            trailing_whitespace = ' '
+          end
+          [leading_whitespace, trailing_whitespace]
+        end
+
+        def unconstrained_before?(node)
+          before = node.at_xpath('preceding::node()[1]')
+
+          before &&
+            !before.text.strip.empty? &&
+            before.text[-1]&.match?(/\w/)
+        end
+
+        def unconstrained_after?(node)
+          after = node.at_xpath('following::node()[1]')
+
+          after && !after.text.strip.empty? &&
+            after.text[0]&.match?(/\w|,|;|"|\.\?!/)
+        end
+
+        # Extract plain text from a mixed content array. Delegates to
+        # CoreModel::InlineContent.text_of — single source of truth for
+        # nil/Array/InlineElement/StructuralElement handling.
+        def extract_text_from_content(content)
+          Ceradoc::CoreModel::InlineContent.text_of(content)
+        end
+      end
+    end
+  end
+end

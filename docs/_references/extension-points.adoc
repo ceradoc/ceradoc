@@ -8,11 +8,11 @@ nav_order: 4
 
 == Purpose
 
-Complete reference for extending Coridoc with custom elements, parsers, serializers, and schemas.
+Complete reference for extending Ceradoc with custom elements, parsers, serializers, and schemas.
 
 == Extension Architecture
 
-Coridoc's extension architecture allows you to:
+Ceradoc's extension architecture allows you to:
 
 * Add custom block types
 * Add custom inline elements
@@ -28,9 +28,9 @@ The ElementRegistry maps Model classes to their serializers.
 
 [source,ruby]
 ----
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Block::CustomBlock,
-  Coridoc::Output::Adoc::Serializers::Block::CustomBlockSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Block::CustomBlock,
+  Ceradoc::Output::Adoc::Serializers::Block::CustomBlockSerializer
 )
 ----
 
@@ -39,10 +39,10 @@ Coridoc::Output::Adoc::ElementRegistry.register(
 [source,ruby]
 ----
 # Check if a serializer exists
-serializer = Coridoc::Output::Adoc::ElementRegistry[Coridoc::Model::Block::Quote]
+serializer = Ceradoc::Output::Adoc::ElementRegistry[Ceradoc::Model::Block::Quote]
 
 # List all registered serializers
-Coridoc::Output::Adoc::ElementRegistry.each do |klass, serializer|
+Ceradoc::Output::Adoc::ElementRegistry.each do |klass, serializer|
   puts "#{klass} => #{serializer}"
 end
 ----
@@ -53,7 +53,7 @@ end
 
 [source,ruby]
 ----
-module Coridoc
+module Ceradoc
   module Model
     module Block
       class CustomBlock < Core
@@ -78,7 +78,7 @@ Any attributes your block needs.
 
 [source,ruby]
 ----
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -118,7 +118,7 @@ end
 
 [source,ruby]
 ----
-module Coridoc
+module Ceradoc
   module Model
         module Inline
           class CustomInline < Base
@@ -134,7 +134,7 @@ end
 
 [source,ruby]
 ----
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -180,13 +180,13 @@ end
 [source,ruby]
 ----
 # Block serializer base
-Coridoc::Output::Adoc::Serializers::Block::Core
+Ceradoc::Output::Adoc::Serializers::Block::Core
 
 # Inline serializer base
-Coridoc::Output::Adoc::Serializers::Inline::Base
+Ceradoc::Output::Adoc::Serializers::Inline::Base
 
 # Section serializer base
-Coridoc::Output::Adoc::Serializers::Section
+Ceradoc::Output::Adoc::Serializers::Section
 ----
 
 ## Custom Schemas
@@ -195,7 +195,7 @@ Coridoc::Output::Adoc::Serializers::Section
 
 [source,ruby]
 ----
-module Coridoc
+module Ceradoc
   module Schema
     class CustomSchema < Schema
       def schema_name
@@ -248,7 +248,7 @@ end
 
 [source,ruby]
 ----
-Coridoc::Schema.register(:custom, Coridoc::Schema::CustomSchema)
+Ceradoc::Schema.register(:custom, Ceradoc::Schema::CustomSchema)
 ----
 
 ## Parser Extensions
@@ -257,7 +257,7 @@ Coridoc::Schema.register(:custom, Coridoc::Schema::CustomSchema)
 
 [source,ruby]
 ----
-module Coridoc
+module Ceradoc
   class Parser
     class AsciiDoc
       # Add custom rule
@@ -274,11 +274,11 @@ end
 
 [source,ruby]
 ----
-module Coridoc
+module Ceradoc
   class Transformer
     class CustomBlockTransformer
       def self.transform(ast_node)
-        Coridoc::Model::Block::CustomBlock.new(
+        Ceradoc::Model::Block::CustomBlock.new(
           lines: ast_node[:lines],
           attributes: transform_attributes(ast_node[:attributes])
         )
@@ -292,9 +292,9 @@ end
 
 [source,ruby]
 ----
-Coridoc::TransformerRouter.register(
+Ceradoc::TransformerRouter.register(
   :custom_block,
-  Coridoc::Transformer::CustomBlockTransformer
+  Ceradoc::Transformer::CustomBlockTransformer
 )
 ----
 
@@ -304,8 +304,8 @@ Coridoc::TransformerRouter.register(
 
 [source,ruby]
 ----
-module CoridocPlugin
-  class MyCustomBlock < Coridoc::Model::Block::Core
+module CeradocPlugin
+  class MyCustomBlock < Ceradoc::Model::Block::Core
     attribute :my_attr, :string
   end
 
@@ -321,10 +321,10 @@ module CoridocPlugin
 end
 
 # Register plugin
-Coridoc::Plugin.register do |plugin|
+Ceradoc::Plugin.register do |plugin|
   plugin.block :my_custom_block,
-              class: CoridocPlugin::MyCustomBlock,
-              serializer: CoridocPlugin::MyCustomBlockSerializer
+              class: CeradocPlugin::MyCustomBlock,
+              serializer: CeradocPlugin::MyCustomBlockSerializer
 end
 ----
 
@@ -334,7 +334,7 @@ end
 
 [source,ruby]
 ----
-Coridoc.config.before_parse do |input, options|
+Ceradoc.config.before_parse do |input, options|
   # Transform input before parsing
   input.gsub(/custom/, "replaced")
 end
@@ -344,7 +344,7 @@ end
 
 [source,ruby]
 ----
-Coridoc.config.after_parse do |document, options|
+Ceradoc.config.after_parse do |document, options|
   # Transform document after parsing
   document.header.title = document.header.title.upcase
 end
@@ -354,7 +354,7 @@ end
 
 [source,ruby]
 ----
-Coridoc.config.before_serialize do |model, options|
+Ceradoc.config.before_serialize do |model, options|
   # Transform model before serialization
 end
 ----
@@ -363,7 +363,7 @@ end
 
 [source,ruby]
 ----
-Coridoc.config.after_serialize do |output, options|
+Ceradoc.config.after_serialize do |output, options|
   # Transform output after serialization
   output.gsub(/<[^>]+>/, "") # Remove HTML tags
 end
@@ -377,14 +377,14 @@ end
 ----
 # Good
 module MyProject
-  module CoridocExtensions
-    class CustomBlock < Coridoc::Model::Block::Core
+  module CeradocExtensions
+    class CustomBlock < Ceradoc::Model::Block::Core
     end
   end
 end
 
 # Avoid
-class CustomBlock < Coridoc::Model::Block::Core
+class CustomBlock < Ceradoc::Model::Block::Core
 end
 ----
 
@@ -393,14 +393,14 @@ end
 [source,ruby]
 ----
 # Good: Inherit from appropriate base
-class MyBlock < Coridoc::Model::Block::Core
+class MyBlock < Ceradoc::Model::Block::Core
 end
 
-class MyInline < Coridoc::Model::Inline::Base
+class MyInline < Ceradoc::Model::Inline::Base
 end
 
 # Avoid: Don't inherit from unrelated classes
-class MyBlock < Coridoc::Model::Inline::Base  # Wrong!
+class MyBlock < Ceradoc::Model::Inline::Base  # Wrong!
 ----
 
 ### 3. Register Serializers
@@ -408,7 +408,7 @@ class MyBlock < Coridoc::Model::Inline::Base  # Wrong!
 [source,ruby]
 ----
 # Always register after defining both class and serializer
-class MyBlock < Coridoc::Model::Block::Core
+class MyBlock < Ceradoc::Model::Block::Core
 end
 
 class MyBlockSerializer
@@ -418,7 +418,7 @@ class MyBlockSerializer
 end
 
 # Register after both are defined
-Coridoc::Output::Adoc::ElementRegistry.register(
+Ceradoc::Output::Adoc::ElementRegistry.register(
   MyBlock,
   MyBlockSerializer
 )
@@ -433,7 +433,7 @@ class MySerializer
     begin
       generate_output
     rescue StandardError => e
-      raise Coridoc::SerializationError, "Failed to serialize: #{e.message}"
+      raise Ceradoc::SerializationError, "Failed to serialize: #{e.message}"
     end
   end
 end
@@ -445,7 +445,7 @@ end
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 require 'my_extensions'
 
 RSpec.describe MyCustomBlock do
@@ -464,17 +464,17 @@ end
 
 [source,text]
 ----
-my-coridoc-extension/
+my-ceradoc-extension/
   lib/
-    my-coridoc-extension.rb
-    my-coridoc-extension/
+    my-ceradoc-extension.rb
+    my-ceradoc-extension/
       version.rb
       custom_block.rb
       custom_serializer.rb
   spec/
     spec_helper.rb
     custom_block_spec.rb
-  my-coridoc-extension.gemspec
+  my-ceradoc-extension.gemspec
   README.md
 ----
 
@@ -482,33 +482,33 @@ my-coridoc-extension/
 
 [source,ruby]
 ----
-# lib/my-coridoc-extension.rb
-require 'coridoc'
-require 'my-coridoc-extension/version'
-require 'my-coridoc-extension/custom_block'
-require 'my-coridoc-extension/custom_serializer'
+# lib/my-ceradoc-extension.rb
+require 'ceradoc'
+require 'my-ceradoc-extension/version'
+require 'my-ceradoc-extension/custom_block'
+require 'my-ceradoc-extension/custom_serializer'
 
-module MyCoridocExtension
+module MyCeradocExtension
   class Railtie < Rails::Railtie
     # Auto-register if Rails
   end
 end
 
 # Register extension
-Coridoc::Output::Adoc::ElementRegistry.register(
-  MyCoridocExtension::CustomBlock,
-  MyCoridocExtension::CustomBlockSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  MyCeradocExtension::CustomBlock,
+  MyCeradocExtension::CustomBlockSerializer
 )
 ----
 
 ## Related Documentation
 
-* link:/coridoc/guides/custom-blocks[Custom Blocks Guide] - Creating custom blocks
-* link:/coridoc/guides/custom-inline[Custom Inline Guide] - Creating inline elements
-* link:/coridoc/guides/schema-system[Schema System Guide] - Creating schemas
-* link:/coridoc/pages/architecture[Architecture] - Extension architecture
+* link:/ceradoc/guides/custom-blocks[Custom Blocks Guide] - Creating custom blocks
+* link:/ceradoc/guides/custom-inline[Custom Inline Guide] - Creating inline elements
+* link:/ceradoc/guides/schema-system[Schema System Guide] - Creating schemas
+* link:/ceradoc/pages/architecture[Architecture] - Extension architecture
 
 ## Bibliography
 
-* https://github.com/coridoc/coridoc/tree/main/lib/coridoc/output/adoc/element_registry.rb[ElementRegistry Source]
+* https://github.com/ceradoc/ceradoc/tree/main/lib/ceradoc/output/adoc/element_registry.rb[ElementRegistry Source]
 * https://github.com/lutaml/lutaml-model[lutaml-model documentation]

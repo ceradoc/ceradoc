@@ -5,21 +5,21 @@
 - Builder methods now return typed CoreModel objects (ParagraphBlock, SectionElement, HeaderElement, CommentBlock, Table, BibliographyEntry, ElementAttribute) instead of raw Hashes
 - `group_document_elements` uses `is_a?` class checks instead of Hash `[:type]` discrimination
 - `build_attributes` returns `ElementAttribute` typed objects
-- Detection logic (marker types, inline format detection) remains AsciiDoc-specific as it lives under `coridoc-adoc/`
+- Detection logic (marker types, inline format detection) remains AsciiDoc-specific as it lives under `ceradoc-adoc/`
 - `document_builder.rb` in core remains format-neutral
 
 
 **Severity:** HIGH  
-**Location:** `lib/coridoc/core_model/builder/` (all files)
+**Location:** `lib/ceradoc/core_model/builder/` (all files)
 
 ## Problem
 
-The `Builder` class lives under `lib/coridoc/core_model/builder/` but contains AsciiDoc-specific parsing logic throughout. The Builder should be format-neutral — it is part of CoreModel.
+The `Builder` class lives under `lib/ceradoc/core_model/builder/` but contains AsciiDoc-specific parsing logic throughout. The Builder should be format-neutral — it is part of CoreModel.
 
 ## Evidence
 
 ### 5A. `detect_marker_type` maps AsciiDoc markers to names
-`lib/coridoc/core_model/builder/detection.rb:107-115`:
+`lib/ceradoc/core_model/builder/detection.rb:107-115`:
 ```ruby
 def detect_marker_type(ast)
   marker = ast[:marker]&.to_s
@@ -33,7 +33,7 @@ end
 `::` for labeled lists is purely AsciiDoc. The default `'asterisk'` is AsciiDoc's default. Markdown uses `-`, `*`, `+` for unordered and `1.` for ordered — no "labeled" type.
 
 ### 5B. `detect_marker_level` counts AsciiDoc marker repetition
-`lib/coridoc/core_model/builder/detection.rb:117-122`:
+`lib/ceradoc/core_model/builder/detection.rb:117-122`:
 ```ruby
 def detect_marker_level(ast)
   marker = ast[:marker]&.to_s
@@ -44,7 +44,7 @@ end
 Nesting level encoded by marker repetition (`*` = level 1, `**` = level 2) is AsciiDoc. Markdown encodes nesting via indentation.
 
 ### 5C. `extract_level` decodes `=` prefixed levels
-`lib/coridoc/core_model/builder/detection.rb:157-165`:
+`lib/ceradoc/core_model/builder/detection.rb:157-165`:
 ```ruby
 def extract_level(ast)
   if ast[:level]
@@ -58,7 +58,7 @@ end
 Decoding heading level from `=` count (`==` = level 2) is AsciiDoc ATX-style heading syntax.
 
 ### 5D. `list_markers` hardcodes AsciiDoc markers
-`lib/coridoc/core_model/builder/detection.rb:172-175`:
+`lib/ceradoc/core_model/builder/detection.rb:172-175`:
 ```ruby
 def list_markers
   %w[* - . :: numbered]
@@ -66,7 +66,7 @@ end
 ```
 
 ### 5E. `extract_annotation_type` checks AsciiDoc-specific AST
-`lib/coridoc/core_model/builder/detection.rb:67-87`:
+`lib/ceradoc/core_model/builder/detection.rb:67-87`:
 ```ruby
 def extract_annotation_type(ast)
   attr_list = ast[:attribute_list]
@@ -82,7 +82,7 @@ def extract_annotation_type(ast)
 `attribute_list[:positional]` for `[NOTE]` syntax and `admonition_type` are AsciiDoc AST concepts.
 
 ### 5F. Builder methods return raw Hashes, not CoreModel objects
-`lib/coridoc/core_model/builder.rb:179-189`:
+`lib/ceradoc/core_model/builder.rb:179-189`:
 ```ruby
 def build_paragraph(ast)
   {

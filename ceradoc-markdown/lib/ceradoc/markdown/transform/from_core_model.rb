@@ -1,0 +1,613 @@
+# frozen_string_literal: true
+
+require 'cgi'
+
+module Ceradoc
+  module Markdown
+    module Transform
+      # Transforms CoreModel models to Markdown equivalents
+      #
+      # This transformer converts the canonical CoreModel representation
+      # to format-specific Markdown model.
+      class FromCoreModel
+        class << self
+          # Transform a CoreModel to Markdown model
+          #
+          # @param model [Ceradoc::CoreModel::Base] CoreModel to transform
+          # @return [Ceradoc::Markdown::Base] Markdown model equivalent
+          def transform(model)
+            case model
+            when Ceradoc::CoreModel::StructuralElement
+              transform_structural_element(model)
+            when Ceradoc::CoreModel::AnnotationBlock
+              # Must be checked before Block since AnnotationBlock < Block
+              transform_annotation_block(model)
+            when Ceradoc::CoreModel::CommentBlock
+              # Must be checked before Block since CommentBlock < Block
+              Ceradoc::Markdown::Comment.new(text: model.content.to_s)
+            when Ceradoc::CoreModel::Block
+              transform_block(model)
+            when Ceradoc::CoreModel::ListBlock
+              transform_list(model)
+            when Ceradoc::CoreModel::DefinitionList
+              transform_definition_list(model)
+            when Ceradoc::CoreModel::Table
+              transform_table(model)
+            when Ceradoc::CoreModel::Image
+              transform_image(model)
+            when Ceradoc::CoreModel::InlineElement
+              transform_inline(model)
+            when Ceradoc::CoreModel::Footnote
+              transform_footnote(model)
+            when Ceradoc::CoreModel::FootnoteReference
+              transform_footnote_reference(model)
+            when Ceradoc::CoreModel::Abbreviation
+              transform_abbreviation(model)
+            when Ceradoc::CoreModel::Toc
+              Ceradoc::Markdown::Extension.toc
+            when Ceradoc::CoreModel::Term
+              Ceradoc::Markdown::Strong.new(text: model.text.to_s)
+            when Ceradoc::CoreModel::Bibliography
+              transform_bibliography(model)
+            when Ceradoc::CoreModel::BibliographyEntry
+              transform_bibliography_entry(model)
+            when Ceradoc::CoreModel::TocEntry
+              Ceradoc::Markdown::Text.new(content: model.title.to_s)
+            when Ceradoc::CoreModel::CommentLine
+              Ceradoc::Markdown::Comment.new(text: model.text.to_s)
+            when Ceradoc::CoreModel::Include
+              transform_include(model)
+            when Ceradoc::CoreModel::TextContent
+              model.text.to_s
+            when Array
+              model.flat_map { |item| flatten_result(transform(item)) }
+            else
+              model
+            end
+          end
+
+          private
+
+          # Markdown has no transclusion — an unresolved include edge is
+          # preserved as an HTML comment so no information is lost and
+          # serialization never crashes on graph-mode documents.
+          def transform_include(element)
+            Ceradoc::Markdown::Comment.new(text: include_directive_text(element))
+          end
+
+          def include_directive_text(element)
+            "include::#{element.target}[#{element.raw_options}]"
+          end
+
+          def transform_structural_element(element)
+            case element
+            when CoreModel::DocumentElement
+              transform_document(element)
+            when CoreModel::SectionElement
+              transform_section(element)
+            else
+              transform_generic_element(element)
+            end
+          end
+
+          def transform_document(doc)
+            blocks, frontmatter = extract_frontmatter(Array(doc.children))
+            blocks = blocks.flat_map { |child| flatten_result(transform(child)) }
+            blocks = prepend_title_heading(doc.title, blocks)
+
+            Ceradoc::Markdown::Document.new(
+              id: doc.id,
+              blocks: blocks,
+              frontmatter: frontmatter
+            )
+          end
+
+          # The document title renders as a leading "# {title}" H1. Skipped
+          # when the body already opens with a heading of the same text —
+          # a Markdown→CoreModel pass keeps its first heading (of any
+          # level) both as the title and as a section, and emitting the
+          # title again would duplicate it.
+          def prepend_title_heading(title, blocks)
+            return blocks if title.nil? || title.to_s.strip.empty?
+            return blocks if title_heading_duplicated?(title, blocks)
+
+            [Ceradoc::Markdown::Heading.new(level: 1, text: title.to_s), *blocks]
+          end
+
+          def title_heading_duplicated?(title, blocks)
+            first = blocks.first
+            first.is_a?(Ceradoc::Markdown::Heading) && first.text == title.to_s
+          end
+
+          # If the first CoreModel child is a FrontmatterBlock, serialize
+          # it to YAML text via Codec (single source of truth) and pop
+          # it from the children list. Returns [remaining_children,
+          # frontmatter_text].
+          def extract_frontmatter(children)
+            first = children.first
+            return [children, nil] unless first.is_a?(CoreModel::FrontmatterBlock)
+
+            yaml = CoreModel::FrontmatterBlock::Codec.to_yaml(first)
+            [children.drop(1), yaml.nil? || yaml.empty? ? nil : yaml]
+          end
+
+          def transform_section(section)
+            heading = Ceradoc::Markdown::Heading.new(
+              level: section.level || 1,
+              text: section.title.to_s
+            )
+            child_blocks = Array(section.children).map { |child| transform(child) }
+            [heading, *child_blocks]
+          end
+
+          def transform_generic_element(element)
+            blocks = Array(element.children).flat_map { |child| flatten_result(transform(child)) }
+
+            Ceradoc::Markdown::Document.new(
+              id: element.id,
+              blocks: blocks
+            )
+          end
+
+          def transform_block(block)
+            semantic = block.resolve_semantic_type
+            case semantic
+            when :paragraph
+              transform_paragraph(block)
+            when :comment
+              Ceradoc::Markdown::Comment.new(text: block.content.to_s)
+            else
+              transform_delimited_block(block)
+            end
+          end
+
+          def transform_paragraph(block)
+            content = block.renderable_content
+            has_nested_blocks = content.is_a?(Array) && content.any? do |c|
+              c.is_a?(CoreModel::Block) || c.is_a?(CoreModel::StructuralElement)
+            end
+            if has_nested_blocks
+              content.filter_map do |c|
+                next c.text if c.is_a?(CoreModel::TextContent)
+                next nil if c.is_a?(String) && c.strip.empty?
+
+                transform(c)
+              end.flat_map { |c| flatten_result(c) }
+            elsif content.is_a?(Array) && content.any? { |c| !c.is_a?(CoreModel::TextContent) }
+              children = content.map { |c| transform_inline_content(c) }
+              Ceradoc::Markdown::Paragraph.new(text: block.flat_text, children: children)
+            else
+              Ceradoc::Markdown::Paragraph.new(text: block.flat_text)
+            end
+          end
+
+          def transform_inline_content(element)
+            case element
+            when Ceradoc::CoreModel::InlineElement
+              transform_inline(element)
+            when CoreModel::TextContent
+              element.text
+            when CoreModel::Base
+              transform(element)
+            when String
+              element
+            when Array
+              element.map { |e| transform_inline_content(e) }
+            else
+              element.to_s
+            end
+          end
+
+          def transform_inline_array(renderable)
+            return [] unless renderable.is_a?(Array)
+
+            renderable.map { |c| transform_inline_content(c) }
+          end
+
+          def transform_delimited_block(block)
+            semantic = resolve_markdown_semantic(block)
+
+            case semantic
+            when :source_code, :listing
+              transform_code_block(block)
+            when :quote
+              transform_blockquote(block)
+            when :verse
+              transform_verse_block(block)
+            when :horizontal_rule
+              transform_horizontal_rule(block)
+            when :pass
+              transform_pass_block(block)
+            when :literal
+              transform_literal_block(block)
+            when :example
+              transform_example_block(block)
+            when :sidebar
+              transform_sidebar_block(block)
+            when :open
+              transform_open_block(block)
+            when :reviewer
+              transform_admonition_block(block, default_type: 'reviewer')
+            else
+              transform_paragraph(block)
+            end
+          end
+
+          def transform_container_block(block)
+            rc = block.renderable_content
+            if rc.is_a?(Array) && rc.any? { |c| c.is_a?(CoreModel::Block) || c.is_a?(CoreModel::ListBlock) }
+              rc.filter_map do |c|
+                next c.text if c.is_a?(CoreModel::TextContent)
+                next nil if c.is_a?(String) && c.strip.empty?
+
+                transform(c)
+              end.flat_map { |c| flatten_result(c) }
+            else
+              Ceradoc::Markdown::Blockquote.new(content: block.flat_text)
+            end
+          end
+
+          def transform_verse_block(block)
+            Ceradoc::Markdown::Verse.new(
+              content: block.flat_text,
+              attribution: block.is_a?(Ceradoc::CoreModel::VerseBlock) ? block.attribution : nil
+            )
+          end
+
+          def transform_pass_block(block)
+            return Ceradoc::Markdown::Math.block(block.content.to_s) if block.language == 'latexmath'
+
+            Ceradoc::Markdown::Pass.new(content: block.content.to_s)
+          end
+
+          def transform_literal_block(block)
+            content = CoreModel::CalloutText.strip_markers(block.content.to_s, block.callouts)
+            literal = Ceradoc::Markdown::Literal.new(content: content)
+            return literal if block.callouts.nil? || block.callouts.empty?
+
+            [literal, transform_callout_list(block.callouts)]
+          end
+
+          def transform_example_block(block)
+            children = Array(block.children).map { |c| transform(c) }.flat_map { |c| flatten_result(c) }
+            Ceradoc::Markdown::ExampleBlock.new(
+              content: block.flat_text,
+              caption: block.title.to_s,
+              children: children
+            )
+          end
+
+          def transform_sidebar_block(block)
+            children = Array(block.children).map { |c| transform(c) }.flat_map { |c| flatten_result(c) }
+            Ceradoc::Markdown::Sidebar.new(
+              content: block.flat_text,
+              title: block.title.to_s,
+              children: children
+            )
+          end
+
+          def transform_open_block(block)
+            children = Array(block.children).map { |c| transform(c) }.flat_map { |c| flatten_result(c) }
+            children = paragraphs_from_content(block.content) if children.empty?
+            Ceradoc::Markdown::OpenBlock.new(
+              children: children,
+              id: block.id
+            )
+          end
+
+          def paragraphs_from_content(content)
+            content.to_s.split(/\n\s*\n/).map do |chunk|
+              Ceradoc::Markdown::Paragraph.new(text: chunk.strip)
+            end
+          end
+
+          def transform_admonition_block(block, default_type: 'note')
+            children = transform_inline_array(block.renderable_content)
+            if block.is_a?(Ceradoc::CoreModel::AnnotationBlock)
+              adm_type = block.annotation_type || default_type
+              adm_label = block.annotation_label
+            else
+              adm_type = default_type
+              adm_label = nil
+            end
+            Ceradoc::Markdown::Admonition.new(
+              admonition_type: adm_type,
+              content: block.flat_text,
+              title: adm_label,
+              children: children
+            )
+          end
+
+          def resolve_markdown_semantic(block)
+            # Polymorphic dispatch: typed classes override semantic_type
+            semantic = block.resolve_semantic_type
+            return semantic if semantic
+
+            # Backward compat: derive from delimiter_type
+            markdown_delimiter_to_semantic(block.delimiter_type)
+          end
+
+          def markdown_delimiter_to_semantic(delimiter)
+            case delimiter
+            when '```', '~' then :source_code
+            when '>' then :quote
+            when '---', '***', '___' then :horizontal_rule
+            when '++++' then :pass
+            end
+          end
+
+          def transform_code_block(block)
+            code = CoreModel::CalloutText.strip_markers(block.content.to_s, block.callouts)
+            code_block = Ceradoc::Markdown::CodeBlock.new(
+              code: code,
+              language: block.language
+            )
+            return code_block if block.callouts.nil? || block.callouts.empty?
+
+            [code_block, transform_callout_list(block.callouts)]
+          end
+
+          def transform_callout_list(callouts)
+            items = CoreModel::CalloutText.ordered(callouts).map do |callout|
+              Ceradoc::Markdown::ListItem.new(text: callout.content.to_s)
+            end
+            Ceradoc::Markdown::List.new(ordered: true, items: items)
+          end
+
+          def transform_blockquote(block)
+            content = block.flat_text
+
+            Ceradoc::Markdown::Blockquote.new(content: content)
+          end
+
+          def transform_horizontal_rule(_block)
+            Ceradoc::Markdown::HorizontalRule.new(style: '---')
+          end
+
+          def transform_list(list)
+            items = Array(list.items).map do |item|
+              content = item.renderable_content
+              has_structured = content.is_a?(Array) && content.any? { |c| !c.is_a?(CoreModel::TextContent) }
+              md_item = if has_structured
+                          children = content.map { |c| transform_inline_content(c) }
+                          Ceradoc::Markdown::ListItem.new(text: item.flat_text, children: children)
+                        else
+                          Ceradoc::Markdown::ListItem.new(text: item.flat_text)
+                        end
+              md_item.sublist = transform_list(item.nested_list) if item.nested_list
+              md_item
+            end
+
+            Ceradoc::Markdown::List.new(
+              ordered: list.marker_type == 'ordered',
+              items: items
+            )
+          end
+
+          def transform_table(table)
+            # Extract headers from first row if cells are marked as headers
+            headers = []
+            rows = []
+
+            table_rows = Array(table.rows)
+            if table_rows.any?
+              first_row = table_rows.first
+              first_row_cells = Array(first_row&.cells)
+
+              # Check if first row is marked as header, or if any of its cells are header cells
+              if first_row&.header || first_row_cells.any?(&:header)
+                headers = first_row_cells.map { |cell| strip_cell_callouts(cell.flat_text) }
+                table_rows = table_rows[1..] || []
+              end
+
+              # Convert remaining rows to pipe-separated strings
+              rows = table_rows.map do |row|
+                Array(row.cells).map { |cell| strip_cell_callouts(cell.flat_text) }.join(' | ')
+              end
+            end
+
+            Ceradoc::Markdown::Table.new(
+              headers: headers,
+              rows: rows
+            )
+          end
+
+          CALLOUT_MARKER_IN_CELL = /\s*<\d+>(?=\s|\z)/
+
+          def strip_cell_callouts(text)
+            text.to_s.gsub(CALLOUT_MARKER_IN_CELL, '')
+          end
+
+          def transform_image(image)
+            Ceradoc::Markdown::Image.new(
+              src: image.src,
+              alt: image.alt.to_s,
+              title: image.title
+            )
+          end
+
+          def transform_inline(element)
+            case element.resolve_format_type
+            when 'bold'
+              Ceradoc::Markdown::Strong.new(text: element.content.to_s)
+            when 'italic'
+              Ceradoc::Markdown::Emphasis.new(text: element.content.to_s)
+            when 'monospace'
+              Ceradoc::Markdown::Code.new(text: element.content.to_s)
+            when 'link'
+              Ceradoc::Markdown::Link.new(
+                text: element.content.to_s,
+                url: element.target.to_s
+              )
+            when 'footnote'
+              Ceradoc::Markdown::FootnoteReference.new(id: element.target.to_s)
+            when 'stem'
+              Ceradoc::Markdown::Math.inline(element.content.to_s)
+            when 'highlight'
+              Ceradoc::Markdown::Highlight.new(text: element.content.to_s)
+            when 'strikethrough'
+              Ceradoc::Markdown::Strikethrough.new(text: element.content.to_s)
+            when 'subscript'
+              Ceradoc::Markdown::Subscript.new(text: element.content.to_s)
+            when 'superscript'
+              Ceradoc::Markdown::Superscript.new(text: element.content.to_s)
+            when 'underline'
+              Ceradoc::Markdown::Underline.new(text: element.content.to_s)
+            when 'xref'
+              Ceradoc::Markdown::CrossReference.new(
+                text: element.content.to_s,
+                target: element.target.to_s
+              )
+            when 'raw_inline'
+              CGI.escapeHTML(element.content.to_s)
+            else
+              element.content.to_s
+            end
+          end
+
+          def transform_definition_list(dl)
+            # flat_map because each CoreModel DefinitionItem may emit
+            # multiple Markdown DefinitionTerms (multi-term `<dt>`).
+            items = Array(dl.items).flat_map do |item|
+              definitions = [build_definition_item(item)]
+              # `+`-continuation blocks attached to the dd become
+              # additional definitions in Markdown (each renders as
+              # `: line` in the Flat serializer). One DefinitionItem
+              # per attached block, preserving their distinct content
+              # without jamming them into the primary definition's text.
+              definitions.concat(Array(item.attached_children).map { |b| build_attached_definition_item(b) })
+              nested = item.nested ? transform_definition_list(item.nested) : nil
+              term_children = Array(item.term_children).map { |c| transform_inline_content(c) }
+              # Multi-term `<dt>`: emit one Markdown DefinitionTerm per
+              # term string. Inline children map 1:1 to the FIRST term
+              # (matches the mirror handler's behaviour; multi-term
+              # with inline markup on later terms is rare and the
+              # parser doesn't capture per-term children today).
+              terms = terms_for(item)
+              if terms.empty?
+                # Defensive: term and terms both empty — emit nothing.
+                next
+              end
+
+              terms.each_with_index.map do |term_text, idx|
+                Ceradoc::Markdown::DefinitionTerm.new(
+                  text: term_text.to_s,
+                  text_children: idx.zero? ? term_children : [],
+                  definitions: definitions,
+                  nested: nested
+                )
+              end
+            end
+
+            Ceradoc::Markdown::DefinitionList.new(items: items)
+          end
+
+          # Source of truth for "the terms on this <dt>": the `terms`
+          # collection when populated, else `[term]` for legacy callers.
+          def terms_for(item)
+            collection = item.terms if item.is_a?(Ceradoc::CoreModel::DefinitionItem)
+            return Array(collection) unless collection.nil? || collection.empty?
+
+            primary = item.term
+            primary.to_s.empty? ? [] : [primary.to_s]
+          end
+
+          def build_definition_item(item)
+            children = Array(item.definition_children)
+            if children.empty?
+              content = item.definitions&.first&.to_s
+              return Ceradoc::Markdown::DefinitionItem.new(content: content)
+            end
+
+            inline = children.map { |c| transform_inline_content(c) }
+            Ceradoc::Markdown::DefinitionItem.new(
+              content: item.definitions&.first&.to_s,
+              inline_content: inline
+            )
+          end
+
+          # Build a DefinitionItem from a single attached block (e.g.
+          # paragraph from a `+`-continuation). Flat-text extraction
+          # via ChildrenContent is the single source of truth — every
+          # attached block in CoreModel includes ChildrenContent.
+          def build_attached_definition_item(block)
+            content = if block.is_a?(Ceradoc::CoreModel::ChildrenContent)
+                        block.flat_text
+                      else
+                        block.to_s
+                      end
+            Ceradoc::Markdown::DefinitionItem.new(content: content)
+          end
+
+          def transform_footnote(fn)
+            Ceradoc::Markdown::Footnote.new(
+              id: fn.id.to_s,
+              content: fn.content.to_s,
+              backlink: fn.backlink
+            )
+          end
+
+          def transform_footnote_reference(ref)
+            Ceradoc::Markdown::FootnoteReference.new(id: ref.id.to_s)
+          end
+
+          def transform_abbreviation(abbr)
+            Ceradoc::Markdown::Abbreviation.new(
+              term: abbr.term.to_s,
+              definition: abbr.definition.to_s
+            )
+          end
+
+          def transform_annotation_block(annotation)
+            transform_admonition_block(annotation, default_type: 'note')
+          end
+
+          def transform_bibliography(bib)
+            entries = Array(bib.entries).map { |e| transform(e) }
+            blocks = []
+            blocks << Ceradoc::Markdown::Heading.new(level: 2, text: bib.title.to_s) if bib.title
+            blocks.concat(entries)
+            Ceradoc::Markdown::Document.new(id: bib.id, blocks: blocks)
+          end
+
+          def transform_bibliography_entry(entry)
+            text = entry.display_text.to_s
+            text = convert_asciidoc_markers_to_markdown(text)
+            Ceradoc::Markdown::Paragraph.new(text: text)
+          end
+
+          def convert_asciidoc_markers_to_markdown(text)
+            return '' if text.nil?
+
+            result = text.dup
+
+            # footnote:[text] -> ^[text]
+            result.gsub!(/footnote:\[(.*?)\]/, '^[\1]')
+
+            # [smallcap]#text# -> text
+            result.gsub!(/\[smallcap\]#(.*?)#/, '\1')
+
+            # *text* -> **text**
+            # Use negative lookbehind and lookahead to avoid replacing **text** to ****text****
+            result.gsub!(/(?<!\*)\*(.*?)\*(?!\*)/, '**\1**')
+
+            # _text_ -> *text*
+            # Use negative lookbehind and lookahead to avoid replacing __text__ to **text**
+            result.gsub!(/(?<!_)_(.*?)_(?!_)/, '*\1*')
+
+            result
+          end
+
+          def flatten_result(result)
+            case result
+            when Array
+              result.flat_map { |r| flatten_result(r) }
+            else
+              [result]
+            end
+          end
+        end
+      end
+    end
+  end
+end

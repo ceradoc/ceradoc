@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-# Custom block type examples for Coridoc
+# Custom block type examples for Ceradoc
 #
 # This file demonstrates how to create and use custom block types.
 
-require_relative '../lib/coridoc'
+require_relative '../lib/ceradoc'
 
 # Example 1: Create a custom callout block
 puts '=== Example 1: Create a custom callout block ==='
 
 # Define the custom block class
-module Coridoc
+module Ceradoc
   module Model
     module Block
       class Callout < Core
@@ -23,7 +23,7 @@ module Coridoc
 end
 
 # Create a custom serializer
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -44,13 +44,13 @@ module Coridoc
 end
 
 # Register the serializer
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Block::Callout,
-  Coridoc::Output::Adoc::Serializers::CalloutSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Block::Callout,
+  Ceradoc::Output::Adoc::Serializers::CalloutSerializer
 )
 
 # Use the custom block
-callout = Coridoc::Model::Block::Callout.new
+callout = Ceradoc::Model::Block::Callout.new
 callout.lines = ['This is an important callout!', 'Pay attention to this.']
 callout.title = 'Important Note'
 
@@ -61,7 +61,7 @@ puts
 # Example 2: Create a custom tip block
 puts '=== Example 2: Create a custom tip block ==='
 
-module Coridoc
+module Ceradoc
   module Model
     module Block
       class Tip < Core
@@ -72,7 +72,7 @@ module Coridoc
   end
 end
 
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -92,13 +92,13 @@ module Coridoc
   end
 end
 
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Block::Tip,
-  Coridoc::Output::Adoc::Serializers::TipSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Block::Tip,
+  Ceradoc::Output::Adoc::Serializers::TipSerializer
 )
 
-tip = Coridoc::Model::Block::Tip.new
-tip.lines = ["Here's a helpful tip:", 'Use Coridoc for easy AsciiDoc processing.']
+tip = Ceradoc::Model::Block::Tip.new
+tip.lines = ["Here's a helpful tip:", 'Use Ceradoc for easy AsciiDoc processing.']
 
 puts 'Custom tip block:'
 puts tip.to_adoc
@@ -107,7 +107,7 @@ puts
 # Example 3: Create a custom remark block
 puts '=== Example 3: Create a custom remark block ==='
 
-module Coridoc
+module Ceradoc
   module Model
     module Block
       class Remark < Core
@@ -118,7 +118,7 @@ module Coridoc
   end
 end
 
-module Coridoc
+module Ceradoc
   module Output
     module Adoc
       module Serializers
@@ -138,12 +138,12 @@ module Coridoc
   end
 end
 
-Coridoc::Output::Adoc::ElementRegistry.register(
-  Coridoc::Model::Block::Remark,
-  Coridoc::Output::Adoc::Serializers::RemarkSerializer
+Ceradoc::Output::Adoc::ElementRegistry.register(
+  Ceradoc::Model::Block::Remark,
+  Ceradoc::Output::Adoc::Serializers::RemarkSerializer
 )
 
-remark = Coridoc::Model::Block::Remark.new
+remark = Ceradoc::Model::Block::Remark.new
 remark.title = 'Reviewer Remark'
 remark.lines = ['This section needs clarification.', 'Please add more details.']
 
@@ -155,26 +155,26 @@ puts
 puts '=== Example 4: Use custom blocks in a document ==='
 
 # Create a document with custom blocks
-doc = Coridoc::Model::Document.new
-doc.header = Coridoc::Model::Header.new
+doc = Ceradoc::Model::Document.new
+doc.header = Ceradoc::Model::Header.new
 doc.header.title = 'Document with Custom Blocks'
 
-section = Coridoc::Model::Section.new
-section.title = Coridoc::Model::Title.new
+section = Ceradoc::Model::Section.new
+section.title = Ceradoc::Model::Title.new
 section.title.content = ['Introduction']
 
 # Add regular paragraph
-para = Coridoc::Model::Paragraph.new
-para.content = [Coridoc::Model::TextElement.new('This document contains custom block types.')]
+para = Ceradoc::Model::Paragraph.new
+para.content = [Ceradoc::Model::TextElement.new('This document contains custom block types.')]
 section.blocks = [para]
 
 # Add callout block
-callout_block = Coridoc::Model::Block::Callout.new
+callout_block = Ceradoc::Model::Block::Callout.new
 callout_block.lines = ['Important: Read this carefully!']
 section.blocks << callout_block
 
 # Add tip block
-tip_block = Coridoc::Model::Block::Tip.new
+tip_block = Ceradoc::Model::Block::Tip.new
 tip_block.title = 'Pro Tip'
 tip_block.lines = ['Custom blocks make AsciiDoc more expressive.']
 section.blocks << tip_block
@@ -188,8 +188,8 @@ puts
 # Example 5: Custom block with attributes
 puts '=== Example 5: Custom block with attributes ==='
 
-callout_with_attrs = Coridoc::Model::Block::Callout.new
-callout_with_attrs.attributes = Coridoc::Model::AttributeList.new
+callout_with_attrs = Ceradoc::Model::Block::Callout.new
+callout_with_attrs.attributes = Ceradoc::Model::AttributeList.new
 callout_with_attrs.attributes.add_named('id', 'callout1')
 callout_with_attrs.attributes.add_named('role', 'important')
 callout_with_attrs.lines = ['This callout has custom attributes.']
@@ -201,7 +201,7 @@ puts
 # Example 6: Custom block with title
 puts '=== Example 6: Custom block with title ==='
 
-tip_with_title = Coridoc::Model::Block::Tip.new
+tip_with_title = Ceradoc::Model::Block::Tip.new
 tip_with_title.title = 'Quick Tip'
 tip_with_title.lines = ['Keep your custom blocks simple and focused.']
 

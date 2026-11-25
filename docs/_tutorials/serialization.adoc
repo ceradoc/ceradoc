@@ -8,7 +8,7 @@ nav_order: 3
 
 == Purpose
 
-This tutorial teaches you how to serialize Coridoc Document Models to AsciiDoc output. You'll learn to convert model objects back to AsciiDoc text.
+This tutorial teaches you how to serialize Ceradoc Document Models to AsciiDoc output. You'll learn to convert model objects back to AsciiDoc text.
 
 == Prerequisites
 
@@ -32,7 +32,7 @@ You'll learn to:
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 
 input = <<~ASCIIDOC
   = Document Title
@@ -42,7 +42,7 @@ input = <<~ASCIIDOC
   This is a paragraph.
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 output = doc.to_adoc
 
 puts "Serialized output:"
@@ -72,25 +72,25 @@ This is a paragraph
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 
 # Serialize a paragraph
-paragraph = Coridoc::Model::Paragraph.new
+paragraph = Ceradoc::Model::Paragraph.new
 paragraph.content = [
-  Coridoc::Model::TextElement.new("This is a paragraph with "),
-  Coridoc::Model::Inline::Bold.new(content: "bold text"),
+  Ceradoc::Model::TextElement.new("This is a paragraph with "),
+  Ceradoc::Model::Inline::Bold.new(content: "bold text"),
 ]
 puts "Paragraph:"
 puts paragraph.to_adoc
 puts
 
 # Serialize a section
-section = Coridoc::Model::Section.new
-section.title = Coridoc::Model::Title.new
+section = Ceradoc::Model::Section.new
+section.title = Ceradoc::Model::Title.new
 section.title.level_int = 2
 section.title.content = ["Custom Section"]
-para = Coridoc::Model::Paragraph.new
-para.content = [Coridoc::Model::TextElement.new("Section content")]
+para = Ceradoc::Model::Paragraph.new
+para.content = [Ceradoc::Model::TextElement.new("Section content")]
 section.blocks = [para]
 puts "Section:"
 puts section.to_adoc
@@ -121,16 +121,16 @@ Section content
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 
 # Unordered list
-list = Coridoc::Model::List::Unordered.new
-item1 = Coridoc::Model::ListItem.new
-item1.content = [Coridoc::Model::TextElement.new("First item")]
+list = Ceradoc::Model::List::Unordered.new
+item1 = Ceradoc::Model::ListItem.new
+item1.content = [Ceradoc::Model::TextElement.new("First item")]
 list.items << item1
 
-item2 = Coridoc::Model::ListItem.new
-item2.content = [Coridoc::Model::TextElement.new("Second item")]
+item2 = Ceradoc::Model::ListItem.new
+item2.content = [Ceradoc::Model::TextElement.new("Second item")]
 list.items << item2
 
 puts "Unordered list:"
@@ -138,13 +138,13 @@ puts list.to_adoc
 puts
 
 # Ordered list
-ordered = Coridoc::Model::List::Ordered.new
-item = Coridoc::Model::ListItem.new
-item.content = [Coridoc::Model::TextElement.new("Step one")]
+ordered = Ceradoc::Model::List::Ordered.new
+item = Ceradoc::Model::ListItem.new
+item.content = [Ceradoc::Model::TextElement.new("Step one")]
 ordered.items << item
 
-item = Coridoc::Model::ListItem.new
-item.content = [Coridoc::Model::TextElement.new("Step two")]
+item = Ceradoc::Model::ListItem.new
+item.content = [Ceradoc::Model::TextElement.new("Step two")]
 ordered.items << item
 
 puts "Ordered list:"
@@ -176,24 +176,24 @@ Ordered list:
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 
-table = Coridoc::Model::Table.new
+table = Ceradoc::Model::Table.new
 
 # Add header row
-header_row = Coridoc::Model::TableRow.new
+header_row = Ceradoc::Model::TableRow.new
 %w[Name Age City].each do |header_text|
-  cell = Coridoc::Model::TableCell.new
-  cell.content = [Coridoc::Model::TextElement.new(header_text)]
+  cell = Ceradoc::Model::TableCell.new
+  cell.content = [Ceradoc::Model::TextElement.new(header_text)]
   header_row.columns << cell
 end
 table.rows << header_row
 
 # Add data row
-data_row = Coridoc::Model::TableRow.new
+data_row = Ceradoc::Model::TableRow.new
 %w[Alice 25 NYC].each do |cell_text|
-  cell = Coridoc::Model::TableCell.new
-  cell.content = [Coridoc::Model::TextElement.new(cell_text)]
+  cell = Ceradoc::Model::TableCell.new
+  cell.content = [Ceradoc::Model::TextElement.new(cell_text)]
   data_row.columns << cell
 end
 table.rows << data_row
@@ -226,19 +226,19 @@ Table:
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 
 # Listing block
-listing = Coridoc::Model::Block::Listing.new
+listing = Ceradoc::Model::Block::Listing.new
 listing.lines = ["def hello", "  puts 'Hello, World!'", "end"]
-listing.attributes = Coridoc::Model::AttributeList.new
+listing.attributes = Ceradoc::Model::AttributeList.new
 listing.attributes.add_positional("ruby")
 puts "Listing block:"
 puts listing.to_adoc
 puts
 
 # Quote block
-quote = Coridoc::Model::Block::Quote.new
+quote = Ceradoc::Model::Block::Quote.new
 quote.lines = ["This is a quote.", "It spans multiple lines."]
 puts "Quote block:"
 puts quote.to_adoc
@@ -275,18 +275,18 @@ ____
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 
 # Create paragraph with various inline elements
-paragraph = Coridoc::Model::Paragraph.new
+paragraph = Ceradoc::Model::Paragraph.new
 paragraph.content = [
-  Coridoc::Model::TextElement.new("Text with "),
-  Coridoc::Model::Inline::Bold.new(content: "bold"),
-  Coridoc::Model::TextElement.new(", "),
-  Coridoc::Model::Inline::Italic.new(content: "italic"),
-  Coridoc::Model::TextElement.new(", and "),
-  Coridoc::Model::Inline::Monospace.new(content: "monospace"),
-  Coridoc::Model::TextElement.new(" text."),
+  Ceradoc::Model::TextElement.new("Text with "),
+  Ceradoc::Model::Inline::Bold.new(content: "bold"),
+  Ceradoc::Model::TextElement.new(", "),
+  Ceradoc::Model::Inline::Italic.new(content: "italic"),
+  Ceradoc::Model::TextElement.new(", and "),
+  Ceradoc::Model::Inline::Monospace.new(content: "monospace"),
+  Ceradoc::Model::TextElement.new(" text."),
 ]
 
 puts "Paragraph with inline elements:"
@@ -294,7 +294,7 @@ puts paragraph.to_adoc
 puts
 
 # Link
-link = Coridoc::Model::Inline::Link.new
+link = Ceradoc::Model::Inline::Link.new
 link.path = "https://example.com"
 link.name = "Example Site"
 puts "Link:"
@@ -302,7 +302,7 @@ puts "#{link.to_adoc}\n"
 puts
 
 # Anchor
-anchor = Coridoc::Model::Inline::Anchor.new
+anchor = Ceradoc::Model::Inline::Anchor.new
 anchor.id = "section1"
 puts "Anchor:"
 puts "#{anchor.to_adoc}\n"
@@ -334,7 +334,7 @@ Anchor:
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 
 original = <<~ASCIIDOC
   = Document Title
@@ -348,13 +348,13 @@ original = <<~ASCIIDOC
 ASCIIDOC
 
 # Parse
-doc1 = Coridoc.parse(original)
+doc1 = Ceradoc.parse(original)
 
 # Serialize
 serialized = doc1.to_adoc
 
 # Parse again
-doc2 = Coridoc.parse(serialized)
+doc2 = Ceradoc.parse(serialized)
 
 puts "Original document title: #{doc1.header.title}"
 puts "Re-parsed document title: #{doc2.header.title}"
@@ -393,18 +393,18 @@ This is a paragraph with *bold* and _italic_ text.
 * List item 2
 ----
 
-== Example 8: Using Coridoc.convert
+== Example 8: Using Ceradoc.convert
 
 === The Code
 
 [source,ruby]
 ----
-require 'coridoc'
+require 'ceradoc'
 
-doc = Coridoc.parse("= Test\n\nContent")
+doc = Ceradoc.parse("= Test\n\nContent")
 
 # Convert to AsciiDoc (same as to_adoc)
-output = Coridoc.convert(doc, to: :adoc)
+output = Ceradoc.convert(doc, to: :adoc)
 puts "Converted output:"
 puts output
 ----
@@ -447,11 +447,11 @@ Practice your skills:
 == Next Steps
 
 * link:round-tripping[Round-tripping Tutorial] - Learn about preservation
-* link:/coridoc/pages/serialization[Serialization Layer] - Deep dive into serializers
-* link:/coridoc/guides/custom-blocks[Custom Blocks Guide] - Create custom serializers
+* link:/ceradoc/pages/serialization[Serialization Layer] - Deep dive into serializers
+* link:/ceradoc/guides/custom-blocks[Custom Blocks Guide] - Create custom serializers
 
 == Source Code
 
 The source code for these examples is available at:
 
-* link:https://github.com/coridoc/coridoc/tree/main/examples/serialization.rb[examples/serialization.rb]
+* link:https://github.com/ceradoc/ceradoc/tree/main/examples/serialization.rb[examples/serialization.rb]

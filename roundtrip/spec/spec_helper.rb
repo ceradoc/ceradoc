@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
-require 'coridoc/roundtrip'
+require 'ceradoc/roundtrip'
 
 RSpec.configure do |config|
   config.expect_with(:rspec) { |c| c.syntax = :expect }

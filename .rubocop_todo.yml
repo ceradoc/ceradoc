@@ -12,12 +12,12 @@
 # Include: **/*.gemspec, **/Gemfile, **/gems.rb
 Gemspec/DevelopmentDependencies:
   Exclude:
-    - 'coridoc-adoc/coridoc-adoc.gemspec'
-    - 'coridoc-docx/coridoc-docx.gemspec'
-    - 'coridoc-html/coridoc-html.gemspec'
-    - 'coridoc-markdown/coridoc-markdown.gemspec'
-    - 'coridoc-mirror/coridoc-mirror.gemspec'
-    - 'coridoc-plugin-kotoshu/coridoc-plugin-kotoshu.gemspec'
+    - 'ceradoc-adoc/ceradoc-adoc.gemspec'
+    - 'ceradoc-docx/ceradoc-docx.gemspec'
+    - 'ceradoc-html/ceradoc-html.gemspec'
+    - 'ceradoc-markdown/ceradoc-markdown.gemspec'
+    - 'ceradoc-mirror/ceradoc-mirror.gemspec'
+    - 'ceradoc-plugin-kotoshu/ceradoc-plugin-kotoshu.gemspec'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
@@ -25,21 +25,21 @@ Gemspec/DevelopmentDependencies:
 # Include: **/*.gemspec
 Gemspec/RequireMFA:
   Exclude:
-    - 'coridoc-markdown/coridoc-markdown.gemspec'
+    - 'ceradoc-markdown/ceradoc-markdown.gemspec'
 
 # Offense count: 1
 # Configuration parameters: Severity, Include.
 # Include: **/*.gemspec
 Gemspec/RequiredRubyVersion:
   Exclude:
-    - 'coridoc-plugin-kotoshu/coridoc-plugin-kotoshu.gemspec'
+    - 'ceradoc-plugin-kotoshu/ceradoc-plugin-kotoshu.gemspec'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: IndentationWidth.
 Layout/AssignmentIndentation:
   Exclude:
-    - 'coridoc-html/lib/coridoc/html/config.rb'
+    - 'ceradoc-html/lib/ceradoc/html/config.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
@@ -47,7 +47,7 @@ Layout/AssignmentIndentation:
 # SupportedStyles: normal, indented_internal_methods
 Layout/IndentationConsistency:
   Exclude:
-    - 'coridoc-markdown/coridoc-markdown.gemspec'
+    - 'ceradoc-markdown/ceradoc-markdown.gemspec'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
@@ -55,68 +55,68 @@ Layout/IndentationConsistency:
 # SupportedStyles: aligned, indented
 Layout/LineEndStringConcatenationIndentation:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/registry.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/runner.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/registry.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowInHeredoc.
 Layout/TrailingWhitespace:
   Exclude:
-    - 'coridoc-html/lib/coridoc/html/config.rb'
+    - 'ceradoc-html/lib/ceradoc/html/config.rb'
 
 # Offense count: 14
 # This cop supports safe autocorrection (--autocorrect).
 Lint/AmbiguousOperatorPrecedence:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/block_parser.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/block_parser.rb'
 
 # Offense count: 1
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: enums
 Lint/ConstantDefinitionInBlock:
   Exclude:
-    - 'coridoc-mirror/spec/coridoc/mirror/reverse_builder_spec.rb'
+    - 'ceradoc-mirror/spec/ceradoc/mirror/reverse_builder_spec.rb'
 
 # Offense count: 3
 Lint/DuplicateMethods:
   Exclude:
-    - 'coridoc/lib/coridoc/core_model/base.rb'
+    - 'ceradoc/lib/ceradoc/core_model/base.rb'
 
 # Offense count: 3
 # Configuration parameters: AllowComments, AllowEmptyLambdas.
 Lint/EmptyBlock:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/parser/rule_dispatcher.rb'
-    - 'coridoc/spec/format_module_spec.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/parser/rule_dispatcher.rb'
+    - 'ceradoc/spec/format_module_spec.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AutoCorrect, AllowComments.
 Lint/EmptyConditionalBody:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/ast_processor.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/ast_processor.rb'
 
 # Offense count: 2
 # Configuration parameters: AllowComments.
 Lint/EmptyWhen:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/ast_processor.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/ast_processor.rb'
 
 # Offense count: 7
 # Configuration parameters: AllowedParentClasses.
 Lint/MissingSuper:
   Exclude:
-    - 'coridoc-html/lib/coridoc/html/drop/base.rb'
-    - 'coridoc-html/spec/coridoc/html/converter_base_spec.rb'
-    - 'coridoc/lib/coridoc/include_resolver/filesystem.rb'
-    - 'coridoc/lib/coridoc/introspection/element_counter.rb'
-    - 'coridoc/lib/coridoc/visitor.rb'
+    - 'ceradoc-html/lib/ceradoc/html/drop/base.rb'
+    - 'ceradoc-html/spec/ceradoc/html/converter_base_spec.rb'
+    - 'ceradoc/lib/ceradoc/include_resolver/filesystem.rb'
+    - 'ceradoc/lib/ceradoc/introspection/element_counter.rb'
+    - 'ceradoc/lib/ceradoc/visitor.rb'
 
 # Offense count: 1
 Lint/NoReturnInBeginEndBlocks:
   Exclude:
-    - 'coridoc-html/lib/coridoc/html/template_config.rb'
+    - 'ceradoc-html/lib/ceradoc/html/template_config.rb'
 
 # Offense count: 6
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -129,15 +129,15 @@ Lint/NonAtomicFileOperation:
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Lint/RedundantDirGlobSort:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/serializer/registrations.rb'
-    - 'coridoc-markdown/spec/kramdown_test_suite_spec.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/serializer/registrations.rb'
+    - 'ceradoc-markdown/spec/kramdown_test_suite_spec.rb'
 
 # Offense count: 6
 Lint/StructNewOverride:
   Exclude:
-    - 'coridoc/spec/core_model/inline_content_spec.rb'
-    - 'coridoc/spec/query_spec.rb'
-    - 'coridoc/spec/validation_spec.rb'
+    - 'ceradoc/spec/core_model/inline_content_spec.rb'
+    - 'ceradoc/spec/query_spec.rb'
+    - 'ceradoc/spec/validation_spec.rb'
 
 # Offense count: 32
 # Configuration parameters: AllowKeywordBlockArguments.
@@ -147,14 +147,14 @@ Lint/UnderscorePrefixedVariableName:
 # Offense count: 1
 Lint/UnreachableCode:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/serializer/adoc_serializer.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/serializer/adoc_serializer.rb'
 
 # Offense count: 5
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AutoCorrect, IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
 Lint/UnusedBlockArgument:
   Exclude:
-    - 'coridoc/spec/coridoc/include_directives_spec.rb'
+    - 'ceradoc/spec/ceradoc/include_directives_spec.rb'
 
 # Offense count: 9
 # This cop supports safe autocorrection (--autocorrect).
@@ -162,24 +162,24 @@ Lint/UnusedBlockArgument:
 # NotImplementedExceptions: NotImplementedError
 Lint/UnusedMethodArgument:
   Exclude:
-    - 'coridoc-mirror/lib/coridoc/mirror/handlers/include.rb'
-    - 'coridoc/lib/coridoc/include_resolver/filesystem.rb'
-    - 'coridoc/lib/coridoc/query.rb'
-    - 'coridoc/spec/coridoc/include_directives_spec.rb'
+    - 'ceradoc-mirror/lib/ceradoc/mirror/handlers/include.rb'
+    - 'ceradoc/lib/ceradoc/include_resolver/filesystem.rb'
+    - 'ceradoc/lib/ceradoc/query.rb'
+    - 'ceradoc/spec/ceradoc/include_directives_spec.rb'
 
 # Offense count: 3
 Lint/UselessConstantScoping:
   Exclude:
-    - 'coridoc-docx/lib/coridoc/docx/transform/rules/image_rule.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/ast_processor.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/transform/from_core_model.rb'
+    - 'ceradoc-docx/lib/ceradoc/docx/transform/rules/image_rule.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/ast_processor.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/transform/from_core_model.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: AutoCorrect.
 Lint/UselessMethodDefinition:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/model/hard_line_break.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/model/hard_line_break.rb'
 
 # Offense count: 221
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
@@ -206,7 +206,7 @@ Metrics/ClassLength:
 # Configuration parameters: LengthThreshold.
 Metrics/CollectionLiteralLength:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/html_entities.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/html_entities.rb'
 
 # Offense count: 158
 # Configuration parameters: AllowedMethods, AllowedPatterns.
@@ -235,7 +235,7 @@ Metrics/PerceivedComplexity:
 Naming/FileName:
   Exclude:
     - 'Rakefile.rb'
-    - 'coridoc-mirror/lib/coridoc-mirror.rb'
+    - 'ceradoc-mirror/lib/ceradoc-mirror.rb'
 
 # Offense count: 2
 # Configuration parameters: ForbiddenDelimiters.
@@ -251,57 +251,57 @@ Naming/HeredocDelimiterNaming:
 # SupportedStylesForLeadingUnderscores: disallowed, required, optional
 Naming/MemoizedInstanceVariableName:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/registrations.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/registrations.rb'
 
 # Offense count: 23
 # Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
 # AllowedNames: as, at, by, cc, db, id, if, in, io, ip, of, on, os, pp, to
 Naming/MethodParameterName:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/parser/admonition.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/integration_pipeline_spec.rb'
-    - 'coridoc-docx/lib/coridoc/docx/transform/from_core_model.rb'
-    - 'coridoc-docx/lib/coridoc/docx/transform/rules/run_rule.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/block_parser.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/inline_parser.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/transform/from_core_model.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/transform/inline_transformer.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/transform/list_transformer.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/transform/to_core_model.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/transformer.rb'
-    - 'coridoc-markdown/spec/conformance/cross_format_round_trip_spec.rb'
-    - 'coridoc/lib/coridoc/include_selectors/lines.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/parser/admonition.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/integration_pipeline_spec.rb'
+    - 'ceradoc-docx/lib/ceradoc/docx/transform/from_core_model.rb'
+    - 'ceradoc-docx/lib/ceradoc/docx/transform/rules/run_rule.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/block_parser.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/inline_parser.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/transform/from_core_model.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/transform/inline_transformer.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/transform/list_transformer.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/transform/to_core_model.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/transformer.rb'
+    - 'ceradoc-markdown/spec/conformance/cross_format_round_trip_spec.rb'
+    - 'ceradoc/lib/ceradoc/include_selectors/lines.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Performance/ConstantRegexp:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/ast_processor.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/ast_processor.rb'
 
 # Offense count: 11
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: AllowRegexpMatch.
 Performance/RedundantEqualityComparisonBlock:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/model/content_list.rb'
-    - 'coridoc-adoc/lib/coridoc/asciidoc/parser/block_assembler.rb'
-    - 'coridoc-adoc/lib/coridoc/asciidoc/transform/element_transformers/inline_transformer.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/integration_pipeline_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/parser/document_title_in_body_spec.rb'
-    - 'coridoc-markdown/spec/conformance/round_trip_spec.rb'
-    - 'coridoc-markdown/spec/transform/frontmatter_round_trip_spec.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/model/content_list.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/parser/block_assembler.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/transform/element_transformers/inline_transformer.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/integration_pipeline_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/parser/document_title_in_body_spec.rb'
+    - 'ceradoc-markdown/spec/conformance/round_trip_spec.rb'
+    - 'ceradoc-markdown/spec/transform/frontmatter_round_trip_spec.rb'
 
 # Offense count: 24
 # This cop supports unsafe autocorrection (--autocorrect-all).
 RSpec/BeEq:
   Exclude:
-    - 'coridoc-adoc/spec/coridoc/asciidoc/integration_pipeline_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/transform/element_transformers/table_transformer_spec.rb'
-    - 'coridoc-html/spec/coridoc/html/render_options_spec.rb'
-    - 'coridoc-markdown/spec/serializer/builder_spec.rb'
-    - 'coridoc-markdown/spec/serializer/config_spec.rb'
-    - 'coridoc/spec/coridoc/core_model/frontmatter_block/codec_spec.rb'
-    - 'coridoc/spec/coridoc/core_model/include_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/integration_pipeline_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/transform/element_transformers/table_transformer_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/render_options_spec.rb'
+    - 'ceradoc-markdown/spec/serializer/builder_spec.rb'
+    - 'ceradoc-markdown/spec/serializer/config_spec.rb'
+    - 'ceradoc/spec/ceradoc/core_model/frontmatter_block/codec_spec.rb'
+    - 'ceradoc/spec/ceradoc/core_model/include_spec.rb'
 
 # Offense count: 1
 RSpec/BeforeAfterAll:
@@ -309,30 +309,30 @@ RSpec/BeforeAfterAll:
     - '**/spec/spec_helper.rb'
     - '**/spec/rails_helper.rb'
     - '**/spec/support/**/*.rb'
-    - 'coridoc/spec/benchmark/performance_spec.rb'
-    - 'coridoc/spec/benchmark/corpus_spec.rb'
+    - 'ceradoc/spec/benchmark/performance_spec.rb'
+    - 'ceradoc/spec/benchmark/corpus_spec.rb'
 
 # Offense count: 13
 # Configuration parameters: Prefixes, AllowedPatterns.
 # Prefixes: when, with, without
 RSpec/ContextWording:
   Exclude:
-    - 'coridoc-adoc/spec/coridoc/asciidoc/transform/block_container_table_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/transform/typed_block_mixed_content_spec.rb'
-    - 'coridoc-mirror/spec/coridoc/mirror/handlers/code_block_variants_spec.rb'
-    - 'coridoc/spec/coridoc/core_model/id_generator_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/transform/block_container_table_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/transform/typed_block_mixed_content_spec.rb'
+    - 'ceradoc-mirror/spec/ceradoc/mirror/handlers/code_block_variants_spec.rb'
+    - 'ceradoc/spec/ceradoc/core_model/id_generator_spec.rb'
 
 # Offense count: 8
 RSpec/DescribeMethod:
   Exclude:
-    - 'coridoc-html/spec/coridoc/html/renderer/annotation_rendering_spec.rb'
-    - 'coridoc-html/spec/coridoc/html/renderer/block_rendering_spec.rb'
-    - 'coridoc-html/spec/coridoc/html/renderer/image_rendering_spec.rb'
-    - 'coridoc-html/spec/coridoc/html/renderer/inline_rendering_spec.rb'
-    - 'coridoc-html/spec/coridoc/html/renderer/list_rendering_spec.rb'
-    - 'coridoc-html/spec/coridoc/html/renderer/structure_rendering_spec.rb'
-    - 'coridoc-html/spec/coridoc/html/renderer/table_rendering_spec.rb'
-    - 'coridoc-html/spec/coridoc/html/renderer/toc_rendering_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/renderer/annotation_rendering_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/renderer/block_rendering_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/renderer/image_rendering_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/renderer/inline_rendering_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/renderer/list_rendering_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/renderer/structure_rendering_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/renderer/table_rendering_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/renderer/toc_rendering_spec.rb'
 
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -340,63 +340,63 @@ RSpec/DescribeMethod:
 # SupportedStyles: described_class, explicit
 RSpec/DescribedClass:
   Exclude:
-    - 'coridoc/spec/coridoc/core_model/has_children_spec.rb'
+    - 'ceradoc/spec/ceradoc/core_model/has_children_spec.rb'
 
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 RSpec/ExpectActual:
   Exclude:
     - '**/spec/routing/**/*'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/transformer/helpers_spec.rb'
-    - 'coridoc-markdown/spec/model/abbreviation_spec.rb'
-    - 'coridoc/spec/coridoc/api_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/transformer/helpers_spec.rb'
+    - 'ceradoc-markdown/spec/model/abbreviation_spec.rb'
+    - 'ceradoc/spec/ceradoc/api_spec.rb'
 
 # Offense count: 1
 RSpec/IdenticalEqualityAssertion:
   Exclude:
-    - 'coridoc/spec/registry_spec.rb'
+    - 'ceradoc/spec/registry_spec.rb'
 
 # Offense count: 6
 # This cop supports unsafe autocorrection (--autocorrect-all).
 RSpec/IncludeExamples:
   Exclude:
-    - 'coridoc-adoc/spec/coridoc/asciidoc/parser/block_header_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/parser/block_header_spec.rb'
 
 # Offense count: 35
 # Configuration parameters: Max, AllowedIdentifiers, AllowedPatterns.
 RSpec/IndexedLet:
   Exclude:
-    - 'coridoc/spec/core_model/annotation_block_spec.rb'
-    - 'coridoc/spec/core_model/base_spec.rb'
-    - 'coridoc/spec/core_model/block_spec.rb'
-    - 'coridoc/spec/core_model/image_spec.rb'
-    - 'coridoc/spec/core_model/inline_element_spec.rb'
-    - 'coridoc/spec/core_model/list_block_spec.rb'
-    - 'coridoc/spec/core_model/structural_element_spec.rb'
-    - 'coridoc/spec/core_model/table_spec.rb'
-    - 'coridoc/spec/core_model/term_spec.rb'
+    - 'ceradoc/spec/core_model/annotation_block_spec.rb'
+    - 'ceradoc/spec/core_model/base_spec.rb'
+    - 'ceradoc/spec/core_model/block_spec.rb'
+    - 'ceradoc/spec/core_model/image_spec.rb'
+    - 'ceradoc/spec/core_model/inline_element_spec.rb'
+    - 'ceradoc/spec/core_model/list_block_spec.rb'
+    - 'ceradoc/spec/core_model/structural_element_spec.rb'
+    - 'ceradoc/spec/core_model/table_spec.rb'
+    - 'ceradoc/spec/core_model/term_spec.rb'
 
 # Offense count: 20
 # Configuration parameters: AssignmentOnly.
 RSpec/InstanceVariable:
   Exclude:
-    - 'coridoc-docx/spec/coridoc/docx/transform/from_core_model_spec.rb'
-    - 'coridoc-docx/spec/integration/builder_fixture_spec.rb'
-    - 'coridoc/spec/coridoc/include_directives_spec.rb'
+    - 'ceradoc-docx/spec/ceradoc/docx/transform/from_core_model_spec.rb'
+    - 'ceradoc-docx/spec/integration/builder_fixture_spec.rb'
+    - 'ceradoc/spec/ceradoc/include_directives_spec.rb'
 
 # Offense count: 1
 RSpec/LeakyConstantDeclaration:
   Exclude:
-    - 'coridoc-mirror/spec/coridoc/mirror/reverse_builder_spec.rb'
-    - 'coridoc/spec/benchmark/corpus_spec.rb'
+    - 'ceradoc-mirror/spec/ceradoc/mirror/reverse_builder_spec.rb'
+    - 'ceradoc/spec/benchmark/corpus_spec.rb'
 
 # Offense count: 11
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: have_received, receive
 RSpec/MessageSpies:
   Exclude:
-    - 'coridoc/spec/coridoc/include_directives_spec.rb'
-    - 'coridoc/spec/logger_spec.rb'
+    - 'ceradoc/spec/ceradoc/include_directives_spec.rb'
+    - 'ceradoc/spec/logger_spec.rb'
 
 # Offense count: 41
 RSpec/MultipleDescribes:
@@ -412,43 +412,43 @@ RSpec/MultipleMemoizedHelpers:
 # SupportedStyles: always, named_only
 RSpec/NamedSubject:
   Exclude:
-    - 'coridoc-html/spec/coridoc/html/render_options_spec.rb'
-    - 'coridoc-markdown/spec/parser/markdown/atx_headings_spec.rb'
-    - 'coridoc-markdown/spec/parser/markdown/block_quotes_spec.rb'
-    - 'coridoc-markdown/spec/parser/markdown/indented_code_blocks_spec.rb'
-    - 'coridoc-markdown/spec/parser/markdown/setext_headings_spec.rb'
-    - 'coridoc-markdown/spec/parser/markdown/thematic_breaks_spec.rb'
-    - 'coridoc-markdown/spec/parser/markdown_spec.rb'
-    - 'coridoc/spec/visitor_spec.rb'
+    - 'ceradoc-html/spec/ceradoc/html/render_options_spec.rb'
+    - 'ceradoc-markdown/spec/parser/markdown/atx_headings_spec.rb'
+    - 'ceradoc-markdown/spec/parser/markdown/block_quotes_spec.rb'
+    - 'ceradoc-markdown/spec/parser/markdown/indented_code_blocks_spec.rb'
+    - 'ceradoc-markdown/spec/parser/markdown/setext_headings_spec.rb'
+    - 'ceradoc-markdown/spec/parser/markdown/thematic_breaks_spec.rb'
+    - 'ceradoc-markdown/spec/parser/markdown_spec.rb'
+    - 'ceradoc/spec/visitor_spec.rb'
 
 # Offense count: 2
 # Configuration parameters: AllowedPatterns.
 # AllowedPatterns: ^expect_, ^assert_
 RSpec/NoExpectationExample:
   Exclude:
-    - 'coridoc-markdown/spec/parser/markdown_spec.rb'
-    - 'coridoc/spec/core_model/inline_content_spec.rb'
-    - 'coridoc/spec/benchmark/corpus_spec.rb'
+    - 'ceradoc-markdown/spec/parser/markdown_spec.rb'
+    - 'ceradoc/spec/core_model/inline_content_spec.rb'
+    - 'ceradoc/spec/benchmark/corpus_spec.rb'
 
 # Offense count: 2
 RSpec/RepeatedDescription:
   Exclude:
-    - 'coridoc-markdown/spec/kramdown_test_suite_spec.rb'
+    - 'ceradoc-markdown/spec/kramdown_test_suite_spec.rb'
 
 # Offense count: 2
 RSpec/RepeatedExample:
   Exclude:
-    - 'coridoc-mirror/spec/coridoc/mirror/mark_spec.rb'
+    - 'ceradoc-mirror/spec/ceradoc/mirror/mark_spec.rb'
 
 # Offense count: 2
 RSpec/RepeatedExampleGroupBody:
   Exclude:
-    - 'coridoc/spec/coridoc/api_spec.rb'
+    - 'ceradoc/spec/ceradoc/api_spec.rb'
 
 # Offense count: 2
 RSpec/RepeatedExampleGroupDescription:
   Exclude:
-    - 'coridoc/spec/coridoc/cli/cli_spec.rb'
+    - 'ceradoc/spec/ceradoc/cli/cli_spec.rb'
 
 # Offense count: 119
 # Configuration parameters: Include, CustomTransform, IgnoreMethods, IgnoreMetadata.
@@ -470,30 +470,30 @@ Rake/Desc:
 # RedundantBlockArgumentNames: blk, block, proc
 Style/ArgumentsForwarding:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown.rb'
-    - 'coridoc/lib/coridoc/validation.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown.rb'
+    - 'ceradoc/lib/ceradoc/validation.rb'
 
 # Offense count: 20
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowOnConstant, AllowOnSelfClass.
 Style/CaseEquality:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/model/attribute_list.rb'
-    - 'coridoc-adoc/lib/coridoc/asciidoc/model/attribute_list/matchers.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/attribute_list/matchers_spec.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/model/attribute_list.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/model/attribute_list/matchers.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/attribute_list/matchers_spec.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/CombinableLoops:
   Exclude:
-    - 'coridoc/lib/coridoc/include_selectors/tags.rb'
+    - 'ceradoc/lib/ceradoc/include_selectors/tags.rb'
 
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/ComparableBetween:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/toc_generator.rb'
-    - 'coridoc/lib/coridoc/core_model/toc_generator.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/toc_generator.rb'
+    - 'ceradoc/lib/ceradoc/core_model/toc_generator.rb'
 
 # Offense count: 561
 # Configuration parameters: AllowedConstants.
@@ -507,15 +507,15 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Exclude:
     - '**/*.arb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/attribute_list/matchers_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/content_list_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/glossaries_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/inline/cross_reference_arg_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/list/nestable_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/rejected_positional_attribute_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/resolvable_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/resolver_spec.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/parser/block_assembler_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/attribute_list/matchers_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/content_list_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/glossaries_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/inline/cross_reference_arg_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/list/nestable_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/rejected_positional_attribute_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/resolvable_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/resolver_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/parser/block_assembler_spec.rb'
 
 # Offense count: 8
 # Configuration parameters: AllowedVariables.
@@ -529,47 +529,47 @@ Style/GlobalVars:
 # AllowedReceivers: Thread.current
 Style/HashEachMethods:
   Exclude:
-    - 'coridoc/spec/coridoc/core_model/has_children_spec.rb'
+    - 'ceradoc/spec/ceradoc/core_model/has_children_spec.rb'
 
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/HashTransformKeys:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/transform/frontmatter_attribute_map.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/config.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/transform/frontmatter_attribute_map.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/config.rb'
 
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
 Style/IfUnlessModifier:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/config.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/config.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/KeywordArgumentsMerging:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/config.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/config.rb'
 
 # Offense count: 5
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/MapIntoArray:
   Exclude:
-    - 'coridoc-adoc/spec/coridoc/asciidoc/model/content_list_spec.rb'
-    - 'coridoc-docx/lib/coridoc/docx/transform/ordered_content.rb'
-    - 'coridoc-docx/lib/coridoc/docx/transform/rules/structured_document_tag_rule.rb'
-    - 'coridoc/spec/query_spec.rb'
-    - 'coridoc/spec/registry_spec.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/model/content_list_spec.rb'
+    - 'ceradoc-docx/lib/ceradoc/docx/transform/ordered_content.rb'
+    - 'ceradoc-docx/lib/ceradoc/docx/transform/rules/structured_document_tag_rule.rb'
+    - 'ceradoc/spec/query_spec.rb'
+    - 'ceradoc/spec/registry_spec.rb'
 
 # Offense count: 2
 Style/MultilineBlockChain:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/transform/from_core_model.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/transform/from_core_model.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/MultilineIfModifier:
   Exclude:
-    - 'coridoc-html/lib/coridoc/html/config.rb'
+    - 'ceradoc-html/lib/ceradoc/html/config.rb'
 
 # Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -577,9 +577,9 @@ Style/MultilineIfModifier:
 # SupportedStyles: literals, strict
 Style/MutableConstant:
   Exclude:
-    - 'coridoc-mirror/lib/coridoc/mirror/mark_reverse_builder.rb'
-    - 'coridoc-mirror/lib/coridoc/mirror/node.rb'
-    - 'coridoc-mirror/lib/coridoc/mirror/reverse_builder.rb'
+    - 'ceradoc-mirror/lib/ceradoc/mirror/mark_reverse_builder.rb'
+    - 'ceradoc-mirror/lib/ceradoc/mirror/node.rb'
+    - 'ceradoc-mirror/lib/ceradoc/mirror/reverse_builder.rb'
 
 # Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -588,28 +588,28 @@ Style/MutableConstant:
 Style/NumericPredicate:
   Exclude:
     - 'spec/**/*'
-    - 'coridoc/spec/coridoc/api_spec.rb'
-    - 'coridoc/spec/integration/cross_format_spec.rb'
-    - 'coridoc/spec/visitor_spec.rb'
+    - 'ceradoc/spec/ceradoc/api_spec.rb'
+    - 'ceradoc/spec/integration/cross_format_spec.rb'
+    - 'ceradoc/spec/visitor_spec.rb'
 
 # Offense count: 1
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?
 Style/OptionalBooleanParameter:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/parser/content.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/parser/content.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/RedundantEach:
   Exclude:
-    - 'coridoc-mirror/lib/coridoc/mirror/reverse_builder.rb'
+    - 'ceradoc-mirror/lib/ceradoc/mirror/reverse_builder.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantRegexpArgument:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/parser_util.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser_util.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -624,46 +624,46 @@ Style/ReturnNilInPredicateMethodDefinition:
 # AllowedMethods: present?, blank?, presence, try, try!
 Style/SafeNavigation:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/serializers/open_block.rb'
-    - 'coridoc-mirror/lib/coridoc/mirror/handlers/definition_list.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/serializers/open_block.rb'
+    - 'ceradoc-mirror/lib/ceradoc/mirror/handlers/definition_list.rb'
 
 # Offense count: 1
 # Configuration parameters: Max.
 Style/SafeNavigationChainLength:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/model/attribute_list.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/model/attribute_list.rb'
 
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: AllowSend.
 Style/SendWithLiteralMethodName:
   Exclude:
-    - 'coridoc/lib/coridoc/query.rb'
+    - 'ceradoc/lib/ceradoc/query.rb'
 
 # Offense count: 7
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: Mode.
 Style/StringConcatenation:
   Exclude:
-    - 'coridoc-adoc/lib/coridoc/asciidoc/serializer/serializers/document_attributes.rb'
-    - 'coridoc-adoc/spec/coridoc/asciidoc/parser/nested_inline_marks_spec.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/serializers/literal.rb'
-    - 'coridoc/lib/coridoc/include_selectors/indent.rb'
-    - 'coridoc/spec/integration/all_remaining_gaps_spec.rb'
-    - 'coridoc/spec/integration/final_5_remaining_gaps_spec.rb'
-    - 'coridoc/spec/integration/xref_with_punctuation_spec.rb'
+    - 'ceradoc-adoc/lib/ceradoc/asciidoc/serializer/serializers/document_attributes.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/parser/nested_inline_marks_spec.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/serializers/literal.rb'
+    - 'ceradoc/lib/ceradoc/include_selectors/indent.rb'
+    - 'ceradoc/spec/integration/all_remaining_gaps_spec.rb'
+    - 'ceradoc/spec/integration/final_5_remaining_gaps_spec.rb'
+    - 'ceradoc/spec/integration/xref_with_punctuation_spec.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Style/StructInheritance:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/registry.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/registry.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/SuperArguments:
   Exclude:
-    - 'coridoc-markdown/lib/coridoc/markdown/parser/inline_parser.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/parser/inline_parser.rb'
 
 # Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -671,9 +671,9 @@ Style/SuperArguments:
 # AllowedMethods: define_method
 Style/SymbolProc:
   Exclude:
-    - 'coridoc-adoc/spec/coridoc/asciidoc/integration_pipeline_spec.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/strategies/definition_list/flat.rb'
-    - 'coridoc-markdown/lib/coridoc/markdown/serializer/strategies/definition_list/nested_html.rb'
+    - 'ceradoc-adoc/spec/ceradoc/asciidoc/integration_pipeline_spec.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/strategies/definition_list/flat.rb'
+    - 'ceradoc-markdown/lib/ceradoc/markdown/serializer/strategies/definition_list/nested_html.rb'
 
 # Offense count: 53
 # This cop supports safe autocorrection (--autocorrect).

@@ -7,7 +7,7 @@
 
 
 **Severity:** LOW  
-**Location:** `coridoc-markdown/lib/coridoc/markdown/transform/from_core_model.rb`
+**Location:** `ceradoc-markdown/lib/ceradoc/markdown/transform/from_core_model.rb`
 
 ## Problem
 
@@ -27,7 +27,7 @@ when 'xref'
   "[#{element.content}](##{element.target})"  # raw Markdown string
 ```
 
-Other inline types in the same method correctly return `Coridoc::Markdown::*` model instances.
+Other inline types in the same method correctly return `Ceradoc::Markdown::*` model instances.
 
 ## Fix
 

@@ -8,21 +8,21 @@ nav_order: 3
 
 == Purpose
 
-This page explains how Coridoc parses AsciiDoc documents into a structured document model. You'll learn about the parser layer, what it produces, and how to work with parsed documents.
+This page explains how Ceradoc parses AsciiDoc documents into a structured document model. You'll learn about the parser layer, what it produces, and how to work with parsed documents.
 
 == Overview
 
-Coridoc parses AsciiDoc documents into a rich object model using the https://github.com/kschiess/parslet[Parslet] parsing expression grammar library. The parser converts text into an Abstract Syntax Tree (AST), which is then transformed into Model objects.
+Ceradoc parses AsciiDoc documents into a rich object model using the https://github.com/kschiess/parslet[Parslet] parsing expression grammar library. The parser converts text into an Abstract Syntax Tree (AST), which is then transformed into Model objects.
 
 == Parsing Methods
 
-=== Coridoc.parse(input, **options)
+=== Ceradoc.parse(input, **options)
 
 Parse an AsciiDoc string into a document model.
 
 [source,ruby]
 ----
-doc = Coridoc.parse("== Title\n\nContent")
+doc = Ceradoc.parse("== Title\n\nContent")
 ----
 
 *Parameters:*
@@ -30,15 +30,15 @@ doc = Coridoc.parse("== Title\n\nContent")
 * `input` (String) - AsciiDoc string to parse
 * `**options` (Hash) - Optional parsing parameters
 
-*Returns:* `Coridoc::Model::Document`
+*Returns:* `Ceradoc::Model::Document`
 
-=== Coridoc.parse_file(filename, **options)
+=== Ceradoc.parse_file(filename, **options)
 
 Parse an AsciiDoc file into a document model.
 
 [source,ruby]
 ----
-doc = Coridoc.parse_file("document.adoc")
+doc = Ceradoc.parse_file("document.adoc")
 ----
 
 *Parameters:*
@@ -46,7 +46,7 @@ doc = Coridoc.parse_file("document.adoc")
 * `filename` (String) - Path to AsciiDoc file
 * `**options` (Hash) - Optional parsing parameters
 
-*Returns:* `Coridoc::Model::Document`
+*Returns:* `Ceradoc::Model::Document`
 
 == The Parsing Process
 
@@ -73,9 +73,9 @@ Parslet constructs an Abstract Syntax Tree representing the syntactic structure 
 
 The AST is transformed into Model objects by the Transformer layer. This is where syntax becomes semantics:
 
-* AST heading node → `Coridoc::Model::Title`
-* AST paragraph node → `Coridoc::Model::Paragraph`
-* AST list node → `Coridoc::Model::List::Unordered`
+* AST heading node → `Ceradoc::Model::Title`
+* AST paragraph node → `Ceradoc::Model::Paragraph`
+* AST list node → `Ceradoc::Model::List::Unordered`
 
 == Working with Parsed Documents
 
@@ -83,7 +83,7 @@ The AST is transformed into Model objects by the Transformer layer. This is wher
 
 [source,ruby]
 ----
-doc = Coridoc.parse("= Document Title\n\nContent")
+doc = Ceradoc.parse("= Document Title\n\nContent")
 
 doc.header.title              # => "Document Title"
 doc.header.author             # => Array of Author objects
@@ -94,7 +94,7 @@ doc.header.revision           # => Revision object
 
 [source,ruby]
 ----
-doc = Coridoc.parse("== Section 1\n\nContent\n\n== Section 2\n\nContent")
+doc = Ceradoc.parse("== Section 1\n\nContent\n\n== Section 2\n\nContent")
 
 # All top-level sections
 doc.sections.each do |section|
@@ -116,7 +116,7 @@ end
 
 [source,ruby]
 ----
-doc = Coridoc.parse(":author: John Doe\n\n== Title\n\nContent")
+doc = Ceradoc.parse(":author: John Doe\n\n== Title\n\nContent")
 
 # All attributes
 doc.document_attributes.data.each do |key, value|
@@ -131,7 +131,7 @@ doc.document_attributes.data["author"]  # => "John Doe"
 
 [source,ruby]
 ----
-doc = Coridoc.parse("== Section\n\nParagraph 1.\n\nParagraph 2.")
+doc = Ceradoc.parse("== Section\n\nParagraph 1.\n\nParagraph 2.")
 
 section = doc.sections.first
 
@@ -150,17 +150,17 @@ end
 
 [source,ruby]
 ----
-doc = Coridoc.parse("= Title\n\nThis has *bold* and _italic_ text.")
+doc = Ceradoc.parse("= Title\n\nThis has *bold* and _italic_ text.")
 
 paragraph = doc.sections.first.paragraphs.first
 
 paragraph.content.each do |element|
   case element
-  when Coridoc::Model::TextElement
+  when Ceradoc::Model::TextElement
     puts "Text: #{element.text}"
-  when Coridoc::Model::Inline::Bold
+  when Ceradoc::Model::Inline::Bold
     puts "Bold: #{element.content}"
-  when Coridoc::Model::Inline::Italic
+  when Ceradoc::Model::Inline::Italic
     puts "Italic: #{element.content}"
   end
 end
@@ -168,7 +168,7 @@ end
 
 == What Gets Parsed
 
-Coridoc parses the following AsciiDoc elements:
+Ceradoc parses the following AsciiDoc elements:
 
 * **Structure:** Document title, sections, headers
 * **Blocks:** Paragraphs, delimited blocks, lists, tables
@@ -184,13 +184,13 @@ The parser focuses on semantic AsciiDoc elements. Some advanced features may not
 * All macro types
 * Conditional processing
 
-See link:/coridoc/guides/troubleshooting[Troubleshooting] for known limitations.
+See link:/ceradoc/guides/troubleshooting[Troubleshooting] for known limitations.
 
 == Related Documentation
 
 * link:transformation[Transformation Layer] - How AST becomes Model
 * link:model[Document Model] - Model object details
-* link:/coridoc/tutorials/basic-parsing[Basic Parsing Tutorial] - Hands-on examples
+* link:/ceradoc/tutorials/basic-parsing[Basic Parsing Tutorial] - Hands-on examples
 
 == Bibliography
 

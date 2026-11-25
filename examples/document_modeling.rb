@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# Document modeling examples for Coridoc
+# Document modeling examples for Ceradoc
 #
-# This file demonstrates how to work with the Coridoc document model.
+# This file demonstrates how to work with the Ceradoc document model.
 
-require_relative '../lib/coridoc'
+require_relative '../lib/ceradoc'
 
 # Example 1: Accessing document structure
 puts '=== Example 1: Accessing document structure ==='
@@ -24,7 +24,7 @@ input = <<~ASCIIDOC
   Paragraph in section 2.
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 
 puts "Document title: #{doc.header.title}"
 puts "Top-level sections: #{doc.sections.map { |s| s.title.content.first }.join(', ')}"
@@ -46,18 +46,18 @@ input = <<~ASCIIDOC
   Third paragraph with a https://example.com[link].
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 section = doc.sections.first
 
 section.paragraphs.each_with_index do |para, i|
   puts "Paragraph #{i + 1}:"
   para.content.each do |element|
     case element
-    when Coridoc::Model::TextElement
+    when Ceradoc::Model::TextElement
       puts "  Text: #{element.text}"
-    when Coridoc::Model::Inline::Bold
+    when Ceradoc::Model::Inline::Bold
       puts "  Bold: #{element.content}"
-    when Coridoc::Model::Inline::Link
+    when Ceradoc::Model::Inline::Link
       puts "  Link: #{element.path} [#{element.name}]"
     end
   end
@@ -79,10 +79,10 @@ input = <<~ASCIIDOC
   . Step 3
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 
 # Find unordered list
-unordered_list = doc.sections.first.blocks.find { |b| b.is_a?(Coridoc::Model::List::Unordered) }
+unordered_list = doc.sections.first.blocks.find { |b| b.is_a?(Ceradoc::Model::List::Unordered) }
 if unordered_list
   puts "Unordered list has #{unordered_list.items.size} top-level items"
   unordered_list.items.each do |item|
@@ -93,7 +93,7 @@ if unordered_list
 end
 
 # Find ordered list
-ordered_list = doc.sections.first.blocks.find { |b| b.is_a?(Coridoc::Model::List::Ordered) }
+ordered_list = doc.sections.first.blocks.find { |b| b.is_a?(Ceradoc::Model::List::Ordered) }
 puts "\nOrdered list has #{ordered_list.items.size} items" if ordered_list
 puts
 
@@ -110,10 +110,10 @@ input = <<~ASCIIDOC
   |===
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 
 # Find table
-table = doc.sections.first.blocks.find { |b| b.is_a?(Coridoc::Model::Table) }
+table = doc.sections.first.blocks.find { |b| b.is_a?(Ceradoc::Model::Table) }
 if table
   puts "Table has #{table.rows.size} rows"
   table.rows.each_with_index do |row, i|
@@ -136,7 +136,7 @@ input = <<~ASCIIDOC
   This section has an anchor.
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 paragraph = doc.sections.first.paragraphs.first
 
 puts 'Inline element types in first paragraph:'
@@ -158,7 +158,7 @@ input = <<~ASCIIDOC
   Content here.
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 
 puts 'Document attributes:'
 doc.document_attributes.data.each do |key, value|
@@ -186,7 +186,7 @@ input = <<~ASCIIDOC
   NOTE: This is a note admonition.
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 
 puts 'Block types in document:'
 doc.sections.first.blocks.each do |block|

@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:spec)
+
+task default: :spec
+
+namespace :grammar do
+  desc 'Compile grammar/ceradoc-markdown.parg to its artifact'
+  task :compile do
+    require 'ceradoc'
+    require 'ceradoc/markdown'
+    grammar = Ceradoc::Markdown::Parser::Grammar
+    File.write(grammar::ARTIFACT_PATH, grammar.compile_source)
+    puts "wrote #{grammar::ARTIFACT_PATH}"
+  end
+
+  desc 'Fail when the artifact is stale against the .parg source'
+  task :check do
+    require 'ceradoc'
+    require 'ceradoc/markdown'
+    grammar = Ceradoc::Markdown::Parser::Grammar
+    abort 'artifact is stale: run `rake grammar:compile`' unless grammar.artifact.fresh_against?(File.read(grammar::SOURCE_PATH))
+    puts 'artifact is fresh'
+  end
+end

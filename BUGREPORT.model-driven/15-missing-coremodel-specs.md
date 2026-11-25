@@ -13,20 +13,20 @@
 
 | Class | File |
 |-------|------|
-| `CommentBlock` | `lib/coridoc/core_model/comment_block.rb` |
-| `ExampleBlock` | `lib/coridoc/core_model/example_block.rb` |
-| `HorizontalRuleBlock` | `lib/coridoc/core_model/horizontal_rule_block.rb` |
-| `ListingBlock` | `lib/coridoc/core_model/listing_block.rb` |
-| `LiteralBlock` | `lib/coridoc/core_model/literal_block.rb` |
-| `OpenBlock` | `lib/coridoc/core_model/open_block.rb` |
-| `ParagraphBlock` | `lib/coridoc/core_model/paragraph_block.rb` |
-| `PassBlock` | `lib/coridoc/core_model/pass_block.rb` |
-| `QuoteBlock` | `lib/coridoc/core_model/quote_block.rb` |
-| `ReviewerBlock` | `lib/coridoc/core_model/reviewer_block.rb` |
-| `SidebarBlock` | `lib/coridoc/core_model/sidebar_block.rb` |
-| `SourceBlock` | `lib/coridoc/core_model/source_block.rb` |
-| `VerseBlock` | `lib/coridoc/core_model/verse_block.rb` |
-| `DefinitionItem` | `lib/coridoc/core_model/definition_item.rb` |
+| `CommentBlock` | `lib/ceradoc/core_model/comment_block.rb` |
+| `ExampleBlock` | `lib/ceradoc/core_model/example_block.rb` |
+| `HorizontalRuleBlock` | `lib/ceradoc/core_model/horizontal_rule_block.rb` |
+| `ListingBlock` | `lib/ceradoc/core_model/listing_block.rb` |
+| `LiteralBlock` | `lib/ceradoc/core_model/literal_block.rb` |
+| `OpenBlock` | `lib/ceradoc/core_model/open_block.rb` |
+| `ParagraphBlock` | `lib/ceradoc/core_model/paragraph_block.rb` |
+| `PassBlock` | `lib/ceradoc/core_model/pass_block.rb` |
+| `QuoteBlock` | `lib/ceradoc/core_model/quote_block.rb` |
+| `ReviewerBlock` | `lib/ceradoc/core_model/reviewer_block.rb` |
+| `SidebarBlock` | `lib/ceradoc/core_model/sidebar_block.rb` |
+| `SourceBlock` | `lib/ceradoc/core_model/source_block.rb` |
+| `VerseBlock` | `lib/ceradoc/core_model/verse_block.rb` |
+| `DefinitionItem` | `lib/ceradoc/core_model/definition_item.rb` |
 
 ## Fix
 

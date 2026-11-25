@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# Basic parsing examples for Coridoc
+# Basic parsing examples for Ceradoc
 #
-# This file demonstrates how to parse AsciiDoc documents using Coridoc.
+# This file demonstrates how to parse AsciiDoc documents using Ceradoc.
 
-require_relative '../lib/coridoc'
+require_relative '../lib/ceradoc'
 
 # Helper method to find first actual Section
 def find_first_section(doc)
-  doc.sections.find { |s| s.is_a?(Coridoc::Model::Section) }
+  doc.sections.find { |s| s.is_a?(Ceradoc::Model::Section) }
 end
 
 # Example 1: Parse a simple document
@@ -23,7 +23,7 @@ input = <<~ASCIIDOC
   This is content in section 1.
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 puts "Document title: #{doc.header.title}"
 puts "Number of sections: #{doc.sections.size}"
 section = find_first_section(doc)
@@ -32,7 +32,7 @@ puts
 
 # Example 2: Parse from file
 puts '=== Example 2: Parse from file ==='
-temp_file = '/tmp/coridoc_example.adoc'
+temp_file = '/tmp/ceradoc_example.adoc'
 File.write(temp_file, <<~ASCIIDOC)
   = Document Title
   Author Name <author@example.com>
@@ -46,13 +46,13 @@ File.write(temp_file, <<~ASCIIDOC)
   * List item 3
 ASCIIDOC
 
-doc = Coridoc.parse_file(temp_file)
+doc = Ceradoc.parse_file(temp_file)
 puts "Document title: #{doc.header.title}"
 puts "Author: #{doc.header.author&.first&.name}"
 section = find_first_section(doc)
 if section
-  paragraphs = section.contents.select { |c| c.is_a?(Coridoc::Model::Paragraph) }
-  lists = section.contents.select { |c| c.is_a?(Coridoc::Model::List::Core) }
+  paragraphs = section.contents.select { |c| c.is_a?(Ceradoc::Model::Paragraph) }
+  lists = section.contents.select { |c| c.is_a?(Ceradoc::Model::List::Core) }
   puts "Number of paragraphs: #{paragraphs.size}"
   puts "Number of lists: #{lists.size}"
 end
@@ -68,8 +68,8 @@ input = <<~ASCIIDOC
   This has `monospace text` and a https://example.com[link].
 ASCIIDOC
 
-doc = Coridoc.parse(input)
-paragraph = doc.sections.find { |s| s.is_a?(Coridoc::Model::Paragraph) }
+doc = Ceradoc.parse(input)
+paragraph = doc.sections.find { |s| s.is_a?(Ceradoc::Model::Paragraph) }
 if paragraph
   puts "Paragraph has #{paragraph.content.size} content elements"
   paragraph.content.each do |element|
@@ -96,8 +96,8 @@ input = <<~ASCIIDOC
   Term 2:: Definition 2
 ASCIIDOC
 
-doc = Coridoc.parse(input)
-lists = doc.sections.select { |s| s.is_a?(Coridoc::Model::List::Core) }
+doc = Ceradoc.parse(input)
+lists = doc.sections.select { |s| s.is_a?(Ceradoc::Model::List::Core) }
 puts "Number of lists: #{lists.size}"
 lists.each_with_index do |list, i|
   puts "  List #{i + 1}: #{list.class.name} with #{list.items.size} items"
@@ -123,7 +123,7 @@ input = <<~ASCIIDOC
   NOTE: This is a note admonition.
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 section = find_first_section(doc)
 section&.contents&.each do |block|
   puts "Block type: #{block.class.name}"

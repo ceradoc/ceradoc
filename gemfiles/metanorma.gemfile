@@ -3,9 +3,9 @@
 source 'https://rubygems.org'
 
 # Optional feature bundle: frozen native model/presentation integration graph.
-gem 'coridoc', path: '../coridoc'
-gem 'coridoc-adoc', path: '../coridoc-adoc'
-gem 'coridoc-markdown', path: '../coridoc-markdown'
+gem 'ceradoc', path: '../ceradoc'
+gem 'ceradoc-adoc', path: '../ceradoc-adoc'
+gem 'ceradoc-markdown', path: '../ceradoc-markdown'
 
 gem 'metanorma-core', git: 'https://github.com/metanorma/metanorma-core.git',
                       ref: '231ea6e236a6ccb199ff236df675b6a1edc0240a'

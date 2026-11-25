@@ -1,6 +1,6 @@
-= Coridoc Examples
+= Ceradoc Examples
 
-This directory contains examples demonstrating how to use Coridoc for parsing, modeling, and serializing AsciiDoc documents.
+This directory contains examples demonstrating how to use Ceradoc for parsing, modeling, and serializing AsciiDoc documents.
 
 ## Running the Examples
 
@@ -27,7 +27,7 @@ Topics covered:
 
 === Document Modeling
 
-`document_modeling.rb` - Demonstrates how to work with the Coridoc document model.
+`document_modeling.rb` - Demonstrates how to work with the Ceradoc document model.
 
 Topics covered:
 
@@ -41,7 +41,7 @@ Topics covered:
 
 === Serialization
 
-`serialization.rb` - Demonstrates how to serialize Coridoc document models to AsciiDoc.
+`serialization.rb` - Demonstrates how to serialize Ceradoc document models to AsciiDoc.
 
 Topics covered:
 
@@ -52,7 +52,7 @@ Topics covered:
 * Serialize blocks
 * Serialize inline elements
 * Round-trip preservation
-* Using `Coridoc.convert`
+* Using `Ceradoc.convert`
 
 === Custom Blocks
 
@@ -94,7 +94,7 @@ To parse these documents:
 
 [source,ruby]
 ----
-doc = Coridoc.parse_file("examples/documents/basic_document.adoc")
+doc = Ceradoc.parse_file("examples/documents/basic_document.adoc")
 puts doc.to_adoc
 ----
 
@@ -104,14 +104,14 @@ puts doc.to_adoc
 
 [source,ruby]
 ----
-doc = Coridoc.parse("= Title\n\nContent")
+doc = Ceradoc.parse("= Title\n\nContent")
 ----
 
 === Parse from File
 
 [source,ruby]
 ----
-doc = Coridoc.parse_file("document.adoc")
+doc = Ceradoc.parse_file("document.adoc")
 ----
 
 === Serialize to AsciiDoc

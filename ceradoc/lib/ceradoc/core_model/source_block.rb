@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+module Ceradoc
+  module CoreModel
+    # Specialized block for source code listings
+    class SourceBlock < Block
+      def self.semantic_type
+        :source_code
+      end
+
+      def prose?
+        false
+      end
+    end
+  end
+end

@@ -8,24 +8,24 @@ nav_order: 1
 
 == Purpose
 
-Complete API documentation for Coridoc's public interface.
+Complete API documentation for Ceradoc's public interface.
 
 == Core Module
 
-=== Coridoc
+=== Ceradoc
 
-The main Coridoc module provides the primary API for parsing and converting documents.
+The main Ceradoc module provides the primary API for parsing and converting documents.
 
 [source,ruby]
 ----
-module Coridoc
+module Ceradoc
   VERSION: String
 
   # Parse an AsciiDoc string
-  def self.parse(input, **options) -> Coridoc::Model::Document
+  def self.parse(input, **options) -> Ceradoc::Model::Document
 
   # Parse an AsciiDoc file
-  def self.parse_file(filename, **options) -> Coridoc::Model::Document
+  def self.parse_file(filename, **options) -> Ceradoc::Model::Document
 
   # Convert a document to a format
   def self.convert(document, to:, **options) -> String
@@ -34,13 +34,13 @@ end
 
 == Core Methods
 
-=== Coridoc.parse(input, **options)
+=== Ceradoc.parse(input, **options)
 
 Parse an AsciiDoc string into a document model.
 
 [source,ruby]
 ----
-signature: parse(input, **options) -> Coridoc::Model::Document
+signature: parse(input, **options) -> Ceradoc::Model::Document
 ----
 
 *Parameters:*
@@ -51,38 +51,38 @@ signature: parse(input, **options) -> Coridoc::Model::Document
 * `preserve_whitespace` (Boolean) - Preserve whitespace in text (default: `false`)
 * `attributes` (Hash) - Default document attributes
 
-*Returns:* `Coridoc::Model::Document`
+*Returns:* `Ceradoc::Model::Document`
 
-*Raises:* `Coridoc::ParseError` if parsing fails and `strict: true`
+*Raises:* `Ceradoc::ParseError` if parsing fails and `strict: true`
 
 *Examples:*
 
 [source,ruby]
 ----
 # Basic parsing
-doc = Coridoc.parse("== Title\n\nContent")
+doc = Ceradoc.parse("== Title\n\nContent")
 
 # With schema
-doc = Coridoc.parse(input, schema: :iso)
+doc = Ceradoc.parse(input, schema: :iso)
 
 # With attributes
-doc = Coridoc.parse(input, attributes: { "author" => "John Doe" })
+doc = Ceradoc.parse(input, attributes: { "author" => "John Doe" })
 
 # Strict mode
 begin
-  doc = Coridoc.parse(input, strict: true)
-rescue Coridoc::ParseError => e
+  doc = Ceradoc.parse(input, strict: true)
+rescue Ceradoc::ParseError => e
   puts "Parse error: #{e.message}"
 end
 ----
 
-=== Coridoc.parse_file(filename, **options)
+=== Ceradoc.parse_file(filename, **options)
 
 Parse an AsciiDoc file into a document model.
 
 [source,ruby]
 ----
-signature: parse_file(filename, **options) -> Coridoc::Model::Document
+signature: parse_file(filename, **options) -> Ceradoc::Model::Document
 ----
 
 *Parameters:*
@@ -95,25 +95,25 @@ signature: parse_file(filename, **options) -> Coridoc::Model::Document
 * `encoding` (String) - File encoding (default: `"UTF-8"`)
 * `base_dir` (String) - Base directory for include resolution
 
-*Returns:* `Coridoc::Model::Document`
+*Returns:* `Ceradoc::Model::Document`
 
-*Raises:* `Coridoc::ParseError`, `Errno::ENOENT` (file not found)
+*Raises:* `Ceradoc::ParseError`, `Errno::ENOENT` (file not found)
 
 *Examples:*
 
 [source,ruby]
 ----
 # Basic file parsing
-doc = Coridoc.parse_file("document.adoc")
+doc = Ceradoc.parse_file("document.adoc")
 
 # With encoding
-doc = Coridoc.parse_file("document.adoc", encoding: "ISO-8859-1")
+doc = Ceradoc.parse_file("document.adoc", encoding: "ISO-8859-1")
 
 # With base directory for includes
-doc = Coridoc.parse_file("main.adoc", base_dir: "/path/to/docs")
+doc = Ceradoc.parse_file("main.adoc", base_dir: "/path/to/docs")
 ----
 
-=== Coridoc.convert(document, to:, **options)
+=== Ceradoc.convert(document, to:, **options)
 
 Convert a document model to a specified format.
 
@@ -124,7 +124,7 @@ signature: convert(document, to:, **options) -> String
 
 *Parameters:*
 
-* `document` (Coridoc::Model::Base) - Document model to convert
+* `document` (Ceradoc::Model::Base) - Document model to convert
 * `to` (Symbol) - Target format (`:adoc`, `:html`)
 * `indent` (Integer) - Output indentation (default: `0`)
 * `line_width` (Integer, nil) - Maximum line width (default: `nil`)
@@ -132,33 +132,33 @@ signature: convert(document, to:, **options) -> String
 
 *Returns:* String output in specified format
 
-*Raises:* `Coridoc::SerializationError` if serialization fails
+*Raises:* `Ceradoc::SerializationError` if serialization fails
 
 *Examples:*
 
 [source,ruby]
 ----
-doc = Coridoc.parse("= Title\n\nContent")
+doc = Ceradoc.parse("= Title\n\nContent")
 
 # Convert to AsciiDoc
-asciidoc = Coridoc.convert(doc, to: :adoc)
+asciidoc = Ceradoc.convert(doc, to: :adoc)
 
 # Convert with formatting
-asciidoc = Coridoc.convert(doc, to: :adoc, indent: 2, line_width: 80)
+asciidoc = Ceradoc.convert(doc, to: :adoc, indent: 2, line_width: 80)
 
 # Write to file
-File.write("output.adoc", Coridoc.convert(doc, to: :adoc))
+File.write("output.adoc", Ceradoc.convert(doc, to: :adoc))
 ----
 
 == Model Classes
 
-=== Coridoc::Model::Base
+=== Ceradoc::Model::Base
 
 Base class for all model elements.
 
 [source,ruby]
 ----
-class Coridoc::Model::Base
+class Ceradoc::Model::Base
   # Serialize to AsciiDoc
   def to_adoc(**options) -> String
 
@@ -167,65 +167,65 @@ class Coridoc::Model::Base
 end
 ----
 
-=== Coridoc::Model::Document
+=== Ceradoc::Model::Document
 
 Root document container.
 
 [source,ruby]
 ----
-class Coridoc::Model::Document < Base
-  attr_accessor :header        # Coridoc::Model::Header
-  attr_accessor :document_attributes  # Coridoc::Model::DocumentAttributes
-  attr_accessor :sections       # Array<Coridoc::Model::Section>
+class Ceradoc::Model::Document < Base
+  attr_accessor :header        # Ceradoc::Model::Header
+  attr_accessor :document_attributes  # Ceradoc::Model::DocumentAttributes
+  attr_accessor :sections       # Array<Ceradoc::Model::Section>
 end
 ----
 
-=== Coridoc::Model::Section
+=== Ceradoc::Model::Section
 
 Document section with title and content.
 
 [source,ruby]
 ----
-class Coridoc::Model::Section < Base
-  attr_accessor :title          # Coridoc::Model::Title
-  attr_accessor :sections       # Array<Coridoc::Model::Section> (nested)
-  attr_accessor :paragraphs     # Array<Coridoc::Model::Paragraph>
-  attr_accessor :blocks         # Array<Coridoc::Model::Block::Core>
+class Ceradoc::Model::Section < Base
+  attr_accessor :title          # Ceradoc::Model::Title
+  attr_accessor :sections       # Array<Ceradoc::Model::Section> (nested)
+  attr_accessor :paragraphs     # Array<Ceradoc::Model::Paragraph>
+  attr_accessor :blocks         # Array<Ceradoc::Model::Block::Core>
 end
 ----
 
-=== Coridoc::Model::Paragraph
+=== Ceradoc::Model::Paragraph
 
 Text paragraph with inline elements.
 
 [source,ruby]
 ----
-class Coridoc::Model::Paragraph < Base
+class Ceradoc::Model::Paragraph < Base
   attr_accessor :content        # Array<TextElement, Inline>
-  attr_accessor :attributes     # Coridoc::Model::AttributeList
+  attr_accessor :attributes     # Ceradoc::Model::AttributeList
 end
 ----
 
-=== Coridoc::Model::Header
+=== Ceradoc::Model::Header
 
 Document metadata.
 
 [source,ruby]
 ----
-class Coridoc::Model::Header
+class Ceradoc::Model::Header
   attr_accessor :title          # String
-  attr_accessor :author         # Array<Coridoc::Model::Author>
-  attr_accessor :revision       # Coridoc::Model::Revision
+  attr_accessor :author         # Array<Ceradoc::Model::Author>
+  attr_accessor :revision       # Ceradoc::Model::Revision
 end
 ----
 
-=== Coridoc::Model::Title
+=== Ceradoc::Model::Title
 
 Section or block title.
 
 [source,ruby]
 ----
-class Coridoc::Model::Title
+class Ceradoc::Model::Title
   attr_accessor :level_int      # Integer (1-6)
   attr_accessor :content        # Array<String>
 end
@@ -233,138 +233,138 @@ end
 
 == Block Classes
 
-=== Coridoc::Model::Block::Core
+=== Ceradoc::Model::Block::Core
 
 Base class for delimited blocks.
 
 [source,ruby]
 ----
-class Coridoc::Model::Block::Core < Base
+class Ceradoc::Model::Block::Core < Base
   attr_accessor :delimiter_char # String
   attr_accessor :delimiter_len  # Integer
   attr_accessor :lines          # Array<String>
-  attr_accessor :attributes     # Coridoc::Model::AttributeList
+  attr_accessor :attributes     # Ceradoc::Model::AttributeList
 end
 ----
 
 === Block Types
 
-* `Coridoc::Model::Block::Listing` - Code listing block
-* `Coridoc::Model::Block::Literal` - Literal text block
-* `Coridoc::Model::Block::Example` - Example block
-* `Coridoc::Model::Block::Quote` - Quoted text block
-* `Coridoc::Model::Block::Pass` - Pass-through content
+* `Ceradoc::Model::Block::Listing` - Code listing block
+* `Ceradoc::Model::Block::Literal` - Literal text block
+* `Ceradoc::Model::Block::Example` - Example block
+* `Ceradoc::Model::Block::Quote` - Quoted text block
+* `Ceradoc::Model::Block::Pass` - Pass-through content
 
 == List Classes
 
-=== Coridoc::Model::List::Core
+=== Ceradoc::Model::List::Core
 
 Base list class.
 
 [source,ruby]
 ----
-class Coridoc::Model::List::Core < Base
-  attr_accessor :items          # Array<Coridoc::Model::ListItem>
+class Ceradoc::Model::List::Core < Base
+  attr_accessor :items          # Array<Ceradoc::Model::ListItem>
 end
 ----
 
 === List Types
 
-* `Coridoc::Model::List::Unordered` - Bulleted list
-* `Coridoc::Model::List::Ordered` - Numbered list
-* `Coridoc::Model::List::Definition` - Definition list
+* `Ceradoc::Model::List::Unordered` - Bulleted list
+* `Ceradoc::Model::List::Ordered` - Numbered list
+* `Ceradoc::Model::List::Definition` - Definition list
 
-=== Coridoc::Model::ListItem
+=== Ceradoc::Model::ListItem
 
 List item.
 
 [source,ruby]
 ----
-class Coridoc::Model::ListItem
+class Ceradoc::Model::ListItem
   attr_accessor :content        # Array<TextElement, Inline>
-  attr_accessor :nested_list    # Coridoc::Model::List::Core
+  attr_accessor :nested_list    # Ceradoc::Model::List::Core
 end
 ----
 
 == Table Classes
 
-=== Coridoc::Model::Table
+=== Ceradoc::Model::Table
 
 Table structure.
 
 [source,ruby]
 ----
-class Coridoc::Model::Table < Base
-  attr_accessor :rows           # Array<Coridoc::Model::TableRow>
-  attr_accessor :attributes     # Coridoc::Model::AttributeList
+class Ceradoc::Model::Table < Base
+  attr_accessor :rows           # Array<Ceradoc::Model::TableRow>
+  attr_accessor :attributes     # Ceradoc::Model::AttributeList
 end
 ----
 
-=== Coridoc::Model::TableRow
+=== Ceradoc::Model::TableRow
 
 Table row.
 
 [source,ruby]
 ----
-class Coridoc::Model::TableRow
-  attr_accessor :columns        # Array<Coridoc::Model::TableCell>
+class Ceradoc::Model::TableRow
+  attr_accessor :columns        # Array<Ceradoc::Model::TableCell>
 end
 ----
 
-=== Coridoc::Model::TableCell
+=== Ceradoc::Model::TableCell
 
 Table cell.
 
 [source,ruby]
 ----
-class Coridoc::Model::TableCell
+class Ceradoc::Model::TableCell
   attr_accessor :content        # Array<TextElement, Inline>
-  attr_accessor :attributes     # Coridoc::Model::AttributeList
+  attr_accessor :attributes     # Ceradoc::Model::AttributeList
 end
 ----
 
 == Inline Classes
 
-=== Coridoc::Model::Inline::Base
+=== Ceradoc::Model::Inline::Base
 
 Base class for inline elements.
 
 [source,ruby]
 ----
-class Coridoc::Model::Inline::Base < Base
+class Ceradoc::Model::Inline::Base < Base
   attr_accessor :content        # String or Array
 end
 ----
 
 === Inline Types
 
-* `Coridoc::Model::Inline::Bold` - Bold text (`*text*`)
-* `Coridoc::Model::Inline::Italic` - Italic text (`_text_`)
-* `Coridoc::Model::Inline::Monospace` - Monospace text (`` `text` ``)
-* `Coridoc::Model::Inline::Link` - Hyperlink (`https://example.com[label]`)
-* `Coridoc::Model::Inline::Anchor` - Cross-reference target (`[[id]]`)
-* `Coridoc::Model::Inline::CrossReference` - Cross-reference (`<<id,text>>`)
+* `Ceradoc::Model::Inline::Bold` - Bold text (`*text*`)
+* `Ceradoc::Model::Inline::Italic` - Italic text (`_text_`)
+* `Ceradoc::Model::Inline::Monospace` - Monospace text (`` `text` ``)
+* `Ceradoc::Model::Inline::Link` - Hyperlink (`https://example.com[label]`)
+* `Ceradoc::Model::Inline::Anchor` - Cross-reference target (`[[id]]`)
+* `Ceradoc::Model::Inline::CrossReference` - Cross-reference (`<<id,text>>`)
 
-=== Coridoc::Model::TextElement
+=== Ceradoc::Model::TextElement
 
 Plain text content.
 
 [source,ruby]
 ----
-class Coridoc::Model::TextElement
+class Ceradoc::Model::TextElement
   attr_accessor :text           # String
 end
 ----
 
 == Helper Classes
 
-=== Coridoc::Model::AttributeList
+=== Ceradoc::Model::AttributeList
 
 Block or inline attributes.
 
 [source,ruby]
 ----
-class Coridoc::Model::AttributeList
+class Ceradoc::Model::AttributeList
   def add_positional(value) -> void
   def add_named(name, value) -> void
   def get(name) -> String, nil
@@ -372,100 +372,100 @@ class Coridoc::Model::AttributeList
 end
 ----
 
-=== Coridoc::Model::DocumentAttributes
+=== Ceradoc::Model::DocumentAttributes
 
 Document-level metadata.
 
 [source,ruby]
 ----
-class Coridoc::Model::DocumentAttributes
+class Ceradoc::Model::DocumentAttributes
   attr_accessor :data           # Hash<String, String>
 end
 ----
 
 == Configuration
 
-=== Coridoc.configure
+=== Ceradoc.configure
 
 Configure global settings.
 
 [source,ruby]
 ----
-Coridoc.configure do |config|
+Ceradoc.configure do |config|
   config.default_schema = :iso
   config.strict = false
   config.parser.warn_on_undefined = true
 end
 ----
 
-=== Coridoc.debug
+=== Ceradoc.debug
 
 Enable/disable debug mode.
 
 [source,ruby]
 ----
-Coridoc.debug = true  # Enable debug output
-Coridoc.debug = false # Disable debug output
+Ceradoc.debug = true  # Enable debug output
+Ceradoc.debug = false # Disable debug output
 ----
 
 == Input Conversion
 
-=== Coridoc::Input::HTML.convert
+=== Ceradoc::Input::HTML.convert
 
 Convert HTML to Document Model.
 
 [source,ruby]
 ----
-signature: Coridoc::Input::HTML.convert(html) -> Coridoc::Model::Document
+signature: Ceradoc::Input::HTML.convert(html) -> Ceradoc::Model::Document
 ----
 
 *Parameters:*
 
 * `html` (String) - HTML string to convert
 
-*Returns:* `Coridoc::Model::Document`
+*Returns:* `Ceradoc::Model::Document`
 
 *Examples:*
 
 [source,ruby]
 ----
 html = "<h1>Title</h1><p>Content</p>"
-doc = Coridoc::Input::HTML.convert(html)
+doc = Ceradoc::Input::HTML.convert(html)
 asciidoc = doc.to_adoc
 ----
 
 == Error Classes
 
-=== Coridoc::ParseError
+=== Ceradoc::ParseError
 
 Raised when parsing fails.
 
 [source,ruby]
 ----
-class Coridoc::ParseError < StandardError
+class Ceradoc::ParseError < StandardError
   attr_reader :line           # Integer
   attr_reader :column         # Integer
 end
 ----
 
-=== Coridoc::SerializationError
+=== Ceradoc::SerializationError
 
 Raised when serialization fails.
 
 [source,ruby]
 ----
-class Coridoc::SerializationError < StandardError
-  attr_reader :model          # Coridoc::Model::Base
+class Ceradoc::SerializationError < StandardError
+  attr_reader :model          # Ceradoc::Model::Base
 end
 ----
 
-=== Coridoc::SchemaError
+=== Ceradoc::SchemaError
 
 Raised for schema-related errors.
 
 [source,ruby]
 ----
-class Coridoc::SchemaError < StandardError
+class Ceradoc::SchemaError < StandardError
 end
 ----
 
@@ -473,16 +473,16 @@ end
 
 [source,ruby]
 ----
-Coridoc::VERSION  # => "0.x.x"
+Ceradoc::VERSION  # => "0.x.x"
 ----
 
 ## Related Documentation
 
 * link:model-classes[Model Classes] - Complete model class catalog
-* link:/coridoc/guides/configuration[Configuration Guide] - Configuration options
-* link:/coridoc/pages/architecture[Architecture] - System architecture
+* link:/ceradoc/guides/configuration[Configuration Guide] - Configuration options
+* link:/ceradoc/pages/architecture[Architecture] - System architecture
 
 ## Bibliography
 
-* https://rubydoc.info/gems/coridoc[YARD Documentation]
-* https://github.com/coridoc/coridoc[Source Code]
+* https://rubydoc.info/gems/ceradoc[YARD Documentation]
+* https://github.com/ceradoc/ceradoc[Source Code]

@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+lib_path = File.expand_path('../lib', __dir__)
+$LOAD_PATH.unshift(lib_path) unless $LOAD_PATH.include?(lib_path)
+
+require 'ceradoc'
+require 'ceradoc/cli'
+
+GEM_TO_REQUIRE_PATH = {
+  'ceradoc-adoc' => 'ceradoc/asciidoc',
+  'ceradoc-html' => 'ceradoc/html',
+  'ceradoc-markdown' => 'ceradoc/markdown',
+  'ceradoc-docx' => 'ceradoc/docx'
+}.freeze
+
+GEM_TO_REQUIRE_PATH.each do |gem_name, require_path|
+  gem gem_name
+  require require_path
+rescue LoadError
+  nil
+end
+
+Ceradoc::CLI.start(ARGV)

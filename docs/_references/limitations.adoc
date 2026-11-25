@@ -6,7 +6,7 @@ nav_order: 50
 
 = Known Limitations
 
-This document lists known limitations and unsupported features in Coridoc. Understanding these helps avoid unexpected behavior.
+This document lists known limitations and unsupported features in Ceradoc. Understanding these helps avoid unexpected behavior.
 
 == Format Support Limitations
 
@@ -14,11 +14,11 @@ This document lists known limitations and unsupported features in Coridoc. Under
 
 [WARNING]
 ====
-HTML input parsing now works with `Coridoc.parse(text, format: :html)` and `Coridoc::Html.parse_to_core`.
+HTML input parsing now works with `Ceradoc.parse(text, format: :html)` and `Ceradoc::Html.parse_to_core`.
 ====
 
-* `Coridoc::Html.parse_to_core()` - Returns a proper CoreModel
-* `Coridoc.parse(text, format: :html)` - Now works correctly
+* `Ceradoc::Html.parse_to_core()` - Returns a proper CoreModel
+* `Ceradoc.parse(text, format: :html)` - Now works correctly
 * Cross-format conversion FROM HTML now works
 
 === AsciiDoc Serialization
@@ -28,8 +28,8 @@ HTML input parsing now works with `Coridoc.parse(text, format: :html)` and `Cori
 AsciiDoc serialization now works!
 ====
 
-* `Coridoc::AsciiDoc.serialize(core_model)` - WORKS!
-* `Coridoc::AsciiDoc.serialize(ascii_doc_model)` - NOW WORKS!
+* `Ceradoc::AsciiDoc.serialize(core_model)` - WORKS!
+* `Ceradoc::AsciiDoc.serialize(ascii_doc_model)` - NOW WORKS!
 
 === Markdown Serialization from CoreModel
 
@@ -38,9 +38,9 @@ AsciiDoc serialization now works!
 Markdown serialization from CoreModel is now supported!
 ====
 
-* `Coridoc::Markdown.serialize(markdown_model)` - works
-* `Coridoc::Markdown.serialize(core_model)` - NOW WORKS!
-* `Coridoc.serialize(core_model, to: :markdown)` - NOW WORKS!
+* `Ceradoc::Markdown.serialize(markdown_model)` - works
+* `Ceradoc::Markdown.serialize(core_model)` - NOW WORKS!
+* `Ceradoc.serialize(core_model, to: :markdown)` - NOW WORKS!
 
 === Cross-Format Conversion
 
@@ -63,11 +63,11 @@ NOTE: Heading levels are mapped correctly between formats. AsciiDoc level 0 (`=`
 
 === AsciiDoc Features Not Supported
 
-The following AsciiDoc features are NOT supported by Coridoc's core parser:
+The following AsciiDoc features are NOT supported by Ceradoc's core parser:
 
 [NOTE]
 ====
-These are Metanorma-level features, not Coridoc features.
+These are Metanorma-level features, not Ceradoc features.
 ====
 
 * Standards-specific attributes (`:docnumber:`, `:doctype:`, `:docstage:`)
@@ -76,7 +76,7 @@ These are Metanorma-level features, not Coridoc features.
 
 === Supported AsciiDoc Features
 
-Coridoc DOES support core AsciiDoc:
+Ceradoc DOES support core AsciiDoc:
 
 * Document title and sections
 * Paragraphs and text
@@ -94,14 +94,14 @@ Coridoc DOES support core AsciiDoc:
 
 === Markdown Features
 
-Coridoc supports:
+Ceradoc supports:
 
 * CommonMark specification
 * GitHub Flavored Markdown (GFM) tables
 * GFM task lists
 * GFM strikethrough
 
-Coridoc does NOT support:
+Ceradoc does NOT support:
 
 * LaTeX math
 * Complex HTML blocks
@@ -109,8 +109,8 @@ Coridoc does NOT support:
 
 === DOCX Input
 
-Coridoc supports parsing DOCX (Word) files into CoreModel via the
-`coridoc-docx` gem and Uniword. The DOCX pipeline supports:
+Ceradoc supports parsing DOCX (Word) files into CoreModel via the
+`ceradoc-docx` gem and Uniword. The DOCX pipeline supports:
 
 * Headings (via style detection including custom heading styles)
 * Paragraphs with inline formatting (bold, italic, underline, monospace, etc.)
@@ -138,49 +138,49 @@ These patterns are verified to work:
 ----
 # Parse AsciiDoc and convert to HTML
 adoc = "= Title\n\nParagraph."
-html = Coridoc.convert(adoc, from: :asciidoc, to: :html)
+html = Ceradoc.convert(adoc, from: :asciidoc, to: :html)
 
 # Parse Markdown and convert to HTML
 md = "# Title\n\nParagraph."
-html = Coridoc.convert(md, from: :markdown, to: :html)
+html = Ceradoc.convert(md, from: :markdown, to: :html)
 
 # Parse AsciiDoc to CoreModel
 adoc = "= Title\n\nParagraph."
-core = Coridoc.parse(adoc, format: :asciidoc)
+core = Ceradoc.parse(adoc, format: :asciidoc)
 
 # Parse HTML to CoreModel (NOW WORKS!)
 html = "<h1>Title</h1><p>Paragraph.</p>"
-core = Coridoc.parse(html, format: :html)
+core = Ceradoc.parse(html, format: :html)
 
 # Serialize CoreModel to HTML
-html = Coridoc::Html.serialize_static(core)
+html = Ceradoc::Html.serialize_static(core)
 
 # Serialize CoreModel to AsciiDoc
-core = Coridoc.parse("= Title", format: :asciidoc)
-adoc = Coridoc::AsciiDoc.serialize(core)
+core = Ceradoc.parse("= Title", format: :asciidoc)
+adoc = Ceradoc::AsciiDoc.serialize(core)
 
 # Convert HTML to AsciiDoc
 html = "<h1>Title</h1><p>Paragraph.</p>"
-adoc = Coridoc.convert(html, from: :html, to: :asciidoc)
+adoc = Ceradoc.convert(html, from: :html, to: :asciidoc)
 
 # Convert HTML to Markdown
 html = "<h1>Title</h1><p>Paragraph.</p>"
-md = Coridoc.convert(html, from: :html, to: :markdown)
+md = Ceradoc.convert(html, from: :html, to: :markdown)
 
 # Convert AsciiDoc to Markdown (NOW WORKS!)
 adoc = "= Title\n\n== Section\n\nContent."
-md = Coridoc.convert(adoc, from: :asciidoc, to: :markdown)
+md = Ceradoc.convert(adoc, from: :asciidoc, to: :markdown)
 
 # Convert Markdown to AsciiDoc (NOW WORKS!)
 md = "# Title\n\n## Section\n\nContent."
-adoc = Coridoc.convert(md, from: :markdown, to: :asciidoc)
+adoc = Ceradoc.convert(md, from: :markdown, to: :asciidoc)
 
-# Convert DOCX to AsciiDoc (requires coridoc-docx gem)
-require 'coridoc/docx'
-adoc = Coridoc.convert("input.docx", from: :docx, to: :asciidoc)
+# Convert DOCX to AsciiDoc (requires ceradoc-docx gem)
+require 'ceradoc/docx'
+adoc = Ceradoc.convert("input.docx", from: :docx, to: :asciidoc)
 
 # Convert DOCX to Markdown
-md = Coridoc.convert("input.docx", from: :docx, to: :markdown)
+md = Ceradoc.convert("input.docx", from: :docx, to: :markdown)
 ----
 
 == Non-Working Patterns
@@ -189,7 +189,7 @@ md = Coridoc.convert("input.docx", from: :docx, to: :markdown)
 
 [WARNING]
 ====
-When using `Coridoc::Html.serialize_static()`, complex documents may output Ruby object representations instead of proper HTML elements. This affects table cells and some nested structures.
+When using `Ceradoc::Html.serialize_static()`, complex documents may output Ruby object representations instead of proper HTML elements. This affects table cells and some nested structures.
 ====
 
 This is a known issue in the HTML serializer. The parsing works correctly, but the serialization layer needs improvement to properly handle all model types.
@@ -198,4 +198,4 @@ This is a known issue in the HTML serializer. The parsing works correctly, but t
 
 If you encounter issues not listed here, please report them at:
 
-https://github.com/coridoc/coridoc/issues
+https://github.com/ceradoc/ceradoc/issues

@@ -9,7 +9,7 @@
 
 
 **Severity:** MEDIUM
-**Location:** `lib/coridoc/core_model/structural_element.rb`, `coridoc-adoc/lib/coridoc/asciidoc/transform/to_core_model.rb`
+**Location:** `lib/ceradoc/core_model/structural_element.rb`, `ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb`
 
 ## Test file
 
@@ -29,7 +29,7 @@ The result: headings without explicit anchors have no `id` attribute. The TOC bu
 
 ### 11A. Parser only captures explicit anchors
 
-`coridoc-adoc/lib/coridoc/asciidoc/parser/content.rb:49-54`:
+`ceradoc-adoc/lib/ceradoc/asciidoc/parser/content.rb:49-54`:
 ```ruby
 def element_id
   line_start? >>
@@ -43,12 +43,12 @@ Only `[[id]]` or `[#id]` produce an `id`. No fallback generation from heading te
 
 ### 11B. ToCoreModel passes through parser's id (or nil)
 
-`coridoc-adoc/lib/coridoc/asciidoc/transform/to_core_model.rb:125-135` (the `transform_section` method):
+`ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb:125-135` (the `transform_section` method):
 ```ruby
 def transform_section(section)
   title = extract_title_text(section.title)
   # ...
-  element = Coridoc::CoreModel::StructuralElement.new(
+  element = Ceradoc::CoreModel::StructuralElement.new(
     element_type: 'section',
     level: level,
     title: title,
@@ -63,7 +63,7 @@ When `section.id` is `nil` (no explicit `[[anchor]]`), the CoreModel element get
 
 ### 11C. HTML Section converter only sets id when model.id exists
 
-`coridoc-html/lib/coridoc/html/converters/section.rb:58-59`:
+`ceradoc-html/lib/ceradoc/html/converters/section.rb:58-59`:
 ```ruby
 title_attrs = {}
 title_attrs[:id] = model.id if model.id
@@ -73,7 +73,7 @@ Headings without explicit anchors render as `<h3>` with no `id` attribute.
 
 ### 11D. TOC builder generates IDs that don't exist
 
-`coridoc-html/lib/coridoc/html/theme/classic_renderer.rb:294-300`:
+`ceradoc-html/lib/ceradoc/html/theme/classic_renderer.rb:294-300`:
 ```ruby
 def extract_section_id(section)
   if section.id

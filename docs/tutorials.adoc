@@ -8,17 +8,17 @@ has_children: true
 
 == Purpose
 
-This section contains step-by-step tutorials to help you learn Coridoc through hands-on examples. Each tutorial builds on previous concepts and includes runnable code.
+This section contains step-by-step tutorials to help you learn Ceradoc through hands-on examples. Each tutorial builds on previous concepts and includes runnable code.
 
 == Overview
 
 Tutorials are organized by skill level and topic:
 
-* link:/coridoc/tutorials/basic-parsing/[Basic Parsing] - Parse your first AsciiDoc document
-* link:/coridoc/tutorials/document-modeling/[Document Modeling] - Work with the document model
-* link:/coridoc/tutorials/serialization/[Serialization] - Serialize models to AsciiDoc
-* link:/coridoc/tutorials/round-tripping/[Round-tripping] - Preserve semantics through parse cycles
-* link:/coridoc/tutorials/html-conversion/[HTML Conversion] - Convert HTML to AsciiDoc
+* link:/ceradoc/tutorials/basic-parsing/[Basic Parsing] - Parse your first AsciiDoc document
+* link:/ceradoc/tutorials/document-modeling/[Document Modeling] - Work with the document model
+* link:/ceradoc/tutorials/serialization/[Serialization] - Serialize models to AsciiDoc
+* link:/ceradoc/tutorials/round-tripping/[Round-tripping] - Preserve semantics through parse cycles
+* link:/ceradoc/tutorials/html-conversion/[HTML Conversion] - Convert HTML to AsciiDoc
 
 == Tutorial Structure
 
@@ -32,13 +32,13 @@ Each tutorial follows this structure:
 
 == Learning Path
 
-We recommend this order for learning Coridoc:
+We recommend this order for learning Ceradoc:
 
-. link:/coridoc/tutorials/basic-parsing/[Basic Parsing] - Start here if you're new
-. link:/coridoc/tutorials/document-modeling/[Document Modeling] - Understand the model
-. link:/coridoc/tutorials/serialization/[Serialization] - Generate AsciiDoc output
-. link:/coridoc/tutorials/round-tripping/[Round-tripping] - Learn about preservation
-. link:/coridoc/tutorials/html-conversion/[HTML Conversion] - Advanced conversion
+. link:/ceradoc/tutorials/basic-parsing/[Basic Parsing] - Start here if you're new
+. link:/ceradoc/tutorials/document-modeling/[Document Modeling] - Understand the model
+. link:/ceradoc/tutorials/serialization/[Serialization] - Generate AsciiDoc output
+. link:/ceradoc/tutorials/round-tripping/[Round-tripping] - Learn about preservation
+. link:/ceradoc/tutorials/html-conversion/[HTML Conversion] - Advanced conversion
 
 == Example Code
 
@@ -49,13 +49,13 @@ All code examples in tutorials are runnable. You can execute them by:
 # Save to a file (e.g., tutorial.rb)
 # Then run with: ruby tutorial.rb
 
-require 'coridoc'
+require 'ceradoc'
 
 # Paste the example code here
 ----
 
 == Related Documentation
 
-* link:/coridoc/pages/[Core Pages] - Conceptual documentation
-* link:/coridoc/guides/[Guides] - Task-oriented guides
-* link:/coridoc/references/[References] - Technical specifications
+* link:/ceradoc/pages/[Core Pages] - Conceptual documentation
+* link:/ceradoc/guides/[Guides] - Task-oriented guides
+* link:/ceradoc/references/[References] - Technical specifications

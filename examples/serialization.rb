@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# Serialization examples for Coridoc
+# Serialization examples for Ceradoc
 #
-# This file demonstrates how to serialize Coridoc document models to AsciiDoc.
+# This file demonstrates how to serialize Ceradoc document models to AsciiDoc.
 
-require_relative '../lib/coridoc'
+require_relative '../lib/ceradoc'
 
 # Example 1: Basic serialization
 puts '=== Example 1: Basic serialization ==='
@@ -16,7 +16,7 @@ input = <<~ASCIIDOC
   This is a paragraph.
 ASCIIDOC
 
-doc = Coridoc.parse(input)
+doc = Ceradoc.parse(input)
 output = doc.to_adoc
 
 puts 'Serialized output:'
@@ -27,22 +27,22 @@ puts
 puts '=== Example 2: Serialize individual elements ==='
 
 # Serialize a paragraph
-paragraph = Coridoc::Model::Paragraph.new
+paragraph = Ceradoc::Model::Paragraph.new
 paragraph.content = [
-  Coridoc::Model::TextElement.new('This is a paragraph with '),
-  Coridoc::Model::Inline::Bold.new(content: 'bold text')
+  Ceradoc::Model::TextElement.new('This is a paragraph with '),
+  Ceradoc::Model::Inline::Bold.new(content: 'bold text')
 ]
 puts 'Paragraph:'
 puts paragraph.to_adoc
 puts
 
 # Serialize a section
-section = Coridoc::Model::Section.new
-section.title = Coridoc::Model::Title.new
+section = Ceradoc::Model::Section.new
+section.title = Ceradoc::Model::Title.new
 section.title.level_int = 2
 section.title.content = ['Custom Section']
-para = Coridoc::Model::Paragraph.new
-para.content = [Coridoc::Model::TextElement.new('Section content')]
+para = Ceradoc::Model::Paragraph.new
+para.content = [Ceradoc::Model::TextElement.new('Section content')]
 section.blocks = [para]
 puts 'Section:'
 puts section.to_adoc
@@ -52,13 +52,13 @@ puts
 puts '=== Example 3: Serialize lists ==='
 
 # Unordered list
-list = Coridoc::Model::List::Unordered.new
-item1 = Coridoc::Model::ListItem.new
-item1.content = [Coridoc::Model::TextElement.new('First item')]
+list = Ceradoc::Model::List::Unordered.new
+item1 = Ceradoc::Model::ListItem.new
+item1.content = [Ceradoc::Model::TextElement.new('First item')]
 list.items << item1
 
-item2 = Coridoc::Model::ListItem.new
-item2.content = [Coridoc::Model::TextElement.new('Second item')]
+item2 = Ceradoc::Model::ListItem.new
+item2.content = [Ceradoc::Model::TextElement.new('Second item')]
 list.items << item2
 
 puts 'Unordered list:'
@@ -66,13 +66,13 @@ puts list.to_adoc
 puts
 
 # Ordered list
-ordered = Coridoc::Model::List::Ordered.new
-item = Coridoc::Model::ListItem.new
-item.content = [Coridoc::Model::TextElement.new('Step one')]
+ordered = Ceradoc::Model::List::Ordered.new
+item = Ceradoc::Model::ListItem.new
+item.content = [Ceradoc::Model::TextElement.new('Step one')]
 ordered.items << item
 
-item = Coridoc::Model::ListItem.new
-item.content = [Coridoc::Model::TextElement.new('Step two')]
+item = Ceradoc::Model::ListItem.new
+item.content = [Ceradoc::Model::TextElement.new('Step two')]
 ordered.items << item
 
 puts 'Ordered list:'
@@ -82,22 +82,22 @@ puts
 # Example 4: Serialize tables
 puts '=== Example 4: Serialize tables ==='
 
-table = Coridoc::Model::Table.new
+table = Ceradoc::Model::Table.new
 
 # Add header row
-header_row = Coridoc::Model::TableRow.new
+header_row = Ceradoc::Model::TableRow.new
 %w[Name Age City].each do |header_text|
-  cell = Coridoc::Model::TableCell.new
-  cell.content = [Coridoc::Model::TextElement.new(header_text)]
+  cell = Ceradoc::Model::TableCell.new
+  cell.content = [Ceradoc::Model::TextElement.new(header_text)]
   header_row.columns << cell
 end
 table.rows << header_row
 
 # Add data row
-data_row = Coridoc::Model::TableRow.new
+data_row = Ceradoc::Model::TableRow.new
 %w[Alice 25 NYC].each do |cell_text|
-  cell = Coridoc::Model::TableCell.new
-  cell.content = [Coridoc::Model::TextElement.new(cell_text)]
+  cell = Ceradoc::Model::TableCell.new
+  cell.content = [Ceradoc::Model::TextElement.new(cell_text)]
   data_row.columns << cell
 end
 table.rows << data_row
@@ -110,16 +110,16 @@ puts
 puts '=== Example 5: Serialize blocks ==='
 
 # Listing block
-listing = Coridoc::Model::Block::Listing.new
+listing = Ceradoc::Model::Block::Listing.new
 listing.lines = ['def hello', "  puts 'Hello, World!'", 'end']
-listing.attributes = Coridoc::Model::AttributeList.new
+listing.attributes = Ceradoc::Model::AttributeList.new
 listing.attributes.add_positional('ruby')
 puts 'Listing block:'
 puts listing.to_adoc
 puts
 
 # Quote block
-quote = Coridoc::Model::Block::Quote.new
+quote = Ceradoc::Model::Block::Quote.new
 quote.lines = ['This is a quote.', 'It spans multiple lines.']
 puts 'Quote block:'
 puts quote.to_adoc
@@ -129,15 +129,15 @@ puts
 puts '=== Example 6: Serialize inline elements ==='
 
 # Create paragraph with various inline elements
-paragraph = Coridoc::Model::Paragraph.new
+paragraph = Ceradoc::Model::Paragraph.new
 paragraph.content = [
-  Coridoc::Model::TextElement.new('Text with '),
-  Coridoc::Model::Inline::Bold.new(content: 'bold'),
-  Coridoc::Model::TextElement.new(', '),
-  Coridoc::Model::Inline::Italic.new(content: 'italic'),
-  Coridoc::Model::TextElement.new(', and '),
-  Coridoc::Model::Inline::Monospace.new(content: 'monospace'),
-  Coridoc::Model::TextElement.new(' text.')
+  Ceradoc::Model::TextElement.new('Text with '),
+  Ceradoc::Model::Inline::Bold.new(content: 'bold'),
+  Ceradoc::Model::TextElement.new(', '),
+  Ceradoc::Model::Inline::Italic.new(content: 'italic'),
+  Ceradoc::Model::TextElement.new(', and '),
+  Ceradoc::Model::Inline::Monospace.new(content: 'monospace'),
+  Ceradoc::Model::TextElement.new(' text.')
 ]
 
 puts 'Paragraph with inline elements:'
@@ -145,7 +145,7 @@ puts paragraph.to_adoc
 puts
 
 # Link
-link = Coridoc::Model::Inline::Link.new
+link = Ceradoc::Model::Inline::Link.new
 link.path = 'https://example.com'
 link.name = 'Example Site'
 puts 'Link:'
@@ -153,7 +153,7 @@ puts "#{link.to_adoc}\n"
 puts
 
 # Anchor
-anchor = Coridoc::Model::Inline::Anchor.new
+anchor = Ceradoc::Model::Inline::Anchor.new
 anchor.id = 'section1'
 puts 'Anchor:'
 puts "#{anchor.to_adoc}\n"
@@ -173,11 +173,11 @@ original = <<~ASCIIDOC
 ASCIIDOC
 
 # Parse
-doc1 = Coridoc.parse(original)
+doc1 = Ceradoc.parse(original)
 # Serialize
 serialized = doc1.to_adoc
 # Parse again
-doc2 = Coridoc.parse(serialized)
+doc2 = Ceradoc.parse(serialized)
 
 puts "Original document title: #{doc1.header.title}"
 puts "Re-parsed document title: #{doc2.header.title}"
@@ -187,12 +187,12 @@ puts "Original sections: #{doc1.sections.size}"
 puts "Re-parsed sections: #{doc2.sections.size}"
 puts
 
-# Example 8: Using Coridoc.convert
-puts '=== Example 8: Using Coridoc.convert ==='
-doc = Coridoc.parse("= Test\n\nContent")
+# Example 8: Using Ceradoc.convert
+puts '=== Example 8: Using Ceradoc.convert ==='
+doc = Ceradoc.parse("= Test\n\nContent")
 
 # Convert to AsciiDoc (same as to_adoc)
-output = Coridoc.convert(doc, to: :adoc)
+output = Ceradoc.convert(doc, to: :adoc)
 puts 'Converted output:'
 puts output
 puts

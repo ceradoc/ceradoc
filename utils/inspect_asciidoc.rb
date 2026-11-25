@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift('../coridoc/lib')
-require 'coridoc'
+$LOAD_PATH.unshift('../ceradoc/lib')
+require 'ceradoc'
 require 'pp'
 
 def pretty_print_obj(obj)
@@ -11,14 +11,14 @@ def pretty_print_obj(obj)
 end
 
 def print_parsed(str)
-  parse = Coridoc::Parser::Base.new.parse(str)
+  parse = Ceradoc::Parser::Base.new.parse(str)
   puts str
   puts ''
   pretty_print_obj parse[:document]
   puts ''
-  doc = Coridoc::Transformer.transform(parse[:document])
+  doc = Ceradoc::Transformer.transform(parse[:document])
   pp doc
-  puts Coridoc::Generator.gen_adoc(doc)
+  puts Ceradoc::Generator.gen_adoc(doc)
 end
 
 content = <<~END
