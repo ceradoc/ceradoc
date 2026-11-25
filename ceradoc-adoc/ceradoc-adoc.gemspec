@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'ceradoc', '~> 3.0'
   spec.add_dependency 'lutaml-model', '~> 0.8.0'
-  spec.add_dependency 'parsanol', '~> 1.3.123'
+  spec.add_dependency 'parsanol', '>= 1.3.123', '< 2'
 
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
