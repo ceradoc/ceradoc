@@ -20,7 +20,7 @@ It provides a complete toolchain for working with AsciiDoc:
 * *Serialization* - Generate AsciiDoc output from document models
 * *Round-tripping* - Parse and serialize while preserving semantic meaning
 
-Ceradoc uses https://parslet.rubygem[Parslet] for parsing and https://github.com/metanorma/lutaml-model[lutaml-model] for model definition, providing a robust foundation for AsciiDoc document processing.
+Ceradoc uses https://rubygems.org/gems/parsanol[Parsanol] for parsing and https://rubygems.org/gems/lutaml-model[lutaml-model] for model definition, providing a robust foundation for AsciiDoc document processing.
 
 == Quick Start
 

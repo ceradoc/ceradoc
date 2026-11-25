@@ -19,6 +19,9 @@ exclude = [
   "rubygems.org",
   # wikipedia rate-limits non-browser agents intermittently
   "en.wikipedia.org",
+  # iso.org bot-blocks (403); rubydoc flaps on freshly published gems
+  "www.iso.org",
+  "rubydoc.info",
 
   # Example domains
   "example.com",
