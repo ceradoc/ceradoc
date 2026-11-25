@@ -4,6 +4,7 @@
 # *.markdown as markdown.
 asciidoc:
   - 'README*.adoc'
+  - 'roundtrip/corpus/**/*.adoc'
   - 'coridoc*/README.adoc'
   - 'coridoc/spec/fixtures/**/*.adoc'
   - 'coridoc-plugin-kotoshu/spec/fixtures/**/*.adoc'
