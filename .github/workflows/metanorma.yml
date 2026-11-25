@@ -38,8 +38,18 @@ jobs:
           # frozen mode). Install fresh and let --frozen fail fast on real
           # lock drift instead (same lesson as metanorma/ci#314).
           bundler-cache: false
-      - name: Frozen install
-        run: bundle install --frozen
+      - name: Install and detect lock drift
+        run: |
+          bundle install
+          # Path-gem gemspec digests are computed fresh per platform, so a
+          # hard frozen check false-positives across macOS-regenerated locks
+          # and linux runners. The drift assertion keeps the contract: the
+          # install must leave the lock untouched, else the lock is stale.
+          if ! git diff --exit-code -- gemfiles/metanorma.gemfile.lock; then
+            echo "::error::gemfiles/metanorma.gemfile.lock is stale — regenerate it on a tree merged with main"
+            git diff -- gemfiles/metanorma.gemfile.lock | head -40
+            exit 1
+          fi
       - name: Verify pinned SDK and record actual runtime
         run: |
           bundle exec ruby -rbundler/setup -rjson -e '
