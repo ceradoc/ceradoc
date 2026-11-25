@@ -32,7 +32,14 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
+          # No bundler-cache: a restore-key hit restores vendor/bundle from
+          # an older lock, and the path gems' installed gemspecs then differ
+          # from the current ones ("gemspecs for path gems changed" under
+          # frozen mode). Install fresh and let --frozen fail fast on real
+          # lock drift instead (same lesson as metanorma/ci#314).
+          bundler-cache: false
+      - name: Frozen install
+        run: bundle install --frozen
       - name: Verify pinned SDK and record actual runtime
         run: |
           bundle exec ruby -rbundler/setup -rjson -e '
