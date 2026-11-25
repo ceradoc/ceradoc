@@ -35,7 +35,10 @@ Gem::Specification.new do |spec|
   # Core dependencies
   spec.add_dependency 'ceradoc', '~> 3.0'
   spec.add_dependency 'lutaml-model', '~> 0.8.0'
-  spec.add_dependency 'parsanol', '~> 1.3.123'
+  # Span the line like ceradoc-adoc (>= 1.3.123, < 2): the ~> 1.3 pin has
+  # no overlap with the expressir >= 2.4.75 chain (parsanol ~> 1.5.1),
+  # so mixed bundles carrying both cannot resolve
+  spec.add_dependency 'parsanol', '>= 1.3.123', '< 2'
 
   # Development dependencies
   spec.add_development_dependency 'rspec'
