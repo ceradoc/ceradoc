@@ -95,10 +95,10 @@ GIT
 PATH
   remote: ../ceradoc-adoc
   specs:
-    ceradoc-adoc (2.0.37)
+    ceradoc-adoc (2.0.38)
       ceradoc (~> 3.0)
       lutaml-model (~> 0.8.0)
-      parsanol (~> 1.3.123)
+      parsanol (>= 1.3.123, < 2)
 
 PATH
   remote: ../ceradoc-markdown
@@ -106,7 +106,7 @@ PATH
     ceradoc-markdown (1.0.17)
       ceradoc (~> 3.0)
       lutaml-model (~> 0.8.0)
-      parsanol (~> 1.3.123)
+      parsanol (>= 1.3.123, < 2)
 
 PATH
   remote: ../ceradoc
@@ -158,7 +158,7 @@ GEM
     brotli (0.9.3)
     builder (3.3.0)
     camertron-eprun (2.0.1)
-    canon (0.3.127)
+    canon (0.3.128)
       diff-lcs
       json
       leptris (~> 1.9.422)
@@ -391,9 +391,9 @@ GEM
       lutaml-model (~> 0.8, >= 0.8.162)
       parsanol (~> 1.3, >= 1.3.134)
     lens_core (0.1.0)
-    leptris (1.9.443.0-arm64-darwin)
+    leptris (1.9.445.0-arm64-darwin)
       ffi (~> 1.15)
-    leptris (1.9.443.0-x86_64-linux)
+    leptris (1.9.445.0-x86_64-linux)
       ffi (~> 1.15)
     libpng (1.6.58.6-arm64-darwin)
       ffi (~> 1.0)
@@ -428,7 +428,7 @@ GEM
       moxml (>= 0.1.24)
       parsanol (~> 1.3.68)
       ruby-graphviz
-    lutaml-model (0.8.179)
+    lutaml-model (0.8.181)
       base64 (>= 0.1.1)
       bigdecimal
       canon
@@ -831,9 +831,9 @@ GEM
       lutaml-model (~> 0.8.159)
       nokogiri (~> 1.19)
     yaml (0.4.0)
-    yeptris (0.6.80.0-arm64-darwin)
+    yeptris (0.6.81.0-arm64-darwin)
       ffi (~> 1.15)
-    yeptris (0.6.80.0-x86_64-linux)
+    yeptris (0.6.81.0-x86_64-linux)
       ffi (~> 1.15)
 
 PLATFORMS
@@ -876,9 +876,9 @@ CHECKSUMS
   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
   bundler (4.0.24) sha256=16ca64e20816a0cf151a948fb141d788602996d2b4d73577b74388fe84fa98bc
   camertron-eprun (2.0.1) sha256=6d5dc4cf7989622d7f7fdd4888d4fc2a831984c6b6a589bbaecdecd29d3fe2c1
-  canon (0.3.127) sha256=6c1d3fa170c76a36c3382696c665034dede7c266da7c28e3a857d13bfc4e3288
+  canon (0.3.128) sha256=b0c619895e97cf39564df5e8fbbf7bb549f7979c96ee6785d929eb08a7c73b70
   ceradoc (3.0.1)
-  ceradoc-adoc (2.0.37)
+  ceradoc-adoc (2.0.38)
   ceradoc-markdown (1.0.17)
   cldr-plurals-runtime-rb (1.2.0) sha256=8fa697e8b3cc2e7e37f48f871ccd967eff5acc59067a186895e897c8f88829eb
   cliver (0.3.2) sha256=8775445218c612bb57f50c392c4906a1ab5cca067eab093bde3cc77d6426ce24
@@ -939,8 +939,8 @@ CHECKSUMS
   latex-decode (0.5.0) sha256=1c16650dd05afc9ce69ef625a0505cf8a9a0331720eea637aae7b6f770191d53
   latexmath (1.0.1) sha256=77c2a861354f786529ebfaeafdcdca098611b81b4b24406a6ca4c25e2e583e8d
   lens_core (0.1.0) sha256=9481ce7721be1b9ddb08e0edde349775849614d40a78ff05ec5887de2aa9e2b6
-  leptris (1.9.443.0-arm64-darwin) sha256=5e83f9424a0cdab8d7a5516ffab2aedec6c37271e952cddbccc45e46196bb41e
-  leptris (1.9.443.0-x86_64-linux) sha256=8581fac9ad97971fce4c05ee013c8594263bb4a84543e25e104698140893e2af
+  leptris (1.9.445.0-arm64-darwin) sha256=38eef729850766981acfe0001e177314a79ed363e17ba321b4ec41c07adec1e5
+  leptris (1.9.445.0-x86_64-linux) sha256=60426e279026f11e54125c21fbfad2d604185d14a5357dd138406d32f88356ae
   libpng (1.6.58.6-arm64-darwin) sha256=7bb72fe9dae352bd755f423f34501c4c1824e074fc789ba21614c1ed55fc2d08
   libpng (1.6.58.6-x86_64-linux) sha256=50e98e877fae3d7901b1f71906fb4223a4fb3d11413c601561abf0bcbda54b0d
   link_header (0.0.8) sha256=15c65ce43b29f739b30d05e5f25c22c23797e89cf6f905dbb595fb4c70cb55f9
@@ -950,7 +950,7 @@ CHECKSUMS
   lutaml-hal (0.2.9) sha256=a685015d43ff7fa17e486991d8bd6d965186c2c36bd67c2c79946b0c0338f5db
   lutaml-jsonschema (0.1.29) sha256=96bbc8cc11dbe385f3df7fb250d51392e582e7abced8e98de44315331d9ce1c3
   lutaml-lml (0.3.6) sha256=b25a1fd5969b5bb9e3f2477f79bf4b358f94c7bdb3a86f530a3fc504b450772c
-  lutaml-model (0.8.179) sha256=80f3b4e510c00cd9442c2f4833cf7f716ff0c633ff3031961d11a034271291ad
+  lutaml-model (0.8.181) sha256=6103a1150622007a9125cebbef1fa234f56d8fdb26e82467dfa979f0c923d6d0
   lutaml-path (0.2.4) sha256=cbcc1c78e3630a35bb3a33cfc2a616329b771af690faa1584f6af962d05b8be2
   lutaml-store (0.3.14) sha256=3d0004ac724ef591defe8903bcc4adce6d64c314f4a69b982ade41cd81945452
   lutaml-uml (1.0.3) sha256=1eb6fe347eecc0fcdc4880ad44a5456c25a34977ca6960a1423eb1cb162c3813
@@ -1084,8 +1084,8 @@ CHECKSUMS
   word-to-markdown (1.2.1) sha256=bb4cc410280cf93ea80282e2ab50a669f2750327f29c31db1790c050b3ec2944
   xmi (0.7.9) sha256=e4bcc4ee3d672a3cf2bf1c1ce9b504afca0430724fd5039d244da97f7590c972
   yaml (0.4.0) sha256=240e69d1e6ce3584d6085978719a0faa6218ae426e034d8f9b02fb54d3471942
-  yeptris (0.6.80.0-arm64-darwin) sha256=5f0f71e86f644b4feaaf29b8958805130b352e4b4649135191ac8c44a573b94f
-  yeptris (0.6.80.0-x86_64-linux) sha256=da1c47739227384812b0bc4ce14f4a5be988177d0d7830270ca381fb2b8d1997
+  yeptris (0.6.81.0-arm64-darwin) sha256=8a5b03bedb47721cbd357f3479bb6a4cc5ceb7da8c3c473aa23cdc97c77e4aa6
+  yeptris (0.6.81.0-x86_64-linux) sha256=9723f6928346e9384e68094307d20e15f8964dd2f386baa303e3834bd9976478
 
 BUNDLED WITH
   4.0.24
