@@ -9,6 +9,7 @@ module Ceradoc
     class Transformer < Parsanol::Transform
       # Module containing miscellaneous transformation rules
       module LegacyMiscRules
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         def self.apply(transformer_class)
           transformer_class.class_eval do
             # Comments
@@ -195,6 +196,7 @@ module Ceradoc
             end
           end
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
       end
     end
   end
