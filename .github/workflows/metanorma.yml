@@ -1,0 +1,63 @@
+name: metanorma
+
+on:
+  pull_request:
+    paths:
+      - 'coridoc/**'
+      - 'coridoc-adoc/**'
+      - 'coridoc-markdown/**'
+      - 'gemfiles/metanorma.gemfile*'
+      - '.github/workflows/metanorma.yml'
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semantic-model:
+    name: Semantic model (Ruby ${{ matrix.ruby }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.3', '4.0']
+    env:
+      BUNDLE_GEMFILE: gemfiles/metanorma.gemfile
+      CORIDOC_METANORMA_TEST: '1'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          # No bundler-cache: a restore-key hit restores vendor/bundle from
+          # an older lock, and the path gems' installed gemspecs then differ
+          # from the current ones ("gemspecs for path gems changed" under
+          # frozen mode). Install fresh and let --frozen fail fast on real
+          # lock drift instead (same lesson as metanorma/ci#314).
+          bundler-cache: false
+      - name: Install and detect lock drift
+        run: |
+          bundle install
+          # Path-gem gemspec digests are computed fresh per platform, so a
+          # hard frozen check false-positives across macOS-regenerated locks
+          # and linux runners. The drift assertion keeps the contract: the
+          # install must leave the lock untouched, else the lock is stale.
+          if ! git diff --exit-code -- gemfiles/metanorma.gemfile.lock; then
+            echo "::error::gemfiles/metanorma.gemfile.lock is stale — regenerate it on a tree merged with main"
+            git diff -- gemfiles/metanorma.gemfile.lock | head -40
+            exit 1
+          fi
+      - name: Verify pinned SDK and record actual runtime
+        run: |
+          bundle exec ruby -rbundler/setup -rjson -e '
+            sdk = Gem.loaded_specs.fetch("metanorma-document")
+            expected = "328e45559a98fab536e1955ed0fc960b6d0390cf"
+            abort "Unexpected SDK source" unless sdk.source.is_a?(Bundler::Source::Git) && sdk.source.revision == expected
+            puts JSON.pretty_generate(ruby: RUBY_DESCRIPTION, sdk_revision: sdk.source.revision,
+              dependencies: Gem.loaded_specs.transform_values { |spec| spec.version.to_s })
+          '
+      - name: Native semantic builder and frontend parity
+        run: bundle exec rspec --options /dev/null coridoc/spec/coridoc/metanorma/builder_spec.rb

@@ -253,6 +253,58 @@ core = Coridoc.to_core(md_doc)
 md_doc2 = Coridoc::Markdown.from_core_model(core)
 ----
 
+=== Metanorma semantic output (optional)
+
+The optional Metanorma integration builds a native
+`Metanorma::Standoc::Document::Root` directly from the shared CoreModel.
+It accepts AsciiDoc and Markdown through their normal frontends:
+
+[source,ruby]
+----
+require 'coridoc/metanorma'
+
+root = Coridoc::Metanorma::Builder.parse(source, format: :asciidoc)
+root = Coridoc::Metanorma::Builder.parse(markdown, format: :markdown)
+root = Coridoc::Metanorma::Builder.build(core_document)
+
+# Explicit ISO output uses actual ISO root, metadata and section classes.
+require 'metanorma/iso/document'
+iso_root = Coridoc::Metanorma::Builder.parse(source,
+  root_class: Metanorma::Iso::Document::Root)
+xml = root.to_xml
+----
+
+ISO output classifies a top-level heading named `Scope` as the native scope
+clause. A nested heading with that name remains an ordinary clause.
+
+In Markdown, an authored block ID uses a following Kramdown IAL such as
+`{: #method}`. Internal links such as `[label](#method)` produce semantic cross
+references; `[](#method)` leaves the display label to the downstream presenter.
+Other block attributes fail explicitly when the native model cannot represent them.
+
+Install the optional SDK dependencies through
+`gemfiles/metanorma.gemfile`. This separate bundle pins the accepted SDK
+revision until its model changes are released; generic Coridoc users do not
+load or install the SDK.
+
+The builder supports sections, mixed inline content, cross references,
+lists, tables, figures, source code, notes, formulas and bibliography entries.
+It preserves authored IDs and assigns deterministic generated IDs without
+mutating the input CoreModel. Document metadata must be supplied by the source;
+the builder does not invent publication defaults. This is a bounded semantic
+producer, rather than full Standoc converter parity: unsupported nodes,
+raw passthrough, includes, custom attributes and unknown metadata raise
+`Coridoc::Metanorma::UnsupportedNode`. Schema validation and rendering remain
+separate steps.
+
+Run the explicit integration checks with:
+
+[source,sh]
+----
+BUNDLE_GEMFILE=gemfiles/metanorma.gemfile bundle install
+CORIDOC_METANORMA_TEST=1 BUNDLE_GEMFILE=gemfiles/metanorma.gemfile bundle exec rspec --options /dev/null coridoc/spec/coridoc/metanorma/builder_spec.rb
+----
+
 == CLI
 
 The `coridoc` command-line tool provides quick conversions:
