@@ -328,7 +328,7 @@ grammar CeradocAdoc version "0.2.0" {
 
   # ---- document_attributes.rb ----
   doc_attr_name = (1*(%x41-5A / %x61-7A / %x30-39 / "_" / "-"))
-  doc_attr_value = (text / !(newline_single))
+  doc_attr_value = (*(!"\n" any_char))
   document_attribute = (":" (doc_attr_name as key) ":" [*" "] (doc_attr_value as value) (newline_single / !(any_char)))
   document_attributes = ((1*document_attribute) as document_attributes)
 
