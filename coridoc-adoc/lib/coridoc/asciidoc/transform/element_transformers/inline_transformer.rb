@@ -38,7 +38,19 @@ module Coridoc
 
               kwargs = { content: raw_content, source_line: inline.source_line }
               kwargs[:children] = children if children.any?
+              constraint = recorded_constraint(inline)
+              kwargs[:constraint] = constraint if constraint
               klass.new(**kwargs)
+            end
+
+            # AsciiDoc mark models carry `unconstrained` when the grammar
+            # distinguished the marker spelling; record it on the
+            # CoreModel element so serialization can honor the original
+            # spelling instead of re-guessing (#332).
+            def recorded_constraint(inline)
+              return nil unless inline.class.attributes.key?(:unconstrained)
+
+              inline.unconstrained ? 'unconstrained' : 'constrained'
             end
 
             # Re-parse a mark's raw content string through the inline

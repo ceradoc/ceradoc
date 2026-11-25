@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # Dependencies
-  spec.add_dependency 'coridoc', '~> 2.0'
+  spec.add_dependency 'coridoc', '~> 3.0'
   spec.add_dependency 'coridoc-adoc', '~> 2.0'
   spec.add_dependency 'leptris', '~> 1.9.222'
   spec.add_dependency 'marcel', '~> 1.0'

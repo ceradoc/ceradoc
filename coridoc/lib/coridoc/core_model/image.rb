@@ -59,6 +59,13 @@ module Coridoc
       #   @note Not yet wired by any transformer; reserved for future use
       attribute :float, :string
 
+      # Flat text carries the alt text and the source so text-extraction
+      # contexts keep the image reference that raw-string paragraphs
+      # used to include.
+      def flat_text
+        "#{alt}#{src}"
+      end
+
       private
 
       def comparable_attributes

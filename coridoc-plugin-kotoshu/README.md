@@ -1,5 +1,12 @@
 # coridoc-plugin-kotoshu
 
+> **Release status:** not published on rubygems — keep internal. This plugin is
+> vendored in-tree (add it to a bundle via Gemfile `path:`/git reference). It
+> depends on the published `kotoshu ~> 1.0` spell-check line only
+> (`Kotoshu.spellchecker_for` / `Kotoshu::Spellchecker` / `check_word`); it does
+> not wire the grammar/GEC layer, so publication follows the coridoc release
+> workflow once decided. (kotoshu team audit item 8, 2026-11-24.)
+
 Spell-check AsciiDoc documents with [Kotoshu 「言修」](https://github.com/kotoshu/kotoshu),
 using [Coridoc](https://github.com/coridoc/coridoc)'s format-neutral CoreModel as the
 document tree.

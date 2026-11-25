@@ -2,6 +2,6 @@
 
 module Coridoc
   module Html
-    VERSION = '1.1.23'
+    VERSION = '1.1.24'
   end
 end

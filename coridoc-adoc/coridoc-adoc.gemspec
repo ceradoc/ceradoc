@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'coridoc', '~> 2.0'
+  spec.add_dependency 'coridoc', '~> 3.0'
   spec.add_dependency 'lutaml-model', '~> 0.8.0'
   spec.add_dependency 'parsanol', '~> 1.3.123'
 

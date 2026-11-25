@@ -1,7 +1,23 @@
 = Coridoc
+
 image:https://img.shields.io/gem/v/coridoc.svg[RubyGems Version]
 image:https://img.shields.io/github/license/coridoc/coridoc.svg[License]
 image:https://github.com/coridoc/coridoc/actions/workflows/rake.yml/badge.svg["Build Status", link="https://github.com/coridoc/coridoc/actions/workflows/rake.yml"]
+
+[IMPORTANT]
+====
+*Coradoc has been renamed **Coridoc*** (2026-11-11).
+
+**Cor** (Latin: _cor_, heart) + **I** (interoperable) + **Doc** (document) —
+the heart of interoperable documents.
+
+The project now lives at link:https://github.com/coridoc[github.com/coridoc] and
+link:https://www.coridoc.org[www.coridoc.org]. Gems are published under the new
+names (`coridoc`, `coridoc-adoc`, `coridoc-markdown`, `coridoc-html`, `coridoc-docx`,
+`coridoc-mirror`); the legacy `coradoc*` gems on RubyGems.org are frozen and will
+not receive further releases. Module namespace: `Coridoc`; CLI: `coridoc`;
+environment variables: `CORIDOC_*`.
+====
 
 == Purpose
 
