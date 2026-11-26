@@ -4,6 +4,7 @@ require 'spec_helper'
 require 'tmpdir'
 require 'fileutils'
 require 'json'
+require 'open3'
 
 RSpec.describe Ceradoc::SourceGraph do
   def sidecar_at(dir)
@@ -255,6 +256,175 @@ RSpec.describe Ceradoc::SourceGraph do
         expect(warm.stale_nodes.map { |n| File.basename(n.path) }.sort)
           .to eq(%w[doc.adoc part.adoc])
       end
+    end
+  end
+
+  describe 'minimal reparse set (#383)' do
+    # root -> intro -> detail, and root -> summary: editing detail
+    # must reparse detail, intro, root — and nothing else. Fully built
+    # tree, as after a complete previous build.
+    def fanout_tree(dir)
+      detail = write(dir, 'detail.adoc', "detail\n")
+      intro = write(dir, 'intro.adoc', "intro\n\ninclude::detail.adoc[]\n")
+      summary = write(dir, 'summary.adoc', "summary\n")
+      root = write(dir, 'root.adoc',
+                   "= R\n\ninclude::intro.adoc[]\n\ninclude::summary.adoc[]\n")
+      graph = build_graph(root, sidecar_at(dir))
+      nodes = [detail, intro, summary, root].map { |path| graph.node(path) }
+      nodes.each { |node| graph.materialize(node) }
+      [graph, nodes]
+    end
+
+    it 'stale_nodes is exactly the edited page plus its transitive includers' do
+      Dir.mktmpdir do |dir|
+        graph, _nodes = fanout_tree(dir)
+
+        write(dir, 'detail.adoc', "detail2\n")
+        stale = graph.stale_nodes
+
+        expect(stale.map { |n| File.basename(n.path) })
+          .to eq(%w[detail.adoc intro.adoc root.adoc])
+      end
+    end
+
+    it 'demotes exactly the reparse set; untouched subtrees stay parsed' do
+      Dir.mktmpdir do |dir|
+        graph, nodes = fanout_tree(dir)
+        by_name = nodes.to_h { |n| [File.basename(n.path), n] }
+
+        write(dir, 'detail.adoc', "detail2\n")
+        graph.stale_nodes
+
+        expect(by_name['detail.adoc']).not_to be_parsed
+        expect(by_name['intro.adoc']).not_to be_parsed
+        expect(by_name['root.adoc']).not_to be_parsed
+        expect(by_name['summary.adoc']).to be_parsed
+      end
+    end
+
+    it 'reparse_set plans the closure without demoting anything' do
+      Dir.mktmpdir do |dir|
+        graph, nodes = fanout_tree(dir)
+        detail = File.join(dir, 'detail.adoc')
+
+        set = graph.reparse_set(detail)
+
+        expect(set).to eq(
+          [detail, File.join(dir, 'intro.adoc'), File.join(dir, 'root.adoc')]
+            .map { |path| File.expand_path(path) }.sort
+        )
+        expect(nodes).to all(be_parsed)
+      end
+    end
+
+    it 'closes over cross-format include edges' do
+      Dir.mktmpdir do |dir|
+        part = write(dir, 'part.md', "included text\n")
+        doc = write(dir, 'doc.adoc', "= Title\n\ninclude::part.md[]\n")
+        graph = build_graph(doc, sidecar_at(dir))
+        graph.materialize(graph.node(doc))
+        graph.materialize(graph.node(part))
+        expect(graph.edges(doc)).to eq([File.expand_path(part)])
+
+        write(dir, 'part.md', "changed text\n")
+        stale = graph.stale_nodes.map { |n| File.basename(n.path) }
+
+        expect(stale).to eq(%w[doc.adoc part.md])
+      end
+    end
+  end
+
+  describe '.node_digest' do
+    it 'produces the same digest for the same content parsed independently' do
+      Dir.mktmpdir do |dir|
+        text = "= Title\n\nbody\n"
+        a = write(dir, 'a.adoc', text)
+        b = write(dir, 'b.adoc', text)
+        graph_a = build_graph(a, sidecar_at(dir))
+        graph_b = build_graph(b, sidecar_at(dir))
+
+        digest_a = described_class.node_digest(graph_a.node(a))
+        digest_b = described_class.node_digest(graph_b.node(b))
+
+        expect(digest_a).to eq(digest_b)
+        expect(digest_a).to match(/\A[0-9a-f]{64}\z/)
+      end
+    end
+
+    it 'changes when the parsed content changes' do
+      Dir.mktmpdir do |dir|
+        a = write(dir, 'a.adoc', "= Title\n\nbody one\n")
+        b = write(dir, 'b.adoc', "= Title\n\nbody two\n")
+        graph_a = build_graph(a, sidecar_at(dir))
+        graph_b = build_graph(b, sidecar_at(dir))
+
+        expect(described_class.node_digest(graph_a.node(a)))
+          .not_to eq(described_class.node_digest(graph_b.node(b)))
+      end
+    end
+
+    it 'is stable across a rebuild with a fresh sidecar' do
+      Dir.mktmpdir do |dir|
+        doc = write(dir, 'doc.adoc', "= Title\n\ninclude::part.adoc[]\n")
+        write(dir, 'part.adoc', "part\n")
+        cold = build_graph(doc, sidecar_at(dir))
+        cold.materialize(cold.node(doc))
+        first = described_class.node_digest(cold.node(doc))
+
+        fresh = described_class.build(
+          doc,
+          sidecar: Ceradoc::SourceGraph::Sidecar.new(File.join(dir, 'cache2'))
+        )
+
+        expect(described_class.node_digest(fresh.node(doc))).to eq(first)
+      end
+    end
+
+    it 'excludes positional bookkeeping (source_line)' do
+      near = Ceradoc::CoreModel::ElementAttribute.new(
+        name: 'role', value: 'note', source_line: 3
+      )
+      far = Ceradoc::CoreModel::ElementAttribute.new(
+        name: 'role', value: 'note', source_line: 40
+      )
+      other = Ceradoc::CoreModel::ElementAttribute.new(
+        name: 'role', value: 'tip', source_line: 3
+      )
+      digest_of = Ceradoc::SourceGraph::ModelDigest
+
+      expect(digest_of.of(near)).to eq(digest_of.of(far))
+      expect(digest_of.of(near)).not_to eq(digest_of.of(other))
+    end
+
+    it 'is identical across processes (no object ids, no hash order)' do
+      text = "= T\n\nSome paragraph.\n\ninclude::part.adoc[]\n"
+      in_process = Dir.mktmpdir do |dir|
+        doc = write(dir, 'doc.adoc', text)
+        write(dir, 'part.adoc', "part\n")
+        graph = build_graph(doc, sidecar_at(dir))
+        described_class.node_digest(graph.node(doc))
+      end
+
+      script = <<~RUBY
+        require 'bundler/setup'
+        require 'ceradoc'
+        require 'ceradoc/asciidoc'
+        require 'tmpdir'
+        text = #{text.inspect}
+        Dir.mktmpdir do |dir|
+          File.write(File.join(dir, 'doc.adoc'), text)
+          File.write(File.join(dir, 'part.adoc'), "part\\n")
+          graph = Ceradoc::SourceGraph.build(
+            File.join(dir, 'doc.adoc'),
+            sidecar: Ceradoc::SourceGraph::Sidecar.new(File.join(dir, 'cache'))
+          )
+          puts Ceradoc::SourceGraph.node_digest(graph.node(File.join(dir, 'doc.adoc')))
+        end
+      RUBY
+
+      out, status = Open3.capture2(Gem.ruby, '-e', script)
+      expect(status).to be_success
+      expect(out.strip).to eq(in_process)
     end
   end
 end

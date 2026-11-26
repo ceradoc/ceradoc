@@ -56,14 +56,47 @@ module Ceradoc
         @edges.select { |_includer, targets| targets.include?(key) }.keys
       end
 
+      # The MINIMAL reparse set for +changed+ paths (#383): the changed
+      # files themselves plus every transitive includer, per the
+      # include edges recorded at last parse. Nothing else — untouched
+      # subtrees are not pulled in. Pure: reads only the in-memory
+      # edge map — no file I/O, no demotion — so it is safe to call
+      # for planning. Cycle-safe. Sorted for determinism.
+      #
+      #   graph.reparse_set("intro.adoc")
+      #   # => ["intro.adoc", "root.adoc"] — sorted absolute paths
+      #
+      # @param changed [String, Array<String>] paths that changed
+      # @return [Array<String>] absolute paths that must be reparsed
+      def reparse_set(changed)
+        queue = Array(changed).map { |path| File.expand_path(path) }
+        return [] if queue.empty?
+
+        includer_map = @edges.each_with_object({}) do |(includer, targets), map|
+          targets.each { |target| (map[target] ||= []) << includer }
+        end
+
+        visited = {}
+        until queue.empty?
+          path = queue.shift
+          next if visited[path]
+
+          visited[path] = true
+          queue.concat(includer_map[path] || [])
+        end
+        visited.keys.sort
+      end
+
       # Nodes whose derived state no longer mirrors disk: content
-      # drift or include-graph drift. Parsed levels are demoted and
-      # the demotion propagates to every transitive includer.
+      # drift or include-graph drift. Returns the MINIMAL reparse set
+      # — the drifted nodes plus every transitive includer, nothing
+      # else — and demotes exactly those nodes. Cycle-safe, sorted.
       def refresh
-        demoted = {}
-        nodes.select { |n| !n.fresh? || graph_drifted?(n) }
-             .each { |n| demote_up(n, demoted) }
-        demoted.values
+        changed = nodes.select { |n| !n.fresh? || graph_drifted?(n) }
+                       .map(&:path)
+        stale = reparse_set(changed).filter_map { |path| @nodes[path] }
+        stale.each(&:demote)
+        stale
       end
 
       def stale_nodes
@@ -146,19 +179,6 @@ module Ceradoc
       def digest_of(path)
         n = @nodes[File.expand_path(path)]
         n ? n.digest : Digest::SHA256.file(path).hexdigest
-      end
-
-      # Demote the node and every transitive includer. Cycle-safe
-      # via a visited set that doubles as the demoted-node ledger.
-      def demote_up(node, visited = {})
-        return if visited[node.path]
-
-        visited[node.path] = node
-        node.demote
-        includers(node.path).each do |includer_path|
-          includer = @nodes[includer_path]
-          demote_up(includer, visited) if includer
-        end
       end
     end
   end
