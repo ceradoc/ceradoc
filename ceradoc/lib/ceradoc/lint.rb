@@ -31,10 +31,14 @@ module Ceradoc
     autoload :Template, "#{__dir__}/lint/template"
     autoload :Registry, "#{__dir__}/lint/registry"
     autoload :Runner, "#{__dir__}/lint/runner"
+    # The include-graph rule family (#380), emitted by ResolveIncludes.
+    autoload :IncludeRules, "#{__dir__}/lint/include_rules"
 
     class << self
+      # The registry is seeded with the core-side INC family; format
+      # gems add their rules when their lint files load.
       def registry
-        @registry ||= Registry.new
+        @registry ||= IncludeRules.register_all(Registry.new)
       end
 
       # Lint files (or an existing SourceGraph) with the rules

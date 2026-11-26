@@ -341,7 +341,8 @@ module Ceradoc
         base_dir: base_dir,
         missing_include: options[:missing_include].to_sym,
         max_depth: options[:max_include_depth],
-        allow_unsafe: options[:allow_unsafe_includes]
+        allow_unsafe: options[:allow_unsafe_includes],
+        source_path: File.expand_path(source_file)
       )
     end
   end
