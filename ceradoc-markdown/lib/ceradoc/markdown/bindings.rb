@@ -41,7 +41,25 @@ module Ceradoc
           return {} unless attrs.key?(:ial)
 
           parsed = Captures.parse_ial_content(attrs[:ial].to_s)
-          { id: parsed[:id], classes: parsed[:classes], attributes: parsed[:attributes] }.compact
+          {
+            id: parsed[:id], classes: parsed[:classes],
+            # parse_to_hash yields attributes as a plain hash; the model
+            # layer carries them as NamedValue pairs.
+            attributes: named_values(parsed[:attributes])
+          }.compact
+        end
+
+        # parse_to_hash yields attributes as a plain hash; the model
+        # layer carries them as NamedValue pairs.
+        def named_values(hash)
+          # Base must fully load before NamedValue: NamedValue < Base,
+          # and loading NamedValue FIRST leaves base.rb resolving the
+          # NamedValue autoload mid-cycle (NameError). Any other model
+          # class pulls Base in cleanly first.
+          Bindings.model('Text')
+          hash.to_a.map do |key, value|
+            Bindings.model('NamedValue').new(name: key.to_s, value: value.to_s)
+          end
         end
 
         def heading(attrs)

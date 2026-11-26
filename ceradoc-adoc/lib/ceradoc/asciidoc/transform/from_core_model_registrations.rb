@@ -24,6 +24,16 @@ module Ceradoc
           end
 
           def register_block_transformers!
+            # ReviewerBlock BEFORE AnnotationBlock: both are priority 10,
+            # the lookup takes the first subclass match, so the reviewer
+            # must win its own dispatch — otherwise it degrades to a
+            # REVIEWER: admonition line (#376).
+            Registry.register_with_priority(
+              Ceradoc::CoreModel::ReviewerBlock,
+              ->(model) { FromCoreModel.transform_block(model) },
+              priority: 10
+            )
+
             Registry.register_with_priority(
               Ceradoc::CoreModel::AnnotationBlock,
               ->(model) { FromCoreModel.transform_annotation(model) },

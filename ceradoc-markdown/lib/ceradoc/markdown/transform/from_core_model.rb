@@ -16,57 +16,93 @@ module Ceradoc
           # @param model [Ceradoc::CoreModel::Base] CoreModel to transform
           # @return [Ceradoc::Markdown::Base] Markdown model equivalent
           def transform(model)
-            case model
-            when Ceradoc::CoreModel::StructuralElement
-              transform_structural_element(model)
-            when Ceradoc::CoreModel::AnnotationBlock
-              # Must be checked before Block since AnnotationBlock < Block
-              transform_annotation_block(model)
-            when Ceradoc::CoreModel::CommentBlock
-              # Must be checked before Block since CommentBlock < Block
-              Ceradoc::Markdown::Comment.new(text: model.content.to_s)
-            when Ceradoc::CoreModel::Block
-              transform_block(model)
-            when Ceradoc::CoreModel::ListBlock
-              transform_list(model)
-            when Ceradoc::CoreModel::DefinitionList
-              transform_definition_list(model)
-            when Ceradoc::CoreModel::Table
-              transform_table(model)
-            when Ceradoc::CoreModel::Image
-              transform_image(model)
-            when Ceradoc::CoreModel::InlineElement
-              transform_inline(model)
-            when Ceradoc::CoreModel::Footnote
-              transform_footnote(model)
-            when Ceradoc::CoreModel::FootnoteReference
-              transform_footnote_reference(model)
-            when Ceradoc::CoreModel::Abbreviation
-              transform_abbreviation(model)
-            when Ceradoc::CoreModel::Toc
-              Ceradoc::Markdown::Extension.toc
-            when Ceradoc::CoreModel::Term
-              Ceradoc::Markdown::Strong.new(text: model.text.to_s)
-            when Ceradoc::CoreModel::Bibliography
-              transform_bibliography(model)
-            when Ceradoc::CoreModel::BibliographyEntry
-              transform_bibliography_entry(model)
-            when Ceradoc::CoreModel::TocEntry
-              Ceradoc::Markdown::Text.new(content: model.title.to_s)
-            when Ceradoc::CoreModel::CommentLine
-              Ceradoc::Markdown::Comment.new(text: model.text.to_s)
-            when Ceradoc::CoreModel::Include
-              transform_include(model)
-            when Ceradoc::CoreModel::TextContent
-              model.text.to_s
-            when Array
-              model.flat_map { |item| flatten_result(transform(item)) }
-            else
-              model
-            end
+            result = case model
+                     when Ceradoc::CoreModel::StructuralElement
+                       transform_structural_element(model)
+                     when Ceradoc::CoreModel::AnnotationBlock
+                       # Must be checked before Block since AnnotationBlock < Block
+                       transform_annotation_block(model)
+                     when Ceradoc::CoreModel::CommentBlock
+                       # Must be checked before Block since CommentBlock < Block
+                       Ceradoc::Markdown::Comment.new(text: model.content.to_s)
+                     when Ceradoc::CoreModel::Block
+                       transform_block(model)
+                     when Ceradoc::CoreModel::ListBlock
+                       transform_list(model)
+                     when Ceradoc::CoreModel::DefinitionList
+                       transform_definition_list(model)
+                     when Ceradoc::CoreModel::Table
+                       transform_table(model)
+                     when Ceradoc::CoreModel::Image
+                       transform_image(model)
+                     when Ceradoc::CoreModel::InlineElement
+                       transform_inline(model)
+                     when Ceradoc::CoreModel::Footnote
+                       transform_footnote(model)
+                     when Ceradoc::CoreModel::FootnoteReference
+                       transform_footnote_reference(model)
+                     when Ceradoc::CoreModel::Abbreviation
+                       transform_abbreviation(model)
+                     when Ceradoc::CoreModel::Toc
+                       Ceradoc::Markdown::Extension.toc
+                     when Ceradoc::CoreModel::Term
+                       Ceradoc::Markdown::Strong.new(text: model.text.to_s)
+                     when Ceradoc::CoreModel::Bibliography
+                       transform_bibliography(model)
+                     when Ceradoc::CoreModel::BibliographyEntry
+                       transform_bibliography_entry(model)
+                     when Ceradoc::CoreModel::TocEntry
+                       Ceradoc::Markdown::Text.new(content: model.title.to_s)
+                     when Ceradoc::CoreModel::CommentLine
+                       Ceradoc::Markdown::Comment.new(text: model.text.to_s)
+                     when Ceradoc::CoreModel::Include
+                       transform_include(model)
+                     when Ceradoc::CoreModel::TextContent
+                       model.text.to_s
+                     when Array
+                       model.flat_map { |item| flatten_result(transform(item)) }
+                     else
+                       model
+                     end
+            append_ial(model, result)
           end
 
           private
+
+          # Re-emit a CoreModel node's element_attributes as a trailing
+          # IAL block (kramdown attaches standalone `{: ...}` lines to
+          # the preceding block, so the serialized form must carry them
+          # too, #376). Only block-level results get the append — inline
+          # nodes never carry element_attributes.
+          def append_ial(core_node, result)
+            attrs = core_node.is_a?(Ceradoc::CoreModel::Base) ? Array(core_node.element_attributes) : []
+            ial = ial_block_for(attrs)
+            return result if ial.nil? || result.is_a?(String)
+
+            [result, ial]
+          end
+
+          def ial_block_for(attrs)
+            return nil if attrs.nil? || attrs.empty?
+
+            # An EMPTY id value has no `#` spelling (`{:#}` does not
+            # re-parse); the key=value form `id=""` carries it (#376).
+            id_attr = attrs.find { |a| a.name == 'id' }
+            id = id_attr&.value
+            named = attrs.reject { |a| %w[id class].include?(a.name) }
+            if id_attr && id.to_s.empty?
+              named += [Ceradoc::Markdown::NamedValue.new(name: 'id', value: '')]
+              id = nil
+            end
+            ial = Ceradoc::Markdown::AttributeList.new(
+              id: id,
+              classes: attrs.select { |a| a.name == 'class' }.map(&:value),
+              attributes: named.map do |a|
+                Ceradoc::Markdown::NamedValue.new(name: a.name, value: a.value)
+              end
+            )
+            ial.empty? ? nil : ial
+          end
 
           # Markdown has no transclusion — an unresolved include edge is
           # preserved as an HTML comment so no information is lost and
@@ -86,7 +122,16 @@ module Ceradoc
             when CoreModel::SectionElement
               transform_section(element)
             else
-              transform_generic_element(element)
+              # A generic StructuralElement whose children are all
+              # ElementAttributes is an IAL container: render it as the
+              # attribute-list block instead of leaking ElementAttribute
+              # nodes into content (unserializable, #376).
+              children = Array(element.children)
+              if children.any? && children.all?(CoreModel::ElementAttribute)
+                ial_block_for(children) || Ceradoc::Markdown::Comment.new(text: '')
+              else
+                transform_generic_element(element)
+              end
             end
           end
 

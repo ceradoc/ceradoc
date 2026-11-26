@@ -136,47 +136,8 @@ asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ae-annex-e.adoc: 'triaged: sh
 asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/b0-bibliography.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/03_paragraph/standalone_image.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
 markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/setext_header.text: 'triaged:
   shape-gap (model-shape: content structure differs after re-parse)'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/with_auto_ids.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/with_header_links.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/05_blockquote/lazy.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/disable-highlighting.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-minted-with-opts.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-minted.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-opts.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/rouge/simple.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/whitespace.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/with_ial.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/with_lang_in_fenced_block.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
 markdown:ceradoc-markdown/spec/fixtures/kramdown/block/07_horizontal_rule/normal.text: 'triaged:
   flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
   markdown (IAL leaking into content position))'
@@ -192,15 +153,6 @@ markdown:ceradoc-markdown/spec/fixtures/kramdown/block/08_list/simple_ul.text: '
   shape-gap (model-shape: items structure differs after re-parse)'
 markdown:ceradoc-markdown/spec/fixtures/kramdown/block/09_html/html_to_native/entity.text: 'triaged:
   shape-gap (model-shape: content structure differs after re-parse)'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/auto_id_and_ial.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/nested.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/simple.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
 markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/comment.text: 'triaged:
   flip-blocking (serializer-inline: inline markup reparses as a different element
   class)'
@@ -234,27 +186,12 @@ markdown:ceradoc-markdown/spec/fixtures/kramdown/block/14_table/escaping.text: '
 markdown:ceradoc-markdown/spec/fixtures/kramdown/block/14_table/simple.text: 'triaged:
   flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
   markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/15_math/no_engine.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/15_math/normal.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/16_toc/toc_exclude.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
 markdown:ceradoc-markdown/spec/fixtures/kramdown/encoding.text: 'triaged: flip-blocking
   (serializer-crash: CoreModel::ElementAttribute not serializable in markdown (IAL
   leaking into content position))'
 markdown:ceradoc-markdown/spec/fixtures/kramdown/man/example.text: 'triaged: flip-blocking
   (serializer-crash: CoreModel::ElementAttribute not serializable in markdown (IAL
   leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/man/heading-name-description.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/01_link/link_defs_with_ial.text: 'triaged:
-  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
-  markdown (IAL leaking into content position))'
 markdown:ceradoc-markdown/spec/fixtures/kramdown/span/02_emphasis/nesting.text: 'triaged:
   shape-gap (model-shape: content structure differs after re-parse)'
 markdown:ceradoc-markdown/spec/fixtures/kramdown/span/02_emphasis/normal.text: 'triaged:
