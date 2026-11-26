@@ -1,13 +1,244 @@
-# Rule -> model bindings for the Markdown block grammar (ceradoc#307 M4).
-# `rake grammar:compile` embeds this table in the artifact under
-# `model_bindings`; Ceradoc::BindingInflater reads it from there.
-# Thematic break: `{hr: true}` -> HorizontalRule(style: '---').
-version: 1
+# Rule -> model bindings for the Markdown block and inline grammars
+# (ceradoc#385, stage 1). `rake grammar:compile` embeds this table in
+# the artifact under `model_bindings`; Ceradoc::BindingInflater.from_table
+# reads it from there and the hand-written DECLARATIONS are retired.
+#
+# Schema 1.1: `keys` is the raw-tree node's exact capture-key set, `model`
+# the name resolved through Bindings::MODELS (null = hook-only rule),
+# `raw` assigns the captures as captured (every rule here reads its raw
+# subtree through a hook, so `raw` is the identity map over `keys`),
+# `via` names a hook declared in the `hooks` map and resolved through
+# Bindings::HOOKS, `optional` lists captures that may be absent (the
+# inflater expands one binding per present/absent combination), `scoped`
+# passes the document Scope to the hook, and `group` selects which
+# inflater carries the rule: the block inflater builds from `block`
+# rules plus the untagged shared ones, the inline inflater from `inline`
+# rules plus the shared ones.
+version: '1.1'
+hooks:
+  heading: Hooks#heading
+  code_block: Hooks#code_block
+  block_quote: Hooks#block_quote
+  paragraph: Hooks#paragraph
+  line: Hooks#line
+  list: Hooks#list
+  definition_list: Hooks#definition_list
+  table: Hooks#table
+  footnote: Hooks#footnote
+  abbreviation: Hooks#abbreviation
+  footnote_reference: Hooks#footnote_reference
+  extension: Hooks#extension
+  math: Hooks#math
+  text: Hooks#text
+  ald_definition: Hooks#ald_definition
+  ial_reference: Hooks#ial_reference
+  strong: Hooks#strong
+  emphasis: Hooks#emphasis
+  code: Hooks#code
+  link: Hooks#link
+  image: Hooks#image
 rules:
+  # `{hr: true}` -> HorizontalRule(style: '---'): the one pure
+  # capture-to-attribute rule, no hook needed.
   thematic_break:
     keys: [hr]
     model: HorizontalRule
-    captures: {}
-    children: {}
     defaults:
       style: '---'
+    group: block
+  # ATX and setext headings share the node shape; the text may be absent
+  # (empty heading) and an inline attribute list may trail.
+  heading:
+    keys: [heading, text]
+    model: Heading
+    raw:
+      heading: heading
+      text: text
+      ial: ial
+    optional: [text, ial]
+    via: heading
+    group: block
+  # Fenced and indented code blocks; `info` may be absent, an IAL may trail.
+  code_block:
+    keys: [code_block, info]
+    model: CodeBlock
+    raw:
+      code_block: code_block
+      info: info
+      ial: ial
+    optional: [info, ial]
+    via: code_block
+    group: block
+  block_quote:
+    keys: [block_quote]
+    model: Blockquote
+    raw:
+      block_quote: block_quote
+      ial: ial
+    optional: [ial]
+    via: block_quote
+    scoped: true
+    group: block
+  paragraph:
+    keys: [p]
+    model: Paragraph
+    raw:
+      p: p
+      ial: ial
+    optional: [ial]
+    via: paragraph
+    group: block
+  # A bare line that no other rule claimed is a paragraph.
+  paragraph_line:
+    keys: [ln]
+    model: Paragraph
+    raw:
+      ln: ln
+    via: line
+    group: block
+  unordered_list:
+    keys: [ul]
+    model: List
+    raw:
+      ul: ul
+    via: list
+    group: block
+  ordered_list:
+    keys: [ol]
+    model: List
+    raw:
+      ol: ol
+    via: list
+    group: block
+  definition_list:
+    keys: [dl]
+    model: DefinitionList
+    raw:
+      dl: dl
+    via: definition_list
+    group: block
+  # Header + separator rows, with the body rows optional.
+  table:
+    keys: [table_header, table_separator, table_body]
+    model: Table
+    raw:
+      table_header: table_header
+      table_separator: table_separator
+      table_body: table_body
+    optional: [table_body]
+    via: table
+    group: block
+  footnote_definition:
+    keys: [fn_id, fn_content, fn_content_continued]
+    model: Footnote
+    raw:
+      fn_id: fn_id
+      fn_content: fn_content
+      fn_content_continued: fn_content_continued
+    optional: [fn_content_continued]
+    via: footnote
+    group: block
+  abbreviation_definition:
+    keys: [abbr_term, abbr_def]
+    model: Abbreviation
+    raw:
+      abbr_term: abbr_term
+      abbr_def: abbr_def
+    via: abbreviation
+    group: block
+  footnote_reference:
+    keys: [fn_ref]
+    model: FootnoteReference
+    raw:
+      fn_ref: fn_ref
+    via: footnote_reference
+    group: block
+  # `{extension: {...}}` wraps the same captures the bare form has.
+  extension:
+    keys: [extension]
+    model: Extension
+    raw:
+      extension: extension
+    via: extension
+    group: block
+  extension_bare:
+    keys: [ext_name, ext_options, ext_body]
+    model: Extension
+    raw:
+      ext_name: ext_name
+      ext_options: ext_options
+      ext_body: ext_body
+    optional: [ext_body]
+    via: extension
+    group: block
+  block_math:
+    keys: [math_content]
+    model: Math
+    raw:
+      math_content: math_content
+    via: math
+    group: block
+  # An ALD definition registers in the document scope and yields no
+  # block; a standalone IAL resolves against the registrations.
+  ald_definition:
+    keys: [ald_name, ial]
+    model: null
+    raw:
+      ald_name: ald_name
+      ial: ial
+    via: ald_definition
+    scoped: true
+    group: block
+  ial_reference:
+    keys: [ial]
+    model: null
+    raw:
+      ial: ial
+    via: ial_reference
+    scoped: true
+    group: block
+  # Inline rules, reached only through a paragraph's raw lines (the
+  # block parser never yields them as blocks), so they go to the inline
+  # inflater and a bare `{strong: ...}` block stays unbound. The bare
+  # text node is shared with the block grammar (untagged).
+  strong:
+    keys: [strong]
+    model: Strong
+    raw:
+      strong: strong
+    via: strong
+    group: inline
+  emphasis:
+    keys: [emph]
+    model: Emphasis
+    raw:
+      emph: emph
+    via: emphasis
+    group: inline
+  inline_code:
+    keys: [code]
+    model: Code
+    raw:
+      code: code
+    via: code
+    group: inline
+  link:
+    keys: [link]
+    model: Link
+    raw:
+      link: link
+    via: link
+    group: inline
+  image:
+    keys: [image]
+    model: Image
+    raw:
+      image: image
+    via: image
+    group: inline
+  text:
+    keys: [text]
+    model: Text
+    raw:
+      text: text
+    via: text

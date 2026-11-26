@@ -42,11 +42,12 @@ module Ceradoc
           end
 
           # Compile the .parg to its artifact JSON text, embedding the
-          # bindings sidecar (needs a parsanol with ModelBindings).
+          # bindings sidecar (validated by the core loader, embedded and
+          # checksum-sealed by parsanol's ModelBindings).
           def compile_source
             document = Parsanol::PARG::Parser.new(File.read(SOURCE_PATH)).parse
             envelope = Parsanol::PARG::Compiler.compile(document).envelope
-            envelope = Parsanol::PARG::ModelBindings.embed(envelope, Parsanol::PARG::ModelBindings.load(BINDINGS_PATH))
+            envelope = Parsanol::PARG::ModelBindings.embed(envelope, Ceradoc::BindingInflater.load_table(BINDINGS_PATH))
             Parsanol::PARG::Compiler.seal_json(envelope)
           end
         end

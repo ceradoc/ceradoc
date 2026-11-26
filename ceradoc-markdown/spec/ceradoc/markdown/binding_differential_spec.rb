@@ -224,15 +224,15 @@ end
 RSpec.describe 'Markdown bindings embedded in the artifact (M4)' do
   it 'ships the sidecar table inside the compiled artifact' do
     table = Ceradoc::Markdown::Parser::Grammar.model_bindings
-    expect(table['version']).to eq(1)
+    expect(table['version']).to eq('1.1')
+    expect(table['rules'].size).to eq(24)
     expect(table['rules'].fetch('thematic_break')).to include('keys' => ['hr'], 'model' => 'HorizontalRule')
   end
 
   it 'keeps the artifact table equal to the sidecar source' do
     sidecar = YAML.safe_load_file(Ceradoc::Markdown::Parser::Grammar::BINDINGS_PATH)
     embedded = Ceradoc::Markdown::Parser::Grammar.model_bindings
-    expect(embedded['rules'].transform_values { |r| r.slice(*sidecar['rules'].values.first.keys) })
-      .to eq(sidecar['rules'])
+    expect(embedded).to eq(sidecar)
   end
 
   it 'inflates a thematic break from the embedded table' do
