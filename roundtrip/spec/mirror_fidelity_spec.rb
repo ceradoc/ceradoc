@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require_relative 'spec_helper'
 require 'ceradoc/mirror'
 
 # The mirror lane of the standing round-trip property (#384): a CoreModel
