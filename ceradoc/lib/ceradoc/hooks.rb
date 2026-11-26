@@ -74,10 +74,11 @@ module Ceradoc
 
       def invoke(hook_point, *args, **kwargs)
         validate_hook_point!(hook_point)
-        return args.first if args.one? && !registry[hook_point]&.any?
+        hooks = registry[hook_point]
+        return args.first if hooks.nil? || hooks.empty?
 
         result = args.first
-        registry[hook_point].each do |hook|
+        hooks.each do |hook|
           result = invoke_hook(hook[:callback], result, args, kwargs)
         end
         result

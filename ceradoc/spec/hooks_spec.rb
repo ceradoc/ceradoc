@@ -130,6 +130,34 @@ RSpec.describe Ceradoc::Hooks do
       expect(result).to eq('test')
     end
 
+    it 'returns nil when the sole argument is nil and no hooks registered' do
+      # Array#one? counts truthy elements, so [nil].one? is false; the old
+      # fast-path guard was skipped and invoke crashed on nil.each (#395).
+      expect(described_class.invoke(:before_parse, nil, format: :asciidoc))
+        .to be_nil
+    end
+
+    it 'returns nil when the sole argument is nil with hooks registered' do
+      described_class.register(:before_parse) { |c| c || 'fallback' }
+
+      expect(described_class.invoke(:before_parse, nil, format: :asciidoc))
+        .to eq('fallback')
+    end
+
+    it 'passes the first argument through for multi-argument invocations ' \
+       'when no hooks registered' do
+      expect(described_class.invoke(:after_parse, 'model', 'extra'))
+        .to eq('model')
+    end
+
+    it 'runs the chain from the first argument for multi-argument ' \
+       'invocations with hooks registered' do
+      described_class.register(:after_serialize) { |o| "#{o}!" }
+
+      expect(described_class.invoke(:after_serialize, 'out', 'other'))
+        .to eq('out!')
+    end
+
     it 'passes keyword arguments to hooks' do
       received = nil
       described_class.register(:before_parse) do |c, **kwargs|
