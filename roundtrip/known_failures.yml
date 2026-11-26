@@ -64,14 +64,8 @@ asciidoc:examples/documents/article.adoc: 'triaged: flip-blocking (serializer-in
   inline markup reparses as a different element class)'
 asciidoc:examples/documents/technical_documentation.adoc: 'triaged: flip-blocking
   (serializer-inline: inline markup reparses as a different element class)'
-asciidoc:roundtrip/corpus/iso/rice2023.adoc: 'triaged: flip-blocking (serializer-inline:
-  inline markup reparses as a different element class)'
-asciidoc:roundtrip/corpus/iso/rice2023/body/body-en.adoc: 'triaged: flip-blocking
-  (serializer-inline: inline markup reparses as a different element class)'
 asciidoc:roundtrip/corpus/iso/rice2023/body/body-fr.adoc: 'triaged: shape-gap (model-shape:
   children structure differs after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.adoc: 'triaged: flip-blocking (serializer-inline:
-  inline markup reparses as a different element class)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-foreword.adoc: 'triaged: shape-gap
   (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-introduction.adoc: 'triaged:

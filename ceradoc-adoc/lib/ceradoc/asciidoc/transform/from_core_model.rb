@@ -6,6 +6,7 @@ module Ceradoc
       # Transforms CoreModel to AsciiDoc models
       class FromCoreModel
         extend Transform::ListBuilding
+        extend Transform::ReviewerBuilding
 
         @registered = false
 
@@ -176,10 +177,17 @@ module Ceradoc
                 delimiter: '[verse]'
               )
             when :reviewer
+              # Re-emit the [reviewer=NAME] line: without it the
+              # re-parse classifies the bare `****` as a plain sidebar
+              # and the block class flips (#376). The body is a
+              # CONTAINER (typed children — lists, paragraphs), so the
+              # lines rebuild from serialized children rather than a
+              # flat-text join.
               Ceradoc::AsciiDoc::Model::Block::ReviewerComment.new(
                 id: block.id,
                 title: block.title,
-                lines: content_text.split("\n")
+                lines: container_block_lines(block),
+                attributes: reviewer_attributes(block)
               )
             else
               delim = block.delimiter_type.to_s

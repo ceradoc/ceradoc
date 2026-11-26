@@ -63,6 +63,37 @@ module Ceradoc
             end
           end
 
+          # Serialize a BLOCK STREAM (section contents, document body):
+          # like serialize_children, but collapses excess blank lines at
+          # chunk boundaries to a single blank line. Block serializers
+          # each open with their own separator; without the collapse the
+          # runs accumulate, and the re-parse folds the whole run into
+          # the previous element's line_break (e.g. Include), flipping
+          # the model (#376).
+          def serialize_block_stream(children, options_or_context = {})
+            context = normalize_context(options_or_context)
+            return '' if children.nil? || (children.is_a?(Array) && children.empty?)
+            return serialize_child(children, context) unless children.is_a?(Array)
+
+            children.each_with_index.inject(+'') do |acc, (child, index)|
+              child_context = context.for_child(index, children.length)
+              chunk = serialize_child(child, child_context)
+              acc << normalize_boundary(acc, chunk)
+            end
+          end
+
+          # Cap the newline run at a block-stream boundary at two
+          # newlines (one blank line); shorter runs stay untouched.
+          def normalize_boundary(acc, chunk)
+            return chunk if acc.empty?
+
+            trailing = acc[/\n+\z/]
+            leading = chunk[/\A\n+/]
+            return chunk if leading.nil? || trailing.nil? || (trailing.length + leading.length) <= 2
+
+            chunk[leading.length..]
+          end
+
           # Serialize a single child element
           # @param child [Object] Child element to serialize
           # @param options_or_context [Hash, SerializationContext] Options or context

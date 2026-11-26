@@ -14,15 +14,18 @@ module Ceradoc
             parts << "#{model.attrs.map { |a| serialize_child(a, context) }.join(',')}\n" unless model.attrs.empty?
             parts << serialize_child(model.title, context) if model.title
 
-            # Process contents
-            content_str = serialize_children(model.contents, context)
+            # Process contents — a block stream: blank-line runs at the
+            # chunk boundaries are capped at one blank line so spacing
+            # does not accumulate into the previous element's
+            # line_break on re-parse (#376).
+            content_str = serialize_block_stream(model.contents, context)
 
             # A block of " +\n"s isn't parsed correctly. It needs to start
             # with something.
             content_str = "&nbsp;#{content_str}" if content_str.start_with?(" +\n")
 
             parts << content_str
-            parts << serialize_children(model.sections, context)
+            parts << serialize_block_stream(model.sections, context)
             parts << "\n"
 
             parts.join

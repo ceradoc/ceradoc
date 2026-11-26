@@ -54,11 +54,13 @@ module Ceradoc
           end
 
           def serialize_sections_with_last_element
-            # Serialize all sections, marking the last one as the last element
-            @model.sections.each_with_index.map do |section, index|
-              child_context = context.for_child(index, @model.sections.length)
-              serialize_child(section, child_context)
-            end.join
+            # Section stream with boundary-normalized spacing (#376,
+            # see Base#serialize_block_stream).
+            sections = @model.sections
+            sections.each_with_index.inject(+'') do |acc, (section, index)|
+              child_context = context.for_child(index, sections.length)
+              acc << normalize_boundary(acc, serialize_child(section, child_context))
+            end
           end
         end
       end
