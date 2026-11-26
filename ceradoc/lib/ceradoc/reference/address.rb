@@ -58,6 +58,27 @@ module Ceradoc
           Scheme.names
         end
 
+        # Hint for cross-reference targets (AsciiDoc xref): document-
+        # internal by definition — bare targets are anchors, even
+        # uppercase document-ID-shaped ones ("SEC-2"). Only an explicit
+        # "document#fragment" shape or a URL points outside the current
+        # document.
+        def xref_hint(raw)
+          string = raw.to_s
+          return :url if Url.matches?(string)
+          return :path if string.include?('#') && !string.start_with?('#')
+
+          :anchor
+        end
+
+        # Hint for file-like targets (include, image): URLs stay urls,
+        # everything else is a path — including bare filenames
+        # ("foo.png") that the anchor bareword heuristic would
+        # otherwise claim.
+        def path_or_url_hint(raw)
+          Url.matches?(raw.to_s) ? :url : :path
+        end
+
         private
 
         def scheme_for_hint!(hint)

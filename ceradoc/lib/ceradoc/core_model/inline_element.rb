@@ -111,6 +111,9 @@ module Ceradoc
     end
 
     class LinkElement < InlineElement
+      prepend Ceradoc::CoreModel::EdgeCarrier
+      attribute :edges, 'Ceradoc::Reference::Edge', collection: true
+
       def self.format_type
         'link'
       end
@@ -125,15 +128,53 @@ module Ceradoc
       def flat_text
         "#{content}#{target}"
       end
+
+      # The hyperlink Edge this link declares. The address scheme is
+      # inferred from the target shape (url / path / anchor).
+      def derive_edge
+        return if target.nil? || target.empty?
+
+        address = parse_edge_address(target)
+        return if address.nil?
+
+        Ceradoc::Reference::Edge.build(
+          kind: :link,
+          address: address,
+          source_id: id,
+          label: content
+        )
+      end
     end
 
     class CrossReferenceElement < InlineElement
+      prepend Ceradoc::CoreModel::EdgeCarrier
+      attribute :edges, 'Ceradoc::Reference::Edge', collection: true
+
       def self.format_type
         'xref'
       end
 
       def link_kind
         :xref
+      end
+
+      # The navigation Edge this reference declares. Bare targets are
+      # document-internal anchors (AsciiDoc xref semantics); only an
+      # explicit "document#fragment" shape or a URL leaves the document.
+      def derive_edge
+        return if target.nil? || target.empty?
+
+        address = parse_edge_address(
+          target, hint: Ceradoc::Reference::Address.xref_hint(target)
+        )
+        return if address.nil?
+
+        Ceradoc::Reference::Edge.build(
+          kind: :navigation,
+          address: address,
+          source_id: id,
+          label: content
+        )
       end
     end
 
@@ -144,8 +185,25 @@ module Ceradoc
     end
 
     class FootnoteElement < InlineElement
+      prepend Ceradoc::CoreModel::EdgeCarrier
+      attribute :edges, 'Ceradoc::Reference::Edge', collection: true
+
       def self.format_type
         'footnote'
+      end
+
+      # The footnote-reference Edge. The target anchors into the
+      # document's footnote catalog; the node's id is both the fallback
+      # anchor and the source of the reference.
+      def derive_edge
+        Ceradoc::Reference::Edge.build(
+          kind: :footnote_ref,
+          address: Ceradoc::Reference::Address.parse(
+            target || id, hint: :anchor
+          ),
+          source_id: id,
+          options: { footnote_id: id }
+        )
       end
     end
 

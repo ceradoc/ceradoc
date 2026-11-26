@@ -12,6 +12,7 @@ module Ceradoc
     # Autoload submodules lazily using relative paths
     autoload :Base, "#{__dir__}/core_model/base"
     autoload :ChildrenContent, "#{__dir__}/core_model/children_content"
+    autoload :EdgeCarrier, "#{__dir__}/core_model/edge_carrier"
     autoload :HasChildren, "#{__dir__}/core_model/has_children"
     autoload :InlineContent, "#{__dir__}/core_model/inline_content"
     autoload :Callout, "#{__dir__}/core_model/callout"

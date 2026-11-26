@@ -3,10 +3,10 @@
 module Ceradoc
   module Reference
     module Validation
-      # Walks the document tree tracking each node's origin path,
-      # extracts the Edges each node owns (via EdgeSearch), resolves
-      # them, and collects one Entry per edge. Read-only: the input
-      # tree is never mutated.
+      # Walks the document tree tracking each node's origin path, reads
+      # the Edges each node declares (the +edges+ attribute maintained
+      # by CoreModel::EdgeCarrier), resolves them, and collects one
+      # Entry per edge. Read-only: the input tree is never mutated.
       class Runner
         attr_reader :catalog, :resolver
 
@@ -24,8 +24,7 @@ module Ceradoc
         private
 
         # Depth-first walk carrying the path of node labels from the
-        # root. Strings and non-model leaves are skipped, mirroring
-        # EdgeSearch's traversal.
+        # root. Strings and non-model leaves are skipped.
         def walk(node, path, &block)
           return unless node.is_a?(Ceradoc::CoreModel::Base)
 
@@ -40,7 +39,7 @@ module Ceradoc
         end
 
         def collect(node, path, entries)
-          EdgeSearch.edges_for(node).each do |edge|
+          declared_edges(node).each do |edge|
             result = resolve(edge)
             diagnostic = nil
             unless result.resolved?
@@ -52,6 +51,15 @@ module Ceradoc
               edge: edge, result: result, diagnostic: diagnostic
             )
           end
+        end
+
+        # The declared +edges+ attribute is the primary source (phase
+        # 3); extraction (EdgeSearch) survives only as the agreement
+        # cross-check in the spec suite.
+        def declared_edges(node)
+          return [] unless node.is_a?(Ceradoc::CoreModel::EdgeCarrier)
+
+          node.edges
         end
 
         # Without an explicit resolver the catalog is asked directly so
