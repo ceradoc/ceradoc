@@ -20,7 +20,7 @@ RSpec.describe Ceradoc::AsciiDoc::Transform::ElementTransformers::BlockTransform
       expect(result.children.first).to be_a(Ceradoc::CoreModel::TextContent)
     end
 
-    it 'preserves source line structure for multi-line paragraphs' do
+    it 'folds soft-wrapped lines into the canonical single-line partition' do
       para = Ceradoc::AsciiDoc::Model::Paragraph.new(
         content: [
           Ceradoc::AsciiDoc::Model::TextElement.new(content: 'This is line one', line_break: "\n"),
@@ -35,12 +35,13 @@ RSpec.describe Ceradoc::AsciiDoc::Transform::ElementTransformers::BlockTransform
       # `content` is the rendered view — soft-wrapped lines joined with
       # spaces so they read as flowing prose.
       expect(result.content).to eq('This is line one of a paragraph that spans three.')
-      # `lines` is the source-line view — each entry corresponds to one
-      # line in the AsciiDoc source.
-      expect(result.lines).to eq(['This is line one', 'of a paragraph', 'that spans three.'])
+      # `lines` is the canonical partition: serialization is single-line,
+      # so it carries the same folded text a re-parse produces instead of
+      # the raw source-line split (#376).
+      expect(result.lines).to eq(['This is line one of a paragraph that spans three.'])
     end
 
-    it 'filters out LineBreak and PageBreak items when extracting source lines' do
+    it 'filters out LineBreak and PageBreak items from the folded text' do
       para = Ceradoc::AsciiDoc::Model::Paragraph.new(
         content: [
           Ceradoc::AsciiDoc::Model::TextElement.new(content: 'Before'),
@@ -51,7 +52,7 @@ RSpec.describe Ceradoc::AsciiDoc::Transform::ElementTransformers::BlockTransform
 
       result = described_class.transform_paragraph(para)
 
-      expect(result.lines).to eq(%w[Before After])
+      expect(result.lines).to eq(['BeforeAfter'])
     end
 
     it 'transforms a paragraph with inline elements' do

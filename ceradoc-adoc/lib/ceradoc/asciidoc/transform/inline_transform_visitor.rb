@@ -24,7 +24,11 @@ module Ceradoc
           when Array then visit_array(content)
           when Model::TextElement then visit_content(content.content)
           when Model::Term
-            [CoreModel::TermElement.new(content: content.term.to_s)]
+            # The macro spelling (`alt:[x]`, `term:[x]`, `deprecated:[x]`)
+            # rides on the instance format_type; TermElement's resolved
+            # format stays 'term' via the class. FromCoreModel restores
+            # the spelling on serialization (#376).
+            [CoreModel::TermElement.new(content: content.term.to_s, format_type: content.type)]
           when String
             content.empty? ? [] : [CoreModel::TextContent.new(text: content)]
           when Model::Base
@@ -56,19 +60,7 @@ module Ceradoc
             next if transformed.empty?
 
             if line_break_between?(previous, item)
-              if soft_break_fold?(result, transformed)
-                # Fold the synthesized space into the surrounding text
-                # run: soft-wrapped prose is ONE paragraph text, and the
-                # canonical (single-line) serialization must re-parse to
-                # the same partition instead of splitting at every
-                # source line break (#376).
-                result[-1] = CoreModel::TextContent.new(
-                  text: "#{result.last.text} #{transformed.first.text}"
-                )
-              else
-                result << CoreModel::TextContent.new(text: ' ')
-                result.concat(transformed)
-              end
+              fold_soft_break(result, transformed)
             else
               result.concat(transformed)
             end
@@ -77,12 +69,32 @@ module Ceradoc
           result
         end
 
-        # The synthesized soft-break space folds into the text when both
-        # neighbours are plain text runs; markup boundaries keep the
-        # standalone space TextContent.
-        def soft_break_fold?(result, transformed)
-          result.last.is_a?(CoreModel::TextContent) &&
-            transformed.size == 1 && transformed.first.is_a?(CoreModel::TextContent)
+        # Folds the synthesized soft-break space into the surrounding text
+        # runs so the inline partition matches what a single-line re-parse
+        # produces: in one-line source the space lives INSIDE the text run
+        # adjacent to the break — trailing on the previous run, or leading
+        # on the next run when markup opens the line — and never as a
+        # standalone TextContent (#376).
+        def fold_soft_break(result, transformed)
+          return result.concat(transformed) if result.empty?
+
+          if result.last.is_a?(CoreModel::TextContent)
+            if transformed.first.is_a?(CoreModel::TextContent)
+              result[-1] = CoreModel::TextContent.new(
+                text: "#{result.last.text} #{transformed.first.text}"
+              )
+              result.concat(transformed.drop(1))
+            else
+              result[-1] = CoreModel::TextContent.new(text: "#{result.last.text} ")
+              result.concat(transformed)
+            end
+          elsif transformed.first.is_a?(CoreModel::TextContent)
+            result << CoreModel::TextContent.new(text: " #{transformed.first.text}")
+            result.concat(transformed.drop(1))
+          else
+            result << CoreModel::TextContent.new(text: ' ')
+            result.concat(transformed)
+          end
         end
 
         # Two adjacent TextElements only warrant a synthesised soft-break

@@ -1,12 +1,10 @@
 ---
-asciidoc:README.Docker.adoc: 'triaged: shape-gap (text-partition: adjacent TextContent
-  split/join boundaries differ after re-parse)'
 asciidoc:README.adoc: 'triaged: shape-gap (model-shape: lines structure differs after
   re-parse)'
-asciidoc:ceradoc-docx/README.adoc: 'triaged: shape-gap (text-partition: adjacent TextContent
-  split/join boundaries differ after re-parse)'
-asciidoc:ceradoc-plugin-kotoshu/spec/fixtures/sample.adoc: 'triaged: flip-blocking
-  (parser-header-boundary: document attribute glued into author/header text)'
+asciidoc:ceradoc-plugin-kotoshu/spec/fixtures/sample.adoc: 'triaged: engine-blocked
+  (grammar-gap: `.Title` list-title rule missing — the dot line unparses and closes
+  the section, and the dot is dropped pre-CoreModel so serialization cannot reproduce
+  the split; the header attribute-entry glue itself is fixed)'
 asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2018-08-24-metanorma-wins-stevie-awards.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
@@ -18,8 +16,6 @@ asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2019-10-08-metanorma-with-lat
   re-parse)'
 asciidoc:docs/_guides/custom-inline.adoc: 'triaged: flip-blocking (constraint-roundtrip:
   constrained/unconstrained flips on re-parse)'
-asciidoc:docs/_pages/architecture.adoc: 'triaged: shape-gap (text-partition: adjacent
-  TextContent split/join boundaries differ after re-parse)'
 asciidoc:docs/_pages/model.adoc: 'triaged: flip-blocking (constraint-roundtrip: constrained/unconstrained
   flips on re-parse)'
 asciidoc:docs/_pages/parsing.adoc: 'triaged: shape-gap (text-partition: adjacent TextContent
@@ -36,61 +32,38 @@ asciidoc:docs/_references/coremodel-types.adoc: 'triaged: flip-blocking (constra
   constrained/unconstrained flips on re-parse)'
 asciidoc:docs/_references/error-codes.adoc: 'triaged: shape-gap (model-shape: title
   structure differs after re-parse)'
-asciidoc:docs/_references/feature-matrix.adoc: 'triaged: shape-gap (text-partition:
-  adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/_references/limitations.adoc: 'triaged: flip-blocking (serializer-inline:
-  inline markup reparses as a different element class)'
 asciidoc:docs/_references/markdown-serialization-spec.adoc: 'triaged: flip-blocking
   (constraint-roundtrip: constrained/unconstrained flips on re-parse)'
 asciidoc:docs/_references/markdown-syntax.adoc: 'triaged: shape-gap (text-partition:
   adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/_references/model-classes.adoc: 'triaged: flip-blocking (constraint-roundtrip:
-  constrained/unconstrained flips on re-parse)'
-asciidoc:docs/_references/output-formats.adoc: 'triaged: flip-blocking (serializer-inline:
-  inline markup reparses as a different element class)'
+asciidoc:docs/_references/model-classes.adoc: 'triaged: engine-blocked (bold-guard:
+  bold_constrained `!("\n" "\n")` guard flips constrained bold at a paragraph end
+  followed by a blank line)'
+asciidoc:docs/_references/output-formats.adoc: 'triaged: engine-blocked (bold-guard:
+  plain-text `*Parameters:*` parses plain only because of the bold_constrained
+  blank-line guard, and the delimiter escape then re-partitions on re-parse; the
+  original pipe-table text merge is fixed by the canonical soft-break fold)'
 asciidoc:docs/_references/ruby-methods.adoc: 'triaged: shape-gap (model-shape: title
   structure differs after re-parse)'
 asciidoc:docs/_tutorials/html-conversion.adoc: 'triaged: shape-gap (text-partition:
   adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/_tutorials/serialization.adoc: 'triaged: shape-gap (text-partition:
-  adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/index.adoc: 'triaged: shape-gap (model-shape: lines structure differs
-  after re-parse)'
 asciidoc:edge/attribute-entry: 'triaged: shape-gap (text-partition: adjacent TextContent
   split/join boundaries differ after re-parse)'
-asciidoc:edge/link-and-xref: 'triaged: shape-gap (model-shape: content structure differs
-  after re-parse)'
-asciidoc:examples/documents/technical_documentation.adoc: 'triaged: flip-blocking
-  (serializer-inline: inline markup reparses as a different element class)'
 asciidoc:roundtrip/corpus/iso/rice2023/body/body-fr.adoc: 'triaged: shape-gap (model-shape:
   children structure differs after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-foreword.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-introduction.adoc: 'triaged:
-  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
-  re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/01-scope.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/02-normref.adoc: 'triaged: shape-gap
   (model-shape: attributes structure differs after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/03-termdef.adoc: 'triaged: flip-blocking
-  (serializer-inline: inline markup reparses as a different element class)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/04-specifications.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/05-sampling.adoc: 'triaged: shape-gap
-  (model-shape: content structure differs after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/06-testmethods.adoc: 'triaged:
-  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
-  re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/08-packaging.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/09-marking.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/aa-annex-a.adoc: 'triaged: flip-blocking
-  (serializer-inline: inline markup reparses as a different element class)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ab-annex-b.adoc: 'triaged: flip-blocking
-  (serializer-inline: inline markup reparses as a different element class)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/aa-annex-a.adoc: 'triaged: engine-blocked
+  (grammar-gap: a block attribute list before a heading unparses — `[` is dropped
+  and `%inline-header]` becomes a paragraph whose section placement flips; the
+  soft-wrap `lines` partition itself is fixed by canonical lines)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ab-annex-b.adoc: 'triaged: engine-blocked
+  (grammar-gap: a block attribute list before a heading unparses — `[` is dropped
+  and `%inline-header]` becomes a paragraph whose section placement flips; the
+  soft-wrap `lines` partition itself is fixed by canonical lines)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ac-annex-c.adoc: 'triaged: shape-gap
   (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ad-annex-d.adoc: 'triaged: shape-gap
@@ -100,8 +73,6 @@ asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ae-annex-e.adoc: 'triaged: sh
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/b0-bibliography.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/00-foreword.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/00-introduction.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
@@ -114,15 +85,6 @@ asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/03-termdef.adoc: 'triaged: sh
 asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/04-specifications.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/05-sampling.adoc: 'triaged: shape-gap
-  (model-shape: content structure differs after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/06-testmethods.adoc: 'triaged:
-  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
-  re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/08-packaging.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/09-marking.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/aa-annex-a.adoc: 'triaged: shape-gap
   (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ab-annex-b.adoc: 'triaged: shape-gap

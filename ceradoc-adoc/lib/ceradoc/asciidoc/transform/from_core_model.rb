@@ -291,8 +291,23 @@ module Ceradoc
                 path: inline.target,
                 name: inline.content
               )
+            when 'term'
+              # Term macros (`alt:[x]`, `term:[x]`, `deprecated:[x]`) must
+              # re-serialize as macros: plain text loses the element class
+              # on re-parse (#376). The recorded spelling rides on the
+              # instance format_type (ToCoreModel); 'alt' is the ISO
+              # synonym macro and the fallback for constraint-less sources.
+              spelling = inline.format_type.to_s
+              spelling = 'alt' if spelling.empty?
+              Ceradoc::AsciiDoc::Model::Term.new(term: inline.content.to_s, type: spelling)
             when 'xref'
-              Ceradoc::AsciiDoc::Model::Inline::CrossReference.new(href: inline.target)
+              # A cross-reference label (`<<target,label>>`) is document
+              # meaning: dropping it makes the re-parse use the target id
+              # as the visible text (#376). Keep it as the xref arg; a
+              # bare `<<target>>` (content == target) stays bare.
+              label = inline.content.to_s
+              args = label.empty? || label == inline.target.to_s ? nil : [label]
+              Ceradoc::AsciiDoc::Model::Inline::CrossReference.new(href: inline.target, args: args)
             when 'footnote'
               Ceradoc::AsciiDoc::Model::Inline::Footnote.new(
                 id: inline.target,

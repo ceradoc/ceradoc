@@ -23,7 +23,11 @@ RSpec.describe 'Admonition xref and bibliography italic', type: :integration do
       block = core.children.first
 
       expect(block).to be_a(Ceradoc::CoreModel::AnnotationBlock)
-      expect(block.children.map(&:class)).to include(Ceradoc::CoreModel::CrossReferenceElement)
+      # Admonition content rides in a ParagraphBlock child, matching the
+      # delimited (`[NOTE]\n====\n...\n====`) shape (#376).
+      paragraph = block.children.first
+      expect(paragraph).to be_a(Ceradoc::CoreModel::ParagraphBlock)
+      expect(paragraph.children.map(&:class)).to include(Ceradoc::CoreModel::CrossReferenceElement)
     end
 
     it 'VitePress renders the xref as a Markdown link inside :::note' do

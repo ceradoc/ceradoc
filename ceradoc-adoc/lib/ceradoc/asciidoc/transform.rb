@@ -18,6 +18,7 @@ module Ceradoc
       autoload :FrontmatterAttributeMap, "#{__dir__}/transform/frontmatter_attribute_map"
       autoload :CalloutMerger, "#{__dir__}/transform/callout_merger"
       autoload :AttributeListToMetadata, "#{__dir__}/transform/attribute_list_to_metadata"
+      autoload :DocumentAttributeEntries, "#{__dir__}/transform/document_attribute_entries"
     end
   end
 end
