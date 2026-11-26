@@ -7,8 +7,10 @@ module Ceradoc
         def build(node)
           attrs = node.attrs
           CoreModel::HeaderElement.new(
+            id: attrs&.id,
             title: attrs&.title,
             level: attrs&.level,
+            content: attrs&.title,
             children: build_content(node)
           )
         end

@@ -133,10 +133,12 @@ module Ceradoc
         PM_TYPE = 'floating_title'
 
         class Attrs < Lutaml::Model::Serializable
+          attribute :id, :string
           attribute :title, :string
           attribute :level, :integer
 
           key_value do
+            map 'id', to: :id
             map 'title', to: :title
             map 'level', to: :level
           end
