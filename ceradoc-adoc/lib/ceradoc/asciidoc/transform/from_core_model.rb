@@ -356,9 +356,11 @@ module Ceradoc
                 inline_model(Ceradoc::AsciiDoc::Model::Inline::Italic, inline,
                              unconstrained: unconstrained)
             when 'monospace'
-              Ceradoc::AsciiDoc::Model::Inline::Monospace.new(content: inline.content)
+              Ceradoc::AsciiDoc::Model::Inline::Monospace.new(content: inline.content,
+                                                              unconstrained: unconstrained)
             when 'highlight'
-              Ceradoc::AsciiDoc::Model::Inline::Highlight.new(content: inline.content)
+              Ceradoc::AsciiDoc::Model::Inline::Highlight.new(content: inline.content,
+                                                              unconstrained: unconstrained)
             when 'strikethrough'
               Ceradoc::AsciiDoc::Model::Inline::Strikethrough.new(content: inline.content)
             when 'subscript'

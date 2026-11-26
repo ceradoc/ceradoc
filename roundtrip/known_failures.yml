@@ -92,8 +92,6 @@ asciidoc:edge/attribute-entry: 'triaged: shape-gap (text-partition: adjacent Tex
   split/join boundaries differ after re-parse)'
 asciidoc:edge/definition-list: 'triaged: shape-gap (model-shape: term structure differs
   after re-parse)'
-asciidoc:edge/inline-markup: 'triaged: flip-blocking (serializer-crash: unknown keyword:
-  :pass_through)'
 asciidoc:edge/link-and-xref: 'triaged: shape-gap (model-shape: content structure differs
   after re-parse)'
 asciidoc:examples/README.adoc: 'triaged: flip-blocking (serializer-inline: inline
