@@ -1,265 +1,330 @@
 ---
-asciidoc:README.Docker.adoc: 'untriaged: model at $.children[1].children[0].text'
-asciidoc:README.adoc: 'untriaged: model at $.children[1].lines[0]'
-asciidoc:ceradoc-docx/README.adoc: 'untriaged: model at $.children[2].children[0].text'
-asciidoc:ceradoc-plugin-kotoshu/spec/fixtures/sample.adoc: 'untriaged: model at $.children[1].children[0].text'
-asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2018-08-24-metanorma-wins-stevie-awards.adoc: 'untriaged:
-  model at $.children[1].children[0].text'
-asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2018-12-05-intro-to-metanorma.adoc: 'untriaged:
-  model at $.children[2].children[2].text'
-asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2019-10-08-metanorma-with-latex-support-alpha.adoc: 'untriaged:
-  model at $.children[2].children[0].text'
-asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2024-07-09-metanorma-cli-1.10.2-release.adoc: 'untriaged:
-  model at $.children[1].children[2].children[0].children[1].items[3].children[1]'
-asciidoc:docs/_guides/configuration.adoc: 'untriaged: model at $.children[6].children[0].children[0].children[1].constraint'
-asciidoc:docs/_guides/custom-blocks.adoc: 'untriaged: model at $.children[3].children[1].children[1].constraint'
-asciidoc:docs/_guides/custom-inline.adoc: 'untriaged: model at $.children[3].children[1].children[1].constraint'
-asciidoc:docs/_guides/schema-system.adoc: 'untriaged: model at $.children[3].children[1].children[0].text'
-asciidoc:docs/_guides/troubleshooting.adoc: 'untriaged: model at $.children[4].children[1].children[2].constraint'
-asciidoc:docs/_pages/architecture.adoc: 'untriaged: model at $.children[3].children[2].children[0].children[2].text'
-asciidoc:docs/_pages/getting-started.adoc: 'untriaged: model at $.children[5].children[2].children[1].items[0].children[0].@type'
-asciidoc:docs/_pages/model.adoc: 'untriaged: model at $.children[3].children[0].children[1].constraint'
-asciidoc:docs/_pages/parsing.adoc: 'untriaged: model at $.children[4].children[0].children[2].children[0].text'
-asciidoc:docs/_pages/serialization.adoc: 'untriaged: model at $.children[3].children[0].children[1].constraint'
-asciidoc:docs/_pages/transformation.adoc: 'untriaged: model at $.children[4].children[1].items[0].children[0].@type'
-asciidoc:docs/_references/api-reference.adoc: 'untriaged: model at $.children[4].children[0].children[2].children[0].text'
-asciidoc:docs/_references/asciidoc-syntax.adoc: 'untriaged: model at $.children[2].children[0].text'
-asciidoc:docs/_references/cli-commands.adoc: 'untriaged: model at $.children[2].children[1].constraint'
-asciidoc:docs/_references/coremodel-types.adoc: 'untriaged: model at $.children[4].children[0].children[0].children[1].constraint'
-asciidoc:docs/_references/error-codes.adoc: 'untriaged: model at $.children[3].children[0].title'
-asciidoc:docs/_references/extension-points.adoc: 'untriaged: model at $.children[5].children[0].children[0].@type'
-asciidoc:docs/_references/feature-matrix.adoc: 'untriaged: model at $.children[3].children[0].children[0].text'
-asciidoc:docs/_references/limitations.adoc: 'untriaged: model at $.children[3].children[0].children[0].children[0].@type'
-asciidoc:docs/_references/markdown-serialization-spec.adoc: 'untriaged: model at $.children[1].children[0].children[1].constraint'
-asciidoc:docs/_references/markdown-syntax.adoc: 'untriaged: model at $.children[2].children[0].text'
-asciidoc:docs/_references/model-classes.adoc: 'untriaged: model at $.children[4].children[0].children[1].children[2].constraint'
-asciidoc:docs/_references/output-formats.adoc: 'untriaged: model at $.children[3].children[0].children[3].items[0].children[0].@type'
-asciidoc:docs/_references/ruby-methods.adoc: 'untriaged: model at $.children[3].children[0].children[1].title'
-asciidoc:docs/_tutorials/basic-parsing.adoc: 'untriaged: model at $.children[3].children[0].items[1].children[0].text'
-asciidoc:docs/_tutorials/document-modeling.adoc: 'untriaged: model at $.children[3].children[0].items[0].children[0].text'
-asciidoc:docs/_tutorials/html-conversion.adoc: 'untriaged: model at $.children[3].children[0].items[0].children[0].text'
-asciidoc:docs/_tutorials/round-tripping.adoc: 'untriaged: model at $.children[3].children[0].items[0].children[0].text'
-asciidoc:docs/_tutorials/serialization.adoc: 'untriaged: model at $.children[3].children[0].items[0].children[0].text'
-asciidoc:docs/guides.adoc: 'untriaged: model at $.children[3].children[1].items[0].children[0].@type'
-asciidoc:docs/index.adoc: 'untriaged: model at $.children[2].lines[0]'
-asciidoc:docs/pages.adoc: 'untriaged: model at $.children[3].children[1].items[0].children[0].@type'
-asciidoc:docs/references.adoc: 'untriaged: model at $.children[3].children[1].children[0].items[0].children[0].@type'
-asciidoc:docs/tutorials.adoc: 'untriaged: model at $.children[3].children[1].items[0].children[0].@type'
-asciidoc:edge/admonition: 'untriaged: model at $.children[0].@type'
-asciidoc:edge/attribute-entry: 'untriaged: model at $.children[0].children[0].text'
-asciidoc:edge/definition-list: 'untriaged: model at $.children[0].items[0].term'
-asciidoc:edge/inline-markup: 'untriaged: serialize at /Users/mulgogi/src/ceradoc/ceradoc-adoc/lib/ceradoc/util/asciidoc.rb:41:in
-  ''Ceradoc::Util::AsciiDoc.escape_characters'''
-asciidoc:edge/link-and-xref: 'untriaged: model at $.children[0].children[2].content'
-asciidoc:examples/README.adoc: 'untriaged: model at $.children[2].children[0].@type'
-asciidoc:examples/documents/article.adoc: 'untriaged: model at $.children[1].@type'
-asciidoc:examples/documents/technical_documentation.adoc: 'untriaged: model at $.children[3].children[0].rows[1].cells[0].children[0].@type'
-asciidoc:roundtrip/corpus/iso/rice2023.adoc: 'untriaged: model at $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/body/body-en.adoc: 'untriaged: model at $.children[0].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/body/body-fr.adoc: 'untriaged: model at $.children[8].items[1].children[1]'
-asciidoc:roundtrip/corpus/iso/rice2023/document-en.adoc: 'untriaged: model at $.children[1].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-foreword.adoc: 'untriaged: model
-  at $.children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-introduction.adoc: 'untriaged:
-  model at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/01-scope.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/02-normref.adoc: 'untriaged: model
-  at $.children[0].attributes'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/03-termdef.adoc: 'untriaged: model
-  at $.children[0].children[0].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/04-specifications.adoc: 'untriaged:
-  model at $.children[0].children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/05-sampling.adoc: 'untriaged: model
-  at $.children[0].children[0].children[1].content'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/06-testmethods.adoc: 'untriaged:
-  model at $.children[0].children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/07-testreport.adoc: 'untriaged:
-  model at $.children[0].children[1].items[4].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/08-packaging.adoc: 'untriaged:
-  model at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/09-marking.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/aa-annex-a.adoc: 'untriaged: model
-  at $.children[0].children[0].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ab-annex-b.adoc: 'untriaged: model
-  at $.children[0].children[0].@type'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ac-annex-c.adoc: 'untriaged: model
-  at $.children[0].children[0].children[3].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ad-annex-d.adoc: 'untriaged: model
-  at $.children[0].children[0].children[2].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ae-annex-e.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/b0-bibliography.adoc: 'untriaged:
-  model at $.children[0].children[8].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/00-foreword.adoc: 'untriaged: model
-  at $.children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/00-introduction.adoc: 'untriaged:
-  model at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/01-scope.adoc: 'untriaged: model
-  at $.children[0].children[1].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/02-normref.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/03-termdef.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/04-specifications.adoc: 'untriaged:
-  model at $.children[0].children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/05-sampling.adoc: 'untriaged: model
-  at $.children[0].children[0].children[1].content'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/06-testmethods.adoc: 'untriaged:
-  model at $.children[0].children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/07-testreport.adoc: 'untriaged:
-  model at $.children[0].children[1].items[4].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/08-packaging.adoc: 'untriaged:
-  model at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/09-marking.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/aa-annex-a.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ab-annex-b.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ac-annex-c.adoc: 'untriaged: model
-  at $.children[0].children[0].children[4].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ad-annex-d.adoc: 'untriaged: model
-  at $.children[0].children[0].children[1].content'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ae-annex-e.adoc: 'untriaged: model
-  at $.children[0].children[0].children[0].text'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/b0-bibliography.adoc: 'untriaged:
-  model at $.children[0].children[8].children[0].text'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/03_paragraph/standalone_image.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/setext_header.text: 'untriaged:
-  model at $.children[8].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/with_auto_ids.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/with_header_links.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/05_blockquote/lazy.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/disable-highlighting.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-minted-with-opts.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-minted.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-opts.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/rouge/simple.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/whitespace.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/with_ial.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/with_lang_in_fenced_block.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/07_horizontal_rule/normal.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/07_horizontal_rule/sepspaces.text: 'untriaged:
-  model at $.children[1]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/07_horizontal_rule/septabs.text: 'untriaged:
-  model at $.children[1]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/08_list/lazy.text: 'untriaged:
-  model at $.children[0].items[2]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/08_list/mixed.text: 'untriaged:
-  model at $.children[15].children[2]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/08_list/simple_ul.text: 'untriaged:
-  model at $.children[0].items[2]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/09_html/html_to_native/entity.text: 'untriaged:
-  model at $.children[0].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/auto_id_and_ial.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/nested.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/simple.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/comment.text: 'untriaged:
-  model at $.children[1].@type'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/ignored.text: 'untriaged:
-  model at $.children[2].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/nomarkdown.text: 'untriaged:
-  model at $.children[4].@type'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/options.text: 'untriaged:
-  model at $.children[1].@type'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/options2.text: 'untriaged:
-  model at $.children[0].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/options3.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/auto_ids.text: 'untriaged:
-  model at $.children[0].items[2]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/item_ial.text: 'untriaged:
-  model at $.children[0].items[0].definitions[1]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/multiple_terms.text: 'untriaged:
-  model at $.children[0].items[0].definitions[1]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/separated_by_eob.text: 'untriaged:
-  model at $.children[0].items[0].definitions[1]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/simple.text: 'untriaged:
-  model at $.children[3].items[0].definitions[1]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/with_blocks.text: 'untriaged:
-  model at $.children[5].items[0].definitions[1]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/14_table/escaping.text: 'untriaged:
-  model at $.children[6].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/14_table/simple.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/15_math/no_engine.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/15_math/normal.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/block/16_toc/toc_exclude.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/encoding.text: 'untriaged: serialize
-  at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/man/example.text: 'untriaged: serialize
-  at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/man/heading-name-description.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/01_link/link_defs_with_ial.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/02_emphasis/nesting.text: 'untriaged:
-  model at $.children[0].items[0].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/02_emphasis/normal.text: 'untriaged:
-  model at $.children[1].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/03_codespan/normal.text: 'untriaged:
-  model at $.children[2].children[0].text'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/04_footnote/backlink_inline.text: 'untriaged:
-  model at $.children[2].children[1]'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/04_footnote/definitions.text: 'untriaged:
-  model at $.children[4].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/04_footnote/markers.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/05_html/normal.text: 'untriaged:
-  model at $.children[8].content'
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/abbreviations/abbrev.text: 'untriaged:
-  serialize at /Users/mulgogi/src/ceradoc/ceradoc-markdown/lib/ceradoc/markdown/serializer/runner.rb:41:in
-  ''Ceradoc::Markdown::Serializer::Runner#serialize'''
-markdown:ceradoc-markdown/spec/fixtures/kramdown/span/text_substitutions/typography.text: 'untriaged:
-  model at $.children[7].content'
-markdown:edge/emphasis-markers: 'untriaged: model at $.children[0].content'
+asciidoc:README.Docker.adoc: 'triaged: shape-gap (text-partition: adjacent TextContent
+  split/join boundaries differ after re-parse)'
+asciidoc:README.adoc: 'triaged: shape-gap (model-shape: lines structure differs after
+  re-parse)'
+asciidoc:ceradoc-docx/README.adoc: 'triaged: shape-gap (text-partition: adjacent TextContent
+  split/join boundaries differ after re-parse)'
+asciidoc:ceradoc-plugin-kotoshu/spec/fixtures/sample.adoc: 'triaged: flip-blocking
+  (parser-header-boundary: document attribute glued into author/header text)'
+asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2018-08-24-metanorma-wins-stevie-awards.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2018-12-05-intro-to-metanorma.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2019-10-08-metanorma-with-latex-support-alpha.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2024-07-09-metanorma-cli-1.10.2-release.adoc: 'triaged:
+  shape-gap (model-shape: children structure differs after re-parse)'
+asciidoc:docs/_guides/configuration.adoc: 'triaged: flip-blocking (constraint-roundtrip:
+  constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_guides/custom-blocks.adoc: 'triaged: flip-blocking (constraint-roundtrip:
+  constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_guides/custom-inline.adoc: 'triaged: flip-blocking (constraint-roundtrip:
+  constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_guides/schema-system.adoc: 'triaged: shape-gap (text-partition: adjacent
+  TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_guides/troubleshooting.adoc: 'triaged: flip-blocking (constraint-roundtrip:
+  constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_pages/architecture.adoc: 'triaged: shape-gap (text-partition: adjacent
+  TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_pages/getting-started.adoc: 'triaged: flip-blocking (serializer-inline:
+  inline markup reparses as a different element class)'
+asciidoc:docs/_pages/model.adoc: 'triaged: flip-blocking (constraint-roundtrip: constrained/unconstrained
+  flips on re-parse)'
+asciidoc:docs/_pages/parsing.adoc: 'triaged: shape-gap (text-partition: adjacent TextContent
+  split/join boundaries differ after re-parse)'
+asciidoc:docs/_pages/serialization.adoc: 'triaged: flip-blocking (constraint-roundtrip:
+  constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_pages/transformation.adoc: 'triaged: flip-blocking (serializer-inline:
+  inline markup reparses as a different element class)'
+asciidoc:docs/_references/api-reference.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_references/asciidoc-syntax.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_references/cli-commands.adoc: 'triaged: flip-blocking (constraint-roundtrip:
+  constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_references/coremodel-types.adoc: 'triaged: flip-blocking (constraint-roundtrip:
+  constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_references/error-codes.adoc: 'triaged: shape-gap (model-shape: title
+  structure differs after re-parse)'
+asciidoc:docs/_references/extension-points.adoc: 'triaged: flip-blocking (serializer-inline:
+  inline markup reparses as a different element class)'
+asciidoc:docs/_references/feature-matrix.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_references/limitations.adoc: 'triaged: flip-blocking (serializer-inline:
+  inline markup reparses as a different element class)'
+asciidoc:docs/_references/markdown-serialization-spec.adoc: 'triaged: flip-blocking
+  (constraint-roundtrip: constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_references/markdown-syntax.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_references/model-classes.adoc: 'triaged: flip-blocking (constraint-roundtrip:
+  constrained/unconstrained flips on re-parse)'
+asciidoc:docs/_references/output-formats.adoc: 'triaged: flip-blocking (serializer-inline:
+  inline markup reparses as a different element class)'
+asciidoc:docs/_references/ruby-methods.adoc: 'triaged: shape-gap (model-shape: title
+  structure differs after re-parse)'
+asciidoc:docs/_tutorials/basic-parsing.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_tutorials/document-modeling.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_tutorials/html-conversion.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_tutorials/round-tripping.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/_tutorials/serialization.adoc: 'triaged: shape-gap (text-partition:
+  adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:docs/guides.adoc: 'triaged: flip-blocking (serializer-inline: inline markup
+  reparses as a different element class)'
+asciidoc:docs/index.adoc: 'triaged: shape-gap (model-shape: lines structure differs
+  after re-parse)'
+asciidoc:docs/pages.adoc: 'triaged: flip-blocking (serializer-inline: inline markup
+  reparses as a different element class)'
+asciidoc:docs/references.adoc: 'triaged: flip-blocking (serializer-inline: inline
+  markup reparses as a different element class)'
+asciidoc:docs/tutorials.adoc: 'triaged: flip-blocking (serializer-inline: inline markup
+  reparses as a different element class)'
+asciidoc:edge/admonition: 'triaged: flip-blocking (serializer-inline: inline markup
+  reparses as a different element class)'
+asciidoc:edge/attribute-entry: 'triaged: shape-gap (text-partition: adjacent TextContent
+  split/join boundaries differ after re-parse)'
+asciidoc:edge/definition-list: 'triaged: shape-gap (model-shape: term structure differs
+  after re-parse)'
+asciidoc:edge/inline-markup: 'triaged: flip-blocking (serializer-crash: unknown keyword:
+  :pass_through)'
+asciidoc:edge/link-and-xref: 'triaged: shape-gap (model-shape: content structure differs
+  after re-parse)'
+asciidoc:examples/README.adoc: 'triaged: flip-blocking (serializer-inline: inline
+  markup reparses as a different element class)'
+asciidoc:examples/documents/article.adoc: 'triaged: flip-blocking (serializer-inline:
+  inline markup reparses as a different element class)'
+asciidoc:examples/documents/technical_documentation.adoc: 'triaged: flip-blocking
+  (serializer-inline: inline markup reparses as a different element class)'
+asciidoc:roundtrip/corpus/iso/rice2023.adoc: 'triaged: flip-blocking (serializer-inline:
+  inline markup reparses as a different element class)'
+asciidoc:roundtrip/corpus/iso/rice2023/body/body-en.adoc: 'triaged: flip-blocking
+  (serializer-inline: inline markup reparses as a different element class)'
+asciidoc:roundtrip/corpus/iso/rice2023/body/body-fr.adoc: 'triaged: shape-gap (model-shape:
+  children structure differs after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/document-en.adoc: 'triaged: flip-blocking (serializer-inline:
+  inline markup reparses as a different element class)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-foreword.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/00-introduction.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/01-scope.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/02-normref.adoc: 'triaged: shape-gap
+  (model-shape: attributes structure differs after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/03-termdef.adoc: 'triaged: flip-blocking
+  (serializer-inline: inline markup reparses as a different element class)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/04-specifications.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/05-sampling.adoc: 'triaged: shape-gap
+  (model-shape: content structure differs after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/06-testmethods.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/07-testreport.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/08-packaging.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/09-marking.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/aa-annex-a.adoc: 'triaged: flip-blocking
+  (serializer-inline: inline markup reparses as a different element class)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ab-annex-b.adoc: 'triaged: flip-blocking
+  (serializer-inline: inline markup reparses as a different element class)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ac-annex-c.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ad-annex-d.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/ae-annex-e.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-en/b0-bibliography.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/00-foreword.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/00-introduction.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/01-scope.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/02-normref.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/03-termdef.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/04-specifications.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/05-sampling.adoc: 'triaged: shape-gap
+  (model-shape: content structure differs after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/06-testmethods.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/07-testreport.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/08-packaging.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/09-marking.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/aa-annex-a.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ab-annex-b.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ac-annex-c.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ad-annex-d.adoc: 'triaged: shape-gap
+  (model-shape: content structure differs after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/ae-annex-e.adoc: 'triaged: shape-gap
+  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
+asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/b0-bibliography.adoc: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/03_paragraph/standalone_image.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/setext_header.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/with_auto_ids.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/04_header/with_header_links.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/05_blockquote/lazy.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/disable-highlighting.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-minted-with-opts.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-minted.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting-opts.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/highlighting.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/rouge/simple.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/whitespace.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/with_ial.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/06_codeblock/with_lang_in_fenced_block.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/07_horizontal_rule/normal.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/07_horizontal_rule/sepspaces.text: 'triaged:
+  shape-gap (model-shape: children structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/07_horizontal_rule/septabs.text: 'triaged:
+  shape-gap (model-shape: children structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/08_list/lazy.text: 'triaged:
+  shape-gap (model-shape: items structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/08_list/mixed.text: 'triaged:
+  shape-gap (model-shape: children structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/08_list/simple_ul.text: 'triaged:
+  shape-gap (model-shape: items structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/09_html/html_to_native/entity.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/auto_id_and_ial.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/nested.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/11_ial/simple.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/comment.text: 'triaged:
+  flip-blocking (serializer-inline: inline markup reparses as a different element
+  class)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/ignored.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/nomarkdown.text: 'triaged:
+  flip-blocking (serializer-inline: inline markup reparses as a different element
+  class)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/options.text: 'triaged:
+  flip-blocking (serializer-inline: inline markup reparses as a different element
+  class)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/options2.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/12_extension/options3.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/auto_ids.text: 'triaged:
+  shape-gap (model-shape: items structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/item_ial.text: 'triaged:
+  shape-gap (model-shape: definitions structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/multiple_terms.text: 'triaged:
+  shape-gap (model-shape: definitions structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/separated_by_eob.text: 'triaged:
+  shape-gap (model-shape: definitions structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/simple.text: 'triaged:
+  shape-gap (model-shape: definitions structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/13_definition_list/with_blocks.text: 'triaged:
+  shape-gap (model-shape: definitions structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/14_table/escaping.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/14_table/simple.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/15_math/no_engine.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/15_math/normal.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/block/16_toc/toc_exclude.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/encoding.text: 'triaged: flip-blocking
+  (serializer-crash: CoreModel::ElementAttribute not serializable in markdown (IAL
+  leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/man/example.text: 'triaged: flip-blocking
+  (serializer-crash: CoreModel::ElementAttribute not serializable in markdown (IAL
+  leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/man/heading-name-description.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/01_link/link_defs_with_ial.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/02_emphasis/nesting.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/02_emphasis/normal.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/03_codespan/normal.text: 'triaged:
+  shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
+  re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/04_footnote/backlink_inline.text: 'triaged:
+  shape-gap (model-shape: children structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/04_footnote/definitions.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/04_footnote/markers.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/05_html/normal.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/abbreviations/abbrev.text: 'triaged:
+  flip-blocking (serializer-crash: CoreModel::ElementAttribute not serializable in
+  markdown (IAL leaking into content position))'
+markdown:ceradoc-markdown/spec/fixtures/kramdown/span/text_substitutions/typography.text: 'triaged:
+  shape-gap (model-shape: content structure differs after re-parse)'
+markdown:edge/emphasis-markers: 'triaged: shape-gap (model-shape: content structure
+  differs after re-parse)'
