@@ -22,7 +22,7 @@ module Ceradoc
             case child
             when Ceradoc::AsciiDoc::Model::Section
               if empty?(child)
-                violations << build_violation(
+                violations << build_diagnostic(
                   path: path,
                   message: "empty section: #{child.title&.content}"
                 )

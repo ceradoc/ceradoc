@@ -29,7 +29,7 @@ RSpec.describe 'HTML lint templates vs retired rules' do
     Dir.mktmpdir do |dir|
       path = File.join(dir, 'doc.html')
       File.write(path, content)
-      Ceradoc::Lint::Runner.new(registry: registry).run(path).map { |v| v.to_h.merge(path: 'doc.html') }
+      Ceradoc::Lint::Runner.new(registry: registry).run(path).map { |v| v.to_hash.merge('anchor' => 'doc.html') }
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe 'HTML lint templates vs retired rules' do
   end
 
   it 'exercises every ported rule over the fixtures' do
-    ids = fixtures.values.flat_map { |content| findings(legacy, content) }.map { |f| f[:rule_id] }
+    ids = fixtures.values.flat_map { |content| findings(legacy, content) }.map { |f| f['code'] }
 
     expect(ids.tally).to include('HTML001' => be >= 3, 'HTML002' => be >= 2)
   end

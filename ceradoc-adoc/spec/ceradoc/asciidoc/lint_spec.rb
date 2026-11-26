@@ -19,7 +19,7 @@ RSpec.describe Ceradoc::AsciiDoc::Lint do
 
   describe 'ADOC001 heading levels' do
     it 'flags skipped levels' do
-      expect(lint("= T\n\n== A\n\n==== Deep\n\ntext\n").map(&:rule_id))
+      expect(lint("= T\n\n== A\n\n==== Deep\n\ntext\n").map(&:code))
         .to eq(%w[ADOC001])
     end
 
@@ -30,7 +30,7 @@ RSpec.describe Ceradoc::AsciiDoc::Lint do
 
   describe 'ADOC002 document title' do
     it 'flags a missing level-0 title' do
-      expect(lint("== A\n\ntext\n").map(&:rule_id)).to eq(%w[ADOC002])
+      expect(lint("== A\n\ntext\n").map(&:code)).to eq(%w[ADOC002])
     end
 
     it 'accepts a titled document' do
@@ -40,7 +40,7 @@ RSpec.describe Ceradoc::AsciiDoc::Lint do
 
   describe 'ADOC003 empty sections' do
     it 'flags sections without content or subsections' do
-      expect(lint("= T\n\n== Empty\n\n== Full\n\ntext\n").map(&:rule_id))
+      expect(lint("= T\n\n== Empty\n\n== Full\n\ntext\n").map(&:code))
         .to eq(%w[ADOC003])
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Ceradoc::AsciiDoc::Lint do
     it 'flags repeated anchors' do
       violations = lint("= T\n\n[[dup]]\n== A\n\ntext\n\n[[dup]]\n== B\n\ntext\n")
 
-      expect(violations.map(&:rule_id)).to eq(%w[ADOC005])
+      expect(violations.map(&:code)).to eq(%w[ADOC005])
       expect(violations.first.message).to include('"dup"')
     end
 

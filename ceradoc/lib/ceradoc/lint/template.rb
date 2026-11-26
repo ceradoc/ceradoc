@@ -172,7 +172,7 @@ module Ceradoc
             applies_to format
             define_method(:check) do |document, path|
               evaluator.messages(document).map do |message|
-                build_violation(path: path, message: message)
+                build_diagnostic(path: path, message: message)
               end
             end
           end

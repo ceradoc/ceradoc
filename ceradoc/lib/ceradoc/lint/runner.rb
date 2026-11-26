@@ -24,7 +24,7 @@ module Ceradoc
       def run(sources)
         graph = build_graph(sources)
         graph.nodes.flat_map { |node| lint_node(node) }
-             .sort_by { |v| [v.path, v.rule_id] }
+             .sort_by { |v| [v.anchor, v.code] }
       end
 
       private

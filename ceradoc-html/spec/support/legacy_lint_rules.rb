@@ -18,7 +18,7 @@ module LegacyLint
       headings.each_cons(2) do |prev, heading|
         next unless heading.level > prev.level + 1
 
-        violations << build_violation(
+        violations << build_diagnostic(
           path: path,
           message: "heading level skips from #{prev.level} to " \
                    "#{heading.level}: #{heading.title}"
@@ -39,8 +39,8 @@ module LegacyLint
         next unless element.is_a?(Ceradoc::CoreModel::Image)
         next if element.alt && !element.alt.strip.empty?
 
-        build_violation(path: path,
-                        message: "image without alt text: #{element.src}")
+        build_diagnostic(path: path,
+                         message: "image without alt text: #{element.src}")
       end
     end
   end

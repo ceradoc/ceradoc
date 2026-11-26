@@ -17,8 +17,8 @@ module Ceradoc
                  end
           return [] if text && !text.strip.empty?
 
-          [build_violation(path: path,
-                           message: 'document has no level-0 title (= ...)')]
+          [build_diagnostic(path: path,
+                            message: 'document has no level-0 title (= ...)')]
         end
       end
     end

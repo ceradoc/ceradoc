@@ -29,7 +29,7 @@ RSpec.describe 'AsciiDoc lint templates vs retired rules' do
     Dir.mktmpdir do |dir|
       path = File.join(dir, 'doc.adoc')
       File.write(path, content)
-      Ceradoc::Lint::Runner.new(registry: registry).run(path).map { |v| v.to_h.merge(path: 'doc.adoc') }
+      Ceradoc::Lint::Runner.new(registry: registry).run(path).map { |v| v.to_hash.merge('anchor' => 'doc.adoc') }
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe 'AsciiDoc lint templates vs retired rules' do
   end
 
   it 'exercises every ported rule over the fixtures' do
-    ids = fixtures.values.flat_map { |content| findings(legacy, content) }.map { |f| f[:rule_id] }
+    ids = fixtures.values.flat_map { |content| findings(legacy, content) }.map { |f| f['code'] }
 
     expect(ids.tally).to include('ADOC001' => be >= 2, 'ADOC005' => be >= 2)
   end

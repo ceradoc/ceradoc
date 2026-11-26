@@ -18,11 +18,11 @@ RSpec.describe Ceradoc::Lint do
 
   it 'reports model-driven violations with rule ids' do
     Dir.mktmpdir do |dir|
-      violations = described_class.run(write_bad(dir))
+      diagnostics = described_class.run(write_bad(dir))
 
-      ids = violations.map(&:rule_id)
+      ids = diagnostics.map(&:code)
       expect(ids).to include('ADOC001', 'ADOC002', 'ADOC003')
-      expect(violations.first.path).to end_with('bad.adoc')
+      expect(diagnostics.first.anchor).to end_with('bad.adoc')
     end
   end
 
@@ -34,42 +34,102 @@ RSpec.describe Ceradoc::Lint do
 
   it 'restricts rules with only:' do
     Dir.mktmpdir do |dir|
-      violations = described_class.run(write_bad(dir), only: %w[ADOC002])
+      diagnostics = described_class.run(write_bad(dir), only: %w[ADOC002])
 
-      expect(violations.map(&:rule_id)).to eq(%w[ADOC002])
+      expect(diagnostics.map(&:code)).to eq(%w[ADOC002])
     end
   end
 
   it 'skips rules with except:' do
     Dir.mktmpdir do |dir|
-      violations = described_class.run(write_bad(dir), except: %w[ADOC003])
+      diagnostics = described_class.run(write_bad(dir), except: %w[ADOC003])
 
-      expect(violations.map(&:rule_id)).not_to include('ADOC003')
+      expect(diagnostics.map(&:code)).not_to include('ADOC003')
     end
   end
 
   it 'lints a SourceGraph directly (twin integration)' do
     Dir.mktmpdir do |dir|
       graph = Ceradoc::SourceGraph.build(write_bad(dir))
-      violations = described_class.run(graph)
+      diagnostics = described_class.run(graph)
 
-      expect(violations.map(&:rule_id)).to include('ADOC001')
+      expect(diagnostics.map(&:code)).to include('ADOC001')
     end
   end
 
-  describe Ceradoc::Lint::Violation do
-    it 'formats as path:line [ID] message' do
-      v = described_class.new(rule_id: 'ADOC001', path: 'a.adoc', line: 4,
-                              message: 'skips', severity: :warning)
+  describe Ceradoc::Lint::Diagnostic do
+    it 'formats as anchor:line [CODE] message' do
+      d = described_class.new(code: 'ADOC001', anchor: 'a.adoc', line: 4,
+                              message: 'skips', severity: 'warning')
 
-      expect(v.to_s).to eq('a.adoc:4 [ADOC001] skips')
+      expect(d.to_s).to eq('a.adoc:4 [ADOC001] skips')
     end
 
     it 'omits the line part when unknown' do
-      v = described_class.new(rule_id: 'ADOC002', path: 'a.adoc', line: nil,
-                              message: 'no title', severity: :warning)
+      d = described_class.new(code: 'ADOC002', anchor: 'a.adoc', line: nil,
+                              message: 'no title', severity: 'warning')
 
-      expect(v.to_s).to eq('a.adoc [ADOC002] no title')
+      expect(d.to_s).to eq('a.adoc [ADOC002] no title')
+    end
+
+    it 'derives the namespace from the rule code' do
+      expect(described_class.new(code: 'ADOC001').namespace).to eq('adoc')
+      expect(described_class.new(code: 'MD024').namespace).to eq('md')
+      expect(described_class.new(code: 'iso.house-style.3').namespace).to eq('iso')
+    end
+
+    it 'round-trips through the generated serializers' do
+      d = described_class.new(
+        code: 'ADOC005', anchor: 'a.adoc', line: 9, severity: 'error',
+        message_ref: 'ADOC005', message: 'nested too deep',
+        params: [Ceradoc::Lint::MessageParam.new(name: 'depth', value: '7')],
+        channel: 'lint'
+      )
+
+      loaded = described_class.from_json(d.to_json)
+
+      expect(loaded).to eq(d)
+      expect(loaded.params.first.name).to eq('depth')
+    end
+  end
+
+  describe Ceradoc::Lint::Policy do
+    let(:diagnostic) do
+      Ceradoc::Lint::Diagnostic.new(code: 'ADOC003', anchor: 'a.adoc',
+                                    severity: 'warning', message: 'x')
+    end
+
+    let(:flavor_layer) do
+      Ceradoc::Lint::PolicyLayer.new(
+        name: 'iso-flavor',
+        entries: [Ceradoc::Lint::PolicyEntry.new(matches: 'adoc.*', severity: 'error')]
+      )
+    end
+
+    let(:invocation_layer) do
+      Ceradoc::Lint::PolicyLayer.new(
+        name: 'invocation',
+        entries: [Ceradoc::Lint::PolicyEntry.new(matches: 'ADOC003', severity: 'hint',
+                                                 policy: 'suppress')]
+      )
+    end
+
+    it 'returns the diagnostic unchanged when no layer matches' do
+      expect(described_class.resolve(diagnostic, layers: [])).to equal(diagnostic)
+    end
+
+    it 'applies a namespace pattern from a flavor layer' do
+      resolved = described_class.resolve(diagnostic, layers: [flavor_layer])
+
+      expect(resolved.severity).to eq('error')
+      expect(diagnostic.severity).to eq('warning')
+    end
+
+    it 'lets a later invocation layer override the flavor layer' do
+      resolved = described_class.resolve(diagnostic, layers: [flavor_layer, invocation_layer])
+
+      expect(resolved.severity).to eq('hint')
+      expect(resolved.policy).to eq('suppress')
     end
   end
 
