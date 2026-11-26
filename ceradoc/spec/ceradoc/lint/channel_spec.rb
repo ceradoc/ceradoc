@@ -70,14 +70,16 @@ RSpec.describe Ceradoc::Lint::Channel do
   end
 
   describe '.for' do
-    it 'resolves the text and json channels' do
+    it 'resolves every channel' do
       expect(described_class.for('text')).to eq(Ceradoc::Lint::Channel::Terminal)
       expect(described_class.for(:json)).to eq(Ceradoc::Lint::Channel::Json)
+      expect(described_class.for(:sarif)).to eq(Ceradoc::Lint::Channel::Sarif)
+      expect(described_class.for('lsp')).to eq(Ceradoc::Lint::Channel::Lsp)
     end
 
     it 'rejects unknown channel names' do
-      expect { described_class.for('sarif') }
-        .to raise_error(ArgumentError, /sarif/)
+      expect { described_class.for('xml') }
+        .to raise_error(ArgumentError, /xml/)
     end
   end
 

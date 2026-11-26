@@ -2,14 +2,17 @@
 
 module Ceradoc
   module Lint
-    # Emission channels (#378): generated serializers over the
+    # Emission channels (#378, #379): generated serializers over the
     # Diagnostic model. A channel never invents an output shape —
     # Terminal delegates to Diagnostic#to_s, Json rides the generated
-    # lutaml mappings — and every channel renders the SAME visible
-    # set, computed once by the shared pipeline below.
+    # lutaml mappings, and Sarif/Lsp ride generated mappings over
+    # their own wire-model families — and every channel renders the
+    # SAME visible set, computed once by the shared pipeline below.
     module Channel
       autoload :Terminal, "#{__dir__}/channel/terminal"
       autoload :Json, "#{__dir__}/channel/json"
+      autoload :Sarif, "#{__dir__}/channel/sarif"
+      autoload :Lsp, "#{__dir__}/channel/lsp"
 
       module_function
 
@@ -18,15 +21,18 @@ module Ceradoc
 
       # The channel class for an output format name.
       #
-      # @param name [String, Symbol] 'text' or 'json'
+      # @param name [String, Symbol] 'text', 'json', 'sarif' or 'lsp'
       # @return [Class] the channel class
       # @raise [ArgumentError] on an unknown channel name
       def for(name)
         case name.to_s
         when 'text' then Terminal
         when 'json' then Json
+        when 'sarif' then Sarif
+        when 'lsp' then Lsp
         else raise ArgumentError,
-                   "unknown lint channel #{name.inspect} (known: text, json)"
+                   "unknown lint channel #{name.inspect} " \
+                   '(known: text, json, sarif, lsp)'
         end
       end
 
