@@ -17,14 +17,23 @@ module Ceradoc
 
             def transform_admonition(admonition)
               canonical = Ceradoc::AsciiDoc::Transform::ElementTransformers::AdmonitionStyles.canonicalize(admonition.type) || admonition.type.to_s
-              children = ToCoreModel.transform_inline_content(admonition.content)
-              block = Ceradoc::CoreModel::AnnotationBlock.new(
-                annotation_type: canonical,
+              inline = ToCoreModel.transform_inline_content(admonition.content)
+              inline = [Ceradoc::CoreModel::TextContent.new(text: '')] if inline.empty?
+              paragraph = Ceradoc::CoreModel::ParagraphBlock.new(
                 content: ToCoreModel.extract_text_content(admonition.content),
+                children: inline,
                 source_line: admonition.source_line
               )
-              block.children = children
-              block
+              # Single-line admonitions (`NOTE: text`) carry their content
+              # in a ParagraphBlock child, matching the delimited
+              # (`[NOTE]\n====\n...\n====`) path so both spellings produce
+              # the same CoreModel shape (#376).
+              Ceradoc::CoreModel::AnnotationBlock.new(
+                annotation_type: canonical,
+                content: paragraph.content,
+                children: [paragraph],
+                source_line: admonition.source_line
+              )
             end
 
             def transform_image(image)
