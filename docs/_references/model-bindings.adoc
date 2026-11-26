@@ -1,0 +1,132 @@
+---
+title: Model Bindings Table
+parent: References
+nav_order: 32
+---
+
+= Model Bindings Table
+
+== Purpose
+
+The rule -> model binding table tells the BindingInflater which raw-tree parser nodes inflate straight to model classes.
+
+The table is embedded in each compiled grammar artifact under the additive `model_bindings` key. The `.parg` grammar plus the bindings sidecar (`grammar/*.bindings.yml`) are the single source of truth. The hand-written per-rule Ruby bindings are retired.
+
+== Specification
+
+The table is a mapping with a `version` and two sections:
+
+[source,yaml]
+----
+version: '1.1'
+hooks:                     # the hook surface the table references
+  header: Hooks#header     # name => verb-ref (documentation)
+rules:
+  header:                  # rule name (stable identifier)
+    keys: [header]         # the raw-tree node's exact capture-key set
+    model: Header          # registry name; null = hook-only rule
+    captures: {t: title}   # attribute => capture, inflated recursively
+    children: {h: header}  # same feed, for captures holding nested nodes
+    defaults: {lang: en}   # attributes fixed by the rule (JSON values)
+    raw: {ial: ial}        # attribute => capture, assigned as captured
+    via: header            # hook name, declared in the hooks map
+    optional: [title]      # captures that may be absent; expands to one
+                           # binding per present/absent combination
+    scoped: false          # hook also receives the inflate context
+    group: block           # optional tag; see the groups filter
+----
+
+=== Fields
+
+[cols="1,2,2"]
+|===
+|Field |Applies to |Meaning
+
+|`keys`
+|every rule
+|The node's exact capture-key set. Matching is by set equality.
+
+|`model`
+|every rule
+|Name resolved through the consuming gem's model registry. `null` marks a
+hook-only rule: the hook's return value is the inflation result.
+
+|`captures`, `children`
+|pure rules
+|Attribute => capture-key maps; both feed the same recursive inflation.
+`children` documents the captures that hold nested nodes.
+
+|`defaults`
+|pure rules
+|Attributes fixed by the rule, as JSON-compatible values.
+
+|`raw`
+|hook rules
+|Attribute => capture-key map assigned as captured: never inflated and
+never sent to the residual.
+
+|`via`
+|hook rules
+|Name of the hook that performs the rule's semantic step. Must be declared
+in the table's `hooks` map and resolved through the gem's hook registry.
+
+|`optional`
+|variants
+|Capture names that may be absent. The inflater expands the rule into one
+binding per present/absent combination, each carrying only the raw and
+capture assignments its key set names.
+
+|`scoped`
+|stateful rules
+|When true, the hook receives the document-scoped context as its second
+argument (the Markdown ALD/IAL scope).
+
+|`group`
+|multi-inflater grammars
+|Inclusion tag. A rule tagged `group:` is built into an inflater only when
+its tag is requested; untagged rules (shared between the block and inline
+grammars) are always included.
+|===
+
+=== Versioning
+
+Version `1` is parsanol's native shape: the subset without `hooks`, `via`, `raw`, `optional`, `scoped` and `group`, with a required string `model`. Version 1.1 adds those fields; a `1` table keeps its meaning unchanged under the 1.1 reader.
+
+== Parameters
+
+`Ceradoc::BindingInflater.from_table(table, models:, hooks: nil, groups: nil)`:
+
+* `models` — the gem's model registry, resolving a table name to its class lazily.
+* `hooks` — the gem's hook registry: `name => callable`, or a callable resolving a name to one. Required when any rule names a `via` hook.
+* `groups` — requested group tags; `nil` builds every rule.
+
+`Ceradoc::BindingInflater.load_table(path)` / `.validate_table(raw)` — the sidecar loader and validator used by each gem's compile task (`rake grammar:compile`). parsanol's own sidecar loader pins the v1 shape, so the gems embed their tables through the core loader and leave the checksum sealing to parsanol's `ModelBindings.embed`.
+
+== Returns
+
+An inflater whose bindings inflate the bound raw-tree nodes and hand everything unbound to the residual, so a format migrates one rule at a time.
+
+== Raises
+
+* `ArgumentError` on an unsupported table version, a rule naming a hook the table does not declare, a hook the provided registry cannot resolve, or a sidecar rule with unknown fields or missing keys.
+
+== Examples
+
+Compiling the AsciiDoc artifact with its bindings sidecar:
+
+[source,console]
+----
+$ cd ceradoc-adoc && bundle exec rake grammar:compile
+wrote .../ceradoc-adoc/grammar/ceradoc-adoc.artifact.json
+$ bundle exec parsanol parg bindings grammar/ceradoc-adoc.artifact.json
+----
+
+== Notes
+
+* Artifacts are checksum-sealed; the table is embedded at compile time and the checksum is re-sealed over it. Never edit an artifact by hand.
+* The hooks remain Ruby (stage 2 of the migration): the table references them by name and each gem supplies the registry, so the artifact carries no executable content.
+* The bound-vs-unbound differential suites (`ceradoc-adoc/spec/ceradoc/asciidoc/binding_differential_spec.rb`, `ceradoc-markdown/spec/ceradoc/markdown/binding_differential_spec.rb`) guard every table change against the frozen legacy transformer.
+
+== When to Use
+
+Read this reference when adding, renaming or retiring a grammar rule: the `.parg` production changes, then the sidecar rule (keys, model, hook), then `rake grammar:compile` in the gem — never an artifact edit.

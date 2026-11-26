@@ -34,6 +34,7 @@ References are organized by topic:
 === Model and Extensions
 
 * link:/ceradoc/references/model-classes/[Model Classes] - All model classes catalog
+* link:/ceradoc/references/model-bindings/[Model Bindings Table] - Grammar rule -> model table schema
 * link:/ceradoc/references/output-formats/[Output Formats] - Format options and converters
 * link:/ceradoc/references/extension-points/[Extension Points] - Extension API specification
 
