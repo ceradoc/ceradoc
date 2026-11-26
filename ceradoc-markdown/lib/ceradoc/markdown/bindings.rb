@@ -2,23 +2,29 @@
 
 module Ceradoc
   module Markdown
-    # PARG bindings for the Markdown block grammar: which raw-tree rules
+    # PARG bindings for the Markdown grammar: which raw-tree rules
     # inflate directly to schema-generated model classes through
     # Ceradoc::BindingInflater. A rule is bound by its exact capture-key
-    # set. The stateful rules (an ALD definition registers in the document's
-    # Scope, a standalone IAL resolves against it) are bound too, through
-    # scoped hooks; Transformer holds no rule. This is the only stage-1 to
-    # stage-2 path; no per-rule transformer remains.
+    # set. The stateful rules (an ALD definition registers in the
+    # document's Scope, a standalone IAL resolves against it) are bound
+    # too, through scoped hooks; Transformer holds no rule. This is the
+    # only stage-1 to stage-2 path; no per-rule transformer remains.
     #
-    # Every rule except the thematic break takes its attributes from the
-    # raw subtree through a named hook (`via:`), because the attribute is
-    # computed (heading level from the marker, text joined from lines,
-    # list items grouped) rather than copied from a capture.
+    # Every rule takes its attributes from the raw subtree through a
+    # named hook (`via:`), because the attribute is computed (heading
+    # level from the marker, text joined from lines, list items grouped)
+    # rather than copied from a capture. The rules themselves — keys,
+    # models, hooks, optional captures, scope — live as the
+    # model-bindings table embedded in the compiled artifact
+    # (grammar/ceradoc-markdown.bindings.yml is its sidecar source);
+    # this module owns only the hook surface: the Hooks module and the
+    # registries that resolve the table's model and hook names to Ruby,
+    # plus the merge that builds the block and inline inflaters from
+    # their table groups.
     #
     # The binding machinery proper (codegen-ed bindings, typed capture
-    # assignment) is lutaml-model#1033. The table itself ships inside the
-    # compiled artifact (grammar/ceradoc-markdown.bindings.yml is its
-    # sidecar source), so the inflater needs no side file at runtime.
+    # assignment) is lutaml-model#1033. The table ships inside the
+    # compiled artifact, so the inflater needs no side file at runtime.
     module Bindings
       Binding = Ceradoc::BindingInflater::Binding
 
@@ -243,42 +249,35 @@ module Ceradoc
         end
       end
 
-      # One entry per rule: the model, its hook, and the raw captures the
-      # node carries. `optional` captures may be absent; `ial` rules may
-      # carry a trailing inline attribute list (bound as a second key set).
-      DECLARATIONS = [
-        { model: 'Heading', via: :heading, raw: %i[heading text], optional: %i[text], ial: true },
-        { model: 'CodeBlock', via: :code_block, raw: %i[code_block info], optional: %i[info], ial: true },
-        { model: 'Blockquote', via: :block_quote, raw: %i[block_quote], ial: true, scoped: true },
-        { model: 'Paragraph', via: :paragraph, raw: %i[p], ial: true },
-        { model: 'Paragraph', via: :line, raw: %i[ln] },
-        { model: 'List', via: :list, raw: %i[ul] },
-        { model: 'List', via: :list, raw: %i[ol] },
-        { model: 'DefinitionList', via: :definition_list, raw: %i[dl] },
-        { model: 'Table', via: :table, raw: %i[table_header table_separator table_body], optional: %i[table_body] },
-        { model: 'Footnote', via: :footnote, raw: %i[fn_id fn_content fn_content_continued],
-          optional: %i[fn_content_continued] },
-        { model: 'Abbreviation', via: :abbreviation, raw: %i[abbr_term abbr_def] },
-        { model: 'FootnoteReference', via: :footnote_reference, raw: %i[fn_ref] },
-        { model: 'Extension', via: :extension, raw: %i[extension] },
-        { model: 'Extension', via: :extension, raw: %i[ext_name ext_options ext_body], optional: %i[ext_body] },
-        { model: 'Math', via: :math, raw: %i[math_content] },
-        { model: 'Text', via: :text, raw: %i[text] },
-        { model: nil, via: :ald_definition, raw: %i[ald_name ial], scoped: true },
-        { model: nil, via: :ial_reference, raw: %i[ial], scoped: true }
-      ].freeze
+      # The table's registries: model names to classes (lazily resolved
+      # through `model`, so CERADOC_MARKDOWN_GENERATED keeps switching
+      # the classes) and hook names to callables. The artifact table
+      # references both by name only.
+      MODELS = ->(name) { Bindings.model(name) }
 
-      # Inline rules, reached only through a paragraph's raw lines (the
-      # block parser never yields them as blocks), so they have their own
-      # inflater and a bare `{strong: ...}` block stays unbound.
-      INLINE_DECLARATIONS = [
-        { model: 'Strong', via: :strong, raw: %i[strong] },
-        { model: 'Emphasis', via: :emphasis, raw: %i[emph] },
-        { model: 'Code', via: :code, raw: %i[code] },
-        { model: 'Link', via: :link, raw: %i[link] },
-        { model: 'Image', via: :image, raw: %i[image] },
-        { model: 'Text', via: :text, raw: %i[text] }
-      ].freeze
+      HOOKS = {
+        'heading' => Hooks.method(:heading),
+        'code_block' => Hooks.method(:code_block),
+        'block_quote' => Hooks.method(:block_quote),
+        'paragraph' => Hooks.method(:paragraph),
+        'line' => Hooks.method(:line),
+        'list' => Hooks.method(:list),
+        'definition_list' => Hooks.method(:definition_list),
+        'table' => Hooks.method(:table),
+        'footnote' => Hooks.method(:footnote),
+        'abbreviation' => Hooks.method(:abbreviation),
+        'footnote_reference' => Hooks.method(:footnote_reference),
+        'extension' => Hooks.method(:extension),
+        'math' => Hooks.method(:math),
+        'text' => Hooks.method(:text),
+        'ald_definition' => Hooks.method(:ald_definition),
+        'ial_reference' => Hooks.method(:ial_reference),
+        'strong' => Hooks.method(:strong),
+        'emphasis' => Hooks.method(:emphasis),
+        'code' => Hooks.method(:code),
+        'link' => Hooks.method(:link),
+        'image' => Hooks.method(:image)
+      }.freeze
 
       class << self
         # The active model class by short name (Ceradoc::Markdown::Heading).
@@ -289,54 +288,23 @@ module Ceradoc
           Ceradoc::Markdown.const_get(name, false)
         end
 
-        # @return [Ceradoc::BindingInflater] the inflater for the bound rules
+        # @return [Ceradoc::BindingInflater] the inflater for the bound
+        #   block rules: the artifact table's `block` group plus the
+        #   untagged rules shared with the inline grammar
         def inflater
-          @inflater ||= Ceradoc::BindingInflater.new(
-            bindings: [*table_bindings, *declared_bindings(DECLARATIONS)]
-          )
+          @inflater ||= table_inflater(groups: ['block'])
         end
 
         # @return [Ceradoc::BindingInflater] the inflater for inline nodes
         def inline_inflater
-          @inline_inflater ||= Ceradoc::BindingInflater.new(bindings: declared_bindings(INLINE_DECLARATIONS))
+          @inline_inflater ||= table_inflater(groups: ['inline'])
         end
 
         private
 
-        # Rules whose attributes are plain captures and defaults (the thematic
-        # break) ship as a table inside the compiled artifact.
-        def table_bindings
+        def table_inflater(groups:)
           Ceradoc::BindingInflater.from_table(
-            Parser::Grammar.model_bindings,
-            models: ->(name) { model(name) }
-          ).bindings
-        end
-
-        def declared_bindings(declarations)
-          declarations.flat_map do |declaration|
-            key_sets(declaration).map { |keys| declared_binding(declaration, keys) }
-          end
-        end
-
-        # Every key set the rule may arrive with: optional captures may
-        # be absent, an IAL may trail.
-        def key_sets(declaration)
-          optional = declaration.fetch(:optional, [])
-          required = declaration[:raw] - optional
-          sets = (0..optional.size).flat_map { |n| optional.combination(n).map { |picked| required + picked } }
-          declaration[:ial] ? sets.flat_map { |keys| [keys, [*keys, :ial]] } : sets
-        end
-
-        def declared_binding(declaration, keys)
-          name = declaration[:model]
-          Binding.new(
-            keys: keys,
-            model: name && -> { Bindings.model(name) },
-            captures: {},
-            defaults: {},
-            raw: keys.to_h { |key| [key, key] },
-            via: Hooks.method(declaration[:via]),
-            scoped: declaration[:scoped]
+            Parser::Grammar.model_bindings, models: MODELS, hooks: HOOKS, groups: groups
           )
         end
       end

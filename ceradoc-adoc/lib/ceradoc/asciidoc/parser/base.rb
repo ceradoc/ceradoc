@@ -110,30 +110,6 @@ module Ceradoc
         end
       end
 
-      # Lazily-loaded compiled-grammar backend (the shipped artifact).
-      module GrammarBackend
-        class << self
-          def parse(string, **)
-            parse_entry('document', string, **)
-          end
-
-          # Parse +string+ from a named artifact entry (document,
-          # text_any, list) and materialize the tree.
-          def parse_entry(entry, string, **)
-            TreeMaterializer.convert(artifact.parse(entry, string, **))
-          end
-
-          private
-
-          def artifact
-            require 'parsanol/parg'
-            @artifact ||= Parsanol::PARG::Artifact.load(
-              File.expand_path('../../../../grammar/ceradoc-adoc.artifact.json', __dir__)
-            )
-          end
-        end
-      end
-
       # Wrap every parser rule for Parsanol memoization. Must run after all
       # parser modules are included in Base so that instance_method(rule_name)
       # finds the methods defined by every module.
