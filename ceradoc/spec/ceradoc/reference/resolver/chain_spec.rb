@@ -118,4 +118,47 @@ RSpec.describe Ceradoc::Reference::Resolver::Chain do
     expect(result).to be(ambiguous)
     expect(second.calls).to be_empty
   end
+
+  describe 'Deferred fall-through' do
+    # Catalog recognizes only :url — any other scheme defers instead of
+    # reporting a miss it has no right to report.
+    def url_only_resolver
+      catalog = fake_catalog_class.new({}, %i[url])
+      Ceradoc::Reference::Resolver::Catalog.new(
+        catalog: catalog, unrecognized: :defer
+      )
+    end
+
+    it 'falls through Deferred and resolves further down the chain' do
+      edge = Ceradoc::Reference::Edge.build(kind: :citation, address: address_a)
+      chain = described_class.new(url_only_resolver, resolver_a)
+
+      result = chain.resolve(edge)
+
+      expect(result).to be_a(Ceradoc::Reference::Result::Resolved)
+      expect(result.target).to be(target_a)
+    end
+
+    it 'returns Deferred when every resolver defers' do
+      edge = Ceradoc::Reference::Edge.build(kind: :citation, address: address_a)
+      chain = described_class.new(url_only_resolver, url_only_resolver)
+
+      result = chain.resolve(edge)
+
+      expect(result).to be_a(Ceradoc::Reference::Result::Deferred)
+      expect(result.reason).to include('anchor')
+    end
+
+    it 'prefers Missing over Deferred when one resolver asked' do
+      edge = Ceradoc::Reference::Edge.build(kind: :citation, address: address_a)
+      asked = recording_resolver_class.new(
+        result: Ceradoc::Reference::Result::Missing.build(edge: edge, address: address_a)
+      )
+      chain = described_class.new(url_only_resolver, asked)
+
+      result = chain.resolve(edge)
+
+      expect(result).to be_a(Ceradoc::Reference::Result::Missing)
+    end
+  end
 end

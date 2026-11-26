@@ -11,6 +11,9 @@ module Ceradoc
     module Catalog
       autoload :MemoryIndex, "#{__dir__}/catalog/memory_index"
       autoload :Local, "#{__dir__}/catalog/local"
+      autoload :Collection, "#{__dir__}/catalog/collection"
+      autoload :Site, "#{__dir__}/catalog/site"
+      autoload :Remote, "#{__dir__}/catalog/remote"
       autoload :Composite, "#{__dir__}/catalog/composite"
 
       # Protocol methods every Catalog must answer. Implementations may
