@@ -3,12 +3,13 @@
 module Ceradoc
   module AsciiDoc
     module Transform
-      # Reviewer-block reconstruction for the AsciiDoc view:
-      # `[reviewer=NAME]\n****\n...\n****`. The CoreModel side is a
-      # ReviewerBlock (annotation_label carries the reviewer's name);
-      # the adoc side is a ReviewerComment whose body is a CONTAINER of
-      # typed children (lists, paragraphs), so the lines rebuild from
-      # serialized children rather than a flat-text join (#376).
+      # Reviewer/cast-block reconstruction for the AsciiDoc view.
+      # Reviewer blocks are `[reviewer=NAME]\n****\n...\n****` (the
+      # reviewer's name rides on ReviewerBlock#annotation_label); cast
+      # open blocks carry a positional style ([abstract], [partintro]).
+      # Their bodies are CONTAINERS of typed children (lists,
+      # paragraphs), so the lines rebuild from serialized children
+      # rather than a flat-text join (#376).
       module ReviewerBuilding
         # `[reviewer=NAME]` attribute list rebuilt from the
         # ReviewerBlock's annotation_label (see ToCoreModel
@@ -22,9 +23,29 @@ module Ceradoc
           list
         end
 
-        # Body lines of a typed CONTAINER block: each CoreModel child
-        # transforms to its adoc model and serializes, so nested lists
-        # and paragraphs keep their shape inside the `****` fence.
+        # Positional cast attribute line for typed open blocks:
+        # `[abstract]`, `[partintro]`.
+        def cast_attributes(semantic)
+          list = Ceradoc::AsciiDoc::Model::AttributeList.new
+          list.add_positional(semantic.to_s)
+          list
+        end
+
+        # Body lines of a typed CONTAINER block: when the children
+        # carry structure the prose string cannot represent (lists,
+        # nested blocks, inline markup), each CoreModel child
+        # transforms to its adoc model and serializes; plain prose
+        # keeps the flat-text path.
+        def container_lines(block, content_text)
+          if container_children?(block)
+            container_block_lines(block)
+          else
+            content_text.split("\n")
+          end
+        end
+
+        # Body lines from serialized children, trimmed of the blank
+        # lines block serializers add at their open and close.
         def container_block_lines(block)
           models = flatten_children(Array(block.children))
           rendered = models.map { |model| Ceradoc::AsciiDoc::Serializer.serialize(model) }.join
@@ -34,6 +55,20 @@ module Ceradoc
             # following blocks record their spacing, so trim both ends.
             lines.shift while lines.size > 1 && lines.first.empty?
             lines.pop while lines.size > 1 && lines.last.empty?
+          end
+        end
+
+        private
+
+        # A child is plain when it is a paragraph with only TextContent
+        # children — the prose string represents it faithfully. Anything
+        # else (lists, nested blocks, inline markup) needs the
+        # structured rebuild.
+        def container_children?(block)
+          Array(block.children).any? do |child|
+            next true unless child.is_a?(CoreModel::ParagraphBlock)
+
+            Array(child.children).any?(CoreModel::InlineElement)
           end
         end
       end

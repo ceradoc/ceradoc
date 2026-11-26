@@ -60,8 +60,6 @@ asciidoc:edge/attribute-entry: 'triaged: shape-gap (text-partition: adjacent Tex
   split/join boundaries differ after re-parse)'
 asciidoc:edge/link-and-xref: 'triaged: shape-gap (model-shape: content structure differs
   after re-parse)'
-asciidoc:examples/documents/article.adoc: 'triaged: flip-blocking (serializer-inline:
-  inline markup reparses as a different element class)'
 asciidoc:examples/documents/technical_documentation.adoc: 'triaged: flip-blocking
   (serializer-inline: inline markup reparses as a different element class)'
 asciidoc:roundtrip/corpus/iso/rice2023/body/body-fr.adoc: 'triaged: shape-gap (model-shape:
@@ -85,8 +83,6 @@ asciidoc:roundtrip/corpus/iso/rice2023/sections-en/05-sampling.adoc: 'triaged: s
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/06-testmethods.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-en/07-testreport.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/08-packaging.adoc: 'triaged: shape-gap
   (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-en/09-marking.adoc: 'triaged: shape-gap
@@ -123,8 +119,6 @@ asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/05-sampling.adoc: 'triaged: s
 asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/06-testmethods.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
-asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/07-testreport.adoc: 'triaged: shape-gap
-  (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/08-packaging.adoc: 'triaged: shape-gap
   (text-partition: adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:roundtrip/corpus/iso/rice2023/sections-fr/09-marking.adoc: 'triaged: shape-gap
