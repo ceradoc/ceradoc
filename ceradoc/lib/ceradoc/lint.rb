@@ -21,10 +21,12 @@ module Ceradoc
   # detection only sees registered formats, like the rest of Ceradoc.
   module Lint
     autoload :Diagnostic, "#{__dir__}/lint/diagnostic"
+    autoload :Diagnostics, "#{__dir__}/lint/diagnostics"
     autoload :MessageParam, "#{__dir__}/lint/message_param"
     autoload :PolicyEntry, "#{__dir__}/lint/policy"
     autoload :PolicyLayer, "#{__dir__}/lint/policy"
     autoload :Policy, "#{__dir__}/lint/policy"
+    autoload :Channel, "#{__dir__}/lint/channel"
     autoload :Rule, "#{__dir__}/lint/rule"
     autoload :Template, "#{__dir__}/lint/template"
     autoload :Registry, "#{__dir__}/lint/registry"

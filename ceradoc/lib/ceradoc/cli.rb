@@ -120,9 +120,12 @@ module Ceradoc
     end
 
     desc 'lint FILE...', 'Lint documents with model-driven rules (ADOC001...)'
-    option :format, aliases: '-f', desc: 'Source format (auto-detected from extension)', type: :string
+    option :format, desc: 'Output channel: text, json', type: :string, default: 'text'
+    option :source_format, aliases: '-f', desc: 'Source format (auto-detected from extension)',
+                           type: :string
     option :only, desc: 'Run only these rule ids', type: :array
     option :except, desc: 'Skip these rule ids', type: :array
+    option :policy_layers, desc: 'Policy layer YAML files, later files win', type: :array
     def lint(*files)
       files.each do |file|
         unless File.exist?(file)
@@ -131,19 +134,30 @@ module Ceradoc
         end
       end
 
-      format = options[:format]&.to_sym
-      violations = Ceradoc::Lint.run(files, format: format,
-                                            only: options[:only],
-                                            except: options[:except])
-      violations.each { |v| puts v }
+      source_format = resolve_format(files.first, :source_format) unless files.empty?
+      diagnostics = Ceradoc::Lint.run(files, format: source_format,
+                                             only: options[:only],
+                                             except: options[:except])
 
-      if violations.empty?
-        puts '✓ No lint violations'
+      policy_layers = load_policy_layers
+      findings = Ceradoc::Lint::Channel.prepare(diagnostics, policy_layers: policy_layers)
+      output = Ceradoc::Lint::Channel.for(options[:format])
+                                     .new(policy_layers: policy_layers)
+                                     .emit(diagnostics)
+
+      if options[:format] == 'json'
+        # Machines parse stdout: the document alone; summaries ride on
+        # stderr so the exit code stays the machine signal.
+        puts output
+        report_summary(findings, stderr: true)
       else
-        error "✗ #{violations.size} violation(s)"
-        exit 1
+        puts output unless output.empty?
+        report_summary(findings)
       end
     rescue Ceradoc::Error => e
+      error "Error: #{e.message}"
+      exit 1
+    rescue StandardError => e
       error "Error: #{e.message}"
       exit 1
     end
@@ -259,6 +273,29 @@ module Ceradoc
     def resolve_format(file, option_key = :format)
       raw = options[option_key]
       raw ? Ceradoc.normalize_format(raw) : Ceradoc.detect_format(file)
+    end
+
+    # Policy layers in precedence order (later files win), each a
+    # PolicyLayer loaded with the generated YAML machinery.
+    def load_policy_layers
+      Array(options[:policy_layers]).map do |path|
+        unless File.exist?(path)
+          error "Error: policy layer #{path} not found"
+          exit 1
+        end
+
+        Ceradoc::Lint::PolicyLayer.from_yaml(File.read(path))
+      end
+    end
+
+    def report_summary(findings, stderr: false)
+      if findings.empty?
+        stderr ? warn('✓ No lint findings') : puts('✓ No lint findings')
+      else
+        message = "✗ #{findings.size} finding(s)"
+        stderr ? warn(message) : error(message)
+        exit 1
+      end
     end
 
     def write_output(content, output_file)
