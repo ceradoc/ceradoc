@@ -2,12 +2,18 @@
 
 module Ceradoc
   module Reference
-    # Walks a CoreModel tree and yields every Edge found in it. For
-    # Phase 1, Edges are wrapped inside existing node types —
-    # +CrossReferenceElement+, +LinkElement+, +Image+, +Include+,
-    # +FootnoteElement+. The Phase 3 migration will move Edges to
-    # first-class attributes; this module abstracts the extraction so
-    # the rest of the resolver doesn't change.
+    # Extraction-based edge derivation — retired to a VALIDATOR.
+    #
+    # Phase 3 moved Edges to first-class attributes: reference-carrying
+    # nodes (CrossReferenceElement, LinkElement, Image, Include,
+    # FootnoteElement) declare their Edge via +CoreModel::EdgeCarrier+
+    # and keep it in sync with their fields. Reference::Validation and
+    # Reference::Resolution consume the declared +edges+ attribute.
+    #
+    # This module remains as the independent phase-1 derivation from the
+    # raw node fields: the edge agreement spec walks the roundtrip
+    # corpus asserting that extraction and the declared attribute agree
+    # — drift on either side fails the suite.
     #
     # The walker is read-only: it never mutates the input tree.
     module EdgeSearch
@@ -92,23 +98,14 @@ module Ceradoc
         )
       end
 
-      # Xrefs are document-internal by definition (AsciiDoc): bare
-      # targets are anchors, even uppercase document-ID-shaped ones
-      # ("SEC-2"). Only an explicit "document#fragment" shape or a URL
-      # points outside the current document.
+      # Xref and file-like hint policies live with the Address domain
+      # (the carriers use the same helpers for their declared edges).
       def xref_hint(target)
-        raw = target.to_s
-        return :url if Ceradoc::Reference::Address::Url.matches?(raw)
-        return :path if raw.include?('#') && !raw.start_with?('#')
-
-        :anchor
+        Ceradoc::Reference::Address.xref_hint(target)
       end
 
-      # File-like targets (include, image): URLs stay urls, everything
-      # else is a path — including bare filenames ("foo.png") that the
-      # anchor bareword heuristic would otherwise claim.
       def path_or_url_hint(target)
-        Ceradoc::Reference::Address::Url.matches?(target.to_s) ? :url : :path
+        Ceradoc::Reference::Address.path_or_url_hint(target)
       end
 
       def parse_address(target, hint: nil)

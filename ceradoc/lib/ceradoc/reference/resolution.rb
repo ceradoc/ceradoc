@@ -47,12 +47,26 @@ module Ceradoc
 
       # Keyed by the Edge itself (value equality), so every distinct
       # edge gets its own Result while identical edges resolve once.
+      # Edges come from the declared +edges+ attribute (phase 3).
       def resolve_all_edges(document)
         results = {}
-        EdgeSearch.each_edge(document) do |_parent, edge|
+        each_declared_edge(document) do |edge|
           results[edge] = resolver.resolve(edge)
         end
         results
+      end
+
+      # Depth-first walk yielding the Edge each carrier node declares.
+      def each_declared_edge(node, &block)
+        return unless node.is_a?(Ceradoc::CoreModel::Base)
+
+        node.edges.each(&block) if node.is_a?(Ceradoc::CoreModel::EdgeCarrier)
+        return unless node.is_a?(Ceradoc::CoreModel::HasChildren)
+
+        children = node.children
+        return unless children
+
+        children.each { |child| each_declared_edge(child, &block) }
       end
 
       def report_missing(results)
@@ -115,10 +129,12 @@ module Ceradoc
         private
 
         def replace_node(node)
-          edges = EdgeSearch.edges_for(node)
-          return node if edges.empty?
+          return node unless node.is_a?(Ceradoc::CoreModel::EdgeCarrier)
 
-          materialize_edge(node, edges.first)
+          edge = node.edge
+          return node if edge.nil?
+
+          materialize_edge(node, edge)
         end
 
         def materialize_edge(node, edge)
