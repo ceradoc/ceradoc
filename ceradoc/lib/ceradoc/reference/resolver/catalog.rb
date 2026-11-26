@@ -7,19 +7,32 @@ module Ceradoc
       # Does NOT apply the +missing:+ policy — that's the caller's
       # call (Resolution orchestrator) — but it does surface the
       # Missing Result so the caller can decide.
+      #
+      # +unrecognized:+ decides what happens when the catalog does not
+      # carry the Address's scheme at all: +:missing+ (default) reports
+      # a plain miss; +:defer+ surfaces Result::Deferred — nothing was
+      # asked, so a scheme-aware resolver further down a Chain may still
+      # resolve it.
       class Catalog < Resolver::Base
-        attr_reader :catalog, :ambiguous_policy, :missing_policy
+        attr_reader :catalog, :ambiguous_policy, :missing_policy,
+                    :unrecognized_policy
 
-        def initialize(catalog:, ambiguous: :disambiguate, missing: :warn)
+        def initialize(catalog:, ambiguous: :disambiguate, missing: :warn,
+                       unrecognized: :missing)
           super()
           @catalog = catalog
           @ambiguous_policy = ambiguous
           @missing_policy = missing
+          @unrecognized_policy = unrecognized
         end
 
         def resolve(edge)
           address = edge.address
-          return missing_for(edge, address) unless catalog.recognizes_scheme?(address.scheme)
+          unless catalog.recognizes_scheme?(address.scheme)
+            return deferred_for(edge, address) if unrecognized_policy == :defer
+
+            return missing_for(edge, address)
+          end
 
           result = catalog.lookup(address)
           return missing_for(edge, address) if result.nil?
@@ -62,6 +75,14 @@ module Ceradoc
           else
             Ceradoc::Reference::Result::Missing.build(edge: edge, address: address)
           end
+        end
+
+        def deferred_for(edge, address)
+          Ceradoc::Reference::Result::Deferred.build(
+            edge: edge,
+            address: address,
+            reason: "no catalog handles scheme :#{address.scheme}"
+          )
         end
       end
     end

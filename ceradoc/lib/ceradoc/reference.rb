@@ -61,5 +61,14 @@ module Ceradoc
     autoload :Materializer, "#{__dir__}/reference/materializer"
     autoload :EdgeSearch, "#{__dir__}/reference/edge_search"
     autoload :Resolution, "#{__dir__}/reference/resolution"
+    autoload :Validation, "#{__dir__}/reference/validation"
+
+    class << self
+      # Validate every Edge in +document+ against +catalog+ and report
+      # typed, positioned Diagnostics for unresolved references.
+      def validate(document, catalog:, resolver: nil)
+        Validation.run(document, catalog: catalog, resolver: resolver)
+      end
+    end
   end
 end
