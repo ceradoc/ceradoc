@@ -59,6 +59,15 @@ RSpec.describe Ceradoc::Pipeline do
       )
       expect(out).to include('Hello')
     end
+
+    # ceradoc/ceradoc#395: metanorma-plugin-lutaml's Liquid html2adoc filter
+    # feeds nil through convert for empty rendered values. Hooks.invoke used
+    # Array#one? (truthy-element count) as its fast-path guard, so
+    # invoke(point, nil) skipped the guard and crashed on nil.each.
+    it 'converts nil input without raising from the hook layer' do
+      out = described_class.convert(nil, from: :html, to: :asciidoc)
+      expect(out).to eq('')
+    end
   end
 
   describe '.to_core' do
