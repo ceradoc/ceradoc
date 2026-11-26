@@ -20,7 +20,7 @@ module Ceradoc
       attr_reader :registry
 
       # @param sources [String, Array<String>, SourceGraph::Graph]
-      # @return [Array<Violation>]
+      # @return [Array<Diagnostic>]
       def run(sources)
         graph = build_graph(sources)
         graph.nodes.flat_map { |node| lint_node(node) }

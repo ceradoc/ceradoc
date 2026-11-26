@@ -254,6 +254,106 @@ RSpec.describe Ceradoc::CLI do
     end
   end
 
+  describe '#lint' do
+    let(:temp_dir) { Dir.mktmpdir('ceradoc_lint_spec') }
+
+    after do
+      FileUtils.remove_entry(temp_dir) if File.directory?(temp_dir)
+    end
+
+    def write_bad_adoc
+      path = File.join(temp_dir, 'bad.adoc')
+      File.write(path, "intro\n\n== S\n\n==== Skips\n")
+      path
+    end
+
+    def write_policy_layer(code)
+      path = File.join(temp_dir, 'suppress.yml')
+      File.write(path, <<~YAML)
+        name: invocation
+        entries:
+          - matches: '#{code}'
+            policy: suppress
+      YAML
+      path
+    end
+
+    # Captures stdout and the exit status (nil when the command
+    # returned normally) — SystemExit must not escape into RSpec.
+    def capture_stdout_with_exit
+      original_stdout = $stdout
+      $stdout = StringIO.new
+      status = nil
+      yield
+      [$stdout.string, status]
+    rescue SystemExit => e
+      [$stdout.string, e.status]
+    ensure
+      $stdout = original_stdout
+    end
+
+    it 'prints findings as text and exits nonzero' do
+      output, status = capture_stdout_with_exit do
+        cli.options = { format: 'text' }
+        cli.lint(write_bad_adoc)
+      end
+
+      expect(status).to eq(1)
+      expect(output).to include('[ADOC001]')
+    end
+
+    it 'exits zero on a clean document' do
+      path = File.join(temp_dir, 'good.adoc')
+      File.write(path, "= Title\n\n== S\n\ntext\n")
+
+      output, status = capture_stdout_with_exit do
+        cli.options = { format: 'text' }
+        cli.lint(path)
+      end
+
+      expect(status).to be_nil
+      expect(output).to include('No lint findings')
+    end
+
+    it 'prints only the JSON document on stdout and exits nonzero' do
+      output, status = capture_stdout_with_exit do
+        cli.options = { format: 'json' }
+        cli.lint(write_bad_adoc)
+      end
+
+      expect(status).to eq(1)
+      parsed = JSON.parse(output)
+      expect(parsed['diagnostics'].map { |d| d['code'] }).to include('ADOC001')
+    end
+
+    it 'suppresses findings loaded from a policy layer file' do
+      bad = write_bad_adoc
+      policy = write_policy_layer('ADOC001')
+      output, status = capture_stdout_with_exit do
+        cli.options = { format: 'json', policy_layers: [policy] }
+        cli.lint(bad)
+      end
+
+      expect(status).to eq(1)
+      codes = JSON.parse(output)['diagnostics'].map { |d| d['code'] }
+      expect(codes).not_to include('ADOC001')
+      expect(codes).not_to be_empty
+    end
+
+    it 'exits zero when every finding is suppressed' do
+      bad = write_bad_adoc
+      policy = write_policy_layer('adoc.*')
+
+      output, status = capture_stdout_with_exit do
+        cli.options = { format: 'json', policy_layers: [policy] }
+        cli.lint(bad)
+      end
+
+      expect(status).to be_nil
+      expect(JSON.parse(output)['diagnostics']).to eq([])
+    end
+  end
+
   # Helper to capture stdout
   def capture_stdout
     original_stdout = $stdout
