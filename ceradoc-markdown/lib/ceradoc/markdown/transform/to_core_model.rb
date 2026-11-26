@@ -86,7 +86,7 @@ module Ceradoc
                 # element_attributes instead of materializing
                 # ElementAttribute nodes in content position, where the
                 # serializer has no rendering for them (#376).
-                attach_element_attributes(children.last, element_attributes_from(block))
+                attach_element_attributes(children.last, element_attributes_from(block, include_id: true))
                 next
               end
 
@@ -105,15 +105,17 @@ module Ceradoc
             )
           end
 
-          # ElementAttribute list carried by a Markdown model block
-          # (IAL bound directly to the block by the parse). Only the
-          # typed IAL collections count — Base#id is ALSO used natively
-          # by non-IAL models (footnote definition markers, etc.) and
-          # must not materialize as attributes (#376).
-          def element_attributes_from(block)
+          # ElementAttribute list carried by a Markdown model block.
+          # For AttributeList blocks (standalone IALs) +id+ IS the IAL
+          # id. On other models Base#id is ALSO used natively (footnote
+          # definition markers), so only the typed IAL collections
+          # count there (#376).
+          def element_attributes_from(block, include_id: false)
             return [] unless block.is_a?(Ceradoc::Markdown::Base)
 
-            attrs = Array(block.attributes).map do |nv|
+            attrs = []
+            attrs << Ceradoc::CoreModel::ElementAttribute.new(name: 'id', value: block.id) if include_id && block.id
+            attrs += Array(block.attributes).map do |nv|
               Ceradoc::CoreModel::ElementAttribute.new(name: nv.name, value: nv.value)
             end
             attrs += Array(block.classes).map do |cls|

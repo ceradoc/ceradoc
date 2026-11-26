@@ -552,33 +552,45 @@ RSpec.describe 'Cross-Format Integration', type: :integration do
     end
 
     describe 'Markdown AttributeList → CoreModel' do
-      it 'transforms AttributeList to CoreModel StructuralElement with attributes' do
+      # Kramdown semantics (#376): a standalone IAL attaches to the
+      # PRECEDING block — it lands on that node's element_attributes,
+      # never as ElementAttribute nodes in content position.
+      it 'folds a standalone AttributeList into the preceding block' do
         nv = Ceradoc::Markdown::NamedValue.new(name: 'data-type', value: 'example')
         attr_list = Ceradoc::Markdown::AttributeList.new(
           id: 'intro',
           classes: %w[highlight important],
           attributes: [nv]
         )
-        core = Ceradoc::Markdown.to_core_model(attr_list)
+        doc = Ceradoc::Markdown::Document.new(
+          blocks: [Ceradoc::Markdown::Paragraph.new(text: 'intro'), attr_list]
+        )
+        core = Ceradoc::Markdown.to_core_model(doc)
 
-        expect(core).to be_a(Ceradoc::CoreModel::StructuralElement)
-        expect(core.children.length).to eq(4) # 1 id + 2 classes + 1 attribute
+        target = core.children.first
+        attrs = Array(target.element_attributes)
+        expect(attrs.length).to eq(4) # 1 id + 2 classes + 1 attribute
+        expect(attrs.map { |a| [a.name, a.value] }).to contain_exactly(
+          %w[id intro], %w[class highlight], %w[class important],
+          %w[data-type example]
+        )
       end
 
-      it 'preserves id in AttributeList transformation' do
-        attr_list = Ceradoc::Markdown::AttributeList.new(id: 'section-1')
-        core = Ceradoc::Markdown.to_core_model(attr_list)
+      it 'yields no content node for a standalone AttributeList without a preceding block' do
+        core = Ceradoc::Markdown.to_core_model(Ceradoc::Markdown::AttributeList.new(id: 'section-1'))
 
-        id_attr = core.children.find { |c| c.is_a?(Ceradoc::CoreModel::ElementAttribute) && c.name == 'id' }
-        expect(id_attr).not_to be_nil
-        expect(id_attr.value).to eq('section-1')
+        expect(core).to be_nil
       end
 
       it 'preserves classes in AttributeList transformation' do
         attr_list = Ceradoc::Markdown::AttributeList.new(classes: %w[note warning])
-        core = Ceradoc::Markdown.to_core_model(attr_list)
+        doc = Ceradoc::Markdown::Document.new(
+          blocks: [Ceradoc::Markdown::Paragraph.new(text: 'intro'), attr_list]
+        )
+        core = Ceradoc::Markdown.to_core_model(doc)
 
-        class_attrs = core.children.select { |c| c.is_a?(Ceradoc::CoreModel::ElementAttribute) && c.name == 'class' }
+        class_attrs = Array(core.children.first.element_attributes)
+                      .select { |c| c.name == 'class' }
         expect(class_attrs.length).to eq(2)
         expect(class_attrs.map(&:value)).to contain_exactly('note', 'warning')
       end
