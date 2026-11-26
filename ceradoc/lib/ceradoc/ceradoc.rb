@@ -150,6 +150,7 @@ module Ceradoc
   autoload :IncludeSelectors, "#{__dir__}/include_selectors"
   autoload :ResolveIncludes, "#{__dir__}/resolve_includes"
   autoload :SourceGraph, "#{__dir__}/source_graph"
+  autoload :Incremental, "#{__dir__}/incremental"
   autoload :Lint, "#{__dir__}/lint"
   autoload :Pipeline, "#{__dir__}/pipeline"
   autoload :FormatCatalog, "#{__dir__}/format_catalog"

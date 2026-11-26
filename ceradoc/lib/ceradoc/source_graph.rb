@@ -21,15 +21,51 @@ module Ceradoc
   #   node.core              # => CoreModel (cached)
   #   graph.stale_nodes      # => nodes whose disk state drifted
   #   graph.persist          # => sidecar for O(changed) warm rebuilds
+  #
+  # == Incremental builds (#383) ==
+  #
+  # The change-aware build API. A one-page edit in a 10k-page tree
+  # reparses only the edited page and its transitive includers:
+  #
+  #   graph.stale_nodes   # minimal reparse set, detected from disk
+  #                       # (changed files + their transitive includers,
+  #                       # nothing else); demotes exactly that set
+  #   graph.reparse_set(changed)
+  #                       # the same minimal set, computed purely for
+  #                       # caller-supplied changed paths — no I/O, no
+  #                       # demotion
+  #   Ceradoc::SourceGraph.node_digest(node)
+  #                       # stage-boundary content hash of the parsed
+  #                       # surface model — deterministic across runs
+  #                       # and processes; positional bookkeeping
+  #                       # (source_line) excluded
+  #   Ceradoc::Incremental.plan(graph, changed: paths)
+  #                       # => { reparse: [...], reuse: [...] } — the
+  #                       # cli#495-facing contract
   module SourceGraph
     autoload :FileNode, "#{__dir__}/source_graph/file_node"
     autoload :Graph, "#{__dir__}/source_graph/graph"
     autoload :Sidecar, "#{__dir__}/source_graph/sidecar"
     autoload :IncludeEdges, "#{__dir__}/source_graph/include_edges"
+    autoload :ModelDigest, "#{__dir__}/source_graph/model_digest"
 
     class << self
       def build(paths, sidecar: Sidecar.default)
         Graph.build(paths, sidecar: sidecar)
+      end
+
+      # Stage-boundary content hash of a node's parsed surface model
+      # (#383). Deterministic across runs and processes — derived from
+      # the model in a fixed canonical order, no object ids, no hash
+      # ordering; positional bookkeeping attributes are excluded.
+      # Forces the parse level (Level 2) when not yet parsed.
+      #
+      #   Ceradoc::SourceGraph.node_digest(graph.node("doc.adoc"))
+      #
+      # @param node [FileNode] a node of the twin
+      # @return [String] SHA256 hex digest of the parsed model content
+      def node_digest(node)
+        ModelDigest.of(node.parsed)
       end
     end
   end
