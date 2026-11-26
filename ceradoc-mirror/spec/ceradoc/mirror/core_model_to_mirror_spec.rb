@@ -151,12 +151,17 @@ RSpec.describe Ceradoc::Mirror::CoreModelToMirror do
       expect(hr).to be_a(Ceradoc::Mirror::Node::HorizontalRule)
     end
 
-    it 'skips comment blocks' do
+    it 'carries comment blocks as typed comment nodes' do
+      # Comments are not rendered, but dropping them at the seam would
+      # shift every following sibling positionally on the reverse side.
       block = Ceradoc::CoreModel::CommentBlock.new(content: 'Hidden')
       doc = make_document(children: [block])
       result = transformer.call(doc)
 
-      expect(result.content).to be_empty
+      comment = result.content.first
+      expect(comment).to be_a(Ceradoc::Mirror::Node::Comment)
+      expect(comment.attrs.text).to eq('Hidden')
+      expect(comment.attrs.block).to be(true)
     end
 
     it 'skips reviewer blocks' do

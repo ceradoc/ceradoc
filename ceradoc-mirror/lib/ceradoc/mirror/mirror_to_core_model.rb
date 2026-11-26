@@ -25,21 +25,28 @@ module Ceradoc
         result
       end
 
-      # Blocks carry their flattened text in CoreModel#content next to
-      # their structured #children; builders rebuild children only, so
-      # the flattened text is derived here once for every produced node
-      # (same single-touchpoint reasoning as propagate_source_line).
-      # Empty derivations leave content nil — block kinds whose
-      # flat_text is empty (lists, tables) keep nil like the forward
-      # parse produced.
+      # Text blocks (the paragraph family) carry their flattened display
+      # text in CoreModel#content next to their structured #children;
+      # builders rebuild children only, so the flattened text is derived
+      # here once for every produced block (same single-touchpoint
+      # reasoning as propagate_source_line).
+      #
+      # Scoped to CoreModel::Block: the parsers set `content` on text
+      # blocks only — structural elements (documents, sections, headers)
+      # keep content nil and their titles/ids carry the text instead.
+      # Deriving over structural elements would fabricate content the
+      # forward parse never produced.
+      #
+      # Uses #display_text (not #flat_text) so the derivation matches
+      # the parse convention: links contribute their label but not their
+      # target, images their alt but not their src. Empty derivations
+      # leave content nil — block kinds whose display text is empty
+      # (lists, tables) keep nil like the forward parse produced.
       def propagate_content(result)
-        return unless result.is_a?(CoreModel::Base)
-
-        attrs = result.class.attributes.keys
-        return unless attrs.include?(:content) && attrs.include?(:children)
+        return unless result.is_a?(CoreModel::Block)
         return unless result.content.nil?
 
-        derived = Array(result.children).map(&:flat_text).join
+        derived = Array(result.children).map(&:display_text).join
         result.content = derived unless derived.empty?
       rescue StandardError
         result
@@ -90,11 +97,91 @@ module Ceradoc
       def build_inline_children(node)
         return [] unless node.content
 
-        node.content.filter_map do |child|
+        base = []
+        open = []
+        node.content.each do |child|
           next unless child.is_a?(Node)
 
-          build_node(child)
+          if child.is_a?(Node::Text)
+            append_text_run(child, open, base)
+          else
+            # Non-text inline nodes (images, breaks, footnote markers)
+            # sit between marked runs in the parse tree too — close the
+            # open mark groups so the built element lands at the right
+            # nesting level.
+            close_mark_groups(open, base)
+            built = build_node(child)
+            base.concat(Array(built)) if built
+          end
         end
+        close_mark_groups(open, base)
+        base
+      end
+
+      # ProseMirror stores marked text as flat runs (text + mark list);
+      # the CoreModel parse shape is a tree (leaf inline elements carry
+      # content only, containers carry child runs). Rebuild the tree by
+      # walking the runs: a run whose mark list extends the open path
+      # opens a nested group, a run that shrinks it closes groups, and a
+      # closed group materializes through its MarkReverseBuilder as the
+      # leaf or container shape the forward parse produced.
+      OpenMarkGroup = Struct.new(:mark, :items)
+
+      def append_text_run(text_node, open, base)
+        text = text_node.text
+        return if text.nil? || text.empty?
+
+        marks = Array(text_node.marks)
+        shared = mark_prefix_length(open.map(&:mark), marks)
+
+        close_to(shared, open, base)
+        marks.drop(shared).each { |mark| open << OpenMarkGroup.new(mark, []) }
+
+        target = open.last ? open.last.items : base
+        target << CoreModel::TextContent.new(text: text)
+      end
+
+      # Number of leading marks shared between the open group path and
+      # the incoming run's mark list, comparing type and attrs so two
+      # different links never merge into one group.
+      def mark_prefix_length(open_marks, run_marks)
+        count = 0
+        while count < open_marks.size && count < run_marks.size &&
+              same_mark?(open_marks[count], run_marks[count])
+          count += 1
+        end
+        count
+      end
+
+      def same_mark?(left, right)
+        return false unless left.is_a?(Mark) && right.is_a?(Mark)
+
+        # Compare the full wire shape (type + attrs) so two different
+        # links never merge into one group. to_hash is the framework
+        # serializer — plain `.attrs` would hit lutaml's method_missing
+        # on marks that carry no attrs attribute at all.
+        left.to_hash == right.to_hash
+      end
+
+      def close_to(depth, open, base)
+        close_mark_groups(open, base) while open.size > depth
+      end
+
+      def close_mark_groups(open, base)
+        group = open.pop
+        return unless group
+
+        mark_builder = MarkReverseBuilder.lookup(group.mark.type)
+        built = if mark_builder
+                  mark_builder.new.build_marked(group.items, group.mark)
+                else
+                  # Unknown mark type: transparent — keep the runs as-is
+                  # rather than losing them.
+                  group.items
+                end
+
+        parent = open.last ? open.last.items : base
+        parent.concat(Array(built))
       end
 
       def extract_text(node)

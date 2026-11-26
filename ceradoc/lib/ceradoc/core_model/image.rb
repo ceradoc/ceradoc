@@ -66,6 +66,12 @@ module Ceradoc
         "#{alt}#{src}"
       end
 
+      # Display text carries the alt only — the parsers' `content`
+      # attribute records the alt, never the source path.
+      def display_text
+        alt.to_s
+      end
+
       private
 
       def comparable_attributes

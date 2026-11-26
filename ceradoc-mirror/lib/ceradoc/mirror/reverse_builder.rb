@@ -87,6 +87,7 @@ module Ceradoc
         'footnote_marker' => 'footnote_marker',
         'toc' => 'toc',
         'toc_entry' => 'toc_entry',
+        'comment' => 'comment',
         'text' => 'text',
         'raw_inline' => 'raw_inline',
         'frontmatter' => 'frontmatter',

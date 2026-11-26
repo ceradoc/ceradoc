@@ -8,13 +8,20 @@ module Ceradoc
         private_constant :LIST_TYPES
 
         def build(node)
+          attrs = node.attrs
           children = build_inline_children(node)
-          text = children.map { |c| c.is_a?(CoreModel::TextContent) ? c.text : '' }.join
+          # Parse convention: the item's content string is the display
+          # text of its runs (marked labels included), not just the raw
+          # TextContent runs.
+          text = children.map(&:display_text).join
 
           CoreModel::ListItem.new(
             content: text,
-            children: children,
-            nested_list: find_nested_list(node)
+            # The nested list is carried in #nested_list, not as a child
+            # run — the forward parse never places it in #children.
+            children: children.reject { |c| c.is_a?(CoreModel::ListBlock) },
+            nested_list: find_nested_list(node),
+            marker: attrs&.marker
           )
         end
 

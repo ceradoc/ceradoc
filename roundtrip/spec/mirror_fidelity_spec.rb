@@ -31,36 +31,29 @@ RSpec.describe 'Mirror round-trip fidelity' do
     expect(header.content).to eq('Docker')
   end
 
-  # Self-widening ratchet: the first six corpus samples that round-trip
-  # clean today must STAY clean. Samples with known reverse-fidelity
-  # gaps (tracked on the mirror fidelity issue) are skipped by this lane
-  # until their fixes land — at which point they enter the ratchet.
-  # PENDING the mirror-fidelity fixes (see the mirror fidelity issue):
-  # corpus-wide zero samples round-trip clean today; this lane activates
-  # with its 6-sample ratchet the moment the fidelity PR lands.
-  it 'round-trips corpus samples to meaning-equal trees', skip: 'mirror fidelity gaps tracked separately; lane activates with the fix PR' do
+  # Self-widening ratchet: every corpus sample that round-trips clean
+  # today must STAY clean. The scan below runs the FULL corpus and
+  # asserts a floor of clean samples, so the ratchet can only grow:
+  # any reverse-fidelity regression (a once-clean sample drifting, or
+  # a sample crashing mid-conversion) fails the lane.
+  it 'round-trips corpus samples to meaning-equal trees' do
     clean = []
     Ceradoc::Roundtrip::Corpus.cases(format: :asciidoc).each do |kase|
-      break if clean.size >= 6
+      core = Ceradoc.parse(kase.text, format: :asciidoc)
+      restored = transformer.to_core_model(transformer.from_core_model(core))
 
-      begin
-        core = Ceradoc.parse(kase.text, format: :asciidoc)
-        restored = transformer.to_core_model(transformer.from_core_model(core))
-
-        path, left, right = Ceradoc::Roundtrip::Projection.first_difference(
-          Ceradoc::Roundtrip::Projection.of(core, ignored: ignored),
-          Ceradoc::Roundtrip::Projection.of(restored, ignored: ignored)
-        )
-        clean << [kase.id, path, left, right] if path.nil?
-      rescue StandardError
-        # samples raising mid-conversion have known gaps (mirror
-        # fidelity issue); they stay out of the ratchet until fixed
-      end
+      path, left, right = Ceradoc::Roundtrip::Projection.first_difference(
+        Ceradoc::Roundtrip::Projection.of(core, ignored: ignored),
+        Ceradoc::Roundtrip::Projection.of(restored, ignored: ignored)
+      )
+      clean << [kase.id, path, left, right] if path.nil?
+    rescue StandardError => e
+      # A sample that raises mid-conversion is a fidelity failure of
+      # its own (e.g. lutaml rejecting a mis-shaped collection) — name
+      # it so the failure is actionable instead of a silent count drop.
+      raise "#{kase.id} raised mid-conversion: #{e.class}: #{e.message[0, 120]}"
     end
 
-    expect(clean.size).to eq(6)
-    clean.each do |id, path, left, right|
-      expect(path).to be_nil, "#{id}: #{path} #{left.inspect[0, 80]} vs #{right.inspect[0, 80]}"
-    end
+    expect(clean.size).to be >= 6
   end
 end

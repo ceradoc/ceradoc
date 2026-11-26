@@ -80,6 +80,7 @@ module Ceradoc
       registry.register(CoreModel::OpenBlock, Handlers::OpenBlock)
       registry.register(CoreModel::VerseBlock, Handlers::Verse)
       registry.register(CoreModel::CommentBlock, Handlers::Comment)
+      registry.register(CoreModel::CommentLine, Handlers::Comment)
       registry.register(CoreModel::HorizontalRuleBlock, Handlers::HorizontalRule)
       registry.register(CoreModel::ReviewerBlock, Handlers::Reviewer)
 

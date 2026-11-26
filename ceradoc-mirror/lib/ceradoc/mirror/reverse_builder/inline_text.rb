@@ -6,7 +6,10 @@ module Ceradoc
       class InlineText < Base
         def build(node)
           children = build_inline_children(node)
-          text = children.map { |c| c.is_a?(CoreModel::TextContent) ? c.text : '' }.join
+          # Parse convention: display text of the runs — marked labels
+          # included (e.g. a dt term like `--verbose, -v` with code
+          # marks still flattens with its label text).
+          text = children.map(&:display_text).join
           CoreModel::InlineElement.new(content: text)
         end
       end

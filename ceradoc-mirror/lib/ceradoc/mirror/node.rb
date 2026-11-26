@@ -57,16 +57,62 @@ module Ceradoc
     class Node
       # ── Top-level ──
 
+      # Comment (editorial note). The parse produces one node per `//`
+      # line (CommentLine) or a whole comment block; dropping them at
+      # the seam shifts every following sibling positionally, so the
+      # wire carries them like any other block.
+      class Comment < Node
+        PM_TYPE = 'comment'
+
+        class Attrs < Lutaml::Model::Serializable
+          attribute :text, :string
+          # True when the source was a delimited comment BLOCK (as
+          # opposed to a single `//` line).
+          attribute :block, :boolean
+
+          key_value do
+            map 'text', to: :text
+            map 'block', to: :block
+          end
+        end
+
+        attribute :attrs, Attrs
+
+        key_value do
+          map 'type', to: :type, render_default: true
+          map 'attrs', to: :attrs
+        end
+      end
+
+      # ── Document metadata (typed key-value entries — no hashes) ──
+
+      # Mirror-side twin of CoreModel::MetadataEntry: document-level
+      # attribute entries (AsciiDoc `:name: value` lines). Typed slot on
+      # Node::Document::Attrs so document attributes survive the mirror
+      # round-trip instead of being dropped at the seam. Declared before
+      # Node::Document, whose Attrs references it at load time.
+      class MetadataEntry < Lutaml::Model::Serializable
+        attribute :key, :string
+        attribute :value, :string
+
+        key_value do
+          map 'key', to: :key, render_default: true
+          map 'value', to: :value
+        end
+      end
+
       class Document < Node
         PM_TYPE = 'doc'
 
         class Attrs < Lutaml::Model::Serializable
           attribute :title, :string
           attribute :id, :string
+          attribute :entries, MetadataEntry, collection: true
 
           key_value do
             map 'title', to: :title
             map 'id', to: :id
+            map 'entries', to: :entries
           end
         end
 
@@ -500,9 +546,14 @@ module Ceradoc
 
         class Attrs < Lutaml::Model::Serializable
           attribute :id, :string
+          # The item's literal source marker ("*", "**", ".", "..") —
+          # meaning-carrying (ordered vs unordered, nesting level), so
+          # it rides the wire for the reverse seam to restore.
+          attribute :marker, :string
 
           key_value do
             map 'id', to: :id
+            map 'marker', to: :marker
           end
         end
 
@@ -569,6 +620,7 @@ module Ceradoc
           attribute :width, :string
           attribute :height, :string
           attribute :role, :string
+          attribute :link, :string
           attribute :inline, :boolean
 
           key_value do
@@ -579,6 +631,7 @@ module Ceradoc
             map 'width', to: :width
             map 'height', to: :height
             map 'role', to: :role
+            map 'link', to: :link
             map 'inline', to: :inline
           end
         end
@@ -710,8 +763,19 @@ module Ceradoc
       class TableRow < Node
         PM_TYPE = 'table_row'
 
+        class Attrs < Lutaml::Model::Serializable
+          attribute :header, :boolean
+
+          key_value do
+            map 'header', to: :header
+          end
+        end
+
+        attribute :attrs, Attrs
+
         key_value do
           map 'type', to: :type, render_default: true
+          map 'attrs', to: :attrs
           map 'content', to: :content, polymorphic: Node::POLYMORPHIC
         end
       end
@@ -945,6 +1009,7 @@ module Ceradoc
         attribute :boolean_value, :boolean
         attribute :date_value, :date
         attribute :datetime_value, :date_time
+        attribute :time_value, :time
         attribute :symbol_value, :string
         attribute :items, FrontmatterValue, collection: true
         attribute :entries, FrontmatterEntry, collection: true
@@ -957,6 +1022,7 @@ module Ceradoc
           map 'boolean_value', to: :boolean_value
           map 'date_value', to: :date_value
           map 'datetime_value', to: :datetime_value
+          map 'time_value', to: :time_value
           map 'symbol_value', to: :symbol_value
           map 'items', to: :items
           map 'entries', to: :entries

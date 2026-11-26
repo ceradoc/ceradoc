@@ -57,6 +57,18 @@ module Ceradoc
         end
       end
 
+      # Display-text variant of {#flat_text} — children flatten via
+      # {Base#display_text} so links drop targets and images drop srcs
+      # (the parsers' `content`-attribute convention).
+      def display_text
+        rc = renderable_content
+        case rc
+        when String then rc
+        when Array then rc.map { |c| extract_child_display_text(c) }.join
+        else rc.to_s
+        end
+      end
+
       private
 
       def extract_child_text(child)
@@ -64,6 +76,14 @@ module Ceradoc
         when TextContent then child.text
         when String then child
         when Base then child.flat_text
+        else child.to_s
+        end
+      end
+
+      def extract_child_display_text(child)
+        case child
+        when TextContent, Base then child.display_text
+        when String then child
         else child.to_s
         end
       end

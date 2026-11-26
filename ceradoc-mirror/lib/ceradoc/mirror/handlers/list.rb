@@ -28,8 +28,12 @@ module Ceradoc
             return nil if content.empty?
 
             Node::ListItem.new(
-              attrs: Node::ListItem::Attrs.new(id: item.id),
-              content: content
+              attrs: Node::ListItem::Attrs.new(id: item.id, marker: item.marker),
+              # Splice one level: inline dispatch may return multiple nodes
+              # for a single child (e.g. a marked element flattening to
+              # several text runs) — lutaml-model rejects nested arrays in
+              # typed collections, so the runs must be spliced here.
+              content: content.flatten
             )
           end
 
