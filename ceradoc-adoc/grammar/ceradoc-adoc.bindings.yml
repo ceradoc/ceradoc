@@ -1,0 +1,452 @@
+# Rule -> model bindings for the AsciiDoc grammar (ceradoc#385, stage 1).
+# `rake grammar:compile` embeds this table in the artifact under
+# `model_bindings`; Ceradoc::BindingInflater.from_table reads it from
+# there and the Ruby Binding constants are retired.
+#
+# Schema 1.1: `keys` is the raw-tree node's exact capture-key set, `model`
+# the name resolved through Bindings::MODELS (null = hook-only rule),
+# `captures`/`children` both feed the recursive inflation (scalar vs
+# nested-node captures), `defaults` fixes attributes, `raw` assigns a
+# capture as captured, `via` names a hook declared in the `hooks` map and
+# resolved through Bindings::HOOKS. The hooks stay Ruby (stage 2).
+version: '1.1'
+hooks:
+  header: Hooks#header
+  paragraph: Hooks#paragraph
+  list_item: Hooks#list_item
+  list: Hooks#list
+  dlist_term: Hooks#dlist_term
+  definition_list_item: Hooks#definition_list_item
+  definition_list: Hooks#definition_list
+  formatting: Hooks#formatting
+  span: Hooks#span
+  script: Hooks#script
+  link: Hooks#link
+  cross_reference: Hooks#cross_reference
+  inline_image: Hooks#inline_image
+  passthrough: Hooks#passthrough
+  typographic_quote: Hooks#typographic_quote
+  footnote: Hooks#footnote
+  stem: Hooks#stem
+  text: StructureHooks#text
+  text_with_break: StructureHooks#text_with_break
+  unparsed: StructureHooks#unparsed
+  block: StructureHooks#block
+  admonition: StructureHooks#admonition
+  block_image: StructureHooks#block_image
+  table_cell: StructureHooks#table_cell
+  unwrap_cell: StructureHooks#unwrap(cell)
+  unwrap_row: StructureHooks#unwrap(row)
+  table: StructureHooks#table
+  title: StructureHooks#title
+  section: StructureHooks#section
+  document: StructureHooks#document
+  comment_line: StructureHooks#comment_line
+  comment_block: StructureHooks#comment_block
+  tag: StructureHooks#tag
+  named_attribute: StructureHooks#named_attribute
+  attribute_list: StructureHooks#attribute_list
+  attribute: StructureHooks#attribute
+  include: StructureHooks#include
+rules:
+  header:
+    keys: [header]
+    model: Header
+    children:
+      header: header
+    via: header
+  author:
+    keys: [first_name, last_name, email]
+    model: Author
+    captures:
+      first_name: first_name
+      last_name: last_name
+      email: email
+    defaults:
+      middle_name: null
+  revision:
+    keys: [number, date, remark]
+    model: Revision
+    captures:
+      number: number
+      date: date
+      remark: remark
+  paragraph:
+    keys: [paragraph]
+    model: Paragraph
+    children:
+      paragraph: paragraph
+    via: paragraph
+  list_item:
+    keys: [list_item]
+    model: List::Item
+    children:
+      list_item: list_item
+    via: list_item
+  list:
+    keys: [list]
+    model: null
+    children:
+      list: list
+    via: list
+  unordered_list:
+    keys: [unordered]
+    model: List::Unordered
+    children:
+      items: unordered
+  unordered_list_attrs:
+    keys: [attribute_list, unordered]
+    model: List::Unordered
+    children:
+      items: unordered
+    captures:
+      attrs: attribute_list
+  ordered_list:
+    keys: [ordered]
+    model: List::Ordered
+    children:
+      items: ordered
+  ordered_list_attrs:
+    keys: [attribute_list, ordered]
+    model: List::Ordered
+    children:
+      items: ordered
+    captures:
+      attrs: attribute_list
+  dlist_term:
+    keys: [dlist_term, delimiter]
+    model: null
+    captures:
+      term: dlist_term
+      delimiter: delimiter
+    via: dlist_term
+  definition_list_item:
+    keys: [definition_list_item]
+    model: List::DefinitionItem
+    children:
+      item: definition_list_item
+    via: definition_list_item
+  definition_list:
+    keys: [definition_list]
+    model: null
+    children:
+      items: definition_list
+    via: definition_list
+  definition_list_attrs:
+    keys: [attribute_list, definition_list]
+    model: null
+    children:
+      items: definition_list
+    captures:
+      attrs: attribute_list
+    via: definition_list
+  link:
+    keys: [link]
+    model: Inline::Link
+    children:
+      link: link
+    via: link
+  cross_reference:
+    keys: [cross_reference]
+    model: Inline::CrossReference
+    children:
+      xref: cross_reference
+    via: cross_reference
+  inline_image:
+    keys: [inline_image]
+    model: Image::InlineImage
+    children:
+      inline_image: inline_image
+    via: inline_image
+  inline_passthrough:
+    keys: [inline_passthrough]
+    model: Inline::Passthrough
+    children:
+      passthrough: inline_passthrough
+    via: passthrough
+  attribute_reference:
+    keys: [attribute_reference]
+    model: Inline::AttributeReference
+    captures:
+      name: attribute_reference
+  typographic_quote:
+    keys: [typographic_quote]
+    model: TextElement
+    captures:
+      pattern: typographic_quote
+    via: typographic_quote
+  hard_line_break:
+    keys: [hard_line_break]
+    model: Inline::HardLineBreak
+  term:
+    keys: [term_type, term]
+    model: Term
+    captures:
+      term: term
+      type: term_type
+    defaults:
+      lang: en
+  footnote:
+    keys: [footnote]
+    model: Inline::Footnote
+    captures:
+      footnote: footnote
+    via: footnote
+  footnote_id:
+    keys: [footnote, id]
+    model: Inline::Footnote
+    captures:
+      footnote: footnote
+      id: id
+    via: footnote
+  bold_constrained:
+    keys: [bold_constrained]
+    model: Inline::Bold
+    children:
+      subtree: bold_constrained
+    defaults:
+      unconstrained: false
+    via: formatting
+  bold_unconstrained:
+    keys: [bold_unconstrained]
+    model: Inline::Bold
+    children:
+      subtree: bold_unconstrained
+    defaults:
+      unconstrained: true
+    via: formatting
+  italic_constrained:
+    keys: [italic_constrained]
+    model: Inline::Italic
+    children:
+      subtree: italic_constrained
+    defaults:
+      unconstrained: false
+    via: formatting
+  italic_unconstrained:
+    keys: [italic_unconstrained]
+    model: Inline::Italic
+    children:
+      subtree: italic_unconstrained
+    defaults:
+      unconstrained: true
+    via: formatting
+  highlight_constrained:
+    keys: [highlight_constrained]
+    model: Inline::Highlight
+    children:
+      subtree: highlight_constrained
+    defaults:
+      unconstrained: false
+    via: formatting
+  highlight_unconstrained:
+    keys: [highlight_unconstrained]
+    model: Inline::Highlight
+    children:
+      subtree: highlight_unconstrained
+    defaults:
+      unconstrained: true
+    via: formatting
+  monospace_constrained:
+    keys: [monospace_constrained]
+    model: Inline::Monospace
+    children:
+      subtree: monospace_constrained
+    defaults:
+      unconstrained: false
+    via: formatting
+  monospace_unconstrained:
+    keys: [monospace_unconstrained]
+    model: Inline::Monospace
+    children:
+      subtree: monospace_unconstrained
+    defaults:
+      unconstrained: true
+    via: formatting
+  span_constrained:
+    keys: [span_constrained]
+    model: Inline::Span
+    children:
+      span: span_constrained
+    defaults:
+      unconstrained: false
+    via: span
+  span_unconstrained:
+    keys: [span_unconstrained]
+    model: Inline::Span
+    children:
+      span: span_unconstrained
+    defaults:
+      unconstrained: true
+    via: span
+  superscript:
+    keys: [superscript]
+    model: Inline::Superscript
+    captures:
+      script: superscript
+    via: script
+  subscript:
+    keys: [subscript]
+    model: Inline::Subscript
+    captures:
+      script: subscript
+    via: script
+  stem:
+    keys: [stem]
+    model: Inline::Stem
+    children:
+      stem: stem
+    via: stem
+  text:
+    keys: [text]
+    model: TextElement
+    captures:
+      text: text
+    via: text
+  text_line_break:
+    keys: [line_break, text]
+    model: TextElement
+    captures:
+      text: text
+      line_break: line_break
+    via: text_with_break
+  line_break:
+    keys: [line_break]
+    model: LineBreak
+    captures:
+      line_break: line_break
+  unparsed:
+    keys: [unparsed]
+    model: null
+    captures:
+      text: unparsed
+    via: unparsed
+  block:
+    keys: [block]
+    model: null
+    children:
+      block: block
+    via: block
+  admonition:
+    keys: [admonition_type, content]
+    model: Admonition
+    captures:
+      type: admonition_type
+    children:
+      content: content
+    via: admonition
+  block_image:
+    keys: [block_image]
+    model: Image::BlockImage
+    children:
+      block_image: block_image
+    via: block_image
+  table_cell:
+    keys: [cell_format, text]
+    model: null
+    captures:
+      format: cell_format
+      text: text
+    via: table_cell
+  table_cell_content:
+    keys: [cell]
+    model: null
+    children:
+      cell: cell
+    via: unwrap_cell
+  table_row_cells:
+    keys: [row]
+    model: null
+    children:
+      row: row
+    via: unwrap_row
+  table_row:
+    keys: [cells]
+    model: TableRow
+    captures:
+      columns: cells
+  table:
+    keys: [table]
+    model: null
+    children:
+      table: table
+    via: table
+  title:
+    keys: [level, line_break, text]
+    model: Title
+    captures:
+      level: level
+      text: text
+      line_break: line_break
+    via: title
+  section:
+    keys: [section]
+    model: null
+    children:
+      section: section
+    via: section
+  document:
+    keys: [document]
+    model: null
+    children:
+      document: document
+    via: document
+  comment_line:
+    keys: [comment_line]
+    model: null
+    children:
+      comment_line: comment_line
+    via: comment_line
+  comment_block:
+    keys: [comment_block]
+    model: CommentBlock
+    children:
+      comment_block: comment_block
+    via: comment_block
+  page_break:
+    keys: [page_break]
+    model: Break::PageBreak
+  tag:
+    keys: [tag]
+    model: Tag
+    children:
+      tag: tag
+    via: tag
+  named_attribute:
+    keys: [named]
+    model: Attribute
+    children:
+      named: named
+    via: named_attribute
+  attribute_array:
+    keys: [attribute_array]
+    model: null
+    children:
+      attribute_array: attribute_array
+    via: attribute_list
+  attribute_with_break:
+    keys: [key, value, line_break]
+    model: Attribute
+    captures:
+      key: key
+      value: value
+      line_break: line_break
+    via: attribute
+  attribute:
+    keys: [key, value]
+    model: Attribute
+    captures:
+      key: key
+      value: value
+    via: attribute
+  document_attributes:
+    keys: [document_attributes]
+    model: DocumentAttributes
+    captures:
+      data: document_attributes
+  include:
+    keys: [include]
+    model: Include
+    children:
+      include: include
+    via: include

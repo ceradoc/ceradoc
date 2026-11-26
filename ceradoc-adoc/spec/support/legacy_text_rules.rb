@@ -85,7 +85,8 @@ module Ceradoc
               text.to_s
             end
 
-            # Paragraph is bound: see Bindings::PARAGRAPH.
+            # Paragraph is bound: see the artifact's model-bindings table
+            # (grammar/ceradoc-adoc.bindings.yml).
           end
         end
       end

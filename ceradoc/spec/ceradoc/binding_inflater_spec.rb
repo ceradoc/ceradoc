@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'tmpdir'
 
 RSpec.describe Ceradoc::BindingInflater do
   let(:rule_model) { Struct.new(:style, :child, keyword_init: true) }
@@ -101,5 +102,128 @@ RSpec.describe Ceradoc::BindingInflater, '.from_table' do
   it 'rejects an unknown table version' do
     expect { described_class.from_table(table.merge('version' => 2), models: ->(_) {}) }
       .to raise_error(ArgumentError, /version/)
+  end
+end
+
+RSpec.describe Ceradoc::BindingInflater, '.from_table with a 1.1 table' do
+  let(:model) { Struct.new(:style, :ial, keyword_init: true) }
+  let(:hook) { ->(attrs) { { style: attrs[:raw_field].to_s.upcase, ial: attrs[:ial] } } }
+  let(:hooks) { { 'decorate' => hook } }
+  let(:table) do
+    { 'version' => '1.1',
+      'hooks' => { 'decorate' => 'Hooks#decorate' },
+      'rules' => {
+        'hooked' => { 'keys' => %w[rule raw_field], 'model' => 'M', 'raw' => { 'raw_field' => 'raw_field' },
+                      'via' => 'decorate' },
+        'plain' => { 'keys' => %w[other], 'model' => 'M', 'defaults' => { 'style' => 'p' } }
+      } }
+  end
+  let(:models) { ->(name) { { 'M' => model }.fetch(name) } }
+
+  it 'resolves a via hook by name through the registry hash and builds the model from its result' do
+    result = described_class.from_table(table, models: models, hooks: hooks)
+                            .inflate({ rule: true, raw_field: 'leaf' }) { |n| n }
+    expect(result).to eq(model.new(style: 'LEAF'))
+  end
+
+  it 'accepts a registry callable resolving names instead of a hash' do
+    inflater = described_class.from_table(table, models: models, hooks: ->(name) { hooks.fetch(name) })
+    expect(inflater.inflate({ rule: true, raw_field: 'leaf' }) { |n| n }).to eq(model.new(style: 'LEAF'))
+  end
+
+  it 'honors scoped: true by passing the inflate context to the hook' do
+    scoped_hook = ->(_attrs, scope) { { style: scope } }
+    table['rules']['hooked'].merge!('via' => 'scoped_hook', 'raw' => {}, 'keys' => %w[rule], 'scoped' => true)
+    table['hooks']['scoped_hook'] = 'Hooks#scoped'
+    result = described_class.from_table(table, models: models, hooks: { 'scoped_hook' => scoped_hook })
+                            .inflate({ rule: true }, :ctx) { |n| n }
+    expect(result).to eq(model.new(style: :ctx))
+  end
+
+  it 'builds the hook result as is when the rule has no model' do
+    table['rules']['hooked'].merge!('model' => nil, 'raw' => { 'raw_field' => 'raw_field' })
+    result = described_class.from_table(table, models: models, hooks: hooks)
+                            .inflate({ rule: true, raw_field: 'leaf' }) { |n| n }
+    expect(result).to eq(style: 'LEAF', ial: nil)
+  end
+
+  it 'expands optional captures into one binding per key set' do
+    table['rules']['hooked'].merge!('keys' => %w[rule raw_field ial], 'optional' => %w[raw_field ial],
+                                    'raw' => { 'raw_field' => 'raw_field', 'ial' => 'ial' })
+    inflater = described_class.from_table(table, models: models, hooks: hooks)
+    expect(inflater.bindings.map(&:keys)).to contain_exactly(%i[other], %i[rule], %i[rule raw_field],
+                                                             %i[rule ial], %i[rule raw_field ial])
+    expect(inflater.inflate({ rule: true }) { |n| n }).to eq(model.new(style: '', ial: nil))
+    expect(inflater.inflate({ rule: true, raw_field: 'x', ial: '.c' }) { |n| n })
+      .to eq(model.new(style: 'X', ial: '.c'))
+  end
+
+  it 'assigns raw captures without inflating them' do
+    raw_hook = ->(attrs) { { style: attrs[:raw_field] } }
+    table['rules']['hooked']['via'] = 'pass'
+    table['hooks']['pass'] = 'Hooks#pass'
+    subtree = { rule: true, raw_field: 'inner' } # would match the binding if inflated
+    result = described_class.from_table(table, models: models, hooks: { 'pass' => raw_hook })
+                            .inflate({ rule: true, raw_field: subtree }) { |n| n }
+    expect(result.style).to eq(subtree)
+  end
+
+  it 'filters grouped rules with the groups argument, keeping untagged rules' do
+    table['rules']['plain']['group'] = 'block'
+    all = described_class.from_table(table, models: models, hooks: hooks)
+    expect(all.bindings.map(&:keys)).to contain_exactly(%i[rule raw_field], %i[other])
+    block = described_class.from_table(table, models: models, hooks: hooks, groups: ['block'])
+    expect(block.bindings.map(&:keys)).to contain_exactly(%i[rule raw_field], %i[other])
+    inline = described_class.from_table(table, models: models, hooks: hooks, groups: ['inline'])
+    expect(inline.bindings.map(&:keys)).to contain_exactly(%i[rule raw_field])
+  end
+
+  it 'rejects a rule naming a hook the table does not declare' do
+    table['hooks'].clear
+    expect { described_class.from_table(table, models: models, hooks: hooks) }
+      .to raise_error(ArgumentError, /undeclared hook/)
+  end
+
+  it 'rejects a via rule when no hook registry is provided' do
+    expect { described_class.from_table(table, models: models) }
+      .to raise_error(ArgumentError, /not provided/)
+  end
+
+  it 'rejects a registry that cannot resolve a declared hook' do
+    expect { described_class.from_table(table, models: models, hooks: {}) }
+      .to raise_error(ArgumentError, /not provided/)
+  end
+
+  it 'reads v1.1 tables from a YAML sidecar file and keeps artifact tables verbatim' do
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, 'table.yml')
+      File.write(path, <<~YAML)
+        version: '1.1'
+        hooks:
+          decorate: Hooks#decorate
+        rules:
+          hooked:
+            keys: [rule, raw_field]
+            model: M
+            raw:
+              raw_field: raw_field
+            via: decorate
+      YAML
+      loaded = described_class.load_table(path)
+      expect(loaded['version']).to eq('1.1')
+      expect(loaded['rules']['hooked']['keys']).to eq(%w[rule raw_field])
+      result = described_class.from_table(loaded, models: models, hooks: hooks)
+                              .inflate({ rule: true, raw_field: 'leaf' }) { |n| n }
+      expect(result).to eq(model.new(style: 'LEAF'))
+    end
+  end
+
+  it 'rejects a sidecar rule with an unknown field or an undeclared hook' do
+    bad_field = { 'version' => '1.1', 'rules' => { 'r' => { 'keys' => ['k'], 'model' => 'M', 'shapes' => {} } } }
+    expect { described_class.validate_table(bad_field) }.to raise_error(ArgumentError, /unknown field/)
+    bad_hook = { 'version' => '1.1', 'rules' => { 'r' => { 'keys' => ['k'], 'model' => 'M', 'via' => 'nope' } } }
+    expect { described_class.validate_table(bad_hook) }.to raise_error(ArgumentError, /undeclared hook/)
+    no_keys = { 'version' => '1.1', 'rules' => { 'r' => { 'model' => 'M' } } }
+    expect { described_class.validate_table(no_keys) }.to raise_error(ArgumentError, /keys/)
   end
 end

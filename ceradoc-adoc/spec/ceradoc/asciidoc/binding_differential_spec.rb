@@ -93,15 +93,14 @@ RSpec.describe 'AsciiDoc bound-vs-unbound differential (M3 binding seam)' do
                    monospace_constrained bold_unconstrained italic_unconstrained highlight_unconstrained
                    monospace_unconstrained span_constrained span_unconstrained superscript subscript stem]
 
-  it 'binds every grammar rule, with all transformer rule modules retired' do
+  it 'binds every grammar rule of the artifact table, with all transformer rule modules retired' do
     bindings = Ceradoc::AsciiDoc::Bindings
-    expect(bindings::ALL.map(&:keys)).to contain_exactly(
-      [:header], %i[first_name last_name email], %i[number date remark], [:paragraph],
-      [:list_item], [:list], [:unordered], %i[attribute_list unordered], [:ordered], %i[attribute_list ordered],
-      %i[dlist_term delimiter], [:definition_list_item], [:definition_list], %i[attribute_list definition_list],
-      *bindings::INLINE.map(&:keys), *bindings::TEXT.map(&:keys), *bindings::BLOCK.map(&:keys),
-      *bindings::STRUCTURE.map(&:keys), *bindings::MISC.map(&:keys)
-    )
+    table = JSON.parse(File.read(Ceradoc::AsciiDoc::Parser::GrammarBackend::ARTIFACT_PATH))
+                .fetch('model_bindings')
+    expect(table['version']).to eq('1.1')
+    expect(table['rules'].size).to eq(62)
+    # One binding per table rule, matching its key set exactly.
+    expect(bindings.inflater.bindings.map(&:keys)).to match_array(table['rules'].values.map { |rule| rule.fetch('keys').map(&:to_sym) })
     %i[HeaderRules ListRules InlineRules TextRules BlockRules StructuralRules MiscRules].each do |retired|
       expect(Ceradoc::AsciiDoc::Transformer.const_defined?(retired, false)).to be(false)
     end

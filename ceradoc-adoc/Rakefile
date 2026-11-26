@@ -6,3 +6,21 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
 task default: :spec
+
+namespace :grammar do
+  desc 'Compile grammar/ceradoc-adoc.parg to its artifact'
+  task :compile do
+    require 'ceradoc/asciidoc'
+    backend = Ceradoc::AsciiDoc::Parser::GrammarBackend
+    File.write(backend::ARTIFACT_PATH, backend.compile_source)
+    puts "wrote #{backend::ARTIFACT_PATH}"
+  end
+
+  desc 'Fail when the artifact is stale against the .parg source'
+  task :check do
+    require 'ceradoc/asciidoc'
+    backend = Ceradoc::AsciiDoc::Parser::GrammarBackend
+    abort 'artifact is stale: run `rake grammar:compile`' unless backend.fresh_against?(File.read(backend::SOURCE_PATH))
+    puts 'artifact is fresh'
+  end
+end
