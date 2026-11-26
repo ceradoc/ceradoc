@@ -218,7 +218,7 @@ module Ceradoc
             rows = Array(table.rows).map do |row|
               columns = Array(row.cells).map do |cell|
                 Ceradoc::AsciiDoc::Model::TableCell.new(
-                  content: cell.flat_text
+                  content: table_cell_content(cell)
                 )
               end
               Ceradoc::AsciiDoc::Model::TableRow.new(
@@ -254,9 +254,12 @@ module Ceradoc
           end
 
           def transform_annotation(annotation)
+            # Consecutive single-line admonitions need a blank line or
+            # the grammar glues them into one annotation (#376).
             Ceradoc::AsciiDoc::Model::Admonition.new(
               type: annotation.annotation_type.to_s.upcase,
-              content: create_text_elements(annotation.renderable_content)
+              content: create_text_elements(annotation.renderable_content),
+              line_break: "\n\n"
             )
           end
 
@@ -410,6 +413,19 @@ module Ceradoc
               caption: image.caption, width: image.width, height: image.height,
               link: image.link, role: image.role
             }
+          end
+
+          # Inline-faithful cell content (#376): markup inside a cell
+          # (`code`, *bold*) must serialize as markup, not flat text —
+          # the same contract as list-item lines. Plain cells keep the
+          # flat string.
+          def table_cell_content(cell)
+            rc = cell.renderable_content
+            if rc.is_a?(Array) && rc.any?(CoreModel::InlineElement)
+              create_text_elements(rc)
+            else
+              cell.flat_text
+            end
           end
 
           def transform_bibliography(bib)

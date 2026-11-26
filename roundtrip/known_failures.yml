@@ -26,8 +26,6 @@ asciidoc:docs/_pages/parsing.adoc: 'triaged: shape-gap (text-partition: adjacent
   split/join boundaries differ after re-parse)'
 asciidoc:docs/_pages/serialization.adoc: 'triaged: flip-blocking (constraint-roundtrip:
   constrained/unconstrained flips on re-parse)'
-asciidoc:docs/_pages/transformation.adoc: 'triaged: flip-blocking (serializer-inline:
-  inline markup reparses as a different element class)'
 asciidoc:docs/_references/api-reference.adoc: 'triaged: shape-gap (text-partition:
   adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:docs/_references/asciidoc-syntax.adoc: 'triaged: shape-gap (text-partition:
@@ -58,8 +56,6 @@ asciidoc:docs/_tutorials/serialization.adoc: 'triaged: shape-gap (text-partition
   adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:docs/index.adoc: 'triaged: shape-gap (model-shape: lines structure differs
   after re-parse)'
-asciidoc:edge/admonition: 'triaged: flip-blocking (serializer-inline: inline markup
-  reparses as a different element class)'
 asciidoc:edge/attribute-entry: 'triaged: shape-gap (text-partition: adjacent TextContent
   split/join boundaries differ after re-parse)'
 asciidoc:edge/link-and-xref: 'triaged: shape-gap (model-shape: content structure differs
