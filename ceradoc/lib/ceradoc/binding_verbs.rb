@@ -79,7 +79,7 @@ module Ceradoc
 
     def convert(source, spec)
       value = source[spec[:key]]
-      converted = CONVERTERS.fetch(spec.fetch(:as, :copy)).call(value)
+      converted = CONVERTERS.fetch(spec[:as] || :copy).call(value)
       converted = converted.strip if spec[:strip]
       return converted unless spec[:wrap]
 
