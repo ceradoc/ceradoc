@@ -55,11 +55,34 @@ module Ceradoc
             transformed = visit_content(item)
             next if transformed.empty?
 
-            result << CoreModel::TextContent.new(text: ' ') if line_break_between?(previous, item)
-            result.concat(transformed)
+            if line_break_between?(previous, item)
+              if soft_break_fold?(result, transformed)
+                # Fold the synthesized space into the surrounding text
+                # run: soft-wrapped prose is ONE paragraph text, and the
+                # canonical (single-line) serialization must re-parse to
+                # the same partition instead of splitting at every
+                # source line break (#376).
+                result[-1] = CoreModel::TextContent.new(
+                  text: "#{result.last.text} #{transformed.first.text}"
+                )
+              else
+                result << CoreModel::TextContent.new(text: ' ')
+                result.concat(transformed)
+              end
+            else
+              result.concat(transformed)
+            end
             previous = item
           end
           result
+        end
+
+        # The synthesized soft-break space folds into the text when both
+        # neighbours are plain text runs; markup boundaries keep the
+        # standalone space TextContent.
+        def soft_break_fold?(result, transformed)
+          result.last.is_a?(CoreModel::TextContent) &&
+            transformed.size == 1 && transformed.first.is_a?(CoreModel::TextContent)
         end
 
         # Two adjacent TextElements only warrant a synthesised soft-break

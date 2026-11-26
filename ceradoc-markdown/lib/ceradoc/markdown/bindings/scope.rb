@@ -13,7 +13,7 @@ module Ceradoc
 
         # Register an ALD under its name.
         def define(name, attrs)
-          @definitions[name] = Bindings.model('AttributeList').new(name: name, **attrs)
+          @definitions[name] = Bindings.model('AttributeList').new(name: name, **attribute_list_attrs(attrs))
         end
 
         # An IAL naming a registered ALD resolves to it; anything else is
@@ -23,7 +23,21 @@ module Ceradoc
           return @definitions[content] if content.match?(/\A\w+\z/) && @definitions.key?(content)
 
           attrs = Captures.parse_ial_content(content)
-          Bindings.model('AttributeList').new(id: attrs[:id], classes: attrs[:classes], attributes: attrs[:attributes])
+          Bindings.model('AttributeList').new(**attribute_list_attrs(attrs))
+        end
+
+        private
+
+        # parse_to_hash yields attributes as a plain hash; the model
+        # layer carries them as NamedValue pairs.
+        def attribute_list_attrs(parsed)
+          {
+            id: parsed[:id],
+            classes: parsed[:classes],
+            attributes: parsed[:attributes].to_a.map do |key, value|
+              Bindings.model('NamedValue').new(name: key.to_s, value: value.to_s)
+            end
+          }
         end
       end
     end

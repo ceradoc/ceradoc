@@ -10,10 +10,25 @@ module Ceradoc
             result = ''
             result += "[[#{model.id}]] " if model.id
             content = serialize_content(model.content)
-            content = Ceradoc::Util::AsciiDoc.escape_text_delimiters(content) if content.is_a?(String)
+            # Delimiter escaping is for PLAIN text only (#92). When the
+            # content array carried inline models, the composed string
+            # already contains serialized markup (`*bold*`, `` `code` ``)
+            # whose delimiters must survive verbatim — each inner element
+            # escaped its own plain text (#376).
+            content = Ceradoc::Util::AsciiDoc.escape_text_delimiters(content) if plain_content?(model.content)
             result += content
             result += model.line_break.to_s
             result
+          end
+
+          private
+
+          def plain_content?(content)
+            case content
+            when String then true
+            when Array then content.all?(String)
+            else false
+            end
           end
         end
       end

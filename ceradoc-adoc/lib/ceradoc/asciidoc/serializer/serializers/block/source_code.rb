@@ -10,7 +10,7 @@ module Ceradoc
               @model = model
               lang = model.lang.to_s.strip
               header = lang.empty? ? '[source]' : "[source,#{lang}]"
-              "\n\n#{gen_anchor}#{header}\n#{gen_delimiter}\n" <<
+              "\n\n#{gen_anchor}#{gen_title}#{header}\n#{gen_delimiter}\n" <<
                 gen_lines << "\n#{gen_delimiter}\n\n"
             end
           end

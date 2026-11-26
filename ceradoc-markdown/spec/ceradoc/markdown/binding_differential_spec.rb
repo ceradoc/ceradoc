@@ -24,9 +24,26 @@ RSpec.describe 'Markdown bound-vs-legacy differential (BindingInflater vs the fr
   end
 
   # Block quotes flatten child models with #to_s, which prints the class
-  # and object address; compare modulo both.
+  # and object address; compare modulo both. The legacy transformer
+  # coerces the parsed IAL hash into NamedValue garbage (an all-nil
+  # entry, or key=value pairs dropped outright when the hash is
+  # non-empty), while the bindings carry typed pairs; the attributes
+  # collection is therefore compared on neither side — the behavioral
+  # gate for IAL data is the roundtrip suite (#376).
   def comparable(doc)
-    doc.to_yaml.gsub(/#<Ceradoc::Markdown::(?:Generated::)?(\w+):0x\h+>/, '#<\\1>')
+    yaml = doc.to_yaml.gsub(/#<Ceradoc::Markdown::(?:Generated::)?(\w+):0x\h+>/, '#<\\1>')
+    dropping = 0
+    yaml.lines.filter_map do |line|
+      if line.match?(/^\s*(?:-\s)?attributes:\s*(\[\]\n)?\z/)
+        dropping = line.end_with?("[]\n") ? 0 : 1
+        next nil
+      elsif dropping.positive?
+        next nil if line.match?(/^\s*- name:/) || line.match?(/^\s+value:/)
+
+        dropping = 0
+      end
+      line
+    end.join
   end
 
   def contains_rule?(node, key)

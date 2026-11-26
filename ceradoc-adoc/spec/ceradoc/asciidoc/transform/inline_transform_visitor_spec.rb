@@ -101,12 +101,15 @@ RSpec.describe Ceradoc::AsciiDoc::Transform::InlineTransformVisitor do
         expect(result.last).to be_a(Ceradoc::CoreModel::ItalicElement)
       end
 
-      it 'inserts space between adjacent TextElements when previous ended with a line break' do
+      it 'folds soft-break space into one text run between adjacent TextElements' do
         te1 = Ceradoc::AsciiDoc::Model::TextElement.new(content: 'hello', line_break: "\n")
         te2 = Ceradoc::AsciiDoc::Model::TextElement.new(content: 'world')
         result = visitor.transform([te1, te2])
         texts = result.map { |r| r.is_a?(Ceradoc::CoreModel::TextContent) ? r.text : r.content.to_s }
-        expect(texts).to eq(['hello', ' ', 'world'])
+        # Soft-wrapped prose is one paragraph text; the space folds into
+        # the run so the canonical single-line serialization reparses to
+        # the same partition (#376).
+        expect(texts).to eq(['hello world'])
       end
 
       it 'does not insert space between adjacent TextElements on the same line' do

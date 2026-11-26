@@ -87,6 +87,12 @@ module Ceradoc
               priority: 10
             )
 
+            Registry.register_with_priority(
+              Ceradoc::AsciiDoc::Model::Block::ReviewerComment,
+              ->(model) { Blk.transform_reviewer_block(model) },
+              priority: 10
+            )
+
             Registry.register(
               Ceradoc::AsciiDoc::Model::Block::Core,
               ->(model) { Blk.transform_block(model, model.delimiter.to_s) }

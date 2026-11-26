@@ -63,7 +63,9 @@ module Ceradoc
             when Ceradoc::Markdown::Extension
               transform_extension(model)
             when Ceradoc::Markdown::AttributeList
-              transform_attribute_list(model)
+              # Standalone IALs are folded by transform_document; any
+              # that reach here have no preceding block to attach to.
+              nil
             when Ceradoc::Markdown::Comment
               Ceradoc::CoreModel::CommentBlock.new(content: model.text.to_s)
             when Array
@@ -76,7 +78,24 @@ module Ceradoc
           private
 
           def transform_document(doc)
-            children = Array(doc.blocks).map { |block| transform(block) }
+            children = []
+            Array(doc.blocks).each do |block|
+              if block.is_a?(Ceradoc::Markdown::AttributeList)
+                # Kramdown semantics: a standalone IAL attaches to the
+                # PRECEDING block — fold it into that node's
+                # element_attributes instead of materializing
+                # ElementAttribute nodes in content position, where the
+                # serializer has no rendering for them (#376).
+                attach_element_attributes(children.last, element_attributes_from(block, include_id: true))
+                next
+              end
+
+              node = transform(block)
+              next if node.nil?
+
+              attach_element_attributes(node, element_attributes_from(block))
+              children << node
+            end
             children = prepend_frontmatter(children, doc.frontmatter)
 
             Ceradoc::CoreModel::DocumentElement.new(
@@ -84,6 +103,31 @@ module Ceradoc
               title: extract_title(doc),
               children: children
             )
+          end
+
+          # ElementAttribute list carried by a Markdown model block.
+          # For AttributeList blocks (standalone IALs) +id+ IS the IAL
+          # id. On other models Base#id is ALSO used natively (footnote
+          # definition markers), so only the typed IAL collections
+          # count there (#376).
+          def element_attributes_from(block, include_id: false)
+            return [] unless block.is_a?(Ceradoc::Markdown::Base)
+
+            attrs = []
+            attrs << Ceradoc::CoreModel::ElementAttribute.new(name: 'id', value: block.id) if include_id && block.id
+            attrs += Array(block.attributes).map do |nv|
+              Ceradoc::CoreModel::ElementAttribute.new(name: nv.name, value: nv.value)
+            end
+            attrs += Array(block.classes).map do |cls|
+              Ceradoc::CoreModel::ElementAttribute.new(name: 'class', value: cls)
+            end
+            attrs
+          end
+
+          def attach_element_attributes(target, attrs)
+            return if target.nil? || !target.is_a?(Ceradoc::CoreModel::Base) || attrs.empty?
+
+            target.element_attributes = Array(target.element_attributes) + attrs
           end
 
           # If the Markdown document had raw frontmatter text, parse it
@@ -273,21 +317,6 @@ module Ceradoc
                 content: ext.content.to_s
               )
             end
-          end
-
-          def transform_attribute_list(attr_list)
-            attrs = []
-            attrs << Ceradoc::CoreModel::ElementAttribute.new(name: 'id', value: attr_list.id.to_s) if attr_list.id
-            attr_list.classes.each do |cls|
-              attrs << Ceradoc::CoreModel::ElementAttribute.new(name: 'class', value: cls.to_s)
-            end
-            attr_list.attributes.each do |nv|
-              attrs << Ceradoc::CoreModel::ElementAttribute.new(name: nv.name, value: nv.value)
-            end
-
-            Ceradoc::CoreModel::StructuralElement.new(
-              children: attrs
-            )
           end
 
           def extract_title(doc)

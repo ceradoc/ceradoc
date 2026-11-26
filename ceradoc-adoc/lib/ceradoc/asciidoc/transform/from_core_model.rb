@@ -6,6 +6,8 @@ module Ceradoc
       # Transforms CoreModel to AsciiDoc models
       class FromCoreModel
         extend Transform::ListBuilding
+        extend Transform::ReviewerBuilding
+        extend Transform::VerbatimBuilding
 
         @registered = false
 
@@ -116,94 +118,6 @@ module Ceradoc
             [result, *build_callout_paragraphs(block.callouts)]
           end
 
-          def build_verbatim_block(semantic, block, content_text)
-            case semantic
-            when :source_code
-              Ceradoc::AsciiDoc::Model::Block::SourceCode.new(
-                id: block.id,
-                title: block.title,
-                lang: block.language,
-                lines: content_text.split("\n"),
-                attributes: build_attributes(block)
-              )
-            when :quote
-              Ceradoc::AsciiDoc::Model::Block::Quote.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n")
-              )
-            when :example
-              Ceradoc::AsciiDoc::Model::Block::Example.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n")
-              )
-            when :sidebar
-              Ceradoc::AsciiDoc::Model::Block::Side.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n")
-              )
-            when :literal
-              Ceradoc::AsciiDoc::Model::Block::Literal.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n")
-              )
-            when :open
-              Ceradoc::AsciiDoc::Model::Block::Open.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n")
-              )
-            when :pass
-              Ceradoc::AsciiDoc::Model::Block::Pass.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n")
-              )
-            when :listing
-              Ceradoc::AsciiDoc::Model::Block::Listing.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n")
-              )
-            when :verse
-              Ceradoc::AsciiDoc::Model::Block::Quote.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n"),
-                delimiter: '[verse]'
-              )
-            when :reviewer
-              Ceradoc::AsciiDoc::Model::Block::ReviewerComment.new(
-                id: block.id,
-                title: block.title,
-                lines: content_text.split("\n")
-              )
-            else
-              delim = block.delimiter_type.to_s
-              delim_char = delim[0]
-              delim_len = delim.length
-
-              Ceradoc::AsciiDoc::Model::Block::Core.new(
-                id: block.id,
-                title: block.title,
-                delimiter: delim,
-                delimiter_char: delim_char,
-                delimiter_len: delim_len,
-                lines: content_text.split("\n")
-              )
-            end
-          end
-
-          def verbatim_with_callouts?(semantic, block)
-            return false unless %i[source_code listing].include?(semantic)
-            return false if block.callouts.nil? || block.callouts.empty?
-
-            true
-          end
-
           # Re-expands typed Callouts back into the AsciiDoc `<N> text`
           # paragraph form so the round-trip is faithful.
           def build_callout_paragraphs(callouts)
@@ -218,7 +132,7 @@ module Ceradoc
             rows = Array(table.rows).map do |row|
               columns = Array(row.cells).map do |cell|
                 Ceradoc::AsciiDoc::Model::TableCell.new(
-                  content: cell.flat_text
+                  content: table_cell_content(cell)
                 )
               end
               Ceradoc::AsciiDoc::Model::TableRow.new(
@@ -240,7 +154,7 @@ module Ceradoc
           # marker type one level deeper.
           def transform_list_item(item)
             Ceradoc::AsciiDoc::Model::List::Item.new(
-              content: item.flat_text,
+              content: inline_text(item),
               marker: item.marker
             )
           end
@@ -254,9 +168,12 @@ module Ceradoc
           end
 
           def transform_annotation(annotation)
+            # Consecutive single-line admonitions need a blank line or
+            # the grammar glues them into one annotation (#376).
             Ceradoc::AsciiDoc::Model::Admonition.new(
               type: annotation.annotation_type.to_s.upcase,
-              content: create_text_elements(annotation.renderable_content)
+              content: create_text_elements(annotation.renderable_content),
+              line_break: "\n\n"
             )
           end
 
@@ -356,9 +273,11 @@ module Ceradoc
                 inline_model(Ceradoc::AsciiDoc::Model::Inline::Italic, inline,
                              unconstrained: unconstrained)
             when 'monospace'
-              Ceradoc::AsciiDoc::Model::Inline::Monospace.new(content: inline.content)
+              Ceradoc::AsciiDoc::Model::Inline::Monospace.new(content: inline.content,
+                                                              unconstrained: unconstrained)
             when 'highlight'
-              Ceradoc::AsciiDoc::Model::Inline::Highlight.new(content: inline.content)
+              Ceradoc::AsciiDoc::Model::Inline::Highlight.new(content: inline.content,
+                                                              unconstrained: unconstrained)
             when 'strikethrough'
               Ceradoc::AsciiDoc::Model::Inline::Strikethrough.new(content: inline.content)
             when 'subscript'
@@ -408,6 +327,19 @@ module Ceradoc
               caption: image.caption, width: image.width, height: image.height,
               link: image.link, role: image.role
             }
+          end
+
+          # Inline-faithful cell content (#376): markup inside a cell
+          # (`code`, *bold*) must serialize as markup, not flat text —
+          # the same contract as list-item lines. Plain cells keep the
+          # flat string.
+          def table_cell_content(cell)
+            rc = cell.renderable_content
+            if rc.is_a?(Array) && rc.any?(CoreModel::InlineElement)
+              create_text_elements(rc)
+            else
+              cell.flat_text
+            end
           end
 
           def transform_bibliography(bib)
@@ -462,13 +394,15 @@ module Ceradoc
 
           def transform_definition_item(item, depth = 1)
             delimiter = ':' * (depth + 1)
-            # Multi-term `<dt>`: one Term per entry in `item.terms`.
+            # Multi-term `<dt>`: one entry per string in `item.terms`.
             # Falls back to `[item.term]` for items populated via
             # legacy paths that only set the singular accessor.
+            # Terms ride as plain strings — the parser-side
+            # DefinitionItem carries terms as strings, and Model::Term
+            # renders glossary/iterm syntax (`type:[term]`), not dlist
+            # terms (#376).
             term_strings = terms_for(item)
-            terms = term_strings.map do |text|
-              Ceradoc::AsciiDoc::Model::Term.new(term: text.to_s)
-            end
+            terms = term_strings.map(&:to_s)
             contents = Array(item.definitions).map do |defn|
               Ceradoc::AsciiDoc::Model::TextElement.new(content: defn.to_s)
             end
@@ -515,6 +449,44 @@ module Ceradoc
               attributes: build_include_attributes(include),
               line_break: include.line_break.to_s
             )
+          end
+
+          # Public: shared with Transform::ListBuilding so list-item
+          # lines rebuild inline-faithfully (markup + constraint), the
+          # same path paragraphs take (#376).
+          def create_text_elements(content)
+            case content
+            when Array
+              content.each_with_index.map do |item, i|
+                if item.is_a?(Ceradoc::CoreModel::InlineElement)
+                  transform_inline(item, siblings: content, index: i)
+                else
+                  create_text_elements(item)
+                end
+              end
+            when Ceradoc::CoreModel::InlineElement
+              transform_inline(content)
+            when Ceradoc::CoreModel::TextContent
+              Ceradoc::AsciiDoc::Model::TextElement.new(content: content.text.to_s)
+            when Ceradoc::CoreModel::Base
+              transform(content)
+            when Ceradoc::AsciiDoc::Model::Base
+              content
+            when Lutaml::Model::Serializable
+              text = if content.is_a?(Ceradoc::AsciiDoc::Model::Base)
+                       content.to_adoc
+                     elsif content.class.attributes.key?(:text)
+                       content.text.to_s
+                     else
+                       ''
+                     end
+              Ceradoc::AsciiDoc::Model::TextElement.new(content: text)
+            when String
+              Ceradoc::AsciiDoc::Model::TextElement.new(content: content)
+            else
+              text = content.is_a?(String) ? content : ''
+              Ceradoc::AsciiDoc::Model::TextElement.new(content: text)
+            end
           end
 
           private
@@ -634,41 +606,6 @@ module Ceradoc
               content: text,
               level_int: level || 1
             )
-          end
-
-          def create_text_elements(content)
-            case content
-            when Array
-              content.each_with_index.map do |item, i|
-                if item.is_a?(Ceradoc::CoreModel::InlineElement)
-                  transform_inline(item, siblings: content, index: i)
-                else
-                  create_text_elements(item)
-                end
-              end
-            when Ceradoc::CoreModel::InlineElement
-              transform_inline(content)
-            when Ceradoc::CoreModel::TextContent
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: content.text.to_s)
-            when Ceradoc::CoreModel::Base
-              transform(content)
-            when Ceradoc::AsciiDoc::Model::Base
-              content
-            when Lutaml::Model::Serializable
-              text = if content.is_a?(Ceradoc::AsciiDoc::Model::Base)
-                       content.to_adoc
-                     elsif content.class.attributes.key?(:text)
-                       content.text.to_s
-                     else
-                       ''
-                     end
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: text)
-            when String
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: content)
-            else
-              text = content.is_a?(String) ? content : ''
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: text)
-            end
           end
 
           def build_attributes(block)

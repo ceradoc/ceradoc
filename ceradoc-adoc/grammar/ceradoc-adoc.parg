@@ -218,7 +218,12 @@ grammar CeradocAdoc version "0.2.0" {
   list_continuation = ("+" "\n")
   list_item_separator = (*(comment_line_content / empty_line))
   ulist_marker_1 = ( ((1"*" !("*") !("===")) / ("-" !("-") !(%x30-39))))
-  olist_marker_1 = ( 1"." !(".") !((*((%x30-39 / "." / "<" / ">" / "^") / "+")) "|"))
+  # numbered/lettered/roman ordered markers — Asciidoctor's alternative
+  # ordered-list spellings (`1.`, `1)`, `a.`, `A.`, `iv.`, `II.`, #376).
+  # Level-1 spelling only: numbered lists nest by indentation, not by
+  # marker repetition, so `2.` must not read as a level-2 `..`.
+  enumerated_olist_marker = ((1*(%x30-39) / 1*("i" / "v" / "x" / "l" / "c" / "d" / "m" / "I" / "V" / "X" / "L" / "C" / "D" / "M") / (%x61-7A / %x41-5A)) ("." / ")"))
+  olist_marker_1 = (( 1"." !(".") !((*((%x30-39 / "." / "<" / ">" / "^") / "+")) "|")) / enumerated_olist_marker)
   list_marker_1 = (olist_marker_1 / ulist_marker_1)
   ulist_marker_2 = ([*literal_space] (2"*" !("*") !("===")))
   olist_marker_2 = ([*literal_space] 2"." !(".") !((*((%x30-39 / "." / "<" / ">" / "^") / "+")) "|"))

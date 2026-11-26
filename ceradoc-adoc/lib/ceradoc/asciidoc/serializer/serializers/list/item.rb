@@ -89,8 +89,11 @@ module Ceradoc
               nest = model.nested.nil? || (model.nested.is_a?(Array) && model.nested.empty?) ? '' : model.nested.to_adoc
               # The nested list serializer opens with a block separator;
               # adjacent to the item line it would read as a detached
-              # sibling list on re-parse.
-              nest = nest.sub(/\A\n+/, '')
+              # sibling list on re-parse. It also ends with the list
+              # terminator blank (#376); inside an item that blank
+              # collapses to the bare newline the next item marker
+              # needs — deeper blanks would break the nested parse.
+              nest = nest.sub(/\A\n+/, '').sub(/(\n+)\z/, "\n")
               out = " #{_anchor}#{out}#{model.line_break}"
               out + attach + nest
             end

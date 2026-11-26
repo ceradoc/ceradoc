@@ -11,7 +11,7 @@ module Ceradoc
               content = serialize_content(model.content)
               content = Ceradoc::Util::AsciiDoc.escape_characters(
                 content,
-                pass_through: %w[~]
+                escape_chars: %w[~]
               )
 
               return '' if content.empty?

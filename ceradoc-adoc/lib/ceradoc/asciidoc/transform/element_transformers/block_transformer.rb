@@ -103,6 +103,18 @@ module Ceradoc
               transform_with_admonition_check(block, Ceradoc::CoreModel::SidebarBlock)
             end
 
+            # `[reviewer=NAME]\n****\n...\n****` — the reviewer's name
+            # rides on ReviewerBlock#annotation_label so the FromCoreModel
+            # direction can re-emit the attribute line; without it the
+            # re-parse classifies the bare `****` as a plain sidebar and
+            # the round trip flips class (#376).
+            def transform_reviewer_block(block)
+              typed = transform_typed_block(block, Ceradoc::CoreModel::ReviewerBlock)
+              typed.annotation_type = 'reviewer'
+              typed.annotation_label = named_attribute_value(block, 'reviewer')
+              typed
+            end
+
             def transform_quote_block(block)
               transform_with_admonition_check(block, Ceradoc::CoreModel::QuoteBlock)
             end
@@ -165,6 +177,18 @@ module Ceradoc
               return nil unless first.is_a?(Ceradoc::AsciiDoc::Model::AttributeListAttribute)
 
               first.value.to_s
+            end
+
+            # First value of a named attribute on the block's attribute
+            # list ("[reviewer=ISO]" → "ISO"), or nil when absent.
+            def named_attribute_value(block, name)
+              attrs = block.attributes
+              return nil unless attrs.is_a?(Ceradoc::AsciiDoc::Model::AttributeList)
+
+              attr = Array(attrs.named).find { |a| a.name.to_s == name }
+              return nil unless attr
+
+              Array(attr.value).first&.to_s
             end
 
             # Single admonition dispatch used by every block-form path

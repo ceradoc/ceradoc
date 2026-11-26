@@ -16,7 +16,7 @@ module Ceradoc
                              *Array(item.children).grep(CoreModel::ListBlock)].compact
             text = inline_text(item)
             attached = attached_blocks(item)
-            if text.empty? && attached.empty? && nested_blocks.any?
+            if text_blank?(text) && attached.empty? && nested_blocks.any?
               # A wrapper item whose only content is its nested list
               # cannot render as a deeper list in AsciiDoc (lists start
               # at level 1, #68), so splice the nested list at this depth.
@@ -50,21 +50,51 @@ module Ceradoc
         # Inline children render on the item line; CoreModel::Block
         # children become attached blocks (`+` continuations) instead of
         # being glued into the item text.
+        #
+        # When the item carries markup (InlineElement children), rebuild
+        # the line inline-faithfully via create_text_elements — the same
+        # path paragraphs use — so monospace/bold/link markup and their
+        # constraint survive into the serialized item (#376). Plain-text
+        # items keep the flat string form.
         def inline_text(item)
           case (rc = item.renderable_content)
           when String then rc
           when Array
-            rc.each_with_object(+'') do |child, out|
-              next if child.is_a?(CoreModel::Block) || child.is_a?(CoreModel::ListBlock)
-
-              out << case child
-                     when CoreModel::TextContent then child.text.to_s
-                     when String then child
-                     when CoreModel::Base then child.flat_text.to_s
-                     end
+            inline_children = rc.reject do |child|
+              child.is_a?(CoreModel::Block) || child.is_a?(CoreModel::ListBlock)
+            end
+            if inline_children.any?(CoreModel::InlineElement)
+              Ceradoc::AsciiDoc::Model::TextElement.new(
+                content: FromCoreModel.create_text_elements(inline_children)
+              )
+            else
+              plain_text(inline_children)
             end
           else
             ''
+          end
+        end
+
+        def plain_text(children)
+          children.each_with_object(+'') do |child, out|
+            out << case child
+                   when CoreModel::TextContent then child.text.to_s
+                   when String then child
+                   when CoreModel::Base then child.flat_text.to_s
+                   end
+          end
+        end
+
+        # Item content is a flat String or an inline-faithful
+        # Model::TextElement; both count as "empty" when they carry no
+        # visible text.
+        def text_blank?(text)
+          case text
+          when String then text.empty?
+          when Ceradoc::AsciiDoc::Model::TextElement
+            Array(text.content).join.empty?
+          else
+            text.nil?
           end
         end
 
