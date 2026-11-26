@@ -27,7 +27,10 @@ module Ceradoc
                            missing_include: :error,
                            max_depth: Ceradoc::ResolveIncludes::DEFAULT_MAX_DEPTH,
                            allow_unsafe: false,
-                           resolver: nil)
+                           resolver: nil,
+                           include_formats: nil,
+                           source_path: nil,
+                           diagnostics: nil)
         resolver = Ceradoc::IncludeResolver.coerce(
           resolver,
           base_dir: base_dir,
@@ -38,7 +41,10 @@ module Ceradoc
           resolver: resolver,
           base_dir: base_dir,
           missing_include: missing_include,
-          max_depth: max_depth
+          max_depth: max_depth,
+          include_formats: include_formats,
+          source_path: source_path,
+          diagnostics: diagnostics
         )
       end
 

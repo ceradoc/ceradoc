@@ -102,6 +102,29 @@ RSpec.describe Ceradoc::SourceGraph do
       end
     end
 
+    it 'treats .md includes as edges: touching the .md part stales the .adoc host' do
+      Dir.mktmpdir do |dir|
+        part = write(dir, 'part.md', "# Part heading\n\nmd body\n")
+        doc = write(dir, 'doc.adoc', "= Title\n\ninclude::part.md[]\n")
+        graph = build_graph(doc, sidecar_at(dir))
+        node = graph.node(doc)
+        graph.materialize(node)
+
+        # The .md edge is recorded like any include edge: the host's
+        # materialized CoreModel holds the Include link node, and the
+        # graph digest covers the .md part's content digest.
+        expect(graph.edges(doc)).to eq([File.expand_path(part)])
+        includes = node.core.children.grep(Ceradoc::CoreModel::Include)
+        expect(includes.map(&:target)).to eq(['part.md'])
+
+        write(dir, 'part.md', "# Part heading\n\nchanged\n")
+        stale = graph.stale_nodes.map { |n| File.basename(n.path) }
+
+        expect(stale).to eq(%w[doc.adoc])
+        expect(node.parsed?).to be(false)
+      end
+    end
+
     it 'propagates transitively through chains' do
       Dir.mktmpdir do |dir|
         write(dir, 'leaf.adoc', "leaf\n")
