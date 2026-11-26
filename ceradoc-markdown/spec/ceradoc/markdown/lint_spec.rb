@@ -20,7 +20,7 @@ RSpec.describe Ceradoc::Markdown::Lint do
 
   describe 'MD001 heading levels' do
     it 'flags skipped levels' do
-      expect(lint("# T\n\n## S\n\n#### D\n").map(&:rule_id)).to eq(%w[MD001])
+      expect(lint("# T\n\n## S\n\n#### D\n").map(&:code)).to eq(%w[MD001])
     end
 
     it 'accepts single-step nesting' do
@@ -32,7 +32,7 @@ RSpec.describe Ceradoc::Markdown::Lint do
     it 'flags same-level duplicates' do
       violations = lint("# S\n\ntext\n\n# S\n\nmore\n")
 
-      expect(violations.map(&:rule_id)).to eq(%w[MD024])
+      expect(violations.map(&:code)).to eq(%w[MD024])
       expect(violations.first.message).to include('level 1')
     end
 

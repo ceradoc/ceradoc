@@ -21,7 +21,7 @@ RSpec.describe Ceradoc::Html::Lint do
     it 'flags skipped levels' do
       violations = lint('<h1>A</h1><h3>B</h3>')
 
-      expect(violations.map(&:rule_id)).to eq(%w[HTML001])
+      expect(violations.map(&:code)).to eq(%w[HTML001])
       expect(violations.first.message).to include('1 to 3')
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Ceradoc::Html::Lint do
     it 'flags images without alt text' do
       violations = lint('<img src="x.png">')
 
-      expect(violations.map(&:rule_id)).to eq(%w[HTML002])
+      expect(violations.map(&:code)).to eq(%w[HTML002])
       expect(violations.first.message).to include('x.png')
     end
 

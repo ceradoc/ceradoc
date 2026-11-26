@@ -21,7 +21,7 @@ module LegacyLint
     def walk(section, parent_level, path, violations)
       level = section.title&.level_int
       if level && level > parent_level + 1
-        violations << build_violation(
+        violations << build_diagnostic(
           path: path,
           message: "heading level skips from #{parent_level} to #{level}: " \
                    "#{title_text(section)}"
@@ -51,8 +51,8 @@ module LegacyLint
       collect(document, ids)
       ids.select { |_id, count| count > 1 }
          .map do |id, count|
-           build_violation(path: path,
-                           message: "duplicate section id #{id.inspect} used #{count} times")
+           build_diagnostic(path: path,
+                            message: "duplicate section id #{id.inspect} used #{count} times")
          end
     end
 

@@ -17,8 +17,8 @@ module LegacyLint
       headings.each_cons(2).filter_map do |(prev, _), (level, text)|
         next unless level > prev + 1
 
-        build_violation(path: path,
-                        message: "heading level skips from #{prev} to #{level}: #{text}")
+        build_diagnostic(path: path,
+                         message: "heading level skips from #{prev} to #{level}: #{text}")
       end
     end
   end
@@ -38,7 +38,7 @@ module LegacyLint
       end
       seen.select { |_key, count| count > 1 }
           .map do |(level, text), count|
-            build_violation(
+            build_diagnostic(
               path: path,
               message: "duplicate heading (level #{level}): #{text.inspect} used #{count} times"
             )

@@ -5,9 +5,9 @@ module Ceradoc
     # Base class for lint rules. Subclasses (in the format gems)
     # declare:
     #
-    #   id     [String]  stable rule code, e.g. 'ADOC001'
+    #   id     [String]  stable namespaced rule code, e.g. 'ADOC001'
     #   format [Symbol]  registered format the rule applies to
-    #   check(document, path) [Array<Violation>] inspect the
+    #   check(document, path) [Array<Diagnostic>] inspect the
     #     format-specific model tree
     #
     # Rules encapsulate their own traversal of the format model —
@@ -32,9 +32,18 @@ module Ceradoc
         self.class.id
       end
 
-      def build_violation(path:, message:, line: nil, severity: :warning)
-        Violation.new(rule_id: id, path: path, line: line,
-                      message: message, severity: severity)
+      # Emit one finding in the diagnostic currency (#377): severity is
+      # validated here, at the emit site; message_ref defaults to the
+      # rule code until a message catalog resolves refs.
+      def build_diagnostic(path:, message:, line: nil, severity: Diagnostic::DEFAULT_SEVERITY)
+        unless Diagnostic::SEVERITIES.include?(severity.to_s)
+          raise ArgumentError,
+                "unknown severity #{severity.inspect} for rule #{id}"
+        end
+
+        Diagnostic.new(code: id, anchor: path, line: line,
+                       severity: severity.to_s, message_ref: id, message: message,
+                       channel: Diagnostic::DEFAULT_CHANNEL)
       end
     end
   end

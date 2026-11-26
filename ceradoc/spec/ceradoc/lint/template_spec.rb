@@ -118,9 +118,9 @@ RSpec.describe Ceradoc::Lint::Template do
     end
 
     it 'produces violations carrying the rule id and path' do
-      violation = tree_rule.new.check([node(2, 'late')], 'doc.x').first
+      diagnostic = tree_rule.new.check([node(2, 'late')], 'doc.x').first
 
-      expect([violation.rule_id, violation.path]).to eq(%w[T001 doc.x])
+      expect([diagnostic.code, diagnostic.anchor]).to eq(%w[T001 doc.x])
     end
   end
 
