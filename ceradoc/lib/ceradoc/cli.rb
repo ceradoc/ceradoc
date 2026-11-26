@@ -120,7 +120,8 @@ module Ceradoc
     end
 
     desc 'lint FILE...', 'Lint documents with model-driven rules (ADOC001...)'
-    option :format, desc: 'Output channel: text, json', type: :string, default: 'text'
+    option :format, desc: 'Output channel: text, json, sarif, lsp',
+                    type: :string, default: 'text'
     option :source_format, aliases: '-f', desc: 'Source format (auto-detected from extension)',
                            type: :string
     option :only, desc: 'Run only these rule ids', type: :array
@@ -145,14 +146,14 @@ module Ceradoc
                                      .new(policy_layers: policy_layers)
                                      .emit(diagnostics)
 
-      if options[:format] == 'json'
-        # Machines parse stdout: the document alone; summaries ride on
-        # stderr so the exit code stays the machine signal.
-        puts output
-        report_summary(findings, stderr: true)
-      else
+      # Machines parse stdout: the document alone; summaries ride on
+      # stderr so the exit code stays the machine signal.
+      if options[:format] == 'text'
         puts output unless output.empty?
         report_summary(findings)
+      else
+        puts output
+        report_summary(findings, stderr: true)
       end
     rescue Ceradoc::Error => e
       error "Error: #{e.message}"
