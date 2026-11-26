@@ -16,22 +16,10 @@ asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2018-12-05-intro-to-metanorma
 asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2019-10-08-metanorma-with-latex-support-alpha.adoc: 'triaged:
   shape-gap (text-partition: adjacent TextContent split/join boundaries differ after
   re-parse)'
-asciidoc:ceradoc/spec/fixtures/metanorma_org_posts/2024-07-09-metanorma-cli-1.10.2-release.adoc: 'triaged:
-  shape-gap (model-shape: children structure differs after re-parse)'
-asciidoc:docs/_guides/configuration.adoc: 'triaged: flip-blocking (constraint-roundtrip:
-  constrained/unconstrained flips on re-parse)'
-asciidoc:docs/_guides/custom-blocks.adoc: 'triaged: flip-blocking (constraint-roundtrip:
-  constrained/unconstrained flips on re-parse)'
 asciidoc:docs/_guides/custom-inline.adoc: 'triaged: flip-blocking (constraint-roundtrip:
-  constrained/unconstrained flips on re-parse)'
-asciidoc:docs/_guides/schema-system.adoc: 'triaged: shape-gap (text-partition: adjacent
-  TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/_guides/troubleshooting.adoc: 'triaged: flip-blocking (constraint-roundtrip:
   constrained/unconstrained flips on re-parse)'
 asciidoc:docs/_pages/architecture.adoc: 'triaged: shape-gap (text-partition: adjacent
   TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/_pages/getting-started.adoc: 'triaged: flip-blocking (serializer-inline:
-  inline markup reparses as a different element class)'
 asciidoc:docs/_pages/model.adoc: 'triaged: flip-blocking (constraint-roundtrip: constrained/unconstrained
   flips on re-parse)'
 asciidoc:docs/_pages/parsing.adoc: 'triaged: shape-gap (text-partition: adjacent TextContent
@@ -50,8 +38,6 @@ asciidoc:docs/_references/coremodel-types.adoc: 'triaged: flip-blocking (constra
   constrained/unconstrained flips on re-parse)'
 asciidoc:docs/_references/error-codes.adoc: 'triaged: shape-gap (model-shape: title
   structure differs after re-parse)'
-asciidoc:docs/_references/extension-points.adoc: 'triaged: flip-blocking (serializer-inline:
-  inline markup reparses as a different element class)'
 asciidoc:docs/_references/feature-matrix.adoc: 'triaged: shape-gap (text-partition:
   adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:docs/_references/limitations.adoc: 'triaged: flip-blocking (serializer-inline:
@@ -66,36 +52,18 @@ asciidoc:docs/_references/output-formats.adoc: 'triaged: flip-blocking (serializ
   inline markup reparses as a different element class)'
 asciidoc:docs/_references/ruby-methods.adoc: 'triaged: shape-gap (model-shape: title
   structure differs after re-parse)'
-asciidoc:docs/_tutorials/basic-parsing.adoc: 'triaged: shape-gap (text-partition:
-  adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/_tutorials/document-modeling.adoc: 'triaged: shape-gap (text-partition:
-  adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:docs/_tutorials/html-conversion.adoc: 'triaged: shape-gap (text-partition:
-  adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/_tutorials/round-tripping.adoc: 'triaged: shape-gap (text-partition:
   adjacent TextContent split/join boundaries differ after re-parse)'
 asciidoc:docs/_tutorials/serialization.adoc: 'triaged: shape-gap (text-partition:
   adjacent TextContent split/join boundaries differ after re-parse)'
-asciidoc:docs/guides.adoc: 'triaged: flip-blocking (serializer-inline: inline markup
-  reparses as a different element class)'
 asciidoc:docs/index.adoc: 'triaged: shape-gap (model-shape: lines structure differs
   after re-parse)'
-asciidoc:docs/pages.adoc: 'triaged: flip-blocking (serializer-inline: inline markup
-  reparses as a different element class)'
-asciidoc:docs/references.adoc: 'triaged: flip-blocking (serializer-inline: inline
-  markup reparses as a different element class)'
-asciidoc:docs/tutorials.adoc: 'triaged: flip-blocking (serializer-inline: inline markup
-  reparses as a different element class)'
 asciidoc:edge/admonition: 'triaged: flip-blocking (serializer-inline: inline markup
   reparses as a different element class)'
 asciidoc:edge/attribute-entry: 'triaged: shape-gap (text-partition: adjacent TextContent
   split/join boundaries differ after re-parse)'
-asciidoc:edge/definition-list: 'triaged: shape-gap (model-shape: term structure differs
-  after re-parse)'
 asciidoc:edge/link-and-xref: 'triaged: shape-gap (model-shape: content structure differs
   after re-parse)'
-asciidoc:examples/README.adoc: 'triaged: flip-blocking (serializer-inline: inline
-  markup reparses as a different element class)'
 asciidoc:examples/documents/article.adoc: 'triaged: flip-blocking (serializer-inline:
   inline markup reparses as a different element class)'
 asciidoc:examples/documents/technical_documentation.adoc: 'triaged: flip-blocking

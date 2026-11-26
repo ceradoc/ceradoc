@@ -8,7 +8,7 @@ module Ceradoc
           class Open < Core
             def to_adoc(model, _options = {})
               @model = model
-              "\n\n#{gen_anchor}#{gen_attributes}#{gen_delimiter}\n" <<
+              "\n\n#{gen_anchor}#{gen_title}#{gen_attributes}#{gen_delimiter}\n" <<
                 gen_lines << "\n#{gen_delimiter}\n\n"
             end
           end

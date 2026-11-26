@@ -240,7 +240,7 @@ module Ceradoc
           # marker type one level deeper.
           def transform_list_item(item)
             Ceradoc::AsciiDoc::Model::List::Item.new(
-              content: item.flat_text,
+              content: inline_text(item),
               marker: item.marker
             )
           end
@@ -464,13 +464,15 @@ module Ceradoc
 
           def transform_definition_item(item, depth = 1)
             delimiter = ':' * (depth + 1)
-            # Multi-term `<dt>`: one Term per entry in `item.terms`.
+            # Multi-term `<dt>`: one entry per string in `item.terms`.
             # Falls back to `[item.term]` for items populated via
             # legacy paths that only set the singular accessor.
+            # Terms ride as plain strings — the parser-side
+            # DefinitionItem carries terms as strings, and Model::Term
+            # renders glossary/iterm syntax (`type:[term]`), not dlist
+            # terms (#376).
             term_strings = terms_for(item)
-            terms = term_strings.map do |text|
-              Ceradoc::AsciiDoc::Model::Term.new(term: text.to_s)
-            end
+            terms = term_strings.map(&:to_s)
             contents = Array(item.definitions).map do |defn|
               Ceradoc::AsciiDoc::Model::TextElement.new(content: defn.to_s)
             end
@@ -517,6 +519,44 @@ module Ceradoc
               attributes: build_include_attributes(include),
               line_break: include.line_break.to_s
             )
+          end
+
+          # Public: shared with Transform::ListBuilding so list-item
+          # lines rebuild inline-faithfully (markup + constraint), the
+          # same path paragraphs take (#376).
+          def create_text_elements(content)
+            case content
+            when Array
+              content.each_with_index.map do |item, i|
+                if item.is_a?(Ceradoc::CoreModel::InlineElement)
+                  transform_inline(item, siblings: content, index: i)
+                else
+                  create_text_elements(item)
+                end
+              end
+            when Ceradoc::CoreModel::InlineElement
+              transform_inline(content)
+            when Ceradoc::CoreModel::TextContent
+              Ceradoc::AsciiDoc::Model::TextElement.new(content: content.text.to_s)
+            when Ceradoc::CoreModel::Base
+              transform(content)
+            when Ceradoc::AsciiDoc::Model::Base
+              content
+            when Lutaml::Model::Serializable
+              text = if content.is_a?(Ceradoc::AsciiDoc::Model::Base)
+                       content.to_adoc
+                     elsif content.class.attributes.key?(:text)
+                       content.text.to_s
+                     else
+                       ''
+                     end
+              Ceradoc::AsciiDoc::Model::TextElement.new(content: text)
+            when String
+              Ceradoc::AsciiDoc::Model::TextElement.new(content: content)
+            else
+              text = content.is_a?(String) ? content : ''
+              Ceradoc::AsciiDoc::Model::TextElement.new(content: text)
+            end
           end
 
           private
@@ -636,41 +676,6 @@ module Ceradoc
               content: text,
               level_int: level || 1
             )
-          end
-
-          def create_text_elements(content)
-            case content
-            when Array
-              content.each_with_index.map do |item, i|
-                if item.is_a?(Ceradoc::CoreModel::InlineElement)
-                  transform_inline(item, siblings: content, index: i)
-                else
-                  create_text_elements(item)
-                end
-              end
-            when Ceradoc::CoreModel::InlineElement
-              transform_inline(content)
-            when Ceradoc::CoreModel::TextContent
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: content.text.to_s)
-            when Ceradoc::CoreModel::Base
-              transform(content)
-            when Ceradoc::AsciiDoc::Model::Base
-              content
-            when Lutaml::Model::Serializable
-              text = if content.is_a?(Ceradoc::AsciiDoc::Model::Base)
-                       content.to_adoc
-                     elsif content.class.attributes.key?(:text)
-                       content.text.to_s
-                     else
-                       ''
-                     end
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: text)
-            when String
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: content)
-            else
-              text = content.is_a?(String) ? content : ''
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: text)
-            end
           end
 
           def build_attributes(block)

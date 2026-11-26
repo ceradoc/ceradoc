@@ -85,14 +85,41 @@ module Ceradoc
         end
 
         def olist_marker(nesting_level = 1)
-          # Don't match table cell format specs like ".2+^.^|"
           line_start? >>
             (nesting_level > 1 ? literal_space.maybe : str('')) >>
-            str('.' * nesting_level) >>
+            marker_body(nesting_level)
+        end
+
+        # Enumerated markers (`1.`, `a.`) are a level-1 spelling:
+        # Asciidoctor nests numbered lists by indentation, not by
+        # marker repetition, so `2.` must NOT read as level-2 `..`.
+        def marker_body(nesting_level)
+          if nesting_level == 1
+            dot_run_olist_marker(nesting_level) | enumerated_olist_marker
+          else
+            dot_run_olist_marker(nesting_level)
+          end
+        end
+
+        # Dot-run markers: `.`, `..`, ... — one dot per nesting level.
+        # Don't match table cell format specs like ".2+^.^|"
+        def dot_run_olist_marker(nesting_level)
+          str('.' * nesting_level) >>
             str('.').absent? >>
             (
               (match['0-9.<>^'] | str('+')).repeat(0, 3) >> str('|')
             ).absent?
+        end
+
+        # Numbered / lettered / roman ordered markers — Asciidoctor's
+        # alternative ordered-list spellings (`1.`, `1)`, `a.`, `A.`,
+        # `iv.`, `II.`, #376). Digits and romans run; bare letters are
+        # single-character. The `space` requirement in {#olist_item}
+        # keeps `1.5 million` or `i.e. text` from matching.
+        def enumerated_olist_marker
+          (match['0-9'].repeat(1) |
+           match['ivxlcdmIVXLCDM'].repeat(1) |
+           match['a-zA-Z']) >> match['.)']
         end
 
         def olist_item(nesting_level = 1)

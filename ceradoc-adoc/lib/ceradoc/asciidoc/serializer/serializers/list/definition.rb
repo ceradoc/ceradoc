@@ -16,7 +16,8 @@ module Ceradoc
                 serialized = serialize_child_with_options(item, delimiter: @model.delimiter)
                 content << serialized
               end
-              content
+              # List terminator blank (#376) — same contract as List::Core.
+              "#{content}\n"
             end
 
             private

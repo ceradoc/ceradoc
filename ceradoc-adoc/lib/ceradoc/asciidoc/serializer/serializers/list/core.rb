@@ -28,7 +28,11 @@ module Ceradoc
                 content << c
               end
 
-              "\n#{_anchor}#{_attrs}" + content
+              # A list is terminated by a blank line (#376): without it,
+              # the next block's first line re-parses as a continuation
+              # line of the last item. Item-embedded nested lists strip
+              # this back to a single newline (see List::Item).
+              "#{_anchor}#{_attrs}#{content}\n"
             end
 
             private
