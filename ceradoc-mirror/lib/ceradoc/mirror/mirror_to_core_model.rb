@@ -21,6 +21,27 @@ module Ceradoc
 
         result = builder_class.new(self).build(node)
         propagate_source_line(result, node)
+        propagate_content(result)
+        result
+      end
+
+      # Blocks carry their flattened text in CoreModel#content next to
+      # their structured #children; builders rebuild children only, so
+      # the flattened text is derived here once for every produced node
+      # (same single-touchpoint reasoning as propagate_source_line).
+      # Empty derivations leave content nil — block kinds whose
+      # flat_text is empty (lists, tables) keep nil like the forward
+      # parse produced.
+      def propagate_content(result)
+        return unless result.is_a?(CoreModel::Base)
+
+        attrs = result.class.attributes.keys
+        return unless attrs.include?(:content) && attrs.include?(:children)
+        return unless result.content.nil?
+
+        derived = Array(result.children).map(&:flat_text).join
+        result.content = derived unless derived.empty?
+      rescue StandardError
         result
       end
 

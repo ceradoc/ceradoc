@@ -18,6 +18,12 @@ module Ceradoc
         text.to_s
       end
 
+      # Leaf text flattens to its own text — Base#flat_text returns ''
+      # for structure-only nodes, but a TextContent IS the text.
+      def flat_text
+        text.to_s
+      end
+
       def whitespace_only?
         text.to_s.strip.empty?
       end

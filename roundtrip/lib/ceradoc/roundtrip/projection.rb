@@ -14,10 +14,10 @@ module Ceradoc
 
       # @param node [Object] a CoreModel node, collection or scalar
       # @return [Object] hashes, arrays and scalars only
-      def of(node)
+      def of(node, ignored: IGNORED_ATTRIBUTES)
         case node
-        when Lutaml::Model::Serializable then model(node)
-        when Array then node.map { |child| of(child) }
+        when Lutaml::Model::Serializable then model(node, ignored)
+        when Array then node.map { |child| of(child, ignored: ignored) }
         else node
         end
       end
@@ -36,10 +36,10 @@ module Ceradoc
         end
       end
 
-      def model(node)
-        attrs = node.class.attributes.keys - IGNORED_ATTRIBUTES
+      def model(node, ignored)
+        attrs = node.class.attributes.keys - ignored
         attrs.each_with_object({ '@type' => node.class.name.split('::').last }) do |name, hash|
-          value = of(node.public_send(name))
+          value = of(node.public_send(name), ignored: ignored)
           hash[name.to_s] = value unless value.nil? || value == []
         end
       end

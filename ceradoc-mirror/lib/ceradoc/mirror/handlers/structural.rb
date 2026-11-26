@@ -72,6 +72,7 @@ module Ceradoc
           content = context.extract_content(element)
           Node::Header.new(
             attrs: Node::Header::Attrs.new(
+              id: element.id,
               title: element.title,
               level: element.heading_level
             ),
