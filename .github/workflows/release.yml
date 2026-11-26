@@ -58,10 +58,11 @@ jobs:
           (github.event.inputs.gem_name == 'ceradoc-mirror' && 'lib/ceradoc/mirror/version.rb') ||
           ''
         }}
-    # No secrets passed: the flow runs on GITHUB_TOKEN (the reusable job
-    # declares pull-requests: write for the release-PR operations,
-    # metanorma/ci#533) and publishes through RubyGems Trusted Publishing
-    # (OIDC, id-token: write above) — the ceradoc org carries no
-    # rubygems API-key secret, and the METANORMA_CI_* names this file used
-    # to pass do not exist in this org (they resolved empty, silently
-    # selecting exactly these paths anyway).
+    # The release-PR creation runs on the CERADOC_CI_PAT_TOKEN when set
+    # (the reusable's HAVE_PAT_TOKEN path: checkout and gh-rubygems-setup
+    # authenticate as the ceradoc-ci account, which the ceradoc org allows
+    # to create pull requests — GITHUB_TOKEN is policy-blocked for PR
+    # creation here, which stranded release/ceradoc-adoc-v2.0.38). Without
+    # the secret the flow falls back to GITHUB_TOKEN + Trusted Publishing.
+    secrets:
+      pat_token: ${{ secrets.CERADOC_CI_PAT_TOKEN }}
