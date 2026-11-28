@@ -205,6 +205,118 @@ RSpec.describe Ceradoc::AsciiDoc::Transform::FromCoreModel do
       end
     end
 
+    context 'with nested inline children (#373)' do
+      # The inline branches must route children through the
+      # inline_model + create_text_elements seam (the bold/italic
+      # pattern). Handing raw CoreModel children (or content) to the
+      # adoc model constructors string-interpolates the Ruby object
+      # dump (`#<Ceradoc::...>`) into the emitted AsciiDoc and drops
+      # nested markup entirely.
+      let(:nested_bold) do
+        bold = Ceradoc::CoreModel::BoldElement.new
+        bold.children = [Ceradoc::CoreModel::TextContent.new(text: 'nested')]
+        bold
+      end
+
+      it 'converts subscript children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'subscript')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('~*nested*~')
+      end
+
+      it 'converts superscript children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'superscript')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('^*nested*^')
+      end
+
+      it 'converts monospace children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'monospace')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('`*nested*`')
+      end
+
+      it 'converts highlight children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'highlight')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('#*nested*#')
+      end
+
+      it 'converts strikethrough children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'strikethrough')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('[.line-through]#*nested*#')
+      end
+
+      it 'converts underline children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'underline')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('[.underline]#*nested*#')
+      end
+
+      it 'converts link children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'link',
+                                                       target: 'https://example.com')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('https://example.com[*nested*]')
+      end
+
+      it 'converts footnote children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'footnote', target: 'fn1')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('footnote:fn1[*nested*]')
+      end
+
+      it 'converts stem children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'stem')
+        inline.children = [Ceradoc::CoreModel::TextContent.new(text: 'x^2')]
+
+        expect(described_class.transform(inline).to_adoc).to eq('latexmath:[x^2]')
+      end
+
+      it 'converts raw_inline children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'raw_inline')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('+++*nested*+++')
+      end
+
+      it 'converts unknown-format (else branch) children to inline markup' do
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'mystery')
+        inline.children = [nested_bold]
+
+        expect(described_class.transform(inline).to_adoc).to eq('*nested*')
+      end
+
+      it 'converts a TextElement child nested in another inline (#373 else branch)' do
+        text_el = Ceradoc::CoreModel::TextElement.new
+        text_el.children = [nested_bold]
+        highlight = Ceradoc::CoreModel::InlineElement.new(format_type: 'highlight')
+        highlight.children = [text_el]
+
+        expect(described_class.transform(highlight).to_adoc).to eq('#*nested*#')
+      end
+
+      it 'preserves nested bold>italic markup instead of flattening or escaping it' do
+        inner = Ceradoc::CoreModel::ItalicElement.new
+        inner.children = [Ceradoc::CoreModel::TextContent.new(text: 'deep')]
+        outer = Ceradoc::CoreModel::BoldElement.new
+        outer.children = [inner]
+        inline = Ceradoc::CoreModel::InlineElement.new(format_type: 'subscript')
+        inline.children = [outer]
+
+        expect(described_class.transform(inline).to_adoc).to eq('~*_deep_*~')
+      end
+    end
+
     context 'with Table' do
       it 'transforms a CoreModel Table to AsciiDoc Table' do
         core_table = Ceradoc::CoreModel::Table.new(

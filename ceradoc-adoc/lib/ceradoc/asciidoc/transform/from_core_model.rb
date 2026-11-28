@@ -179,19 +179,36 @@ module Ceradoc
 
           # Nested inline structure lives in +children+ (e.g. an
           # ItalicElement whose single child is a BoldElement);
-          # +content+ is only the flattened display string. Build the
-          # adoc model from children so nesting survives, and default
-          # to the constrained marker — the constrained/unstrained
-          # distinction is not carried in CoreModel, and constrained
-          # is the correct rendering for span-boundary emphasis (#159).
-          def inline_model(klass, inline, unconstrained: false)
-            content = if inline.children.nil? || inline.children.empty?
-                        inline.content.to_s
-                      else
-                        create_text_elements(inline.children)
-                      end
+          # +content+ is only the flattened display string. Convert the
+          # children through create_text_elements so nesting survives —
+          # raw children (or content) handed to an adoc model
+          # string-interpolate the Ruby object dump into the output and
+          # drop the nested markup (#373).
+          def converted_inline_content(inline)
+            children = Array(inline.children)
+            return inline.content.to_s if children.empty?
 
-            klass.new(content: content, unconstrained: unconstrained)
+            create_text_elements(inline.children)
+          end
+
+          # String-typed inline models (underline text, link name,
+          # footnote text, stem/passthrough content) interpolate their
+          # attribute directly into the AsciiDoc output, so they receive
+          # the children already serialized to markup instead of a model
+          # array (#373).
+          def converted_inline_markup(inline)
+            content = converted_inline_content(inline)
+            content.is_a?(Array) ? content.map(&:to_adoc).join : content
+          end
+
+          # Build an emphasis-style model from converted children,
+          # defaulting to the constrained marker — the
+          # constrained/unstrained distinction is not carried in
+          # CoreModel, and constrained is the correct rendering for
+          # span-boundary emphasis (#159).
+          def inline_model(klass, inline, unconstrained: false)
+            klass.new(content: converted_inline_content(inline),
+                      unconstrained: unconstrained)
           end
 
           # `_*text*_` parses to Italic{Bold{text}}; Metanorma renders
@@ -273,23 +290,29 @@ module Ceradoc
                 inline_model(Ceradoc::AsciiDoc::Model::Inline::Italic, inline,
                              unconstrained: unconstrained)
             when 'monospace'
-              Ceradoc::AsciiDoc::Model::Inline::Monospace.new(content: inline.content,
-                                                              unconstrained: unconstrained)
+              inline_model(Ceradoc::AsciiDoc::Model::Inline::Monospace, inline,
+                           unconstrained: unconstrained)
             when 'highlight'
-              Ceradoc::AsciiDoc::Model::Inline::Highlight.new(content: inline.content,
-                                                              unconstrained: unconstrained)
+              inline_model(Ceradoc::AsciiDoc::Model::Inline::Highlight, inline,
+                           unconstrained: unconstrained)
             when 'strikethrough'
-              Ceradoc::AsciiDoc::Model::Inline::Strikethrough.new(content: inline.content)
+              inline_model(Ceradoc::AsciiDoc::Model::Inline::Strikethrough, inline)
             when 'subscript'
-              Ceradoc::AsciiDoc::Model::Inline::Subscript.new(content: inline.content)
+              Ceradoc::AsciiDoc::Model::Inline::Subscript.new(
+                content: converted_inline_content(inline)
+              )
             when 'superscript'
-              Ceradoc::AsciiDoc::Model::Inline::Superscript.new(content: inline.content)
+              Ceradoc::AsciiDoc::Model::Inline::Superscript.new(
+                content: converted_inline_content(inline)
+              )
             when 'underline'
-              Ceradoc::AsciiDoc::Model::Inline::Underline.new(text: inline.content)
+              Ceradoc::AsciiDoc::Model::Inline::Underline.new(
+                text: converted_inline_markup(inline)
+              )
             when 'link'
               Ceradoc::AsciiDoc::Model::Inline::Link.new(
                 path: inline.target,
-                name: inline.content
+                name: converted_inline_markup(inline)
               )
             when 'term'
               # Term macros (`alt:[x]`, `term:[x]`, `deprecated:[x]`) must
@@ -311,19 +334,23 @@ module Ceradoc
             when 'footnote'
               Ceradoc::AsciiDoc::Model::Inline::Footnote.new(
                 id: inline.target,
-                text: inline.content
+                text: converted_inline_markup(inline)
               )
             when 'stem'
               Ceradoc::AsciiDoc::Model::Inline::Stem.new(
                 type: inline.stem_type || 'latexmath',
-                content: inline.content
+                content: converted_inline_markup(inline)
               )
             when 'raw_inline'
-              Ceradoc::AsciiDoc::Model::Inline::Passthrough.new(content: inline.content)
+              Ceradoc::AsciiDoc::Model::Inline::Passthrough.new(
+                content: converted_inline_markup(inline)
+              )
             when 'hard_line_break'
               Ceradoc::AsciiDoc::Model::Inline::HardLineBreak.new
             else
-              Ceradoc::AsciiDoc::Model::TextElement.new(content: inline.content)
+              Ceradoc::AsciiDoc::Model::TextElement.new(
+                content: converted_inline_content(inline)
+              )
             end
           end
 
