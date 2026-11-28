@@ -38,7 +38,7 @@ module Ceradoc
     # `copy` assigns the (inflated) field as is; the others coerce.
     CONVERTERS = {
       copy: ->(value) { value },
-      string: ->(value) { value.to_s },
+      string: :to_s.to_proc,
       string_or_nil: ->(value) { value&.to_s },
       joined: ->(value) { value.is_a?(Array) ? value.map(&:to_s).join : value.to_s }
     }.freeze
@@ -69,7 +69,7 @@ module Ceradoc
     # defaults. `attrs` maps attribute => compiled spec.
     def promote(attributes, source: nil, attrs: {})
       from = source ? attributes.fetch(source) : attributes
-      attrs.to_h { |attribute, spec| [attribute, convert(from, spec)] }
+      attrs.transform_values { |spec| convert(from, spec) }
     end
 
     # `string`: the inflation result is one capture's string.
