@@ -55,10 +55,16 @@ module Coridoc
           str('&').ignore >> match['A-Za-z0-9'].repeat(1).as(:entity_name) >> str(';').ignore
         end
         rule(:nul_byte) { str("\0").output("\uFFFD") }
-        rule(:special_char) { escape | dec_entity | hex_entity | entity | nul_byte }
+        # Character references are sibling elements, not part of the text
+        # run: a repeat that mixes captured sub-nodes with bare character
+        # yields keeps only the captures, so nesting them inside `text`
+        # silently drops the surrounding characters. They decode in
+        # normalize_dynamic_captures (the native engine cannot call Ruby).
+        rule(:character_reference) { dec_entity | hex_entity | entity }
+        rule(:special_char) { escape | nul_byte }
 
         rule(:text) do
-          (special_char | (element.absent? >> any)).repeat(1).as(:text)
+          (special_char | (element.absent? >> character_reference.absent? >> any)).repeat(1).as(:text)
         end
 
         rule(:code_span) do
@@ -159,7 +165,7 @@ module Coridoc
 
         rule(:element) { code_span | image | link | checked_delimiter_run }
 
-        rule(:inline) { (text | element).repeat }
+        rule(:inline) { (text | character_reference | element).repeat }
 
         root :inline
 
@@ -283,9 +289,12 @@ module Coridoc
         end
 
         # Grammar-phase Ruby callables (parsanol-ruby#163: not
-        # wire-expressible) are replaced by raw captures, decoded here
-        # so parse() output is unchanged: {dec_entity: "65"} -> "A",
-        # {code_raw: s} -> {code: process_code(s)}.
+        # wire-expressible) are replaced by raw captures, resolved here
+        # so parse() output is unchanged: {code_raw: s} ->
+        # {code: process_code(s)}. Character references reassemble to
+        # their verbatim source spelling (`&lt;` stays `&lt;`): the
+        # decoded character cannot be re-encoded unambiguously on
+        # serialization, so decoding here breaks the round trip.
         def normalize_dynamic_captures(node)
           case node
           when Array
@@ -293,9 +302,9 @@ module Coridoc
           when Hash
             if node.size == 1
               case node.keys.first
-              when :dec_entity then return unicode_dec(node.values.first)
-              when :hex_entity then return unicode_hex(node.values.first)
-              when :entity_name then return lookup_entity(node.values.first)
+              when :dec_entity then return { text: "&##{node.values.first};" }
+              when :hex_entity then return { text: "&#x#{node.values.first};" }
+              when :entity_name then return { text: "&#{node.values.first};" }
               when :code_raw then return { code: process_code(node.values.first.to_s) }
               end
             end

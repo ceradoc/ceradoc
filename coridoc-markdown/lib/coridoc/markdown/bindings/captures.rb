@@ -58,9 +58,9 @@ module Coridoc
 
             if scanner.scan(/(\w[\w-]*)\s*=\s*/)
               key = scanner[1]
-              value = if scanner.scan(/"([^"\\]*)"/)
+              value = if scanner.scan(/"([^"]*)"/)
                         scanner[1]
-                      elsif scanner.scan(/'([^'\\]*)'/)
+                      elsif scanner.scan(/'([^']*)'/)
                         scanner[1]
                       elsif scanner.scan(/(\S+)/)
                         scanner[1]

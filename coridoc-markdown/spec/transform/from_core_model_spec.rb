@@ -611,9 +611,10 @@ RSpec.describe Coridoc::Markdown::Transform::FromCoreModel do
     context 'with CommentBlock' do
       let(:core_model) { Coridoc::CoreModel::CommentBlock.new(content: 'hidden block') }
 
-      it 'produces a Markdown::Comment preserving content' do
-        expect(transform).to be_a(Coridoc::Markdown::Comment)
-        expect(transform.text).to eq('hidden block')
+      it 'produces a comment Extension preserving content' do
+        expect(transform).to be_a(Coridoc::Markdown::Extension)
+        expect(transform.name.to_s).to eq('comment')
+        expect(transform.content).to eq('hidden block')
       end
     end
 

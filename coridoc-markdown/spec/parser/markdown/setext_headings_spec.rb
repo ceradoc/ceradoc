@@ -94,7 +94,7 @@ Foo
 Foo
     ---
 ', [
-  { p: [{ ln: 'Foo' }, { ln: '---' }] }
+  { p: [{ ln: 'Foo' }, { ln: '    ---' }] }
 ]
 
     markdown_example 88, '

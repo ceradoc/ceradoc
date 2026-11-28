@@ -52,7 +52,7 @@ RSpec.describe Coridoc::Markdown::Parser::BlockParser do
 Foo
     bar
 ', [
-  { p: [{ ln: 'Foo' }, { ln: 'bar' }] }
+  { p: [{ ln: 'Foo' }, { ln: '    bar' }] }
 ]
 
     markdown_example 114, '

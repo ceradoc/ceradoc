@@ -78,17 +78,16 @@ RSpec.describe 'Cross-format round-trip (AsciiDoc → Markdown → CoreModel)', 
       expect(md).to include('Logo')
     end
 
-    it 'preserves a comment block by suppressing it (default)' do
+    it 'preserves a comment block as a `{::comment}` extension (default)' do
       _c1, _, md = adoc_to_md_to_core("////\nhidden\n////\n")
-      expect(md).not_to include('hidden')
+      expect(md).to include('{::comment}hidden{:/}')
     end
 
-    it 'preserves a comment block when suppress_comments is false' do
+    it 'preserves a comment block content when suppress_comments is false' do
       core = Coridoc.parse("////\nvisible\n////\n", format: :asciidoc)
       md_doc = Coridoc::Markdown.from_core_model(core)
       md = Coridoc::Markdown.serialize(md_doc, suppress_comments: false)
       expect(md).to include('visible')
-      expect(md).to include('<!--')
     end
   end
 

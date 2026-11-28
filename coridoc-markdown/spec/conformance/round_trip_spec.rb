@@ -108,7 +108,9 @@ RSpec.describe 'Markdown serialization round-trip', :aggregate_failures do
 
     it 'round-trips a horizontal rule' do
       _c1, c2, text2 = roundtrip("a\n\n---\n\nb\n")
-      expect(text2).to include("\n---\n")
+      # The canonical spelling is `***`: `---` collides with the YAML
+      # frontmatter delimiters on re-parse.
+      expect(text2).to include("\n***\n")
       expect(flatten_text(c2)).to include('a')
       expect(flatten_text(c2)).to include('b')
     end

@@ -81,7 +81,11 @@ grammar CoridocMarkdown version "0.1.0" {
   ial_block = (*3whitespace (ial / ald) line_ending_or_eof)
   paragraph_interrupt = (blank_line / atx_heading / thematic_break / code_fence_open / block_quote / ial_block / extension / unordered_list_marker / ordered_list_marker / definition_marker)
   paragraph_line = (((1*line_char) as ln !any_char) / ((*line_char) as ln line_ending))
-  paragraph_continued_line = (ign_ws_rep paragraph_line)
+  # Continued lines keep their leading whitespace: a stripped indent can
+  # turn a paragraph line into something that interrupts (e.g. `*    item2`
+  # at column 0), so the reparse of the serialized text would split the
+  # paragraph the first parse kept together.
+  paragraph_continued_line = (((*whitespace (1*line_char)) as ln !any_char) / ((*whitespace *line_char) as ln line_ending))
   paragraph_cont = !paragraph_interrupt
   lazy_continuation = (!paragraph_interrupt &paragraph_continued_line)
   paragraph_body = ((paragraph_line *(continuation paragraph_continued_line)) as p)

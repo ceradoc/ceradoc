@@ -13,7 +13,7 @@ module Coridoc
 
         # Register an ALD under its name.
         def define(name, attrs)
-          @definitions[name] = Bindings.model('AttributeList').new(name: name, **attrs)
+          @definitions[name] = Bindings.model('AttributeList').new(name: name, **Bindings::Hooks.ial_attributes(attrs))
         end
 
         # An IAL naming a registered ALD resolves to it; anything else is
@@ -23,7 +23,7 @@ module Coridoc
           return @definitions[content] if content.match?(/\A\w+\z/) && @definitions.key?(content)
 
           attrs = Captures.parse_ial_content(content)
-          Bindings.model('AttributeList').new(id: attrs[:id], classes: attrs[:classes], attributes: attrs[:attributes])
+          Bindings.model('AttributeList').new(**Bindings::Hooks.ial_attributes(attrs))
         end
       end
     end

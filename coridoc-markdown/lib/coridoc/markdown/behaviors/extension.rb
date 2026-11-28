@@ -63,6 +63,24 @@ module Coridoc
         def self_closing?
           content.nil? || content.empty?
         end
+
+        # Canonical kramdown spelling of this extension node. Both the
+        # serializer (re-emission on CoreModel round trips) and ToCoreModel
+        # (verbatim preservation of unknown extensions) read the spelling
+        # from here so the two never drift apart.
+        #
+        #   {::name k="v" /}        (self-closing)
+        #   {::name k="v"}body{:/}  (with body)
+        #
+        # @return [String]
+        def extension_syntax
+          opts = options.map { |nv| %(#{nv.name}="#{nv.value}") }.join(' ')
+          head = "{::#{name}"
+          head += " #{opts}" unless opts.empty?
+          return "#{head} /}" if self_closing?
+
+          "#{head}}#{content}{:/}"
+        end
       end
     end
   end

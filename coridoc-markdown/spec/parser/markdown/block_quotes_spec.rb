@@ -104,7 +104,7 @@ foo
 > foo
     - bar
 ', [
-  { block_quote: { p: [{ ln: 'foo' }, { ln: '- bar' }] } }
+  { block_quote: { p: [{ ln: 'foo' }, { ln: '    - bar' }] } }
 ]
 
     markdown_example 239, '

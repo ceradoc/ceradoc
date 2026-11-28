@@ -9,7 +9,9 @@ module Coridoc
     # FROZEN reference copy of the hand-written stage-1 -> stage-2 Markdown
     # transformer retired in M5 (coridoc/coridoc#308). Specs diff the bound
     # path (Coridoc::Markdown::Transformer + Bindings) against it; it is not
-    # loaded by the library.
+    # loaded by the library. Deliberate binding-side semantic changes
+    # (round-trip fixes) are mirrored here so the differential keeps
+    # comparing the current intended behavior.
     #
     # Original description: Transformer converts Parsanol AST into Markdown Document Model objects.
     #
@@ -117,7 +119,7 @@ module Coridoc
            }) do
         Extension.new(
           name: name.to_s,
-          options: parse_extension_options(opts.to_s)
+          options: named_value_attributes(parse_extension_options(opts.to_s))
         )
       end
 
@@ -128,7 +130,7 @@ module Coridoc
            }) do
         Extension.new(
           name: name.to_s,
-          options: parse_extension_options(opts.to_s),
+          options: named_value_attributes(parse_extension_options(opts.to_s)),
           content: body.to_s
         )
       end
@@ -215,7 +217,12 @@ module Coridoc
           name = element[:ald_name].to_s
           ial_content = element[:ial].to_s
           attrs = parse_ial_content(ial_content)
-          @ald_registry[name] = AttributeList.new(name: name, **attrs)
+          @ald_registry[name] = AttributeList.new(
+            name: name,
+            id: attrs[:id],
+            classes: attrs[:classes],
+            attributes: named_value_attributes(attrs[:attributes])
+          )
         end
 
         # Transform extension element
@@ -234,7 +241,7 @@ module Coridoc
 
           Extension.new(
             name: name,
-            options: options,
+            options: named_value_attributes(options),
             content: body&.to_s
           )
         end
@@ -358,7 +365,7 @@ module Coridoc
             when Hash
               if n.key?(:p)
                 text_parts << extract_text_from_p(n[:p])
-                inline_children.concat(inline_models_for(n[:p]))
+                inline_children.concat(inline_models_for(stripped_first_line(n[:p])))
               elsif n.key?(:ul)
                 sublist = transform_list(n[:ul], ordered: false)
               elsif n.key?(:ol)
@@ -450,8 +457,15 @@ module Coridoc
           attrs = parse_ial_content(ial_content.to_s)
           element.id = attrs[:id] if attrs[:id]
           element.classes = attrs[:classes] if attrs[:classes]
-          element.attributes = attrs[:attributes] if attrs[:attributes]
+          element.attributes = named_value_attributes(attrs[:attributes]) if attrs[:attributes]
           element
+        end
+
+        # The attribute hashes from IalParser / extension-option parsing
+        # map to NamedValue collections on the models; build the models
+        # here so a raw hash is never cast into the collections.
+        def named_value_attributes(hash)
+          (hash || {}).map { |key, value| NamedValue.new(name: key.to_s, value: value.to_s) }
         end
 
         # Parse IAL content string into components
@@ -473,9 +487,9 @@ module Coridoc
 
             if scanner.scan(/(\w[\w-]*)\s*=\s*/)
               key = scanner[1]
-              value = if scanner.scan(/"([^"\\]*)"/)
+              value = if scanner.scan(/"([^"]*)"/)
                         scanner[1]
-                      elsif scanner.scan(/'([^'\\]*)'/)
+                      elsif scanner.scan(/'([^']*)'/)
                         scanner[1]
                       elsif scanner.scan(/(\S+)/)
                         scanner[1]
@@ -503,7 +517,7 @@ module Coridoc
             AttributeList.new(
               id: attrs[:id],
               classes: attrs[:classes],
-              attributes: attrs[:attributes]
+              attributes: named_value_attributes(attrs[:attributes])
             )
           end
         end
@@ -517,6 +531,18 @@ module Coridoc
             p.map { |l| l.is_a?(Hash) ? l[:ln].to_s : l.to_s }.join("\n")
           else
             p.to_s
+          end
+        end
+
+        # The whitespace right after a list marker is marker padding, not
+        # content: the item text is already stripped, so the inline
+        # children must drop it too or the two disagree on round trip.
+        def stripped_first_line(p)
+          strip = ->(line) { line.is_a?(Hash) ? { ln: line[:ln].to_s.lstrip } : line.to_s }
+          if p.is_a?(Hash)
+            strip.call(p)
+          else
+            p.each_with_index.map { |line, index| index.zero? ? strip.call(line) : line }
           end
         end
 

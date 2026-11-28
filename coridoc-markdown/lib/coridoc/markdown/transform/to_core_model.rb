@@ -268,9 +268,12 @@ module Coridoc
                 content: ext.content.to_s
               )
             else
-              # Unknown extensions: preserve content as a generic block
+              # Unknown extension: keep the directive verbatim as
+              # paragraph text. An empty content block would serialize
+              # to nothing and vanish on re-parse; the verbatim
+              # `{::name ...}` form reparses to the same paragraph.
               Coridoc::CoreModel::ParagraphBlock.new(
-                content: ext.content.to_s
+                content: ext.extension_syntax
               )
             end
           end

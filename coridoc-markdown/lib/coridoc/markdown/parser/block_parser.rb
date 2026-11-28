@@ -254,9 +254,13 @@ module Coridoc
           (line_char.repeat(1).as(:ln) >> any.absent?) | (line_char.repeat.as(:ln) >> line_ending)
         end
 
+        # Continued lines keep their leading whitespace: a stripped indent
+        # can turn a paragraph line into something that interrupts (e.g.
+        # `*    item2` at column 0), so the reparse of the serialized text
+        # would split the paragraph the first parse kept together.
         rule(:paragraph_continued_line) do
-          whitespace.repeat.ignore >>
-            paragraph_line
+          ((whitespace.repeat >> line_char.repeat(1)) >> any.absent?).as(:ln) |
+            ((whitespace.repeat >> line_char.repeat) >> line_ending).as(:ln)
         end
 
         rule(:paragraph) do

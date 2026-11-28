@@ -40,8 +40,17 @@ module Coridoc
         def ial(attrs)
           return {} unless attrs.key?(:ial)
 
-          parsed = Captures.parse_ial_content(attrs[:ial].to_s)
-          { id: parsed[:id], classes: parsed[:classes], attributes: parsed[:attributes] }.compact
+          ial_attributes(Captures.parse_ial_content(attrs[:ial].to_s))
+        end
+
+        # `parse_ial_content` returns `attributes` as a plain hash, while
+        # the model collections are NamedValue; build the models here (a
+        # raw hash cast into the collection yields junk empty attributes).
+        def ial_attributes(parsed)
+          attributes = parsed[:attributes].map do |key, value|
+            model('NamedValue').new(name: key.to_s, value: value.to_s)
+          end
+          { id: parsed[:id], classes: parsed[:classes], attributes: attributes }.compact
         end
 
         def heading(attrs)
@@ -103,7 +112,7 @@ module Coridoc
               text_parts << node.to_s
             elsif node.key?(:p)
               text_parts << Captures.extract_text_from_p(node[:p])
-              children.concat(inline_models(node[:p]))
+              children.concat(inline_models(marker_padding_stripped(node[:p])))
             elsif node.key?(:ul)
               sublist = model('List').new(**list_attributes(node[:ul], ordered: false))
             elsif node.key?(:ol)
@@ -113,6 +122,18 @@ module Coridoc
           item = model('ListItem').new(text: text_parts.join(' ').strip, children: children)
           item.sublist = sublist if sublist
           item
+        end
+
+        # The whitespace right after a list marker is marker padding, not
+        # content: the item text is already stripped, so the inline
+        # children must drop it too or the two disagree on round trip.
+        def marker_padding_stripped(paragraph)
+          stripped = ->(line) { line.is_a?(Hash) ? { ln: line[:ln].to_s.lstrip } : line.to_s }
+          if paragraph.is_a?(Hash)
+            stripped.call(paragraph)
+          else
+            paragraph.each_with_index.map { |line, index| index.zero? ? stripped.call(line) : line }
+          end
         end
 
         # The parser yields terms and definitions as a flat sequence;
@@ -160,8 +181,9 @@ module Coridoc
           node = attrs[:extension] || attrs
           opts = node[:ext_options]
           empty = !opts || (opts.is_a?(Array) && opts.empty?)
+          parsed = empty ? {} : Captures.parse_extension_options(opts.to_s)
           { name: node[:ext_name].to_s,
-            options: empty ? {} : Captures.parse_extension_options(opts.to_s),
+            options: parsed.map { |key, value| model('NamedValue').new(name: key.to_s, value: value.to_s) },
             content: node[:ext_body]&.to_s }
         end
 

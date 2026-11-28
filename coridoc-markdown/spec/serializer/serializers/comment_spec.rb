@@ -44,11 +44,11 @@ RSpec.describe Coridoc::Markdown::Serializer::Serializers::Comment do
   end
 
   describe 'through FromCoreModel (CommentBlock / CommentLine)' do
-    it 'suppresses CommentBlock by default' do
+    it 're-emits CommentBlock as a `{::comment}` extension so it reparses' do
       core = Coridoc::CoreModel::CommentBlock.new(content: 'hidden block text')
       md = Coridoc::Markdown.from_core_model(core)
       result = Coridoc::Markdown::Serializer.call(md)
-      expect(result).to eq('')
+      expect(result).to eq('{::comment}hidden block text{:/}')
     end
 
     it 'suppresses CommentLine by default' do
@@ -56,13 +56,6 @@ RSpec.describe Coridoc::Markdown::Serializer::Serializers::Comment do
       md = Coridoc::Markdown.from_core_model(core)
       result = Coridoc::Markdown::Serializer.call(md)
       expect(result).to eq('')
-    end
-
-    it 'emits CommentBlock when suppress_comments is false' do
-      core = Coridoc::CoreModel::CommentBlock.new(content: 'visible')
-      md = Coridoc::Markdown.from_core_model(core)
-      result = Coridoc::Markdown::Serializer.call(md, suppress_comments: false)
-      expect(result).to eq('<!-- visible -->')
     end
   end
 end

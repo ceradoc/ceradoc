@@ -23,8 +23,11 @@ module Coridoc
               # Must be checked before Block since AnnotationBlock < Block
               transform_annotation_block(model)
             when Coridoc::CoreModel::CommentBlock
-              # Must be checked before Block since CommentBlock < Block
-              Coridoc::Markdown::Comment.new(text: model.content.to_s)
+              # Must be checked before Block since CommentBlock < Block.
+              # Re-emit the kramdown `{::comment}` wrapper: an HTML
+              # comment would not re-parse as a CommentBlock, breaking
+              # the CoreModel round trip.
+              Coridoc::Markdown::Extension.comment(model.content.to_s)
             when Coridoc::CoreModel::Block
               transform_block(model)
             when Coridoc::CoreModel::ListBlock
@@ -141,11 +144,31 @@ module Coridoc
           end
 
           def transform_generic_element(element)
-            blocks = Array(element.children).flat_map { |child| flatten_result(transform(child)) }
+            children = Array(element.children)
+            return transform_attribute_run(children) if attribute_run?(children)
+
+            blocks = children.flat_map { |child| flatten_result(transform(child)) }
 
             Coridoc::Markdown::Document.new(
               id: element.id,
               blocks: blocks
+            )
+          end
+
+          # A bare attribute run — every child an ElementAttribute, as
+          # produced by a kramdown IAL — re-emits as one `{:.class #id
+          # key="value"}` line. Without this the attributes reach the
+          # serializer unhandled and crash the round trip.
+          def attribute_run?(children)
+            children.any? && children.all?(CoreModel::ElementAttribute)
+          end
+
+          def transform_attribute_run(attributes)
+            Coridoc::Markdown::AttributeList.new(
+              id: attributes.find { |attr| attr.name == 'id' }&.value,
+              classes: attributes.select { |attr| attr.name == 'class' }.map(&:value),
+              attributes: attributes.reject { |attr| %w[id class].include?(attr.name) }
+                                    .map { |attr| Coridoc::Markdown::NamedValue.new(name: attr.name, value: attr.value) }
             )
           end
 
@@ -257,7 +280,10 @@ module Coridoc
           def transform_pass_block(block)
             return Coridoc::Markdown::Math.block(block.content.to_s) if block.language == 'latexmath'
 
-            Coridoc::Markdown::Pass.new(content: block.content.to_s)
+            # Re-emit the kramdown `{::nomarkdown}` wrapper: an HTML
+            # comment would not re-parse as a PassBlock, breaking the
+            # CoreModel round trip.
+            Coridoc::Markdown::Extension.nomarkdown(block.content.to_s)
           end
 
           def transform_literal_block(block)
@@ -361,7 +387,10 @@ module Coridoc
           end
 
           def transform_horizontal_rule(_block)
-            Coridoc::Markdown::HorizontalRule.new(style: '---')
+            # `***` is the canonical spelling: `---` collides with the
+            # YAML frontmatter delimiters, and a leading `---` run would
+            # be stripped as frontmatter on re-parse.
+            Coridoc::Markdown::HorizontalRule.new(style: '***')
           end
 
           def transform_list(list)
