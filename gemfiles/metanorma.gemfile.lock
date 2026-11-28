@@ -111,7 +111,7 @@ PATH
 PATH
   remote: ../ceradoc
   specs:
-    ceradoc (3.0.3)
+    ceradoc (3.0.4)
       lutaml-model (~> 0.8.0)
       thor (~> 1.0)
 
@@ -877,7 +877,7 @@ CHECKSUMS
   bundler (4.0.24) sha256=16ca64e20816a0cf151a948fb141d788602996d2b4d73577b74388fe84fa98bc
   camertron-eprun (2.0.1) sha256=6d5dc4cf7989622d7f7fdd4888d4fc2a831984c6b6a589bbaecdecd29d3fe2c1
   canon (0.3.129) sha256=53423ba77e119a23fea160038fd37d0ce8ef16acdcf1b3e9340300099375be4e
-  ceradoc (3.0.3)
+  ceradoc (3.0.4)
   ceradoc-adoc (2.0.39)
   ceradoc-markdown (1.0.19)
   cldr-plurals-runtime-rb (1.2.0) sha256=8fa697e8b3cc2e7e37f48f871ccd967eff5acc59067a186895e897c8f88829eb
