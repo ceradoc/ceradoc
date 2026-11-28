@@ -1,0 +1,387 @@
+---
+type: DocumentElement
+title: '05: CoreModel Builder encodes format-specific parsing knowledge'
+children:
+- type: SectionElement
+  title: '05: CoreModel Builder encodes format-specific parsing knowledge'
+  level: 1
+  children: []
+- type: SectionElement
+  title: 'Status: FIXED'
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Builder methods now return typed CoreModel objects (ParagraphBlock, SectionElement,
+        HeaderElement, CommentBlock, Table, BibliographyEntry, ElementAttribute) instead
+        of raw Hashes
+    marker: "*"
+    content: Builder methods now return typed CoreModel objects (ParagraphBlock, SectionElement,
+      HeaderElement, CommentBlock, Table, BibliographyEntry, ElementAttribute) instead
+      of raw Hashes
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: group_document_elements
+    - type: TextContent
+      text: " uses "
+    - type: MonospaceElement
+      children: []
+      content: is_a?
+    - type: TextContent
+      text: " class checks instead of Hash "
+    - type: MonospaceElement
+      children: []
+      content: "[:type]"
+    - type: TextContent
+      text: " discrimination"
+    marker: "*"
+    content: "`group_document_elements` uses `is_a?` class checks instead of Hash `[:type]` discrimination"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: build_attributes
+    - type: TextContent
+      text: " returns "
+    - type: MonospaceElement
+      children: []
+      content: ElementAttribute
+    - type: TextContent
+      text: " typed objects"
+    marker: "*"
+    content: "`build_attributes` returns `ElementAttribute` typed objects"
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Detection logic (marker types, inline format detection) remains AsciiDoc-specific
+        as it lives under '
+    - type: MonospaceElement
+      children: []
+      content: ceradoc-adoc/
+    marker: "*"
+    content: Detection logic (marker types, inline format detection) remains AsciiDoc-specific
+      as it lives under `ceradoc-adoc/`
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: document_builder.rb
+    - type: TextContent
+      text: " in core remains format-neutral"
+    marker: "*"
+    content: "`document_builder.rb` in core remains format-neutral"
+- type: ParagraphBlock
+  children:
+  - type: BoldElement
+    children: []
+    content: 'Severity:'
+  - type: TextContent
+    text: " HIGH  "
+  - type: TextContent
+    text: "\n"
+  - type: BoldElement
+    children: []
+    content: 'Location:'
+  - type: TextContent
+    text: " "
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/
+  - type: TextContent
+    text: " (all files)"
+  content: "**Severity:** HIGH  \n**Location:** `lib/ceradoc/core_model/builder/` (all files)"
+  callouts: []
+- type: SectionElement
+  title: Problem
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'The '
+  - type: MonospaceElement
+    children: []
+    content: Builder
+  - type: TextContent
+    text: " class lives under "
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/
+  - type: TextContent
+    text: " but contains AsciiDoc-specific parsing logic throughout. The Builder should be format-neutral — it is part of CoreModel."
+  content: The `Builder` class lives under `lib/ceradoc/core_model/builder/` but contains
+    AsciiDoc-specific parsing logic throughout. The Builder should be format-neutral
+    — it is part of CoreModel.
+  callouts: []
+- type: SectionElement
+  title: Evidence
+  level: 2
+  children: []
+- type: SectionElement
+  title: 5A. `detect_marker_type` maps AsciiDoc markers to names
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/detection.rb:107-115
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder/detection.rb:107-115`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def detect_marker_type(ast)
+      marker = ast[:marker]&.to_s
+      return 'asterisk' if marker&.start_with?('*')
+      return 'dash' if marker&.start_with?('-')
+      return 'numbered' if marker&.match?(/^\d+\./) || marker&.start_with?('.')
+      return 'labeled' if marker&.end_with?('::')
+      'asterisk'
+    end
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: "::"
+  - type: TextContent
+    text: " for labeled lists is purely AsciiDoc. The default "
+  - type: MonospaceElement
+    children: []
+    content: "'asterisk'"
+  - type: TextContent
+    text: " is AsciiDoc's default. Markdown uses "
+  - type: MonospaceElement
+    children: []
+    content: "-"
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "*"
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "+"
+  - type: TextContent
+    text: " for unordered and "
+  - type: MonospaceElement
+    children: []
+    content: '1.'
+  - type: TextContent
+    text: ' for ordered — no "labeled" type.'
+  content: '`::` for labeled lists is purely AsciiDoc. The default `''asterisk''`
+    is AsciiDoc''s default. Markdown uses `-`, `*`, `+` for unordered and `1.` for
+    ordered — no "labeled" type.'
+  callouts: []
+- type: SectionElement
+  title: 5B. `detect_marker_level` counts AsciiDoc marker repetition
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/detection.rb:117-122
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder/detection.rb:117-122`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def detect_marker_level(ast)
+      marker = ast[:marker]&.to_s
+      return marker.length if marker&.match?(/^[*.]+$/)
+      1
+    end
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Nesting level encoded by marker repetition (
+  - type: MonospaceElement
+    children: []
+    content: "*"
+  - type: TextContent
+    text: " = level 1, "
+  - type: MonospaceElement
+    children: []
+    content: "**"
+  - type: TextContent
+    text: " = level 2) is AsciiDoc. Markdown encodes nesting via indentation."
+  content: Nesting level encoded by marker repetition (`*` = level 1, `**` = level
+    2) is AsciiDoc. Markdown encodes nesting via indentation.
+  callouts: []
+- type: SectionElement
+  title: 5C. `extract_level` decodes `=` prefixed levels
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/detection.rb:157-165
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder/detection.rb:157-165`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def extract_level(ast)
+      if ast[:level]
+        level_str = ast[:level].to_s
+        return level_str.length - 1 if level_str.start_with?('=')
+        return level_str.to_i if level_str.match?(/^\d+$/)
+      end
+      1
+    end
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Decoding heading level from '
+  - type: MonospaceElement
+    children: []
+    content: "="
+  - type: TextContent
+    text: " count ("
+  - type: MonospaceElement
+    children: []
+    content: "=="
+  - type: TextContent
+    text: " = level 2) is AsciiDoc ATX-style heading syntax."
+  content: Decoding heading level from `=` count (`==` = level 2) is AsciiDoc ATX-style
+    heading syntax.
+  callouts: []
+- type: SectionElement
+  title: 5D. `list_markers` hardcodes AsciiDoc markers
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/detection.rb:172-175
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder/detection.rb:172-175`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def list_markers
+      %w[* - . :: numbered]
+    end
+  language: ruby
+  callouts: []
+- type: SectionElement
+  title: 5E. `extract_annotation_type` checks AsciiDoc-specific AST
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/detection.rb:67-87
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder/detection.rb:67-87`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def extract_annotation_type(ast)
+      attr_list = ast[:attribute_list]
+      if attr_list.is_a?(Hash) && attr_list[:positional]
+        positional = Array(attr_list[:positional])
+        annotation = positional.find do |p|
+          annotation_types.include?(p.to_s.downcase)
+        end
+        return annotation.to_s.downcase if annotation
+      end
+      return ast[:admonition_type]&.to_s&.downcase if ast[:admonition_type]
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: attribute_list[:positional]
+  - type: TextContent
+    text: " for "
+  - type: MonospaceElement
+    children: []
+    content: "[NOTE]"
+  - type: TextContent
+    text: " syntax and "
+  - type: MonospaceElement
+    children: []
+    content: admonition_type
+  - type: TextContent
+    text: " are AsciiDoc AST concepts."
+  content: "`attribute_list[:positional]` for `[NOTE]` syntax and `admonition_type` are AsciiDoc AST concepts."
+  callouts: []
+- type: SectionElement
+  title: 5F. Builder methods return raw Hashes, not CoreModel objects
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder.rb:179-189
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder.rb:179-189`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def build_paragraph(ast)
+      {
+        type: :paragraph,
+        content: build_paragraph_content(para_ast[:lines]),
+      }
+    end
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Many builder methods return plain Hashes instead of typed CoreModel objects,
+      undermining the purpose of having typed models.
+  content: Many builder methods return plain Hashes instead of typed CoreModel objects,
+    undermining the purpose of having typed models.
+  callouts: []
+- type: SectionElement
+  title: Fix
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Relocate the Builder from '
+  - type: MonospaceElement
+    children: []
+    content: core_model/builder/
+  - type: TextContent
+    text: " to the format gems. Only format-neutral construction logic should remain in CoreModel. The AsciiDoc gem should own its own builder that knows about AsciiDoc AST structure."
+  content: Relocate the Builder from `core_model/builder/` to the format gems. Only
+    format-neutral construction logic should remain in CoreModel. The AsciiDoc gem
+    should own its own builder that knows about AsciiDoc AST structure.
+  callouts: []

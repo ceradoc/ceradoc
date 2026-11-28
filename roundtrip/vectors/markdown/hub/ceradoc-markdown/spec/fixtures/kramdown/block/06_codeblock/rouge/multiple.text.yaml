@@ -1,0 +1,18 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: puts "Hello"
+  language: ruby
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: puts "World"
+  language: ruby
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: "$foo = new Bar;"
+  language: php?start_inline=1
+  callouts: []

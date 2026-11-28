@@ -1,0 +1,22 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is an {::options parse
+  - type: TextContent
+    text: _
+  - type: TextContent
+    text: span
+  - type: TextContent
+    text: _
+  - type: TextContent
+    text: html="false" /} option <span>
+  - type: ItalicElement
+    children: []
+    content: 'true'
+  - type: TextContent
+    text: "</span>!"
+  content: This is an {::options parse_span_html="false" /} option <span>*true*</span>!
+  callouts: []

@@ -1,0 +1,28 @@
+---
+type: DocumentElement
+title: Lorem ipsum
+children:
+- type: SectionElement
+  title: Lorem ipsum
+  level: 1
+  children: []
+- type: SectionElement
+  title: Lorem ipsum
+  level: 2
+  children: []
+- type: SectionElement
+  title: Lorem ipsum
+  level: 3
+  children: []
+- type: SectionElement
+  title: Lorem ipsum
+  level: 6
+  children: []
+- type: SectionElement
+  title: Lorem ipsum
+  level: 1
+  children: []
+- type: SectionElement
+  title: Lorem ipsum
+  level: 2
+  children: []

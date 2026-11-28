@@ -1,0 +1,15 @@
+---
+type: DocumentElement
+title: A header
+children:
+- type: SectionElement
+  title: A header
+  element_attributes:
+  - type: ElementAttribute
+    name: id
+    value: myid
+  - type: ElementAttribute
+    name: class
+    value: cls
+  level: 2
+  children: []

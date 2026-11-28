@@ -1,0 +1,30 @@
+---
+type: DocumentElement
+title: NAME
+children:
+- type: SectionElement
+  title: NAME
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: works
+  content: works
+  callouts: []
+- type: SectionElement
+  title: Sub section
+  level: 3
+  children: []
+- type: SectionElement
+  title: Ignored
+  level: 4
+  children: []
+- type: SectionElement
+  title: Ignored
+  level: 5
+  children: []
+- type: SectionElement
+  title: Ignored
+  level: 6
+  children: []

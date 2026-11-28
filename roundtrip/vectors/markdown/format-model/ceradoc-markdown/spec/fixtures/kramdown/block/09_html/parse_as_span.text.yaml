@@ -1,0 +1,56 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <p>This *text
+    should* be parsed
+    as span
+    </P>
+  children:
+  - attributes: []
+    content: "<p>This "
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: text
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: should
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: " be parsed"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: as span
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</P>"
+- attributes: []
+  text: "<p>This produces `</p>` an unwanted result.</p>"
+  children:
+  - attributes: []
+    content: "<p>This produces "
+  - attributes: []
+    text: "</p>"
+  - attributes: []
+    content: " an unwanted result.</p>"
+- attributes: []
+  text: |-
+    <p>This *text* too</p><p>
+    some text
+  children:
+  - attributes: []
+    content: "<p>This "
+  - attributes: []
+    text: text
+  - attributes: []
+    content: " too</p><p>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: some text

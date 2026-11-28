@@ -211,6 +211,12 @@ module Ceradoc
   # from ceradoc-markdown/schemas/*.yml (see Ceradoc::Markdown::Schema).
   Markdown::Schema.install! if ENV['CERADOC_MARKDOWN_GENERATED'] == '1'
 
+  # Data-serialization registry + generated mappings (#389): the
+  # markdown mirror of CoreModel::Serialization. Load-time side effect
+  # (the walker const_gets every model constant), so require_relative
+  # after all model autoloads above are registered.
+  require_relative 'markdown/serialization'
+
   # Register the Markdown format with Ceradoc
   register_format(:markdown, Markdown,
                   aliases: %w[md markdown mdown mkd],

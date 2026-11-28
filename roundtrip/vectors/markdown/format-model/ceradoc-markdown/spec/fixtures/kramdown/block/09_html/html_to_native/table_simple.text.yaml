@@ -1,0 +1,374 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <table class="examples">
+    <tr>
+    <td>Usage</td>
+    <td>
+    Output
+    </td>
+    </tr>
+    <tr>
+    <td>Some *data*</td>
+    <td>
+    Some more
+    </td>
+    </tr>
+    </table>
+  children:
+  - attributes: []
+    content: <table class="examples">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>Usage</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Output
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>Some "
+  - attributes: []
+    text: data
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Some more
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</table>"
+- attributes: []
+  text: |-
+    <table class="examples">
+    <thead>
+    <tr>
+    <th>Usage</th>
+    <th>
+    Output
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Some *data*</td>
+    <td>
+    Some more
+    </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+    <td>foot</td>
+    <td>
+    locker
+    </td>
+    </tr>
+    </tfoot>
+    </table>
+  children:
+  - attributes: []
+    content: <table class="examples">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<thead>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th>Usage</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Output
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</thead>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tbody>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>Some "
+  - attributes: []
+    text: data
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Some more
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tbody>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tfoot>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>foot</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: locker
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tfoot>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</table>"
+- attributes: []
+  text: |-
+    <table class="examples">
+    <tr>
+    <td style="text-align: left">Usage</td>
+    <td style="width: 10em">
+    Output
+    </td>
+    </tr>
+    <tr>
+    <td style="text-align: left">Some *data*</td>
+    <td>
+    Some more
+    </td>
+    </tr>
+    </table>
+  children:
+  - attributes: []
+    content: <table class="examples">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '<td style="text-align: left">Usage</td>'
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '<td style="width: 10em">'
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Output
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '<td style="text-align: left">Some '
+  - attributes: []
+    text: data
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Some more
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</table>"
+- attributes: []
+  text: |-
+    <table class="examples">
+    <tr>
+    <th>Usage</th>
+    <th>
+    Output
+    </th>
+    </tr>
+    <tr>
+    <td>Some *data*</td>
+    <td>
+    Some more
+    </td>
+    </tr>
+    </table>
+  children:
+  - attributes: []
+    content: <table class="examples">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th>Usage</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Output
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>Some "
+  - attributes: []
+    text: data
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Some more
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</table>"
+- attributes: []
+  text: |-
+    <table>
+    </table>
+  children:
+  - attributes: []
+    content: "<table>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</table>"

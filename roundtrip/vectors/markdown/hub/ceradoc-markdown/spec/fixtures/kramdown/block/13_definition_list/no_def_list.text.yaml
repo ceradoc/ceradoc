@@ -1,0 +1,15 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is a para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: ": and not a definition list"
+  content: |-
+    This is a para
+    \: and not a definition list
+  callouts: []

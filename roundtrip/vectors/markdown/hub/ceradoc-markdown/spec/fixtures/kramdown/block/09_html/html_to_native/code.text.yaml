@@ -1,0 +1,39 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '["<", ">"]'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: This is a <code>simple code</code> span.
+  content: |-
+    This is a <code>code span <b>with</b> &lt;entities&gt; that should be preserved</code>.
+    This is a <code>simple code</code> span.
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '["<"]'
+  content: "<p>Some <code>&lt;</code></p>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '["<"]'
+  content: "<pre>Some very important <b>&lt;</b> thing</pre>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '["<", "<"]'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</code></pre>"
+  content: |-
+    <pre><code>Some code<span>&lt;</span>&lt;
+    </code></pre>
+  callouts: []

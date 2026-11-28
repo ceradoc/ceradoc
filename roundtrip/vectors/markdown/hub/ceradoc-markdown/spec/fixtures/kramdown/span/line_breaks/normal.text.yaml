@@ -1,0 +1,43 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'This is a line  '
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: 'with a line break.  '
+  content: "This is a line  \nwith a line break.  "
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'This is a line '
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: without a line break.
+  content: "This is a line \nwithout a line break."
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is a line \
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: 'with a line\   '
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: break.
+  content: "This is a line \\\\\nwith a line\\\\   \nbreak."
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Line break on last line.  '
+  content: 'Line break on last line.  '
+  callouts: []

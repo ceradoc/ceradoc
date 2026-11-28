@@ -1,0 +1,13 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  code: |-
+    code block
+
+    continued here
+- classes:
+  - cls
+  attributes: []
+- attributes: []
+  code: new block here

@@ -1,0 +1,377 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '07: HTML gem completely bypasses hub-and-spoke architecture'
+- attributes: []
+  level: 2
+  text: 'Status: NOT FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: HTML gem still directly consumes CoreModel types throughout (~80 files,
+      435+ CoreModel references)
+    children:
+    - attributes: []
+      content: HTML gem still directly consumes CoreModel types throughout (~80 files,
+        435+ CoreModel references)
+  - attributes: []
+    text: No HTML-specific model layer exists
+    children:
+    - attributes: []
+      content: No HTML-specific model layer exists
+  - attributes: []
+    text: "`ToCoreModel` and `FromCoreModel` transformers remain pass-throughs"
+    children:
+    - attributes: []
+      text: ToCoreModel
+    - attributes: []
+      content: " and "
+    - attributes: []
+      text: FromCoreModel
+    - attributes: []
+      content: " transformers remain pass-throughs"
+  - attributes: []
+    text: Requires 80+ file rewrite — deferred to a separate PR
+    children:
+    - attributes: []
+      content: Requires 80+ file rewrite — deferred to a separate PR
+- attributes: []
+  text: "**Severity:** CRITICAL  \n**Location:** Entire `ceradoc-html/lib/` tree (~80 files, 435+ CoreModel references)"
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " CRITICAL  "
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " Entire "
+  - attributes: []
+    text: ceradoc-html/lib/
+  - attributes: []
+    content: " tree (~80 files, 435+ CoreModel references)"
+- attributes: []
+  level: 2
+  text: Problem
+- attributes: []
+  text: The HTML gem has no format-specific model layer. Every component — input converters,
+    output converters, renderer, element_mapping, and theme system — operates directly
+    on `CoreModel::*` types. The `ToCoreModel` and `FromCoreModel` transformers are
+    pass-throughs that return their input unchanged.
+  children:
+  - attributes: []
+    content: The HTML gem has no format-specific model layer. Every component — input
+      converters, output converters, renderer, element
+  - attributes: []
+    content: _
+  - attributes: []
+    content: 'mapping, and theme system — operates directly on '
+  - attributes: []
+    text: CoreModel::*
+  - attributes: []
+    content: " types. The "
+  - attributes: []
+    text: ToCoreModel
+  - attributes: []
+    content: " and "
+  - attributes: []
+    text: FromCoreModel
+  - attributes: []
+    content: " transformers are pass-throughs that return their input unchanged."
+- attributes: []
+  text: This means the HTML gem is not a "spoke" — it is a direct consumer of the
+    hub, completely violating the hub-and-spoke architecture that ADOC, Markdown,
+    and DOCX gems follow.
+  children:
+  - attributes: []
+    content: This means the HTML gem is not a "spoke" — it is a direct consumer of
+      the hub, completely violating the hub-and-spoke architecture that ADOC, Markdown,
+      and DOCX gems follow.
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  level: 3
+  text: 7A. No model directory exists
+- attributes: []
+  text: No `ceradoc-html/lib/ceradoc/html/model/` directory. Zero HTML-specific model
+    classes.
+  children:
+  - attributes: []
+    content: 'No '
+  - attributes: []
+    text: ceradoc-html/lib/ceradoc/html/model/
+  - attributes: []
+    content: " directory. Zero HTML-specific model classes."
+- attributes: []
+  level: 3
+  text: 7B. Both transformers are pass-throughs
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`transform/to_core_model.rb:22-29` — returns `model` if `is_a?(CoreModel::Base)`"
+    children:
+    - attributes: []
+      text: transform/to_core_model.rb:22-29
+    - attributes: []
+      content: " — returns "
+    - attributes: []
+      text: model
+    - attributes: []
+      content: " if "
+    - attributes: []
+      text: is_a?(CoreModel::Base)
+  - attributes: []
+    text: '`transform/from_core_model.rb:17-27` — returns CoreModel object unchanged.
+      Comment: "HTML converters already support CoreModel directly."'
+    children:
+    - attributes: []
+      text: transform/from_core_model.rb:17-27
+    - attributes: []
+      content: ' — returns CoreModel object unchanged. Comment: "HTML converters already
+        support CoreModel directly."'
+- attributes: []
+  level: 3
+  text: 7C. Input converters directly instantiate CoreModel (67 refs, 30 files)
+- attributes: []
+  text: 'All files in `input/converters/` create CoreModel instances:'
+  children:
+  - attributes: []
+    content: 'All files in '
+  - attributes: []
+    text: input/converters/
+  - attributes: []
+    content: " create CoreModel instances:"
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`p.rb:15` — `CoreModel::Block.new(element_type: 'paragraph', ...)`"
+    children:
+    - attributes: []
+      text: p.rb:15
+    - attributes: []
+      content: " — "
+    - attributes: []
+      text: 'CoreModel::Block.new(element_type: ''paragraph'', ...)'
+  - attributes: []
+    text: "`h.rb:22` — `CoreModel::StructuralElement.new(...)`"
+    children:
+    - attributes: []
+      text: h.rb:22
+    - attributes: []
+      content: " — "
+    - attributes: []
+      text: CoreModel::StructuralElement.new(...)
+  - attributes: []
+    text: "`table.rb:17` — `CoreModel::Table.new(...)`"
+    children:
+    - attributes: []
+      text: table.rb:17
+    - attributes: []
+      content: " — "
+    - attributes: []
+      text: CoreModel::Table.new(...)
+  - attributes: []
+    text: "`text.rb:15` — `CoreModel::InlineElement.new(...)`"
+    children:
+    - attributes: []
+      text: text.rb:15
+    - attributes: []
+      content: " — "
+    - attributes: []
+      text: CoreModel::InlineElement.new(...)
+  - attributes: []
+    text: Plus 26 more converters
+    children:
+    - attributes: []
+      content: Plus 26 more converters
+- attributes: []
+  level: 3
+  text: 7D. Output converters directly consume CoreModel (195 refs, 50 files)
+- attributes: []
+  text: "`converters/base.rb:48-106` — 25 consecutive `is_a?(Ceradoc::CoreModel::*)` checks:"
+  children:
+  - attributes: []
+    text: converters/base.rb:48-106
+  - attributes: []
+    content: " — 25 consecutive "
+  - attributes: []
+    text: is_a?(Ceradoc::CoreModel::*)
+  - attributes: []
+    content: " checks:"
+- attributes: []
+  language: ruby
+  code: |-
+    when Ceradoc::CoreModel::InlineElement
+    when Ceradoc::CoreModel::AnnotationBlock
+    when Ceradoc::CoreModel::Block
+    # ... 22 more
+- attributes: []
+  text: Lines 111-207 directly access CoreModel attributes (`format_type`, `block_semantic_type`,
+    `content`, `target`).
+  children:
+  - attributes: []
+    content: Lines 111-207 directly access CoreModel attributes (
+  - attributes: []
+    text: format_type
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: block_semantic_type
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: content
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: target
+  - attributes: []
+    content: ")."
+- attributes: []
+  level: 3
+  text: 7E. `element_mapping.rb` maps HTML tags to CoreModel class name strings
+- attributes: []
+  text: 'Lines 107-166:'
+  children:
+  - attributes: []
+    content: 'Lines 107-166:'
+- attributes: []
+  language: ruby
+  code: |-
+    HTML_TO_MODEL = {
+      p: 'Ceradoc::CoreModel::Block',
+      section: 'Ceradoc::CoreModel::StructuralElement',
+      table: 'Ceradoc::CoreModel::Table',
+      img: 'Ceradoc::CoreModel::Image',
+      h1: 'Ceradoc::CoreModel::StructuralElement',
+      # ... 50+ more
+    }
+- attributes: []
+  level: 3
+  text: 7F. Renderer dispatches on CoreModel class names
+- attributes: []
+  text: "`renderer.rb:40-72` — `TEMPLATE_TYPE_MAP`:"
+  children:
+  - attributes: []
+    text: renderer.rb:40-72
+  - attributes: []
+    content: " — "
+  - attributes: []
+    text: TEMPLATE_TYPE_MAP
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    'Ceradoc::CoreModel::Bibliography' => 'bibliography',
+    'Ceradoc::CoreModel::Block' => 'block',
+    'Ceradoc::CoreModel::SourceBlock' => 'source_block',
+    # ...
+- attributes: []
+  text: 'Line 400: `element.is_a?(Ceradoc::CoreModel::StructuralElement)`'
+  children:
+  - attributes: []
+    content: 'Line 400: '
+  - attributes: []
+    text: element.is_a?(Ceradoc::CoreModel::StructuralElement)
+- attributes: []
+  level: 3
+  text: 7G. ConverterBase enforces CoreModel-only input
+- attributes: []
+  text: "`converter_base.rb:106-111`:"
+  children:
+  - attributes: []
+    text: converter_base.rb:106-111
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    unless document.is_a?(Ceradoc::CoreModel::Base)
+      raise UnsupportedDocumentError,
+        "Expected CoreModel document, got: #{document.class}."
+    end
+- attributes: []
+  level: 3
+  text: 7H. Theme system references CoreModel types
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`theme/classic_renderer.rb` — 6 `is_a?(CoreModel::*)` checks"
+    children:
+    - attributes: []
+      text: theme/classic_renderer.rb
+    - attributes: []
+      content: " — 6 "
+    - attributes: []
+      text: is_a?(CoreModel::*)
+    - attributes: []
+      content: " checks"
+  - attributes: []
+    text: "`theme/modern/serializers/document_serializer.rb:24` — validates `CoreModel::StructuralElement`"
+    children:
+    - attributes: []
+      text: theme/modern/serializers/document_serializer.rb:24
+    - attributes: []
+      content: " — validates "
+    - attributes: []
+      text: CoreModel::StructuralElement
+  - attributes: []
+    text: "`renderer.rb:229-233` — iterates `CoreModel.constants(false)` to create Liquid drops"
+    children:
+    - attributes: []
+      text: renderer.rb:229-233
+    - attributes: []
+      content: " — iterates "
+    - attributes: []
+      text: CoreModel.constants(false)
+    - attributes: []
+      content: " to create Liquid drops"
+- attributes: []
+  level: 3
+  text: 7I. Top-level `html.rb` rejects non-CoreModel input
+- attributes: []
+  text: 'Lines 92-99:'
+  children:
+  - attributes: []
+    content: 'Lines 92-99:'
+- attributes: []
+  language: ruby
+  code: |-
+    unless document.is_a?(Ceradoc::CoreModel::Base)
+      raise ArgumentError, 'ceradoc-html only accepts CoreModel types.'
+    end
+- attributes: []
+  level: 2
+  text: Impact
+- attributes: []
+  text: Any CoreModel attribute change requires updating ~80 files in the HTML gem.
+    The HTML gem cannot be tested or developed independently of CoreModel.
+  children:
+  - attributes: []
+    content: Any CoreModel attribute change requires updating ~80 files in the HTML
+      gem. The HTML gem cannot be tested or developed independently of CoreModel.
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  text: Create an HTML model layer under `ceradoc-html/lib/ceradoc/html/model/` with
+    HTML-native types. Implement proper ToCoreModel (HTML models → CoreModel) and
+    FromCoreModel (CoreModel → HTML models) transformers. All converters, renderers,
+    and serializers work only with HTML model types.
+  children:
+  - attributes: []
+    content: 'Create an HTML model layer under '
+  - attributes: []
+    text: ceradoc-html/lib/ceradoc/html/model/
+  - attributes: []
+    content: " with HTML-native types. Implement proper ToCoreModel (HTML models → CoreModel) and FromCoreModel (CoreModel → HTML models) transformers. All converters, renderers, and serializers work only with HTML model types."

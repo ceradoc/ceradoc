@@ -1,0 +1,16 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: '[a](b "c") ![d](e "f") <https://auto.link>'
+  children:
+  - attributes: []
+    text: a
+    url: b "c"
+  - attributes: []
+    content: " "
+  - attributes: []
+    alt: d
+    src: e "f"
+  - attributes: []
+    content: " <https://auto.link>"

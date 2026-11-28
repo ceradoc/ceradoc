@@ -1,0 +1,9 @@
+---
+type: DocumentElement
+children:
+- type: QuoteBlock
+  children: []
+  content: |-
+    quoted
+    more
+  callouts: []

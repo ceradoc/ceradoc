@@ -1,0 +1,18 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    Para
+    <div class="test">division</div>
+  children:
+  - attributes: []
+    content: Para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: <div class="test">division</div>
+- attributes: []
+  content: |-
+    Quote
+    <div class="test">division</div>

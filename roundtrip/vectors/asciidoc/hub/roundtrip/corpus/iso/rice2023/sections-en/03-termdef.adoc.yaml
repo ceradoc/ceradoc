@@ -1,0 +1,835 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: SectionElement
+  id: terms
+  title: Terms and definitions
+  source_line: 1
+  level: 1
+  children:
+  - type: ReviewerBlock
+    source_line: 4
+    children:
+    - type: ListBlock
+      source_line: 6
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 6
+        children:
+        - type: TextContent
+          text: Mandatory clause
+        marker: "*"
+        content: Mandatory clause
+      - type: ListItem
+        source_line: 7
+        children:
+        - type: TextContent
+          text: Definitions of terms used that are necessary for understanding the
+            document
+        marker: "*"
+        content: Definitions of terms used that are necessary for understanding the
+          document
+        nested_list:
+          type: ListBlock
+          source_line: 8
+          marker_type: unordered
+          items:
+          - type: ListItem
+            source_line: 8
+            children:
+            - type: TextContent
+              text: ISO/IEC Directives, Part 2, 2021, Clause 16
+            marker: "**"
+            content: ISO/IEC Directives, Part 2, 2021, Clause 16
+    callouts: []
+    annotation_type: reviewer
+    annotation_label: ISO
+  - type: SectionElement
+    id: terms_paddy
+    title: paddy
+    source_line: 11
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 12
+      children:
+      - type: TermElement
+        children: []
+        format_type: alt
+        content: paddy rice
+      - type: TextContent
+        text: " "
+      - type: TermElement
+        children: []
+        format_type: alt
+        content: rough rice
+      content: paddy rice rough rice
+      lines:
+      - paddy rice rough rice
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 15
+      children:
+      - type: TextContent
+        text: rice retaining its husk after threshing
+      content: rice retaining its husk after threshing
+      lines:
+      - rice retaining its husk after threshing
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 17
+      children:
+      - type: CrossReferenceElement
+        source_line: 18
+        children: []
+        content: clause 3.1
+        target: ISO7301
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO7301
+          label: clause 3.1
+          options:
+            type: NavigationOptions
+      content: ISO7301
+      lines:
+      - ISO7301
+      callouts: []
+  - type: SectionElement
+    id: terms_husked_rice
+    title: husked rice
+    source_line: 21
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 22
+      children:
+      - type: TermElement
+        children: []
+        format_type: alt
+        content: brown rice
+      - type: TextContent
+        text: " "
+      - type: TermElement
+        children: []
+        format_type: deprecated
+        content: cargo rice
+      content: brown rice cargo rice
+      lines:
+      - brown rice cargo rice
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 25
+      children:
+      - type: TermElement
+        children: []
+        format_type: term
+        content: paddy
+      - type: TextContent
+        text: " from which the husk only has been removed"
+      content: paddy from which the husk only has been removed
+      lines:
+      - paddy from which the husk only has been removed
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 27
+      children:
+      - type: CrossReferenceElement
+        source_line: 28
+        children: []
+        content: clause 3.2
+        target: ISO7301
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO7301
+          label: clause 3.2
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ', The term "cargo rice" is shown as deprecated. Note 1 to entry has
+          been removed.'
+      content: ISO7301, The term "cargo rice" is shown as deprecated. Note 1 to entry
+        has been removed.
+      lines:
+      - ISO7301, The term "cargo rice" is shown as deprecated. Note 1 to entry has
+        been removed.
+      callouts: []
+  - type: SectionElement
+    id: terms_milled_rice
+    title: milled rice
+    source_line: 31
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 32
+      children:
+      - type: TermElement
+        children: []
+        format_type: alt
+        content: white rice
+      content: white rice
+      lines:
+      - white rice
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 34
+      children:
+      - type: TermElement
+        children: []
+        format_type: term
+        content: husked rice
+      - type: TextContent
+        text: " from which some or all of the bran and embryo have been removed by mechanical milling"
+      content: husked rice from which some or all of the bran and embryo have been
+        removed by mechanical milling
+      lines:
+      - husked rice from which some or all of the bran and embryo have been removed
+        by mechanical milling
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 37
+      children:
+      - type: CrossReferenceElement
+        source_line: 38
+        children: []
+        content: clause 3.3
+        target: ISO7301
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO7301
+          label: clause 3.3
+          options:
+            type: NavigationOptions
+      content: ISO7301
+      lines:
+      - ISO7301
+      callouts: []
+    - type: ReviewerBlock
+      source_line: 40
+      children:
+      - type: ListBlock
+        source_line: 42
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 42
+          children:
+          - type: TextContent
+            text: Preferred term "milled rice" in bold type
+          marker: "*"
+          content: Preferred term "milled rice" in bold type
+        - type: ListItem
+          source_line: 43
+          children:
+          - type: TextContent
+            text: Admitted term "white rice" in regular type
+          marker: "*"
+          content: Admitted term "white rice" in regular type
+        - type: ListItem
+          source_line: 44
+          children:
+          - type: TextContent
+            text: Hyperlink to another defined term (3.2)
+          marker: "*"
+          content: Hyperlink to another defined term (3.2)
+        - type: ListItem
+          source_line: 45
+          children:
+          - type: TextContent
+            text: Source document is informative and listed in the Bibliography
+          marker: "*"
+          content: Source document is informative and listed in the Bibliography
+      callouts: []
+      annotation_type: reviewer
+      annotation_label: ISO
+  - type: SectionElement
+    id: terms_parboiled_rice
+    title: parboiled rice
+    source_line: 48
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 50
+      children:
+      - type: TextContent
+        text: 'rice whose starch has been fully gelatinized by soaking '
+      - type: TermElement
+        children: []
+        format_type: term
+        content: paddy
+      - type: TextContent
+        text: " rice or "
+      - type: TermElement
+        children: []
+        format_type: term
+        content: husked rice
+      - type: TextContent
+        text: " in water followed by a heat treatment and a drying process"
+      content: rice whose starch has been fully gelatinized by soaking paddy rice
+        or husked rice in water followed by a heat treatment and a drying process
+      lines:
+      - rice whose starch has been fully gelatinized by soaking paddy rice or husked
+        rice in water followed by a heat treatment and a drying process
+      callouts: []
+  - type: SectionElement
+    id: terms_waxy_rice
+    title: waxy rice
+    source_line: 53
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 54
+      children:
+      - type: TextContent
+        text: variety of rice whose kernels have a white and opaque appearance
+      content: variety of rice whose kernels have a white and opaque appearance
+      lines:
+      - variety of rice whose kernels have a white and opaque appearance
+      callouts: []
+    - type: AnnotationBlock
+      source_line: 56
+      children:
+      - type: ParagraphBlock
+        source_line: 56
+        children:
+        - type: TextContent
+          text: The starch of waxy rice consists almost entirely of amylopectin. The
+            kernels have a tendency to stick together after cooking.
+        content: The starch of waxy rice consists almost entirely of amylopectin.
+          The kernels have a tendency to stick together after cooking.
+        callouts: []
+      content: The starch of waxy rice consists almost entirely of amylopectin. The
+        kernels have a tendency to stick together after cooking.
+      callouts: []
+      annotation_type: NOTE
+  - type: SectionElement
+    id: terms_extraneous_matter
+    title: extraneous matter
+    source_line: 59
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 60
+      children:
+      - type: TermElement
+        children: []
+        format_type: alt
+        content: EM
+      - type: TextContent
+        text: " "
+      - type: TermElement
+        children: []
+        format_type: domain
+        content: rice
+      content: EM rice
+      lines:
+      - EM rice
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 63
+      children:
+      - type: TextContent
+        text: organic and inorganic components other than whole or broken kernels
+      content: organic and inorganic components other than whole or broken kernels
+      lines:
+      - organic and inorganic components other than whole or broken kernels
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 65
+      children:
+      - type: TextContent
+        text: Foreign seeds, husks, bran, sand, dust.
+      content: Foreign seeds, husks, bran, sand, dust.
+      lines:
+      - Foreign seeds, husks, bran, sand, dust.
+      callouts: []
+    - type: ReviewerBlock
+      source_line: 68
+      children:
+      - type: ListBlock
+        source_line: 70
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 70
+          children:
+          - type: TextContent
+            text: Abbreviated term "EM" given under the term
+          marker: "*"
+          content: Abbreviated term "EM" given under the term
+        - type: ListItem
+          source_line: 71
+          children:
+          - type: TextContent
+            text: EXAMPLE given under the definition
+          marker: "*"
+          content: EXAMPLE given under the definition
+      callouts: []
+      annotation_type: reviewer
+      annotation_label: ISO
+  - type: SectionElement
+    id: terms_hdk
+    title: HDK
+    source_line: 74
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 75
+      children:
+      - type: TermElement
+        children: []
+        format_type: alt
+        content: heat-damaged kernel
+      content: heat-damaged kernel
+      lines:
+      - heat-damaged kernel
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 77
+      children:
+      - type: TextContent
+        text: kernel, whole or broken, which has changed its normal colour as a result
+          of heating
+      content: kernel, whole or broken, which has changed its normal colour as a result
+        of heating
+      lines:
+      - kernel, whole or broken, which has changed its normal colour as a result of
+        heating
+      callouts: []
+    - type: AnnotationBlock
+      source_line: 79
+      children:
+      - type: ParagraphBlock
+        source_line: 79
+        children:
+        - type: TextContent
+          text: 'This category includes whole or broken kernels that are yellow due
+            to alteration. '
+        - type: TermElement
+          children: []
+          format_type: term
+          content: parboiled rice, Parboiled rice
+        - type: TextContent
+          text: " in a batch of non-parboiled rice is also included in this category."
+        content: This category includes whole or broken kernels that are yellow due
+          to alteration. parboiled rice, Parboiled rice in a batch of non-parboiled
+          rice is also included in this category.
+        callouts: []
+      content: This category includes whole or broken kernels that are yellow due
+        to alteration. parboiled rice, Parboiled rice in a batch of non-parboiled
+        rice is also included in this category.
+      callouts: []
+      annotation_type: NOTE
+  - type: SectionElement
+    id: terms_damaged_kernel
+    title: damaged kernel
+    source_line: 83
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 85
+      children:
+      - type: TextContent
+        text: 'kernel, whole or broken, showing obvious deterioration due to moisture,
+          pests, disease or other causes, but excluding '
+      - type: TermElement
+        children: []
+        format_type: term
+        content: HDK
+      content: kernel, whole or broken, showing obvious deterioration due to moisture,
+        pests, disease or other causes, but excluding HDK
+      lines:
+      - kernel, whole or broken, showing obvious deterioration due to moisture, pests,
+        disease or other causes, but excluding HDK
+      callouts: []
+  - type: SectionElement
+    id: terms_immature_kernel
+    title: immature kernel
+    source_line: 88
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 89
+      children:
+      - type: TermElement
+        children: []
+        format_type: alt
+        content: unripe kernel
+      content: unripe kernel
+      lines:
+      - unripe kernel
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 91
+      children:
+      - type: TextContent
+        text: kernel, whole or broken, which is unripe or underdeveloped, or both
+      content: kernel, whole or broken, which is unripe or underdeveloped, or both
+      lines:
+      - kernel, whole or broken, which is unripe or underdeveloped, or both
+      callouts: []
+  - type: SectionElement
+    id: terms_husked_rice_yield
+    title: husked rice yield
+    source_line: 93
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 95
+      children:
+      - type: TextContent
+        text: 'amount of '
+      - type: TermElement
+        children: []
+        format_type: term
+        content: husked rice
+      - type: TextContent
+        text: " obtained from paddy"
+      content: amount of husked rice obtained from paddy
+      lines:
+      - amount of husked rice obtained from paddy
+      callouts: []
+    - type: CommentLine
+      text: all terms and defs references are dated
+    - type: ParagraphBlock
+      source_line: 98
+      children:
+      - type: CrossReferenceElement
+        source_line: 99
+        children: []
+        content: clause 3.1
+        target: ISO6646
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO6646
+          label: clause 3.1
+          options:
+            type: NavigationOptions
+      content: ISO6646
+      lines:
+      - ISO6646
+      callouts: []
+  - type: SectionElement
+    id: terms_nitrogen_content
+    title: nitrogen content
+    source_line: 101
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 103
+      children:
+      - type: TextContent
+        text: quantity of nitrogen determined after application of the procedure described
+      content: quantity of nitrogen determined after application of the procedure
+        described
+      lines:
+      - quantity of nitrogen determined after application of the procedure described
+      callouts: []
+    - type: AnnotationBlock
+      source_line: 105
+      children:
+      - type: ParagraphBlock
+        source_line: 105
+        children:
+        - type: TextContent
+          text: It is expressed as a mass fraction of dry product, as a percentage.
+        content: It is expressed as a mass fraction of dry product, as a percentage.
+        callouts: []
+      content: It is expressed as a mass fraction of dry product, as a percentage.
+      callouts: []
+      annotation_type: NOTE
+    - type: ParagraphBlock
+      source_line: 107
+      children:
+      - type: CrossReferenceElement
+        source_line: 108
+        children: []
+        content: clause 3.1
+        target: ISO20483
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO20483
+          label: clause 3.1
+          options:
+            type: NavigationOptions
+      content: ISO20483
+      lines:
+      - ISO20483
+      callouts: []
+  - type: SectionElement
+    id: terms_crude_protein_content
+    title: crude protein content
+    source_line: 110
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 112
+      children:
+      - type: TextContent
+        text: quantity of crude protein obtained from the nitrogen content as determined
+          by applying the specified method, calculated by multiplying this content
+          by an appropriate factor depending on the type of cereal or pulse
+      content: quantity of crude protein obtained from the nitrogen content as determined
+        by applying the specified method, calculated by multiplying this content by
+        an appropriate factor depending on the type of cereal or pulse
+      lines:
+      - quantity of crude protein obtained from the nitrogen content as determined
+        by applying the specified method, calculated by multiplying this content by
+        an appropriate factor depending on the type of cereal or pulse
+      callouts: []
+    - type: AnnotationBlock
+      source_line: 116
+      children:
+      - type: ParagraphBlock
+        source_line: 116
+        children:
+        - type: TextContent
+          text: It is expressed as a mass fraction of dry product, as a percentage.
+        content: It is expressed as a mass fraction of dry product, as a percentage.
+        callouts: []
+      content: It is expressed as a mass fraction of dry product, as a percentage.
+      callouts: []
+      annotation_type: NOTE
+    - type: ParagraphBlock
+      source_line: 118
+      children:
+      - type: CrossReferenceElement
+        source_line: 119
+        children: []
+        content: clause 3.2
+        target: ISO20483
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO20483
+          label: clause 3.2
+          options:
+            type: NavigationOptions
+      content: ISO20483
+      lines:
+      - ISO20483
+      callouts: []
+  - type: SectionElement
+    id: terms_gelatinization
+    title: gelatinization
+    source_line: 121
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 123
+      children:
+      - type: TextContent
+        text: hydration process conferring the jelly-like state typical of the coagulated
+          colloids, which are named "gels", on kernels
+      content: hydration process conferring the jelly-like state typical of the coagulated
+        colloids, which are named "gels", on kernels
+      lines:
+      - hydration process conferring the jelly-like state typical of the coagulated
+        colloids, which are named "gels", on kernels
+      callouts: []
+    - type: AnnotationBlock
+      source_line: 126
+      children:
+      - type: ParagraphBlock
+        source_line: 126
+        children:
+        - type: TextContent
+          text: 'See '
+        - type: CrossReferenceElement
+          source_line: 126
+          children: []
+          content: figureC-1
+          target: figureC-1
+          edges:
+          - kind: navigation
+            address:
+              scheme: anchor
+              target: figureC-1
+            label: figureC-1
+            options:
+              type: NavigationOptions
+        - type: TextContent
+          text: "."
+        content: See figureC-1.
+        callouts: []
+      content: See figureC-1.
+      callouts: []
+      annotation_type: NOTE
+    - type: ParagraphBlock
+      source_line: 128
+      children:
+      - type: CrossReferenceElement
+        source_line: 129
+        children: []
+        content: clause 3.1
+        target: ISO14864
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO14864
+          label: clause 3.1
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ", Note 1 to entry added."
+      content: ISO14864, Note 1 to entry added.
+      lines:
+      - ISO14864, Note 1 to entry added.
+      callouts: []
+    - type: ReviewerBlock
+      source_line: 131
+      children:
+      - type: ListBlock
+        source_line: 133
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 133
+          children:
+          - type: TextContent
+            text: Note to terminological entry provides additional information
+          marker: "*"
+          content: Note to terminological entry provides additional information
+      callouts: []
+      annotation_type: reviewer
+      annotation_label: ISO
+  - type: SectionElement
+    id: terms_gel_state
+    title: gel state
+    source_line: 136
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 138
+      children:
+      - type: TextContent
+        text: 'condition reached as a consequence of '
+      - type: TermElement
+        children: []
+        format_type: term
+        content: gelatinization
+      - type: TextContent
+        text: ", when the kernel is fully transparent and absolutely free from whitish and opaque granules after being pressed between two glass sheets"
+      content: condition reached as a consequence of gelatinization, when the kernel
+        is fully transparent and absolutely free from whitish and opaque granules
+        after being pressed between two glass sheets
+      lines:
+      - condition reached as a consequence of gelatinization, when the kernel is fully
+        transparent and absolutely free from whitish and opaque granules after being
+        pressed between two glass sheets
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 142
+      children:
+      - type: CrossReferenceElement
+        source_line: 143
+        children: []
+        content: clause 3.2
+        target: ISO14864
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO14864
+          label: clause 3.2
+          options:
+            type: NavigationOptions
+      content: ISO14864
+      lines:
+      - ISO14864
+      callouts: []
+  - type: SectionElement
+    id: terms_gelatinization_time
+    title: gelatinization time
+    source_line: 145
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 146
+      children:
+      - type: StemElement
+        source_line: 146
+        children: []
+        content: t_90
+        stem_type: stem
+      content: t_90
+      lines:
+      - t_90
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 148
+      children:
+      - type: TextContent
+        text: 'time necessary for 90 % of the kernels to pass from their natural state
+          to the '
+      - type: TermElement
+        children: []
+        format_type: term
+        content: gel state
+      content: time necessary for 90 % of the kernels to pass from their natural state
+        to the gel state
+      lines:
+      - time necessary for 90 % of the kernels to pass from their natural state to
+        the gel state
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 151
+      children:
+      - type: CrossReferenceElement
+        source_line: 152
+        children: []
+        content: clause 3.3
+        target: ISO14864
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO14864
+          label: clause 3.3
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ", admitted term, "
+      - type: StemElement
+        source_line: 152
+        children: []
+        content: t_90
+        stem_type: stem
+      - type: TextContent
+        text: ", added to the term entry."
+      content: ISO14864, admitted term, t_90, added to the term entry.
+      lines:
+      - ISO14864, admitted term, t_90, added to the term entry.
+      callouts: []
+    - type: ReviewerBlock
+      source_line: 154
+      children:
+      - type: ListBlock
+        source_line: 156
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 156
+          children:
+          - type: TextContent
+            text: Symbol appears below the term
+          marker: "*"
+          content: Symbol appears below the term
+      callouts: []
+      annotation_type: reviewer
+      annotation_label: ISO
+attributes:
+  type: Metadata

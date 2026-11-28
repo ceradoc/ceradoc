@@ -1,0 +1,23 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| this is [^1] | a table"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| with a | footnote"
+  content: |-
+    | this is [^1] | a table
+    | with a | footnote
+  callouts: []
+- type: Footnote
+  id: '1'
+  content: Something
+  backlink: true
+- type: SourceBlock
+  children: []
+  content: "> special here"
+  callouts: []

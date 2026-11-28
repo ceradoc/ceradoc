@@ -29,5 +29,8 @@ module Ceradoc
     autoload :KnownFailures, 'ceradoc/roundtrip/known_failures'
     autoload :Projection, 'ceradoc/roundtrip/projection'
     autoload :Snippet, 'ceradoc/roundtrip/snippet'
+    autoload :Vector, 'ceradoc/roundtrip/vector'
+    autoload :VectorHarness, 'ceradoc/roundtrip/vector_harness'
+    autoload :VectorSealer, 'ceradoc/roundtrip/vector_sealer'
   end
 end

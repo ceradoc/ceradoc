@@ -1,0 +1,1 @@
+{"type":"DocumentElement","children":[{"type":"ParagraphBlock","children":[{"type":"TextContent","text":"This is {::nomarkdown}"},{"type":"ItalicElement","children":[],"content":"some"},{"type":"TextContent","text":"{:/} text."}],"content":"This is {::nomarkdown}*some*{:/} text.","callouts":[]}]}

@@ -1,0 +1,120 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    This is a para.
+    [id]: http://www.example.com/
+  children:
+  - attributes: []
+    content: This is a para.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[id]: http://www.example.com/"
+- attributes: []
+  text: |-
+    [otherid1]: http://wwww.example.com/ "title 1"
+    [otherid2]: http://wwww.example.com/ 'title 2'
+    [otherid3]: <some spaces.html>
+    [otherid4]: <some spaces.html> 'title'
+    [otherid5]: some spaces.html
+    [otherid6]: some spaces.html 'title'
+    [otherid7]: some spaces
+    "title"
+    [otherid8]:test.html#'test' 'title'
+  children:
+  - attributes: []
+    content: '[otherid1]: http://wwww.example.com/ "title 1"'
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[otherid2]: http://wwww.example.com/ 'title 2'"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[otherid3]: <some spaces.html>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[otherid4]: <some spaces.html> 'title'"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[otherid5]: some spaces.html"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[otherid6]: some spaces.html 'title'"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[otherid7]: some spaces"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '"title"'
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[otherid8]:test.html#'test' 'title'"
+- attributes: []
+  text: |-
+    [break]:	http://www.example.com/test/asdf.html
+    'Another title'
+  children:
+  - attributes: []
+    content: "[break]:\thttp://www.example.com/test/asdf.html"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "'Another title'"
+- attributes: []
+  text: |-
+    [1]: ignored.url
+    [1]: one.url
+    [2]: two.url
+    [3]: three.url
+    [4]: nourl
+  children:
+  - attributes: []
+    content: "[1]: ignored.url"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[1]: one.url"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[2]: two.url"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[3]: three.url"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "[4]: nourl"
+- attributes: []
+  text: Points to [1] and [2] and [3] but not [4]
+  children:
+  - attributes: []
+    content: Points to [1] and [2] and [3] but not [4]
+- attributes: []
+  text: "[_.:,;!?-]: http://example.com"
+  children:
+  - attributes: []
+    content: "["
+  - attributes: []
+    content: _
+  - attributes: []
+    content: ".:,;!?-]: http://example.com"
+- attributes: []
+  text: Points to [_.:,;!?-] and [otherid8]
+  children:
+  - attributes: []
+    content: Points to [
+  - attributes: []
+    content: _
+  - attributes: []
+    content: ".:,;!?-] and [otherid8]"

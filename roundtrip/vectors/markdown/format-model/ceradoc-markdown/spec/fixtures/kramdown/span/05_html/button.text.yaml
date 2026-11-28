@@ -1,0 +1,36 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: "<button>Some Text</button>"
+  children:
+  - attributes: []
+    content: "<button>Some Text</button>"
+- attributes: []
+  text: First some text and then a <button>here</button>
+  children:
+  - attributes: []
+    content: First some text and then a <button>here</button>
+- attributes: []
+  text: "<button>A button</button> and then text."
+  children:
+  - attributes: []
+    content: "<button>A button</button> and then text."
+- attributes: []
+  text: A <button>with **some** `code` in ![alt](image.png)</button> it.
+  children:
+  - attributes: []
+    content: 'A <button>with '
+  - attributes: []
+    text: some
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: code
+  - attributes: []
+    content: " in "
+  - attributes: []
+    alt: alt
+    src: image.png
+  - attributes: []
+    content: "</button> it."

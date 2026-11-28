@@ -1,0 +1,23 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: ". at the start of the line"
+  children:
+  - attributes: []
+    content: ". at the start of the line"
+- attributes: []
+  text: line with \fB backslash symbol
+  children:
+  - attributes: []
+    content: line with \fB backslash symbol
+- attributes: []
+  text: some . other - escaped \' symbols
+  children:
+  - attributes: []
+    content: some . other - escaped ' symbols
+- attributes: []
+  text: "."
+  children:
+  - attributes: []
+    content: "."

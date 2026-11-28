@@ -1,0 +1,21 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is [] empty.
+  content: This is [] empty.
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is [][] empty.
+  content: This is [][] empty.
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is [](test.html) empty.
+  content: This is [](test.html) empty.
+  callouts: []

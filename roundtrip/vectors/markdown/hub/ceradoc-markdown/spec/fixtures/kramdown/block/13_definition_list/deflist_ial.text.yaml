@@ -1,0 +1,12 @@
+---
+type: DocumentElement
+children:
+- type: DefinitionList
+  items:
+  - type: DefinitionItem
+    term: "{:.dl-horizontal}item"
+    terms:
+    - "{:.dl-horizontal}item"
+    definitions:
+    - definition{:.dl-other}
+    attached_children: []

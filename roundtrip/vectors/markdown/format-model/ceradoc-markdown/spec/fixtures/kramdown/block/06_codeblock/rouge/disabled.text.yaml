@@ -1,0 +1,5 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  code: x = Class.new

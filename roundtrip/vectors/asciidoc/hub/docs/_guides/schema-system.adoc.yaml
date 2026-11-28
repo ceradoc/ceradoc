@@ -1,0 +1,1174 @@
+---
+type: DocumentElement
+title: Schema System Guide
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Schema System
+  - type: FrontmatterEntry
+    key: parent
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Guides
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 3
+- type: HeaderElement
+  id: _schema_system_guide
+  title: Schema System Guide
+  level: 0
+  content: Schema System Guide
+- type: SectionElement
+  id: _task
+  title: Task
+  source_line: 3
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 5
+    children:
+    - type: TextContent
+      text: Use Ceradoc's schema system to handle specialized document types like
+        ISO standards, technical specifications, or other structured documents.
+    content: Use Ceradoc's schema system to handle specialized document types like
+      ISO standards, technical specifications, or other structured documents.
+    lines:
+    - Use Ceradoc's schema system to handle specialized document types like ISO standards,
+      technical specifications, or other structured documents.
+    callouts: []
+- type: SectionElement
+  id: _approach
+  title: Approach
+  source_line: 7
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 9
+    children:
+    - type: TextContent
+      text: 'The schema system allows you to:'
+    content: 'The schema system allows you to:'
+    lines:
+    - 'The schema system allows you to:'
+    callouts: []
+  - type: ListBlock
+    source_line: 11
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 11
+      children:
+      - type: TextContent
+        text: Define custom parsing rules for specific document types
+      marker: '1.'
+      content: Define custom parsing rules for specific document types
+    - type: ListItem
+      source_line: 12
+      children:
+      - type: TextContent
+        text: Specify custom serialization formats
+      marker: '2.'
+      content: Specify custom serialization formats
+    - type: ListItem
+      source_line: 13
+      children:
+      - type: TextContent
+        text: Enforce document structure constraints
+      marker: '3.'
+      content: Enforce document structure constraints
+    - type: ListItem
+      source_line: 14
+      children:
+      - type: TextContent
+        text: Handle type-specific attributes and metadata
+      marker: '4.'
+      content: Handle type-specific attributes and metadata
+- type: SectionElement
+  id: _understanding_schemas
+  title: Understanding Schemas
+  source_line: 16
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 18
+    children:
+    - type: TextContent
+      text: 'A schema in Ceradoc defines:'
+    content: 'A schema in Ceradoc defines:'
+    lines:
+    - 'A schema in Ceradoc defines:'
+    callouts: []
+  - type: ListBlock
+    source_line: 20
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 20
+      children:
+      - type: BoldElement
+        source_line: 20
+        children: []
+        content: Parsing rules
+        constraint: unconstrained
+      - type: TextContent
+        text: " - How to parse specific document types"
+      marker: "*"
+      content: Parsing rules - How to parse specific document types
+    - type: ListItem
+      source_line: 21
+      children:
+      - type: BoldElement
+        source_line: 21
+        children: []
+        content: Serialization rules
+        constraint: unconstrained
+      - type: TextContent
+        text: " - How to serialize for specific output formats"
+      marker: "*"
+      content: Serialization rules - How to serialize for specific output formats
+    - type: ListItem
+      source_line: 22
+      children:
+      - type: BoldElement
+        source_line: 22
+        children: []
+        content: Structure constraints
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Required/optional elements"
+      marker: "*"
+      content: Structure constraints - Required/optional elements
+    - type: ListItem
+      source_line: 23
+      children:
+      - type: BoldElement
+        source_line: 23
+        children: []
+        content: Attribute definitions
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Document metadata"
+      marker: "*"
+      content: Attribute definitions - Document metadata
+- type: SectionElement
+  id: _using_builtin_schemas
+  title: Using Built-in Schemas
+  source_line: 25
+  level: 1
+  children:
+  - type: SectionElement
+    id: _using_builtin_schemas_iso_schema
+    title: ISO Schema
+    source_line: 27
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 29
+      children:
+      - type: TextContent
+        text: 'Parse ISO-standard documents:'
+      content: 'Parse ISO-standard documents:'
+      lines:
+      - 'Parse ISO-standard documents:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 31
+      children: []
+      content: 'doc = Ceradoc.parse_file("iso-document.adoc", schema: :iso)'
+      lines:
+      - 'doc = Ceradoc.parse_file("iso-document.adoc", schema: :iso)'
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 36
+      children:
+      - type: TextContent
+        text: 'The ISO schema handles:'
+      content: 'The ISO schema handles:'
+      lines:
+      - 'The ISO schema handles:'
+      callouts: []
+    - type: ListBlock
+      source_line: 38
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 38
+        children:
+        - type: TextContent
+          text: ISO-specific front matter
+        marker: "*"
+        content: ISO-specific front matter
+      - type: ListItem
+        source_line: 39
+        children:
+        - type: TextContent
+          text: Standard numbering conventions
+        marker: "*"
+        content: Standard numbering conventions
+      - type: ListItem
+        source_line: 40
+        children:
+        - type: TextContent
+          text: ISO metadata attributes
+        marker: "*"
+        content: ISO metadata attributes
+      - type: ListItem
+        source_line: 41
+        children:
+        - type: TextContent
+          text: Clause structures
+        marker: "*"
+        content: Clause structures
+  - type: SectionElement
+    id: _using_builtin_schemas_default_schema
+    title: Default Schema
+    source_line: 43
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 45
+      children:
+      - type: TextContent
+        text: 'The default schema is used when no schema is specified:'
+      content: 'The default schema is used when no schema is specified:'
+      lines:
+      - 'The default schema is used when no schema is specified:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 47
+      children: []
+      content: |-
+        # These are equivalent
+        doc = Ceradoc.parse(input)
+        doc = Ceradoc.parse(input, schema: :default)
+      lines:
+      - "# These are equivalent"
+      - doc = Ceradoc.parse(input)
+      - 'doc = Ceradoc.parse(input, schema: :default)'
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 54
+      children:
+      - type: TextContent
+        text: "## Creating Custom Schemas"
+      content: "## Creating Custom Schemas"
+      lines:
+      - "## Creating Custom Schemas"
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_step_1_define_the_schema_class
+    title: 'Step 1: Define the Schema Class'
+    source_line: 56
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 58
+      children: []
+      content: |-
+        module Ceradoc
+          module Schema
+            class CustomSchema < Schema
+              def schema_name
+                :custom
+              end
+              def rules
+                # Define parsing and serialization rules
+              end
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  module Schema"
+      - "    class CustomSchema < Schema"
+      - "      def schema_name"
+      - "        :custom"
+      - "      end"
+      - "      def rules"
+      - "        # Define parsing and serialization rules"
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_step_2_define_parsing_rules
+    title: 'Step 2: Define Parsing Rules'
+    source_line: 75
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 77
+      children: []
+      content: |-
+        module Ceradoc
+          module Schema
+            class CustomSchema < Schema
+              def parsing_rules
+                {
+                  front_matter: ->(node) { parse_front_matter(node) },
+                  metadata: ->(node) { parse_metadata(node) }
+                }
+              end
+              private
+              def parse_front_matter(node)
+                # Custom front matter parsing logic
+              end
+              def parse_metadata(node)
+                # Custom metadata parsing logic
+              end
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  module Schema"
+      - "    class CustomSchema < Schema"
+      - "      def parsing_rules"
+      - "        {"
+      - "          front_matter: ->(node) { parse_front_matter(node) },"
+      - "          metadata: ->(node) { parse_metadata(node) }"
+      - "        }"
+      - "      end"
+      - "      private"
+      - "      def parse_front_matter(node)"
+      - "        # Custom front matter parsing logic"
+      - "      end"
+      - "      def parse_metadata(node)"
+      - "        # Custom metadata parsing logic"
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_step_3_define_serialization_rules
+    title: 'Step 3: Define Serialization Rules'
+    source_line: 103
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 105
+      children: []
+      content: |-
+        module Ceradoc
+          module Schema
+            class CustomSchema < Schema
+              def serialization_rules
+                {
+                  front_matter: ->(doc) { serialize_front_matter(doc) },
+                  metadata: ->(doc) { serialize_metadata(doc) }
+                }
+              end
+              private
+              def serialize_front_matter(doc)
+                # Custom front matter serialization logic
+              end
+              def serialize_metadata(doc)
+                # Custom metadata serialization logic
+              end
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  module Schema"
+      - "    class CustomSchema < Schema"
+      - "      def serialization_rules"
+      - "        {"
+      - "          front_matter: ->(doc) { serialize_front_matter(doc) },"
+      - "          metadata: ->(doc) { serialize_metadata(doc) }"
+      - "        }"
+      - "      end"
+      - "      private"
+      - "      def serialize_front_matter(doc)"
+      - "        # Custom front matter serialization logic"
+      - "      end"
+      - "      def serialize_metadata(doc)"
+      - "        # Custom metadata serialization logic"
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_step_4_register_the_schema
+    title: 'Step 4: Register the Schema'
+    source_line: 131
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 133
+      children: []
+      content: Ceradoc::Schema.register(:custom, Ceradoc::Schema::CustomSchema)
+      lines:
+      - Ceradoc::Schema.register(:custom, Ceradoc::Schema::CustomSchema)
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_step_5_use_the_schema
+    title: 'Step 5: Use the Schema'
+    source_line: 138
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 140
+      children: []
+      content: 'doc = Ceradoc.parse_file("document.adoc", schema: :custom)'
+      lines:
+      - 'doc = Ceradoc.parse_file("document.adoc", schema: :custom)'
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 145
+      children:
+      - type: HighlightElement
+        source_line: 145
+        children: []
+        content: |+2
+           Schema Attributes
+
+          Schemas can define custom document attributes:
+
+          [source,ruby]
+          ----
+          module Ceradoc
+            module Schema
+              class TechSpecSchema < Schema
+                def default_attributes
+                  {
+                    "doctype" => "technical-specification",
+                    "status" => "draft",
+                    "version" => "1.0"
+                  }
+                end
+              end
+            end
+          end
+          ----
+
+          These attributes are automatically added to documents parsed with this schema.
+
+        constraint: unconstrained
+      - type: TextContent
+        text: " Schema Constraints"
+      content: |-2
+         Schema Attributes
+
+        Schemas can define custom document attributes:
+
+        [source,ruby]
+        ----
+        module Ceradoc
+          module Schema
+            class TechSpecSchema < Schema
+              def default_attributes
+                {
+                  "doctype" => "technical-specification",
+                  "status" => "draft",
+                  "version" => "1.0"
+                }
+              end
+            end
+          end
+        end
+        ----
+
+        These attributes are automatically added to documents parsed with this schema.
+
+         Schema Constraints
+      lines:
+      - |-2
+         Schema Attributes
+
+        Schemas can define custom document attributes:
+
+        [source,ruby]
+        ----
+        module Ceradoc
+          module Schema
+            class TechSpecSchema < Schema
+              def default_attributes
+                {
+                  "doctype" => "technical-specification",
+                  "status" => "draft",
+                  "version" => "1.0"
+                }
+              end
+            end
+          end
+        end
+        ----
+
+        These attributes are automatically added to documents parsed with this schema.
+
+         Schema Constraints
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 170
+      children:
+      - type: TextContent
+        text: 'Enforce document structure constraints:'
+      content: 'Enforce document structure constraints:'
+      lines:
+      - 'Enforce document structure constraints:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 172
+      children: []
+      content: |-
+        module Ceradoc
+          module Schema
+            class StrictSchema < Schema
+              def required_sections
+                %w[introduction scope definitions references]
+              end
+              def validate_document(doc)
+                missing = required_sections - doc.sections.map { |s| s.title.content.first.to_s.downcase }
+                unless missing.empty?
+                  raise "Missing required sections: #{missing.join(', ')}"
+                end
+              end
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  module Schema"
+      - "    class StrictSchema < Schema"
+      - "      def required_sections"
+      - "        %w[introduction scope definitions references]"
+      - "      end"
+      - "      def validate_document(doc)"
+      - "        missing = required_sections - doc.sections.map { |s| s.title.content.first.to_s.downcase }"
+      - "        unless missing.empty?"
+      - '          raise "Missing required sections: #{missing.join('', '')}"'
+      - "        end"
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 192
+      children:
+      - type: TextContent
+        text: "## Complete Example: Technical Report Schema"
+      content: "## Complete Example: Technical Report Schema"
+      lines:
+      - "## Complete Example: Technical Report Schema"
+      callouts: []
+    - type: SourceBlock
+      source_line: 194
+      children: []
+      content: |-
+        require 'ceradoc'
+        module Ceradoc
+          module Schema
+            class TechReportSchema < Schema
+              def schema_name
+                :tech_report
+              end
+              def default_attributes
+                {
+                  "doctype" => "technical-report",
+                  "org" => "Acme Corporation",
+                  "confidentiality" => "public"
+                }
+              end
+              def required_sections
+                %w[abstract introduction methodology results conclusions]
+              end
+              def validate_document(doc)
+                missing = required_sections - doc.sections.map do |s|
+                  s.title&.content&.first&.to_s&.downcase || ""
+                end
+                unless missing.empty?
+                  warn "Warning: Missing recommended sections: #{missing.join(', ')}"
+                end
+              end
+              def pre_parse(input)
+                # Add custom front matter if missing
+                unless input.include?(':doctype:')
+                  input = ":doctype: technical-report\n\n#{input}"
+                end
+                input
+              end
+              def post_serialize(output)
+                # Add custom footer
+                output + "\n\n----\nGenerated by Acme Tech Report Generator\n"
+              end
+            end
+          end
+        end
+        # Register the schema
+        Ceradoc::Schema.register(:tech_report, Ceradoc::Schema::TechReportSchema)
+        # Use the schema
+        doc = Ceradoc.parse_file("report.adoc", schema: :tech_report)
+        # Validate
+        doc.schema.validate_document(doc)
+        # Serialize with schema post-processing
+        output = doc.schema.post_serialize(doc.to_adoc)
+        puts output
+      lines:
+      - require 'ceradoc'
+      - module Ceradoc
+      - "  module Schema"
+      - "    class TechReportSchema < Schema"
+      - "      def schema_name"
+      - "        :tech_report"
+      - "      end"
+      - "      def default_attributes"
+      - "        {"
+      - '          "doctype" => "technical-report",'
+      - '          "org" => "Acme Corporation",'
+      - '          "confidentiality" => "public"'
+      - "        }"
+      - "      end"
+      - "      def required_sections"
+      - "        %w[abstract introduction methodology results conclusions]"
+      - "      end"
+      - "      def validate_document(doc)"
+      - "        missing = required_sections - doc.sections.map do |s|"
+      - '          s.title&.content&.first&.to_s&.downcase || ""'
+      - "        end"
+      - "        unless missing.empty?"
+      - '          warn "Warning: Missing recommended sections: #{missing.join('',
+        '')}"'
+      - "        end"
+      - "      end"
+      - "      def pre_parse(input)"
+      - "        # Add custom front matter if missing"
+      - "        unless input.include?(':doctype:')"
+      - '          input = ":doctype: technical-report\n\n#{input}"'
+      - "        end"
+      - "        input"
+      - "      end"
+      - "      def post_serialize(output)"
+      - "        # Add custom footer"
+      - '        output + "\n\n----\nGenerated by Acme Tech Report Generator\n"'
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      - "# Register the schema"
+      - Ceradoc::Schema.register(:tech_report, Ceradoc::Schema::TechReportSchema)
+      - "# Use the schema"
+      - 'doc = Ceradoc.parse_file("report.adoc", schema: :tech_report)'
+      - "# Validate"
+      - doc.schema.validate_document(doc)
+      - "# Serialize with schema post-processing"
+      - output = doc.schema.post_serialize(doc.to_adoc)
+      - puts output
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 256
+      children:
+      - type: HighlightElement
+        source_line: 256
+        children: []
+        content: |+2
+           Schema Use Cases
+
+          === Standards Documents (ISO, IEC, IEEE)
+
+          [source,ruby]
+          ----
+          doc = Ceradoc.parse_file("iso-12345.adoc", schema: :iso)
+          ----
+
+          * Handles ISO front matter
+          * Processes ISO metadata
+          * Enforces ISO structure
+
+          === Academic Papers
+
+          [source,ruby]
+          ----
+          doc = Ceradoc.parse_file("paper.adoc", schema: :academic)
+          ----
+
+          * Abstract handling
+          * Bibliography processing
+          * Citation formatting
+
+          === Regulatory Documents
+
+          [source,ruby]
+          ----
+          doc = Ceradoc.parse_file("regulation.adoc", schema: :regulatory)
+          ----
+
+          * Legal section numbering
+          * Amendment tracking
+          * Effective date handling
+
+        constraint: unconstrained
+      - type: TextContent
+        text: " Schema Architecture"
+      content: |-2
+         Schema Use Cases
+
+        === Standards Documents (ISO, IEC, IEEE)
+
+        [source,ruby]
+        ----
+        doc = Ceradoc.parse_file("iso-12345.adoc", schema: :iso)
+        ----
+
+        * Handles ISO front matter
+        * Processes ISO metadata
+        * Enforces ISO structure
+
+        === Academic Papers
+
+        [source,ruby]
+        ----
+        doc = Ceradoc.parse_file("paper.adoc", schema: :academic)
+        ----
+
+        * Abstract handling
+        * Bibliography processing
+        * Citation formatting
+
+        === Regulatory Documents
+
+        [source,ruby]
+        ----
+        doc = Ceradoc.parse_file("regulation.adoc", schema: :regulatory)
+        ----
+
+        * Legal section numbering
+        * Amendment tracking
+        * Effective date handling
+
+         Schema Architecture
+      lines:
+      - |-2
+         Schema Use Cases
+
+        === Standards Documents (ISO, IEC, IEEE)
+
+        [source,ruby]
+        ----
+        doc = Ceradoc.parse_file("iso-12345.adoc", schema: :iso)
+        ----
+
+        * Handles ISO front matter
+        * Processes ISO metadata
+        * Enforces ISO structure
+
+        === Academic Papers
+
+        [source,ruby]
+        ----
+        doc = Ceradoc.parse_file("paper.adoc", schema: :academic)
+        ----
+
+        * Abstract handling
+        * Bibliography processing
+        * Citation formatting
+
+        === Regulatory Documents
+
+        [source,ruby]
+        ----
+        doc = Ceradoc.parse_file("regulation.adoc", schema: :regulatory)
+        ----
+
+        * Legal section numbering
+        * Amendment tracking
+        * Effective date handling
+
+         Schema Architecture
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_schema_base_class
+    title: Schema Base Class
+    source_line: 293
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 295
+      children: []
+      content: |-
+        module Ceradoc
+          module Schema
+            class Schema
+              attr_reader :name, :options
+              def initialize(options = {})
+                @options = options
+              end
+              def schema_name
+                raise NotImplementedError
+              end
+              def default_attributes
+                {}
+              end
+              def parsing_rules
+                {}
+              end
+              def serialization_rules
+                {}
+              end
+              def validate_document(doc)
+                # Override in subclass
+              end
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  module Schema"
+      - "    class Schema"
+      - "      attr_reader :name, :options"
+      - "      def initialize(options = {})"
+      - "        @options = options"
+      - "      end"
+      - "      def schema_name"
+      - "        raise NotImplementedError"
+      - "      end"
+      - "      def default_attributes"
+      - "        {}"
+      - "      end"
+      - "      def parsing_rules"
+      - "        {}"
+      - "      end"
+      - "      def serialization_rules"
+      - "        {}"
+      - "      end"
+      - "      def validate_document(doc)"
+      - "        # Override in subclass"
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_schema_registry
+    title: Schema Registry
+    source_line: 330
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 332
+      children: []
+      content: |-
+        module Ceradoc
+          module Schema
+            class Registry
+              def self.register(name, schema_class)
+                schemas[name] = schema_class
+              end
+              def self.get(name)
+                schemas.fetch(name) { raise "Unknown schema: #{name}" }
+              end
+              def self.schemas
+                @schemas ||= {}
+              end
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  module Schema"
+      - "    class Registry"
+      - "      def self.register(name, schema_class)"
+      - "        schemas[name] = schema_class"
+      - "      end"
+      - "      def self.get(name)"
+      - '        schemas.fetch(name) { raise "Unknown schema: #{name}" }'
+      - "      end"
+      - "      def self.schemas"
+      - "        @schemas ||= {}"
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 353
+      children:
+      - type: TextContent
+        text: "## Schema File Location"
+      content: "## Schema File Location"
+      lines:
+      - "## Schema File Location"
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 355
+      children:
+      - type: TextContent
+        text: 'Custom schemas can be organized in several ways:'
+      content: 'Custom schemas can be organized in several ways:'
+      lines:
+      - 'Custom schemas can be organized in several ways:'
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_in_libceradocschema
+    title: In lib/ceradoc/schema/
+    source_line: 357
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 359
+      children: []
+      content: |-
+        # lib/ceradoc/schema/custom_schema.rb
+        module Ceradoc
+          module Schema
+            class CustomSchema < Schema
+              # ...
+            end
+          end
+        end
+      lines:
+      - "# lib/ceradoc/schema/custom_schema.rb"
+      - module Ceradoc
+      - "  module Schema"
+      - "    class CustomSchema < Schema"
+      - "      # ..."
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _using_builtin_schemas_as_standalone_files
+    title: As standalone files
+    source_line: 371
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 373
+      children: []
+      content: |-
+        # schemas/my_schema.rb
+        require 'ceradoc'
+        module MySchema
+          class Custom < Ceradoc::Schema::Schema
+            # ...
+          end
+        end
+      lines:
+      - "# schemas/my_schema.rb"
+      - require 'ceradoc'
+      - module MySchema
+      - "  class Custom < Ceradoc::Schema::Schema"
+      - "    # ..."
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 385
+      children:
+      - type: HighlightElement
+        source_line: 385
+        children: []
+        content: |+2
+           Troubleshooting
+
+          **Problem:** Schema isn't being applied.
+
+          **Solution:** Verify the schema is registered and the name matches exactly. Check `Ceradoc::Schema.registry.keys`.
+
+          **Problem:** Document validation fails.
+
+          **Solution:** Ensure all required sections are present with correct titles. Check case sensitivity in title matching.
+
+          **Problem:** Custom attributes aren't showing up.
+
+          **Solution:** Verify `default_attributes` returns a hash. Check that attributes don't conflict with document-level attributes.
+
+        constraint: unconstrained
+      - type: TextContent
+        text: " Summary"
+      content: |-2
+         Troubleshooting
+
+        **Problem:** Schema isn't being applied.
+
+        **Solution:** Verify the schema is registered and the name matches exactly. Check `Ceradoc::Schema.registry.keys`.
+
+        **Problem:** Document validation fails.
+
+        **Solution:** Ensure all required sections are present with correct titles. Check case sensitivity in title matching.
+
+        **Problem:** Custom attributes aren't showing up.
+
+        **Solution:** Verify `default_attributes` returns a hash. Check that attributes don't conflict with document-level attributes.
+
+         Summary
+      lines:
+      - |-2
+         Troubleshooting
+
+        **Problem:** Schema isn't being applied.
+
+        **Solution:** Verify the schema is registered and the name matches exactly. Check `Ceradoc::Schema.registry.keys`.
+
+        **Problem:** Document validation fails.
+
+        **Solution:** Ensure all required sections are present with correct titles. Check case sensitivity in title matching.
+
+        **Problem:** Custom attributes aren't showing up.
+
+        **Solution:** Verify `default_attributes` returns a hash. Check that attributes don't conflict with document-level attributes.
+
+         Summary
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 401
+      children:
+      - type: TextContent
+        text: 'In this guide you learned:'
+      content: 'In this guide you learned:'
+      lines:
+      - 'In this guide you learned:'
+      callouts: []
+    - type: ListBlock
+      source_line: 403
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 403
+        children:
+        - type: TextContent
+          text: What schemas are and when to use them
+        marker: "*"
+        content: What schemas are and when to use them
+      - type: ListItem
+        source_line: 404
+        children:
+        - type: TextContent
+          text: How to use built-in schemas
+        marker: "*"
+        content: How to use built-in schemas
+      - type: ListItem
+        source_line: 405
+        children:
+        - type: TextContent
+          text: How to create custom schemas
+        marker: "*"
+        content: How to create custom schemas
+      - type: ListItem
+        source_line: 406
+        children:
+        - type: TextContent
+          text: How to define parsing and serialization rules
+        marker: "*"
+        content: How to define parsing and serialization rules
+      - type: ListItem
+        source_line: 407
+        children:
+        - type: TextContent
+          text: How to validate documents against schemas
+        marker: "*"
+        content: How to validate documents against schemas
+      - type: ListItem
+        source_line: 408
+        children:
+        - type: TextContent
+          text: Common schema use cases
+        marker: "*"
+        content: Common schema use cases
+    - type: ParagraphBlock
+      source_line: 410
+      children:
+      - type: HighlightElement
+        source_line: 410
+        children: []
+        content: |+2
+           Related Documentation
+
+          * link:/ceradoc/pages/architecture[Architecture] - Schema layer in architecture
+          * link:/ceradoc/references/extension-points[Extension Points] - Extending Ceradoc
+          * link:/ceradoc/guides/configuration[Configuration Guide] - Configuration options
+          * link:https://github.com/ceradoc/ceradoc/tree/main/lib/ceradoc/schema.rb[lib/ceradoc/schema.rb] - Schema implementation
+
+        constraint: unconstrained
+      - type: TextContent
+        text: " Bibliography"
+      content: |-2
+         Related Documentation
+
+        * link:/ceradoc/pages/architecture[Architecture] - Schema layer in architecture
+        * link:/ceradoc/references/extension-points[Extension Points] - Extending Ceradoc
+        * link:/ceradoc/guides/configuration[Configuration Guide] - Configuration options
+        * link:https://github.com/ceradoc/ceradoc/tree/main/lib/ceradoc/schema.rb[lib/ceradoc/schema.rb] - Schema implementation
+
+         Bibliography
+      lines:
+      - |-2
+         Related Documentation
+
+        * link:/ceradoc/pages/architecture[Architecture] - Schema layer in architecture
+        * link:/ceradoc/references/extension-points[Extension Points] - Extending Ceradoc
+        * link:/ceradoc/guides/configuration[Configuration Guide] - Configuration options
+        * link:https://github.com/ceradoc/ceradoc/tree/main/lib/ceradoc/schema.rb[lib/ceradoc/schema.rb] - Schema implementation
+
+         Bibliography
+      callouts: []
+    - type: ListBlock
+      source_line: 419
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 419
+        children:
+        - type: LinkElement
+          source_line: 419
+          children: []
+          content: ISO Standards
+          target: https://www.iso.org/standards
+          edges:
+          - kind: link
+            address:
+              scheme: url
+              target: https://www.iso.org/standards
+            label: ISO Standards
+            options:
+              type: LinkOptions
+        marker: "*"
+        content: ISO Standards
+      - type: ListItem
+        source_line: 420
+        children:
+        - type: LinkElement
+          source_line: 420
+          children: []
+          content: AsciiDoc Syntax Reference
+          target: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+          edges:
+          - kind: link
+            address:
+              scheme: url
+              target: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+            label: AsciiDoc Syntax Reference
+            options:
+              type: LinkOptions
+        marker: "*"
+        content: AsciiDoc Syntax Reference
+attributes:
+  type: Metadata

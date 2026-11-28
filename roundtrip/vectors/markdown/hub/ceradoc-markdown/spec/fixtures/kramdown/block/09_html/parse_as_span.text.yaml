@@ -1,0 +1,61 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p>This "
+  - type: TextContent
+    text: "*"
+  - type: TextContent
+    text: text
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: should
+  - type: TextContent
+    text: "*"
+  - type: TextContent
+    text: " be parsed"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: as span
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</P>"
+  content: |-
+    <p>This *text
+    should* be parsed
+    as span
+    </P>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p>This produces "
+  - type: MonospaceElement
+    children: []
+    content: "</p>"
+  - type: TextContent
+    text: " an unwanted result.</p>"
+  content: "<p>This produces `</p>` an unwanted result.</p>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p>This "
+  - type: ItalicElement
+    children: []
+    content: text
+  - type: TextContent
+    text: " too</p><p>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: some text
+  content: |-
+    <p>This *text* too</p><p>
+    some text
+  callouts: []

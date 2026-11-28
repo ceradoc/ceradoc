@@ -1,0 +1,109 @@
+---
+type: DocumentElement
+title: Basic Document Example
+children:
+- type: HeaderElement
+  id: _basic_document_example
+  title: Basic Document Example
+  level: 0
+  content: Basic Document Example
+- type: ParagraphBlock
+  source_line: 3
+  children:
+  - type: TextContent
+    text: This is a simple AsciiDoc document to demonstrate basic Ceradoc parsing.
+  content: This is a simple AsciiDoc document to demonstrate basic Ceradoc parsing.
+  lines:
+  - This is a simple AsciiDoc document to demonstrate basic Ceradoc parsing.
+  callouts: []
+- type: SectionElement
+  id: _introduction
+  title: Introduction
+  source_line: 5
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 7
+    children:
+    - type: TextContent
+      text: Ceradoc is a parser, model, and serializer for AsciiDoc documents. It
+        provides a complete toolchain for working with AsciiDoc content.
+    content: Ceradoc is a parser, model, and serializer for AsciiDoc documents. It
+      provides a complete toolchain for working with AsciiDoc content.
+    lines:
+    - Ceradoc is a parser, model, and serializer for AsciiDoc documents. It provides
+      a complete toolchain for working with AsciiDoc content.
+    callouts: []
+- type: SectionElement
+  id: _features
+  title: Features
+  source_line: 9
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 11
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 11
+      children:
+      - type: TextContent
+        text: Parsing - Convert AsciiDoc text into a structured document model
+      marker: "*"
+      content: Parsing - Convert AsciiDoc text into a structured document model
+    - type: ListItem
+      source_line: 12
+      children:
+      - type: TextContent
+        text: Manipulation - Modify document content through Ruby objects
+      marker: "*"
+      content: Manipulation - Modify document content through Ruby objects
+    - type: ListItem
+      source_line: 13
+      children:
+      - type: TextContent
+        text: Serialization - Generate AsciiDoc output from document models
+      marker: "*"
+      content: Serialization - Generate AsciiDoc output from document models
+- type: SectionElement
+  id: _getting_started
+  title: Getting Started
+  source_line: 15
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 17
+    children:
+    - type: TextContent
+      text: 'To parse an AsciiDoc document:'
+    content: 'To parse an AsciiDoc document:'
+    lines:
+    - 'To parse an AsciiDoc document:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 19
+    children: []
+    content: doc = Ceradoc.parse("= Title\n\nContent")
+    lines:
+    - doc = Ceradoc.parse("= Title\n\nContent")
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 24
+    children:
+    - type: TextContent
+      text: 'To serialize back to AsciiDoc:'
+    content: 'To serialize back to AsciiDoc:'
+    lines:
+    - 'To serialize back to AsciiDoc:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 26
+    children: []
+    content: output = doc.to_adoc
+    lines:
+    - output = doc.to_adoc
+    language: ruby
+    callouts: []
+attributes:
+  type: Metadata

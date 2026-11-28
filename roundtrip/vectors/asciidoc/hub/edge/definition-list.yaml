@@ -1,0 +1,25 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: DefinitionList
+  source_line: 1
+  items:
+  - type: DefinitionItem
+    source_line: 1
+    term: term
+    terms:
+    - term
+    definitions:
+    - definition
+    attached_children: []
+  - type: DefinitionItem
+    source_line: 2
+    term: other
+    terms:
+    - other
+    definitions:
+    - more
+    attached_children: []
+attributes:
+  type: Metadata

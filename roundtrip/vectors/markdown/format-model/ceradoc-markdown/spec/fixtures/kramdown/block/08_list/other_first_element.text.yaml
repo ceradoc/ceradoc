@@ -1,0 +1,98 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: "* \nThis is a code block."
+  children:
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: " "
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is a code block.
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "> This is a blockquote."
+    children:
+    - attributes: []
+      content: "> This is a blockquote."
+  - attributes: []
+    text: |-
+      ## A header
+      ^
+    children:
+    - attributes: []
+      content: "## A header"
+    - attributes: []
+      content: "\n"
+    - attributes: []
+      content: "^"
+- attributes: []
+  text: "* \nThis is a code block."
+  children:
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: " "
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is a code block.
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: |-
+      > This is a blockquote.
+       continued by some para.
+    children:
+    - attributes: []
+      content: "> This is a blockquote."
+    - attributes: []
+      content: "\n"
+    - attributes: []
+      content: " continued by some para."
+  - attributes: []
+    text: |-
+      A header
+      =========
+      a para
+      ^
+    children:
+    - attributes: []
+      content: A header
+    - attributes: []
+      content: "\n"
+    - attributes: []
+      content: "========="
+    - attributes: []
+      content: "\n"
+    - attributes: []
+      content: a para
+    - attributes: []
+      content: "\n"
+    - attributes: []
+      content: "^"
+  - attributes: []
+    text: "* nested list"
+    sublist:
+      attributes: []
+      ordered: false
+      items:
+      - attributes: []
+        text: other nested item
+        children: []
+    children:
+    - attributes: []
+      content: "*"
+    - attributes: []
+      content: " nested list"
+  - attributes: []
+    text: item 2
+    children:
+    - attributes: []
+      content: item 2

@@ -1,0 +1,95 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: SectionElement
+  id: scope
+  title: Scope
+  source_line: 1
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 4
+    children:
+    - type: TextContent
+      text: This document specifies minimum requirements and test methods for rice
+        (
+    - type: ItalicElement
+      source_line: 5
+      children: []
+      content: Oryza sativa
+      constraint: constrained
+    - type: TextContent
+      text: " L.)."
+    content: This document specifies minimum requirements and test methods for rice
+      (Oryza sativa L.).
+    lines:
+    - This document specifies minimum requirements and test methods for rice (Oryza
+      sativa L.).
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 7
+    children:
+    - type: TextContent
+      text: It is applicable to husked rice, husked parboiled rice, milled rice and
+        milled parboiled rice, suitable for human consumption, directly or after reconditioning.
+    content: It is applicable to husked rice, husked parboiled rice, milled rice and
+      milled parboiled rice, suitable for human consumption, directly or after reconditioning.
+    lines:
+    - It is applicable to husked rice, husked parboiled rice, milled rice and milled
+      parboiled rice, suitable for human consumption, directly or after reconditioning.
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 11
+    children:
+    - type: TextContent
+      text: It is not applicable to cooked rice products.
+    content: It is not applicable to cooked rice products.
+    lines:
+    - It is not applicable to cooked rice products.
+    callouts: []
+  - type: ReviewerBlock
+    source_line: 13
+    children:
+    - type: ListBlock
+      source_line: 15
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 15
+        children:
+        - type: TextContent
+          text: Mandatory clause
+        marker: "*"
+        content: Mandatory clause
+      - type: ListItem
+        source_line: 16
+        children:
+        - type: TextContent
+          text: Defines the subject of the document
+        marker: "*"
+        content: Defines the subject of the document
+      - type: ListItem
+        source_line: 17
+        children:
+        - type: TextContent
+          text: Used as a summary for the abstract
+        marker: "*"
+        content: Used as a summary for the abstract
+        nested_list:
+          type: ListBlock
+          source_line: 18
+          marker_type: unordered
+          items:
+          - type: ListItem
+            source_line: 18
+            children:
+            - type: TextContent
+              text: ISO/IEC Directives, Part 2, 2021, Clause 14
+            marker: "**"
+            content: ISO/IEC Directives, Part 2, 2021, Clause 14
+    callouts: []
+    annotation_type: reviewer
+    annotation_label: ISO
+attributes:
+  type: Metadata

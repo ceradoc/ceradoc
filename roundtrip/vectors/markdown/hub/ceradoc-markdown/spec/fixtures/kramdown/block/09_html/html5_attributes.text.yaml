@@ -1,0 +1,51 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p lang="en" style='nothing' class>paragraph</p>
+  content: <p lang="en" style='nothing' class>paragraph</p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p lang='en' style="nothing" class>paragraph</p>
+  content: <p lang='en' style="nothing" class>paragraph</p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p lang='en' style="nothing" class >paragraph</p>
+  content: <p lang='en' style="nothing" class >paragraph</p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p lang='en' class style="nothing">paragraph</p>
+  content: <p lang='en' class style="nothing">paragraph</p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p class lang='en' style="nothing">paragraph</p>
+  content: <p class lang='en' style="nothing">paragraph</p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p lang=en>paragraph</p>"
+  content: "<p lang=en>paragraph</p>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p cLaSs>paragraph</p>"
+  content: "<p cLaSs>paragraph</p>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p class >paragraph</p>"
+  content: "<p class >paragraph</p>"
+  callouts: []

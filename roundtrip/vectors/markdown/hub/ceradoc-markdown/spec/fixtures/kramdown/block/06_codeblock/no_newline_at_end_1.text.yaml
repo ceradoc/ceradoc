@@ -1,0 +1,13 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: 'test  '
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: test
+  content: test
+  callouts: []

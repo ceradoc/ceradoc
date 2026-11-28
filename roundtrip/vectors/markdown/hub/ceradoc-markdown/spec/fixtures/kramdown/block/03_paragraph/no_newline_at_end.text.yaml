@@ -1,0 +1,26 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: One paragraph
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: over
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: multiple lines.
+  content: |-
+    One paragraph
+    over
+    multiple lines.
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Second one without newline.
+  content: Second one without newline.
+  callouts: []

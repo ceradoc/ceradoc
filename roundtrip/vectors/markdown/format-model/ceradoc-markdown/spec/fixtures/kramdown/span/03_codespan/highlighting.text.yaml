@@ -1,0 +1,12 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: You can say `x = Class.new`{:.language-ruby}, for example.
+  children:
+  - attributes: []
+    content: 'You can say '
+  - attributes: []
+    text: x = Class.new
+  - attributes: []
+    content: "{:.language-ruby}, for example."

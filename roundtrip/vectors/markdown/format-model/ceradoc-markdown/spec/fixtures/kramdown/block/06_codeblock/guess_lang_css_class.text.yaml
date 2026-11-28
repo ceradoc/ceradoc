@@ -1,0 +1,17 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  code: |-
+    class Foo
+      def bar
+        puts 'Hello'
+      end
+    end
+- attributes: []
+  code: |-
+    class Foo
+      def bar
+        puts 'Hello'
+      end
+    end

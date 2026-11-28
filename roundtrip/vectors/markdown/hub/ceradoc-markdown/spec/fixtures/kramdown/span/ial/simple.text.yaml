@@ -1,0 +1,37 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'This is a '
+  - type: MonospaceElement
+    children: []
+    content: span
+  - type: TextContent
+    text: "{: .hund #dog}."
+  content: 'This is a `span`{: .hund #dog}.'
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'This is a '
+  - type: MonospaceElement
+    children: []
+    content: span
+  - type: TextContent
+    text: "{: .hund #dog}{: .katz key='val'}."
+  content: 'This is a `span`{: .hund #dog}{: .katz key=''val''}.'
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'This is an{: .ignored} span ial.'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: 'This is an{: .escaped} span ial.'
+  content: |-
+    This is an{: .ignored} span ial.
+    This is an\{: .escaped} span ial.
+  callouts: []

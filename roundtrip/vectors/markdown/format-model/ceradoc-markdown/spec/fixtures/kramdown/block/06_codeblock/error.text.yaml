@@ -1,0 +1,10 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: Some para
+  children:
+  - attributes: []
+    content: Some para
+- attributes: []
+  code: not codeblock

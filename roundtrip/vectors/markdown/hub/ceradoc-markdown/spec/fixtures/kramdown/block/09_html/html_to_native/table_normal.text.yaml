@@ -1,0 +1,70 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <table class="examples">
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<th>Usage</th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<th>Other</th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>Some "
+  - type: ItalicElement
+    children: []
+    content: data
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<p>Some more</p>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</table>"
+  content: |-
+    <table class="examples">
+    <tr>
+    <th>Usage</th>
+    <th>Other</th>
+    </tr>
+    <tr>
+    <td>Some *data*</td>
+    <td>
+    <p>Some more</p>
+    </td>
+    </tr>
+    </table>
+  callouts: []

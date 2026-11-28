@@ -1,0 +1,229 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>   "
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: test
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: "<div>   \ntest\n</div>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: para2
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</p>"
+  content: |-
+    <p>
+    para2
+    </p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div id='test'>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<p>tes</p>"
+  content: |-
+    <div id='test'>
+    <p>tes</p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p>test"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: weiter
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</p>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <p>test
+    weiter
+    </p>
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para4
+  content: para4
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: foo
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: '[" "]'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: '[" "]'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div>
+    <div>
+    <div>
+    foo
+    </div>
+    <div style="&nbsp;"></div>
+    </div>
+    <div>bar&nbsp;
+    </div>
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para5
+  content: para5
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>id"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div> test"
+  content: |-
+    <div>id
+    </div> test
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: hallo
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div> <div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: hallo
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div>
+    hallo
+    </div> <div>
+    hallo
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para6
+  content: para6
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <div><DiV cLASs="clear"></dIv>
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Another para.
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div><DiV cLASs="clear"></dIv>
+    Another para.
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<em>Test</em>"
+  content: "<em>Test</em>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p><em>Test</em></p>"
+  content: "<p><em>Test</em></p>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p><em>Test"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</em>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</p>"
+  content: |-
+    <p><em>Test
+    </em>
+    </p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<iframe></iframe>"
+  content: "<iframe></iframe>"
+  callouts: []

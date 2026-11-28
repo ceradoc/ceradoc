@@ -1,0 +1,460 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '11: CoreModel StructuralElement headings have no auto-generated IDs'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`IdGenerator` module added to `CoreModel` with format-neutral ID generation from title text"
+    children:
+    - attributes: []
+      text: IdGenerator
+    - attributes: []
+      content: " module added to "
+    - attributes: []
+      text: CoreModel
+    - attributes: []
+      content: " with format-neutral ID generation from title text"
+  - attributes: []
+    text: "`ToCoreModel` transformer generates IDs from title when no explicit `[[anchor]]` is present"
+    children:
+    - attributes: []
+      text: ToCoreModel
+    - attributes: []
+      content: " transformer generates IDs from title when no explicit "
+    - attributes: []
+      text: "[[anchor]]"
+    - attributes: []
+      content: " is present"
+  - attributes: []
+    text: Explicit anchors take precedence over auto-generated IDs
+    children:
+    - attributes: []
+      content: Explicit anchors take precedence over auto-generated IDs
+  - attributes: []
+    text: Redundant `add_heading_ids` Nokogiri post-processing removed from `ClassicRenderer`
+    children:
+    - attributes: []
+      content: 'Redundant '
+    - attributes: []
+      text: add_heading_ids
+    - attributes: []
+      content: " Nokogiri post-processing removed from "
+    - attributes: []
+      text: ClassicRenderer
+- attributes: []
+  text: |-
+    **Severity:** MEDIUM
+    **Location:** `lib/ceradoc/core_model/structural_element.rb`, `ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb`
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " MEDIUM"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: lib/ceradoc/core_model/structural_element.rb
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb
+- attributes: []
+  level: 2
+  text: Test file
+- attributes: []
+  text: "`/Users/mulgogi/src/chinese/cham-format/cham-spec.adoc` — 137 headings, most without explicit `[[anchor]]` syntax. Build output at `/Users/mulgogi/src/chinese/cham-format/dist/index.html`."
+  children:
+  - attributes: []
+    text: "/Users/mulgogi/src/chinese/cham-format/cham-spec.adoc"
+  - attributes: []
+    content: " — 137 headings, most without explicit "
+  - attributes: []
+    text: "[[anchor]]"
+  - attributes: []
+    content: " syntax. Build output at "
+  - attributes: []
+    text: "/Users/mulgogi/src/chinese/cham-format/dist/index.html"
+  - attributes: []
+    content: "."
+- attributes: []
+  level: 2
+  text: Problem
+- attributes: []
+  text: 'The AsciiDoc spec declares `:sectanchors:` which should auto-generate `id`
+    attributes on every section heading. But in the pipeline:'
+  children:
+  - attributes: []
+    content: 'The AsciiDoc spec declares '
+  - attributes: []
+    text: ":sectanchors:"
+  - attributes: []
+    content: " which should auto-generate "
+  - attributes: []
+    text: id
+  - attributes: []
+    content: " attributes on every section heading. But in the pipeline:"
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: The AsciiDoc parser only creates an `id` on a section when it sees explicit
+      `[[anchor]]` syntax before the heading.
+    children:
+    - attributes: []
+      content: 'The AsciiDoc parser only creates an '
+    - attributes: []
+      text: id
+    - attributes: []
+      content: " on a section when it sees explicit "
+    - attributes: []
+      text: "[[anchor]]"
+    - attributes: []
+      content: " syntax before the heading."
+  - attributes: []
+    text: The ToCoreModel transformer passes through whatever `id` the parser set
+      (or didn't set).
+    children:
+    - attributes: []
+      content: 'The ToCoreModel transformer passes through whatever '
+    - attributes: []
+      text: id
+    - attributes: []
+      content: " the parser set (or didn't set)."
+  - attributes: []
+    text: The CoreModel `StructuralElement` has an `id` attribute but no logic to
+      generate one from the title.
+    children:
+    - attributes: []
+      content: 'The CoreModel '
+    - attributes: []
+      text: StructuralElement
+    - attributes: []
+      content: " has an "
+    - attributes: []
+      text: id
+    - attributes: []
+      content: " attribute but no logic to generate one from the title."
+- attributes: []
+  text: 'The result: headings without explicit anchors have no `id` attribute. The
+    TOC builder in the HTML renderer generates link targets from heading text, but
+    those targets don''t exist in the page — the links are broken.'
+  children:
+  - attributes: []
+    content: 'The result: headings without explicit anchors have no '
+  - attributes: []
+    text: id
+  - attributes: []
+    content: " attribute. The TOC builder in the HTML renderer generates link targets from heading text, but those targets don't exist in the page — the links are broken."
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  level: 3
+  text: 11A. Parser only captures explicit anchors
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/parser/content.rb:49-54`:"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/parser/content.rb:49-54
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def element_id
+      line_start? >>
+        ((str('[[') >> keyword.as(:id) >> str(']]')) |
+           (str('[#') >> keyword.as(:id) >> str(']'))
+        ) >> newline
+    end
+- attributes: []
+  text: Only `[[id]]` or `[#id]` produce an `id`. No fallback generation from heading
+    text.
+  children:
+  - attributes: []
+    content: 'Only '
+  - attributes: []
+    text: "[[id]]"
+  - attributes: []
+    content: " or "
+  - attributes: []
+    text: "[#id]"
+  - attributes: []
+    content: " produce an "
+  - attributes: []
+    text: id
+  - attributes: []
+    content: ". No fallback generation from heading text."
+- attributes: []
+  level: 3
+  text: 11B. ToCoreModel passes through parser's id (or nil)
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb:125-135` (the `transform_section` method):"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb:125-135
+  - attributes: []
+    content: " (the "
+  - attributes: []
+    text: transform_section
+  - attributes: []
+    content: " method):"
+- attributes: []
+  language: ruby
+  code: |-
+    def transform_section(section)
+      title = extract_title_text(section.title)
+      # ...
+      element = Ceradoc::CoreModel::StructuralElement.new(
+        element_type: 'section',
+        level: level,
+        title: title,
+        # ...
+      )
+      element.id = section.id if section.id
+      element
+    end
+- attributes: []
+  text: When `section.id` is `nil` (no explicit `[[anchor]]`), the CoreModel element
+    gets no `id`.
+  children:
+  - attributes: []
+    content: 'When '
+  - attributes: []
+    text: section.id
+  - attributes: []
+    content: " is "
+  - attributes: []
+    text: nil
+  - attributes: []
+    content: " (no explicit "
+  - attributes: []
+    text: "[[anchor]]"
+  - attributes: []
+    content: "), the CoreModel element gets no "
+  - attributes: []
+    text: id
+  - attributes: []
+    content: "."
+- attributes: []
+  level: 3
+  text: 11C. HTML Section converter only sets id when model.id exists
+- attributes: []
+  text: "`ceradoc-html/lib/ceradoc/html/converters/section.rb:58-59`:"
+  children:
+  - attributes: []
+    text: ceradoc-html/lib/ceradoc/html/converters/section.rb:58-59
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    title_attrs = {}
+    title_attrs[:id] = model.id if model.id
+- attributes: []
+  text: Headings without explicit anchors render as `<h3>` with no `id` attribute.
+  children:
+  - attributes: []
+    content: 'Headings without explicit anchors render as '
+  - attributes: []
+    text: "<h3>"
+  - attributes: []
+    content: " with no "
+  - attributes: []
+    text: id
+  - attributes: []
+    content: " attribute."
+- attributes: []
+  level: 3
+  text: 11D. TOC builder generates IDs that don't exist
+- attributes: []
+  text: "`ceradoc-html/lib/ceradoc/html/theme/classic_renderer.rb:294-300`:"
+  children:
+  - attributes: []
+    text: ceradoc-html/lib/ceradoc/html/theme/classic_renderer.rb:294-300
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def extract_section_id(section)
+      if section.id
+        section.id
+      else
+        title = extract_section_title(section)
+        "_#{title.to_s.downcase.gsub(/[^a-z0-9]+/, '_').gsub(/^_+|_+$/, '')}"
+      end
+    end
+- attributes: []
+  text: The TOC generates link targets like `#_design_principles` for headings that
+    have no `id` in the page. The links point to nothing.
+  children:
+  - attributes: []
+    content: 'The TOC generates link targets like '
+  - attributes: []
+    text: "#_design_principles"
+  - attributes: []
+    content: " for headings that have no "
+  - attributes: []
+    text: id
+  - attributes: []
+    content: " in the page. The links point to nothing."
+- attributes: []
+  level: 3
+  text: '11E. Confirmed output: 137 headings, most without IDs'
+- attributes: []
+  text: 'Building the CHAM spec produces:'
+  children:
+  - attributes: []
+    content: 'Building the CHAM spec produces:'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: 17 h2 headings — all with explicit `id` (e.g., `id="introduction"`)
+    children:
+    - attributes: []
+      content: '17 h2 headings — all with explicit '
+    - attributes: []
+      text: id
+    - attributes: []
+      content: " (e.g., "
+    - attributes: []
+      text: id="introduction"
+    - attributes: []
+      content: ")"
+  - attributes: []
+    text: 72 h3 headings — most WITHOUT `id` until a post-processing workaround adds
+      them
+    children:
+    - attributes: []
+      content: '72 h3 headings — most WITHOUT '
+    - attributes: []
+      text: id
+    - attributes: []
+      content: " until a post-processing workaround adds them"
+  - attributes: []
+    text: 48 h4 headings — most WITHOUT `id` until post-processing
+    children:
+    - attributes: []
+      content: '48 h4 headings — most WITHOUT '
+    - attributes: []
+      text: id
+    - attributes: []
+      content: " until post-processing"
+- attributes: []
+  level: 3
+  text: 11F. Current workaround
+- attributes: []
+  text: The ClassicRenderer runs `add_heading_ids` (Nokogiri post-processing) before
+    section numbering to inject auto-generated IDs. This works but is a renderer-side
+    patch over a CoreModel gap. If another format gem (DOCX, PDF) also needs heading
+    IDs for cross-references, it must reimplement the same logic.
+  children:
+  - attributes: []
+    content: 'The ClassicRenderer runs '
+  - attributes: []
+    text: add_heading_ids
+  - attributes: []
+    content: " (Nokogiri post-processing) before section numbering to inject auto-generated IDs. This works but is a renderer-side patch over a CoreModel gap. If another format gem (DOCX, PDF) also needs heading IDs for cross-references, it must reimplement the same logic."
+- attributes: []
+  level: 2
+  text: Impact
+- attributes: []
+  text: Cross-references from TOC and `<<xref>>` links fail when targeting headings
+    without explicit anchors. Every format gem must independently implement ID generation.
+  children:
+  - attributes: []
+    content: 'Cross-references from TOC and '
+  - attributes: []
+    text: "<<xref>>"
+  - attributes: []
+    content: " links fail when targeting headings without explicit anchors. Every format gem must independently implement ID generation."
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: "**ToCoreModel transformer**: After constructing a `StructuralElement` for a section, if `section.id` is nil, generate an `id` from the title text. The generation logic should live in one place (the transformer), not in each format gem's renderer."
+    children:
+    - attributes: []
+      text: ToCoreModel transformer
+    - attributes: []
+      content: ": After constructing a "
+    - attributes: []
+      text: StructuralElement
+    - attributes: []
+      content: " for a section, if "
+    - attributes: []
+      text: section.id
+    - attributes: []
+      content: " is nil, generate an "
+    - attributes: []
+      text: id
+    - attributes: []
+      content: " from the title text. The generation logic should live in one place (the transformer), not in each format gem's renderer."
+- attributes: []
+  text: 'Example:'
+  children:
+  - attributes: []
+    content: 'Example:'
+- attributes: []
+  language: ruby
+  code: element.id = section.id || generate_id_from_title(title)
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: "**Move ID generation to CoreModel or shared utility**: The `generate_id_from_title` method should be format-neutral: lowercase, strip non-alphanumeric characters, replace spaces with underscores, prefix with `_`. This is the same convention AsciiDoc uses and is applicable to HTML, PDF, and DOCX."
+    children:
+    - attributes: []
+      text: Move ID generation to CoreModel or shared utility
+    - attributes: []
+      content: ": The "
+    - attributes: []
+      text: generate_id_from_title
+    - attributes: []
+      content: " method should be format-neutral: lowercase, strip non-alphanumeric characters, replace spaces with underscores, prefix with "
+    - attributes: []
+      text: _
+    - attributes: []
+      content: ". This is the same convention AsciiDoc uses and is applicable to HTML, PDF, and DOCX."
+  - attributes: []
+    text: "**Remove the Nokogiri post-processing workaround**: Once the CoreModel carries auto-generated IDs, the `add_heading_ids` method in the ClassicRenderer becomes unnecessary and can be removed."
+    children:
+    - attributes: []
+      text: Remove the Nokogiri post-processing workaround
+    - attributes: []
+      content: ": Once the CoreModel carries auto-generated IDs, the "
+    - attributes: []
+      text: add_heading_ids
+    - attributes: []
+      content: " method in the ClassicRenderer becomes unnecessary and can be removed."
+  - attributes: []
+    text: "**Respect explicit anchors**: Explicit `[[anchor]]` values take precedence over auto-generated IDs. The current `element.id = section.id if section.id` pattern already handles this — the fix is adding the else branch."
+    children:
+    - attributes: []
+      text: Respect explicit anchors
+    - attributes: []
+      content: ": Explicit "
+    - attributes: []
+      text: "[[anchor]]"
+    - attributes: []
+      content: " values take precedence over auto-generated IDs. The current "
+    - attributes: []
+      text: element.id = section.id if section.id
+    - attributes: []
+      content: " pattern already handles this — the fix is adding the else branch."

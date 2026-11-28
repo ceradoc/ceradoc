@@ -1,0 +1,8 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: "| first line of cell<br>second line of cell | another cell |"
+  children:
+  - attributes: []
+    content: "| first line of cell<br>second line of cell | another cell |"

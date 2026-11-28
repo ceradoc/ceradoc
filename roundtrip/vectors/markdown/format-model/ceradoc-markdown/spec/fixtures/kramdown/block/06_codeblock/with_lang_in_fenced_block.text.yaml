@@ -1,0 +1,45 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  language: ruby
+  code: |-
+    def what?
+      42
+    end
+- attributes: []
+  language: ruby
+  code: |-
+    def what?
+      42
+    end
+- classes:
+  - class1
+  attributes: []
+- attributes: []
+  code: |-
+    def what?
+      42
+    end
+- classes:
+  - language-ruby
+  attributes: []
+- attributes: []
+  language: ruby
+  code: |-
+    def what?
+      42
+    end
+- classes:
+  - language-python
+  attributes: []
+- attributes: []
+  language: ruby
+  code: |-
+    def what?
+      42
+    end
+- classes: []
+  attributes:
+  - name: class
+    value: language-python

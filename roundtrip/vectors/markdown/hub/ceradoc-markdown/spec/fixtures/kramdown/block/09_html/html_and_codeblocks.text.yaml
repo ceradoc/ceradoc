@@ -1,0 +1,51 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para
+  content: para
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: codeblock
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: test
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div>
+    test
+    </div>
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: "<p>codeblock</p>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: test
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div>
+    test
+    </div>
+  callouts: []

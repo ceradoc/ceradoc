@@ -1,0 +1,7 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: x = Class.new
+  callouts: []

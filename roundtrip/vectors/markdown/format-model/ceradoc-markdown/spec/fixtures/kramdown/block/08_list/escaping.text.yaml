@@ -1,0 +1,86 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: I have read the book
+  children:
+  - attributes: []
+    content: I have read the book
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: It was great
+    children:
+    - attributes: []
+      content: It was great
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: other say that, too!
+    children:
+    - attributes: []
+      content: other say that, too!
+- attributes: []
+  text: |-
+    I have read the book
+    1984\. It was great
+    \- other say that, too!
+  children:
+  - attributes: []
+    content: I have read the book
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: 1984. It was great
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "- other say that, too!"
+- attributes: []
+  text: I have read the book
+  children:
+  - attributes: []
+    content: I have read the book
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: It was great.
+    children:
+    - attributes: []
+      content: It was great.
+- attributes: []
+  text: I have read the book 1984.
+  children:
+  - attributes: []
+    content: I have read the book 1984.
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: it was great!
+    children:
+    - attributes: []
+      content: it was great!
+- attributes: []
+  text: 1984\. Was great!
+  children:
+  - attributes: []
+    content: 1984. Was great!
+- attributes: []
+  text: 1984.5 is not a book.
+  children:
+  - attributes: []
+    content: 1984.5 is not a book.
+- attributes: []
+  text: '1984\. '
+  children:
+  - attributes: []
+    content: '1984. '
+- attributes: []
+  text: "\\- This too!"
+  children:
+  - attributes: []
+    content: "- This too!"

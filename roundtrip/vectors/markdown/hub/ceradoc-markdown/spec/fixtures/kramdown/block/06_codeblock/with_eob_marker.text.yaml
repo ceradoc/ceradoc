@@ -1,0 +1,14 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: |-
+    code block
+
+    continued here
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: new block here
+  callouts: []

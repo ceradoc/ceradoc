@@ -56,6 +56,22 @@ namespace :roundtrip do
     require 'ceradoc/roundtrip'
     Ceradoc::Roundtrip::KnownFailures.write_baseline(Ceradoc::Roundtrip::Corpus.cases)
   end
+
+  # Parity vectors (docs/_references/parity-vectors.adoc): sealed
+  # serializations per layer, compared through generated machinery.
+  namespace :vectors do
+    desc 'Seal the parity vector set under roundtrip/vectors/'
+    task :seal do
+      $LOAD_PATH.unshift File.expand_path('roundtrip/lib', __dir__)
+      require 'ceradoc/roundtrip'
+      Ceradoc::Roundtrip::VectorSealer.seal
+    end
+
+    desc 'Verify the sealed parity vectors against the Ruby lane'
+    task :verify do
+      sh 'bundle exec rspec roundtrip/spec/vector_spec.rb --format progress'
+    end
+  end
 end
 
 task roundtrip: 'roundtrip:all'

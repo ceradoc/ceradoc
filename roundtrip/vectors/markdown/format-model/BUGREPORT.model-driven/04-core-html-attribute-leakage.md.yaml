@@ -1,0 +1,192 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '04: HTML-specific attributes in CoreModel'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`bgcolor`, `color`, `width`, `height` removed from `TableCell`"
+    children:
+    - attributes: []
+      text: bgcolor
+    - attributes: []
+      content: ", "
+    - attributes: []
+      text: color
+    - attributes: []
+      content: ", "
+    - attributes: []
+      text: width
+    - attributes: []
+      content: ", "
+    - attributes: []
+      text: height
+    - attributes: []
+      content: " removed from "
+    - attributes: []
+      text: TableCell
+  - attributes: []
+    text: "`frame` removed from `Table`"
+    children:
+    - attributes: []
+      text: frame
+    - attributes: []
+      content: " removed from "
+    - attributes: []
+      text: Table
+  - attributes: []
+    text: "`caption` retained on `Image` (format-neutral concept, not HTML-specific)"
+    children:
+    - attributes: []
+      text: caption
+    - attributes: []
+      content: " retained on "
+    - attributes: []
+      text: Image
+    - attributes: []
+      content: " (format-neutral concept, not HTML-specific)"
+  - attributes: []
+    text: "`width`/`height` retained on `Image` (used by both AsciiDoc and HTML output)"
+    children:
+    - attributes: []
+      text: width
+    - attributes: []
+      content: "/"
+    - attributes: []
+      text: height
+    - attributes: []
+      content: " retained on "
+    - attributes: []
+      text: Image
+    - attributes: []
+      content: " (used by both AsciiDoc and HTML output)"
+- attributes: []
+  text: "**Severity:** MEDIUM  \n**Location:** `lib/ceradoc/core_model/table.rb`, `lib/ceradoc/core_model/image.rb`"
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " MEDIUM  "
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: lib/ceradoc/core_model/table.rb
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: lib/ceradoc/core_model/image.rb
+- attributes: []
+  level: 2
+  text: Problem
+- attributes: []
+  text: CoreModel carries CSS/HTML-specific attributes that the comments explicitly
+    mark as "HTML converter only". These attributes are meaningless for AsciiDoc,
+    Markdown, and DOCX formats.
+  children:
+  - attributes: []
+    content: CoreModel carries CSS/HTML-specific attributes that the comments explicitly
+      mark as "HTML converter only". These attributes are meaningless for AsciiDoc,
+      Markdown, and DOCX formats.
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  level: 3
+  text: '4A. TableCell: `bgcolor`, `color`, `width`, `height` — marked "HTML converter
+    only"'
+- attributes: []
+  text: "`lib/ceradoc/core_model/table.rb:53-71`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/table.rb:53-71
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    # @note Populated by HTML converter only
+    attribute :bgcolor, :string
+
+    # @note Populated by HTML converter only
+    attribute :color, :string
+
+    # @note Populated by HTML converter only
+    attribute :width, :string
+
+    # @note Populated by HTML converter only
+    attribute :height, :string
+- attributes: []
+  level: 3
+  text: '4B. Table: `frame` — marked "HTML converter only"'
+- attributes: []
+  text: "`lib/ceradoc/core_model/table.rb:149-152`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/table.rb:149-152
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    # @note Populated by HTML converter only
+    attribute :frame, :string
+- attributes: []
+  level: 3
+  text: '4C. Image: `caption` — marked "HTML converter only"'
+- attributes: []
+  text: "`lib/ceradoc/core_model/image.rb:34-36`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/image.rb:34-36
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    # @note Populated by HTML converter only
+    attribute :caption, :string
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  text: 'Move these to the HTML format gem''s model extensions. Either:'
+  children:
+  - attributes: []
+    content: 'Move these to the HTML format gem''s model extensions. Either:'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: Create `HtmlTableCell` that wraps CoreModel's `TableCell` with HTML-specific
+      attributes, or
+    children:
+    - attributes: []
+      content: 'Create '
+    - attributes: []
+      text: HtmlTableCell
+    - attributes: []
+      content: " that wraps CoreModel's "
+    - attributes: []
+      text: TableCell
+    - attributes: []
+      content: " with HTML-specific attributes, or"
+  - attributes: []
+    text: Use the existing `element_attributes` mechanism to carry format-specific
+      key-value pairs.
+    children:
+    - attributes: []
+      content: 'Use the existing '
+    - attributes: []
+      text: element_attributes
+    - attributes: []
+      content: " mechanism to carry format-specific key-value pairs."

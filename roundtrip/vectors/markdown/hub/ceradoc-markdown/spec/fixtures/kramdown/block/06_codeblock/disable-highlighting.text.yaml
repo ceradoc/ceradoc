@@ -1,0 +1,15 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: x = Class.new
+  callouts: []
+- type: SourceBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: lang
+    value: html
+  children: []
+  content: "<a>href</a>"
+  callouts: []

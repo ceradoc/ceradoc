@@ -1,0 +1,63 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: 'Simple: ![alt text](/images/other.png)'
+  children:
+  - attributes: []
+    content: 'Simple: '
+  - attributes: []
+    alt: alt text
+    src: "/images/other.png"
+- attributes: []
+  text: 'Simple with title: ![alt text](/images/other.png "title")'
+  children:
+  - attributes: []
+    content: 'Simple with title: '
+  - attributes: []
+    alt: alt text
+    src: /images/other.png "title"
+- attributes: []
+  text: 'Empty img link: ![alt text]()'
+  children:
+  - attributes: []
+    content: 'Empty img link: ![alt text]()'
+- attributes: []
+  text: 'Reference style: ![alt text][img]'
+  children:
+  - attributes: []
+    content: 'Reference style: ![alt text][img]'
+- attributes: []
+  text: 'Reference style with title: ![alt text][imgo]'
+  children:
+  - attributes: []
+    content: 'Reference style with title: ![alt text][imgo]'
+- attributes: []
+  text: 'No alt text: ![](other.png)'
+  children:
+  - attributes: []
+    content: 'No alt text: ![](other.png)'
+- attributes: []
+  text: 'No id: ![imgo]'
+  children:
+  - attributes: []
+    content: 'No id: ![imgo]'
+- attributes: []
+  text: |-
+    [img]: other.png
+    [imgo]: other.png "Title"
+  children:
+  - attributes: []
+    content: "[img]: other.png"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '[imgo]: other.png "Title"'
+- attributes: []
+  text: 'With escaped pipe: ![an \| pipe](other.png)'
+  children:
+  - attributes: []
+    content: 'With escaped pipe: '
+  - attributes: []
+    alt: an \| pipe
+    src: other.png

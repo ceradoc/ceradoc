@@ -1,0 +1,31 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '["©"]'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: '["ŗ"]'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: '["¯"]'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: not st. like &#xYZ;.
+  content: |-
+    This is the A&O. &copy; 2008 by me
+    As well \& as this. Some &#343; other
+    values may &#xAF; may also show but
+    not st. like &#xYZ;.
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '["<", ">", "&T;"]'
+  content: This &lt;span&gt; is BS&T; done!
+  callouts: []

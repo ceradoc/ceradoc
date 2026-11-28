@@ -1,0 +1,21 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: <div class="test">division</div>
+  content: |-
+    Para
+    <div class="test">division</div>
+  callouts: []
+- type: QuoteBlock
+  children: []
+  content: |-
+    Quote
+    <div class="test">division</div>
+  callouts: []

@@ -1,0 +1,20 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: This is an {::options parse_span_html="false" /} option <span>*true*</span>!
+  children:
+  - attributes: []
+    content: This is an {::options parse
+  - attributes: []
+    content: _
+  - attributes: []
+    content: span
+  - attributes: []
+    content: _
+  - attributes: []
+    content: html="false" /} option <span>
+  - attributes: []
+    text: 'true'
+  - attributes: []
+    content: "</span>!"

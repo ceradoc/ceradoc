@@ -1,0 +1,28 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: Something
+- attributes: []
+  text: something[^note1].
+  children:
+  - attributes: []
+    content: something[^note1].
+- attributes: []
+  level: 1
+  text: Footnotes
+- attributes: []
+  text: |-
+    [^note1]:
+    A note
+  children:
+  - attributes: []
+    content: "[^note1]:"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: A note
+- attributes: []
+  level: 1
+  text: Test

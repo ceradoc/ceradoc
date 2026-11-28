@@ -1,0 +1,1 @@
+{"type":"DocumentElement","children":[{"type":"ParagraphBlock","children":[{"type":"TextContent","text":"You can say "},{"type":"MonospaceElement","children":[],"content":"Class"},{"type":"TextContent","text":"{:.language-ruby}."}],"content":"You can say `Class`{:.language-ruby}.","callouts":[]}]}

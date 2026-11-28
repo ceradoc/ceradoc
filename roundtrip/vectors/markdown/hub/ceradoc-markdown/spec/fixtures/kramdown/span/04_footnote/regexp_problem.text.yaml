@@ -1,0 +1,34 @@
+---
+type: DocumentElement
+title: Something
+children:
+- type: SectionElement
+  title: Something
+  level: 1
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: something[^note1].
+  content: something[^note1].
+  callouts: []
+- type: SectionElement
+  title: Footnotes
+  level: 1
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "[^note1]:"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: A note
+  content: |-
+    [^note1]:
+    A note
+  callouts: []
+- type: SectionElement
+  title: Test
+  level: 1
+  children: []

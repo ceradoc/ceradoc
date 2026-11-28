@@ -1,0 +1,19 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  content: A normal blockquote.
+- attributes: []
+  content: A normal blockquote.
+- attributes: []
+  content: A normal blockquote.
+- attributes: []
+  content: A normal blockquote.
+- attributes: []
+  code: "> A codeblock"
+- attributes: []
+  content: |-
+    Blockquote
+    with
+    mixed
+    indents.

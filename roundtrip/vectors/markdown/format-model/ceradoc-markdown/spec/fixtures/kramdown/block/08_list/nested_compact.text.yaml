@@ -1,0 +1,38 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: First item
+    children:
+    - attributes: []
+      content: First item
+  - attributes: []
+    text: Sub item 1
+    sublist:
+      attributes: []
+      ordered: false
+      items:
+      - attributes: []
+        text: Sub sub item
+        children: []
+    children:
+    - attributes: []
+      content: Sub item 1
+  - attributes: []
+    text: Sub item 2
+    children:
+    - attributes: []
+      content: Sub item 2
+  - attributes: []
+    text: Second item
+    children:
+    - attributes: []
+      content: Second item
+  - attributes: []
+    text: Sub item
+    children:
+    - attributes: []
+      content: Sub item

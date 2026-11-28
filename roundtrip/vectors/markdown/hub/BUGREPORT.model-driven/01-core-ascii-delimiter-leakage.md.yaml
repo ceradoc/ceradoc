@@ -1,0 +1,372 @@
+---
+type: DocumentElement
+title: '01: AsciiDoc delimiter mappings hardcoded in CoreModel'
+children:
+- type: SectionElement
+  title: '01: AsciiDoc delimiter mappings hardcoded in CoreModel'
+  level: 1
+  children: []
+- type: SectionElement
+  title: 'Status: FIXED'
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: DELIMITER_CHAR_TO_SEMANTIC
+    - type: TextContent
+      text: " constant removed from "
+    - type: MonospaceElement
+      children: []
+      content: CoreModel::Block
+    marker: "*"
+    content: "`DELIMITER_CHAR_TO_SEMANTIC` constant removed from `CoreModel::Block`"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: delimiter_to_semantic_type
+    - type: TextContent
+      text: " method removed from "
+    - type: MonospaceElement
+      children: []
+      content: BlockBuilder
+    marker: "*"
+    content: "`delimiter_to_semantic_type` method removed from `BlockBuilder`"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: delimiter_type
+    - type: TextContent
+      text: " attribute retained on "
+    - type: MonospaceElement
+      children: []
+      content: Block
+    - type: TextContent
+      text: " for format-specific round-trip serialization (correct design)"
+    marker: "*"
+    content: "`delimiter_type` attribute retained on `Block` for format-specific round-trip serialization (correct design)"
+- type: ParagraphBlock
+  children:
+  - type: BoldElement
+    children: []
+    content: 'Severity:'
+  - type: TextContent
+    text: " CRITICAL  "
+  - type: TextContent
+    text: "\n"
+  - type: BoldElement
+    children: []
+    content: 'Location:'
+  - type: TextContent
+    text: " "
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/block.rb
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/block_builder.rb
+  content: "**Severity:** CRITICAL  \n**Location:** `lib/ceradoc/core_model/block.rb`, `lib/ceradoc/core_model/builder/block_builder.rb`"
+  callouts: []
+- type: SectionElement
+  title: Problem
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'CoreModel is the format-neutral hub, yet it contains hardcoded AsciiDoc
+      delimiter-to-semantics mappings in TWO places. The characters '
+  - type: MonospaceElement
+    children: []
+    content: "-"
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "="
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: _
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "*"
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "."
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "+"
+  - type: TextContent
+    text: " and the convention of 4-character delimiters are AsciiDoc-specific. Markdown uses fences (```), HTML uses tags ("
+  - type: MonospaceElement
+    children: []
+    content: "<pre>"
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "<blockquote>"
+  - type: TextContent
+    text: "). This knowledge has no place in the core."
+  content: CoreModel is the format-neutral hub, yet it contains hardcoded AsciiDoc
+    delimiter-to-semantics mappings in TWO places. The characters `-`, `=`, `_`, `*`,
+    `.`, `+` and the convention of 4-character delimiters are AsciiDoc-specific. Markdown
+    uses fences (```), HTML uses tags (`<pre>`, `<blockquote>`). This knowledge has
+    no place in the core.
+  callouts: []
+- type: SectionElement
+  title: Evidence
+  level: 2
+  children: []
+- type: SectionElement
+  title: 1A. `DELIMITER_CHAR_TO_SEMANTIC` constant
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/block.rb:134-141
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/block.rb:134-141`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    DELIMITER_CHAR_TO_SEMANTIC = {
+      '-' => :source_code,
+      '=' => :example,
+      '_' => :quote,
+      '*' => :sidebar,
+      '.' => :literal,
+      '+' => :pass
+    }.freeze
+  language: ruby
+  callouts: []
+- type: SectionElement
+  title: 1B. `resolve_semantic_from_delimiter` method
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/block.rb:125-131
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/block.rb:125-131`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def resolve_semantic_from_delimiter
+      delim = delimiter_type
+      return nil unless delim && delim.length >= 4
+      char = delim[0]
+      DELIMITER_CHAR_TO_SEMANTIC[char] || nil
+    end
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: The assumption that delimiters are ≥4 chars and the first char determines
+      the type is an AsciiDoc parsing rule.
+  content: The assumption that delimiters are ≥4 chars and the first char determines
+    the type is an AsciiDoc parsing rule.
+  callouts: []
+- type: SectionElement
+  title: 1C. `delimiter_to_semantic_type` in BlockBuilder — DUPLICATE of 1A
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/block_builder.rb:45-58
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder/block_builder.rb:45-58`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def delimiter_to_semantic_type(delimiter)
+      return nil unless delimiter && !delimiter.empty?
+      char = delimiter[0]
+      case char
+      when '-' then :source_code
+      when '=' then :example
+      when '_' then :quote
+      when '*' then :sidebar
+      when '.' then :literal
+      when '+' then :pass
+      else nil
+      end
+    end
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Same mapping, different implementation — duplicated within CoreModel itself.
+  content: Same mapping, different implementation — duplicated within CoreModel itself.
+  callouts: []
+- type: SectionElement
+  title: 1D. `delimiter_type` attribute — DEPRECATED but still used
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/block.rb:90-93
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/block.rb:90-93`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    # DEPRECATED — use block_semantic_type. Retained for backward compatibility.
+    attribute :delimiter_type, :string
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Still read by '
+  - type: MonospaceElement
+    children: []
+    content: resolve_semantic_from_delimiter
+  - type: TextContent
+    text: " at line 126."
+  content: Still read by `resolve_semantic_from_delimiter` at line 126.
+  callouts: []
+- type: SectionElement
+  title: 1E. `delimiter_length` attribute — AsciiDoc convention
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/block.rb:95-97
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/block.rb:95-97`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: 'attribute :delimiter_length, :integer, default: -> { 4 }'
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '"Number of delimiter characters" defaulting to 4 is the AsciiDoc convention.'
+  content: '"Number of delimiter characters" defaulting to 4 is the AsciiDoc convention.'
+  callouts: []
+- type: SectionElement
+  title: 1F. BlockBuilder sets `delimiter_length`
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/block_builder.rb:20,35
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder/block_builder.rb:20,35`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: 'delimiter_length: ast[:delimiter]&.to_s&.length || 4,'
+  language: ruby
+  callouts: []
+- type: SectionElement
+  title: Fix
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: ordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Remove '
+    - type: MonospaceElement
+      children: []
+      content: DELIMITER_CHAR_TO_SEMANTIC
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: resolve_semantic_from_delimiter
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: delimiter_type
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: delimiter_length
+    - type: TextContent
+      text: " from "
+    - type: MonospaceElement
+      children: []
+      content: CoreModel::Block
+    - type: TextContent
+      text: "."
+    marker: '1.'
+    content: Remove `DELIMITER_CHAR_TO_SEMANTIC`, `resolve_semantic_from_delimiter`,
+      `delimiter_type`, `delimiter_length` from `CoreModel::Block`.
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Remove '
+    - type: MonospaceElement
+      children: []
+      content: delimiter_to_semantic_type
+    - type: TextContent
+      text: " from "
+    - type: MonospaceElement
+      children: []
+      content: BlockBuilder
+    - type: TextContent
+      text: "."
+    marker: '1.'
+    content: Remove `delimiter_to_semantic_type` from `BlockBuilder`.
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Move all delimiter-to-semantics mapping to '
+    - type: MonospaceElement
+      children: []
+      content: ceradoc-adoc
+    - type: TextContent
+      text: "'s ToCoreModel transformer, which should resolve the semantic type before constructing CoreModel objects."
+    marker: '1.'
+    content: Move all delimiter-to-semantics mapping to `ceradoc-adoc`'s ToCoreModel
+      transformer, which should resolve the semantic type before constructing CoreModel
+      objects.

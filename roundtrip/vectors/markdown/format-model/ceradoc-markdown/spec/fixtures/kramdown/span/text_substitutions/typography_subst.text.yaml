@@ -1,0 +1,13 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: This ... something---this too--!
+  children:
+  - attributes: []
+    content: This ... something---this too--!
+- attributes: []
+  text: This <<is>> some text, << this >> too!
+  children:
+  - attributes: []
+    content: This <<is>> some text, << this >> too!

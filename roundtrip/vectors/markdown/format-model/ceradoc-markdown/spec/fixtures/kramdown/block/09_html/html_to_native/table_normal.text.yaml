@@ -1,0 +1,68 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <table class="examples">
+    <tr>
+    <th>Usage</th>
+    <th>Other</th>
+    </tr>
+    <tr>
+    <td>Some *data*</td>
+    <td>
+    <p>Some more</p>
+    </td>
+    </tr>
+    </table>
+  children:
+  - attributes: []
+    content: <table class="examples">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th>Usage</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th>Other</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>Some "
+  - attributes: []
+    text: data
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<p>Some more</p>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</table>"

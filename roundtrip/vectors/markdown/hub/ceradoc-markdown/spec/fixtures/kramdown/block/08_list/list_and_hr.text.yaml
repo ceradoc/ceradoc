@@ -1,0 +1,28 @@
+---
+type: DocumentElement
+children:
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Starting a list
+    marker: "*"
+    content: Starting a list
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: "*"
+    - type: TextContent
+      text: " "
+    - type: TextContent
+      text: "*"
+    marker: "*"
+    content: "* *"
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Starting a new list
+    marker: "*"
+    content: Starting a new list

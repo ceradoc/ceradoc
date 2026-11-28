@@ -1,0 +1,174 @@
+---
+type: DocumentElement
+title: Docker
+children:
+- type: HeaderElement
+  id: _docker
+  title: Docker
+  level: 0
+  content: Docker
+- type: ParagraphBlock
+  source_line: 3
+  children:
+  - type: TextContent
+    text: This Docker image is only meant to be used for development, and contains
+      some necessary setup to spin up docker containers with multiple ruby environment.
+  content: This Docker image is only meant to be used for development, and contains
+    some necessary setup to spin up docker containers with multiple ruby environment.
+  lines:
+  - This Docker image is only meant to be used for development, and contains some
+    necessary setup to spin up docker containers with multiple ruby environment.
+  callouts: []
+- type: SectionElement
+  id: _setup
+  title: Setup
+  source_line: 6
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 8
+    children:
+    - type: TextContent
+      text: 'By default it uses the most recent ruby version for docker environment,
+        but if you want to run it in any specific version then you can set it up by
+        exporting '
+    - type: MonospaceElement
+      source_line: 10
+      children: []
+      content: RUBY_IMAGE
+      constraint: constrained
+    - type: TextContent
+      text: " environment variable in your shell:"
+    content: 'By default it uses the most recent ruby version for docker environment,
+      but if you want to run it in any specific version then you can set it up by
+      exporting RUBY_IMAGE environment variable in your shell:'
+    lines:
+    - 'By default it uses the most recent ruby version for docker environment, but
+      if you want to run it in any specific version then you can set it up by exporting
+      RUBY_IMAGE environment variable in your shell:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 12
+    children: []
+    content: export RUBY_IMAGE=ruby:3.0-buster
+    lines:
+    - export RUBY_IMAGE=ruby:3.0-buster
+    language: sh
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 17
+    children:
+    - type: TextContent
+      text: 'Once everything is set then you would need to build the development images
+        for the first time and you can do that using:'
+    content: 'Once everything is set then you would need to build the development
+      images for the first time and you can do that using:'
+    lines:
+    - 'Once everything is set then you would need to build the development images
+      for the first time and you can do that using:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 20
+    children: []
+    content: make setup
+    lines:
+    - make setup
+    language: sh
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 25
+    children:
+    - type: TextContent
+      text: The setup process will install all dependencies and it will also setup
+        a volume to speed up the repeated gem installation.
+    content: The setup process will install all dependencies and it will also setup
+      a volume to speed up the repeated gem installation.
+    lines:
+    - The setup process will install all dependencies and it will also setup a volume
+      to speed up the repeated gem installation.
+    callouts: []
+- type: SectionElement
+  id: _playground
+  title: Playground
+  source_line: 28
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 30
+    children:
+    - type: TextContent
+      text: 'The '
+    - type: MonospaceElement
+      source_line: 30
+      children: []
+      content: Makefile
+      constraint: constrained
+    - type: TextContent
+      text: " contains two target for tests, and you can run the tests using any of the following commands:"
+    content: 'The Makefile contains two target for tests, and you can run the tests
+      using any of the following commands:'
+    lines:
+    - 'The Makefile contains two target for tests, and you can run the tests using
+      any of the following commands:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 33
+    children: []
+    content: |-
+      make test
+      # or
+      make rspec
+    lines:
+    - make test
+    - "# or"
+    - make rspec
+    language: sh
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 41
+    children:
+    - type: TextContent
+      text: 'If you need more control, and you want to do some development on the
+        go then you can get into the container using:'
+    content: 'If you need more control, and you want to do some development on the
+      go then you can get into the container using:'
+    lines:
+    - 'If you need more control, and you want to do some development on the go then
+      you can get into the container using:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 44
+    children: []
+    content: make ssh
+    lines:
+    - make ssh
+    language: sh
+    callouts: []
+- type: SectionElement
+  id: _cleanup
+  title: Cleanup
+  source_line: 49
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 51
+    children:
+    - type: TextContent
+      text: Once you are done with your experiment then you can cleanup the docker
+        environment using the following command.
+    content: Once you are done with your experiment then you can cleanup the docker
+      environment using the following command.
+    lines:
+    - Once you are done with your experiment then you can cleanup the docker environment
+      using the following command.
+    callouts: []
+  - type: SourceBlock
+    source_line: 54
+    children: []
+    content: make down
+    lines:
+    - make down
+    language: sh
+    callouts: []
+attributes:
+  type: Metadata

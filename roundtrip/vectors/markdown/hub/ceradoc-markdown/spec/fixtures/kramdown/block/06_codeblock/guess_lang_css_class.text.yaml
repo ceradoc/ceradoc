@@ -1,0 +1,21 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: |-
+    class Foo
+      def bar
+        puts 'Hello'
+      end
+    end
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    class Foo
+      def bar
+        puts 'Hello'
+      end
+    end
+  callouts: []

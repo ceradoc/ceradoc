@@ -1,0 +1,1275 @@
+---
+type: DocumentElement
+title: Configuration Guide
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Configuration
+  - type: FrontmatterEntry
+    key: parent
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Guides
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 4
+- type: HeaderElement
+  id: _configuration_guide
+  title: Configuration Guide
+  level: 0
+  content: Configuration Guide
+- type: SectionElement
+  id: _task
+  title: Task
+  source_line: 3
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 5
+    children:
+    - type: TextContent
+      text: Understand and configure Ceradoc's parsing and serialization options.
+    content: Understand and configure Ceradoc's parsing and serialization options.
+    lines:
+    - Understand and configure Ceradoc's parsing and serialization options.
+    callouts: []
+- type: SectionElement
+  id: _overview
+  title: Overview
+  source_line: 7
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 9
+    children:
+    - type: TextContent
+      text: 'Ceradoc provides various configuration options for:'
+    content: 'Ceradoc provides various configuration options for:'
+    lines:
+    - 'Ceradoc provides various configuration options for:'
+    callouts: []
+  - type: ListBlock
+    source_line: 11
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 11
+      children:
+      - type: TextContent
+        text: Parsing behavior
+      marker: "*"
+      content: Parsing behavior
+    - type: ListItem
+      source_line: 12
+      children:
+      - type: TextContent
+        text: Serialization output
+      marker: "*"
+      content: Serialization output
+    - type: ListItem
+      source_line: 13
+      children:
+      - type: TextContent
+        text: Error handling
+      marker: "*"
+      content: Error handling
+    - type: ListItem
+      source_line: 14
+      children:
+      - type: TextContent
+        text: Schema selection
+      marker: "*"
+      content: Schema selection
+    - type: ListItem
+      source_line: 15
+      children:
+      - type: TextContent
+        text: Custom extensions
+      marker: "*"
+      content: Custom extensions
+- type: SectionElement
+  id: _parsing_configuration
+  title: Parsing Configuration
+  source_line: 17
+  level: 1
+  children:
+  - type: SectionElement
+    id: _parsing_configuration_basic_parse_options
+    title: Basic Parse Options
+    source_line: 19
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 21
+      children: []
+      content: doc = Ceradoc.parse(input, options)
+      lines:
+      - doc = Ceradoc.parse(input, options)
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 26
+      children:
+      - type: BoldElement
+        source_line: 26
+        children: []
+        content: 'Available options:'
+        constraint: unconstrained
+      content: 'Available options:'
+      lines:
+      - 'Available options:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 28
+      children: []
+      content: |-
+        # Schema selection
+        doc = Ceradoc.parse(input, schema: :iso)
+        doc = Ceradoc.parse(input, schema: :custom)
+        # Error handling
+        doc = Ceradoc.parse(input, strict: true)        # Raise on errors
+        doc = Ceradoc.parse(input, strict: false)       # Skip errors (default)
+        # Preserve whitespace
+        doc = Ceradoc.parse(input, preserve_whitespace: true)
+        # Custom attributes
+        doc = Ceradoc.parse(input, attributes: { "key" => "value" })
+      lines:
+      - "# Schema selection"
+      - 'doc = Ceradoc.parse(input, schema: :iso)'
+      - 'doc = Ceradoc.parse(input, schema: :custom)'
+      - "# Error handling"
+      - 'doc = Ceradoc.parse(input, strict: true)        # Raise on errors'
+      - 'doc = Ceradoc.parse(input, strict: false)       # Skip errors (default)'
+      - "# Preserve whitespace"
+      - 'doc = Ceradoc.parse(input, preserve_whitespace: true)'
+      - "# Custom attributes"
+      - 'doc = Ceradoc.parse(input, attributes: { "key" => "value" })'
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _parsing_configuration_file_parse_options
+    title: File Parse Options
+    source_line: 45
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 47
+      children: []
+      content: doc = Ceradoc.parse_file(filename, options)
+      lines:
+      - doc = Ceradoc.parse_file(filename, options)
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 52
+      children:
+      - type: BoldElement
+        source_line: 52
+        children: []
+        content: 'Additional file options:'
+        constraint: unconstrained
+      content: 'Additional file options:'
+      lines:
+      - 'Additional file options:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 54
+      children: []
+      content: |-
+        # Encoding
+        doc = Ceradoc.parse_file("file.adoc", encoding: "UTF-8")
+        # Base directory for includes
+        doc = Ceradoc.parse_file("main.adoc", base_dir: "/path/to/docs")
+        # Cache parsing results
+        doc = Ceradoc.parse_file("file.adoc", cache: true)
+      lines:
+      - "# Encoding"
+      - 'doc = Ceradoc.parse_file("file.adoc", encoding: "UTF-8")'
+      - "# Base directory for includes"
+      - 'doc = Ceradoc.parse_file("main.adoc", base_dir: "/path/to/docs")'
+      - "# Cache parsing results"
+      - 'doc = Ceradoc.parse_file("file.adoc", cache: true)'
+      language: ruby
+      callouts: []
+- type: SectionElement
+  id: _serialization_configuration
+  title: Serialization Configuration
+  source_line: 66
+  level: 1
+  children:
+  - type: SectionElement
+    id: _serialization_configuration_basic_serialization_options
+    title: Basic Serialization Options
+    source_line: 68
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 70
+      children: []
+      content: output = doc.to_adoc(options)
+      lines:
+      - output = doc.to_adoc(options)
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 75
+      children:
+      - type: BoldElement
+        source_line: 75
+        children: []
+        content: 'Available options:'
+        constraint: unconstrained
+      content: 'Available options:'
+      lines:
+      - 'Available options:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 77
+      children: []
+      content: |-
+        # Indentation
+        output = doc.to_adoc(indent: 2)
+        # Line width
+        output = doc.to_adoc(line_width: 80)
+        # Attribute sorting
+        output = doc.to_adoc(sort_attributes: true)
+        # Preserve original formatting
+        output = doc.to_adoc(preserve: true)
+      lines:
+      - "# Indentation"
+      - 'output = doc.to_adoc(indent: 2)'
+      - "# Line width"
+      - 'output = doc.to_adoc(line_width: 80)'
+      - "# Attribute sorting"
+      - 'output = doc.to_adoc(sort_attributes: true)'
+      - "# Preserve original formatting"
+      - 'output = doc.to_adoc(preserve: true)'
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _serialization_configuration_convert_options
+    title: Convert Options
+    source_line: 92
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 94
+      children: []
+      content: 'output = Ceradoc.convert(doc, to: :adoc, options)'
+      lines:
+      - 'output = Ceradoc.convert(doc, to: :adoc, options)'
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 99
+      children:
+      - type: BoldElement
+        source_line: 99
+        children: []
+        content: 'Additional convert options:'
+        constraint: unconstrained
+      content: 'Additional convert options:'
+      lines:
+      - 'Additional convert options:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 101
+      children: []
+      content: |-
+        # Format-specific options
+        output = Ceradoc.convert(doc, to: :html, options)
+        output = Ceradoc.convert(doc, to: :adoc, options)
+        # Output stream
+        File.open("output.adoc", "w") do |f|
+          Ceradoc.convert(doc, to: :adoc, output: f)
+        end
+      lines:
+      - "# Format-specific options"
+      - 'output = Ceradoc.convert(doc, to: :html, options)'
+      - 'output = Ceradoc.convert(doc, to: :adoc, options)'
+      - "# Output stream"
+      - File.open("output.adoc", "w") do |f|
+      - "  Ceradoc.convert(doc, to: :adoc, output: f)"
+      - end
+      language: ruby
+      callouts: []
+- type: SectionElement
+  id: _configuration_file
+  title: Configuration File
+  source_line: 113
+  level: 1
+  children:
+  - type: SectionElement
+    id: _configuration_file_global_configuration
+    title: Global Configuration
+    source_line: 115
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 117
+      children:
+      - type: TextContent
+        text: 'Create a '
+      - type: MonospaceElement
+        source_line: 117
+        children: []
+        content: ".ceradoc.yml"
+        constraint: constrained
+      - type: TextContent
+        text: " file in your project root:"
+      content: 'Create a .ceradoc.yml file in your project root:'
+      lines:
+      - 'Create a .ceradoc.yml file in your project root:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 119
+      children: []
+      content: |-
+        # .ceradoc.yml
+        parsing:
+          schema: default
+          strict: false
+          preserve_whitespace: false
+          default_attributes:
+            source-highlighter: rouge
+            icons: font
+        serialization:
+          indent: 0
+          line_width: nil
+          sort_attributes: false
+        output:
+          format: adoc
+          encoding: UTF-8
+      lines:
+      - "# .ceradoc.yml"
+      - 'parsing:'
+      - "  schema: default"
+      - "  strict: false"
+      - "  preserve_whitespace: false"
+      - "  default_attributes:"
+      - "    source-highlighter: rouge"
+      - "    icons: font"
+      - 'serialization:'
+      - "  indent: 0"
+      - "  line_width: nil"
+      - "  sort_attributes: false"
+      - 'output:'
+      - "  format: adoc"
+      - "  encoding: UTF-8"
+      language: yaml
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 140
+      children:
+      - type: TextContent
+        text: Ceradoc automatically loads this configuration if present.
+      content: Ceradoc automatically loads this configuration if present.
+      lines:
+      - Ceradoc automatically loads this configuration if present.
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_environmentspecific_configuration
+    title: Environment-Specific Configuration
+    source_line: 142
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 144
+      children: []
+      content: |-
+        # .ceradoc.yml
+        development:
+          parsing:
+            strict: true
+        test:
+          parsing:
+            strict: false
+        production:
+          serialization:
+            indent: 2
+      lines:
+      - "# .ceradoc.yml"
+      - 'development:'
+      - "  parsing:"
+      - "    strict: true"
+      - 'test:'
+      - "  parsing:"
+      - "    strict: false"
+      - 'production:'
+      - "  serialization:"
+      - "    indent: 2"
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 160
+      children:
+      - type: TextContent
+        text: 'Load with:'
+      content: 'Load with:'
+      lines:
+      - 'Load with:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 162
+      children: []
+      content: Ceradoc.config.load_env(:production)
+      lines:
+      - Ceradoc.config.load_env(:production)
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 167
+      children:
+      - type: TextContent
+        text: "## Schema Configuration"
+      content: "## Schema Configuration"
+      lines:
+      - "## Schema Configuration"
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_default_schema
+    title: Default Schema
+    source_line: 169
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 171
+      children:
+      - type: TextContent
+        text: 'Set the default schema globally:'
+      content: 'Set the default schema globally:'
+      lines:
+      - 'Set the default schema globally:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 173
+      children: []
+      content: Ceradoc.config.default_schema = :iso
+      lines:
+      - Ceradoc.config.default_schema = :iso
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_schemaspecific_options
+    title: Schema-Specific Options
+    source_line: 178
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 180
+      children: []
+      content: |-
+        # Configure a schema
+        Ceradoc::Schema.configure(:iso) do |config|
+          config.strict_sections = true
+          config.require_metadata = true
+          config.allow_extensions = false
+        end
+      lines:
+      - "# Configure a schema"
+      - Ceradoc::Schema.configure(:iso) do |config|
+      - "  config.strict_sections = true"
+      - "  config.require_metadata = true"
+      - "  config.allow_extensions = false"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 190
+      children:
+      - type: TextContent
+        text: "## Attribute Configuration"
+      content: "## Attribute Configuration"
+      lines:
+      - "## Attribute Configuration"
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_document_attributes
+    title: Document Attributes
+    source_line: 192
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 194
+      children:
+      - type: TextContent
+        text: 'Set default document attributes:'
+      content: 'Set default document attributes:'
+      lines:
+      - 'Set default document attributes:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 196
+      children: []
+      content: |-
+        # In .ceradoc.yml
+        parsing:
+          default_attributes:
+            author: John Doe
+            version: 1.0
+            toc: true
+            toclevels: 3
+      lines:
+      - "# In .ceradoc.yml"
+      - 'parsing:'
+      - "  default_attributes:"
+      - "    author: John Doe"
+      - "    version: 1.0"
+      - "    toc: true"
+      - "    toclevels: 3"
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_runtime_attributes
+    title: Runtime Attributes
+    source_line: 207
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 209
+      children: []
+      content: |-
+        doc = Ceradoc.parse(input, attributes: {
+          "author" => "Jane Doe",
+          "version" => "2.0"
+        })
+      lines:
+      - 'doc = Ceradoc.parse(input, attributes: {'
+      - '  "author" => "Jane Doe",'
+      - '  "version" => "2.0"'
+      - "})"
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 217
+      children:
+      - type: TextContent
+        text: "## Parser Configuration"
+      content: "## Parser Configuration"
+      lines:
+      - "## Parser Configuration"
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_parser_options
+    title: Parser Options
+    source_line: 219
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 221
+      children: []
+      content: |-
+        # Configure parser behavior
+        Ceradoc::Parser.configure do |config|
+          config.strict_syntax = true
+          config.warn_on_undefined = true
+          config.allow_extensions = true
+        end
+      lines:
+      - "# Configure parser behavior"
+      - Ceradoc::Parser.configure do |config|
+      - "  config.strict_syntax = true"
+      - "  config.warn_on_undefined = true"
+      - "  config.allow_extensions = true"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_custom_parser_rules
+    title: Custom Parser Rules
+    source_line: 231
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 233
+      children: []
+      content: |-
+        # Add custom parser rules
+        Ceradoc::Parser.add_rule(:custom_block) do |parser|
+          # Custom parsing logic
+        end
+      lines:
+      - "# Add custom parser rules"
+      - Ceradoc::Parser.add_rule(:custom_block) do |parser|
+      - "  # Custom parsing logic"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 241
+      children:
+      - type: TextContent
+        text: "## Serializer Configuration"
+      content: "## Serializer Configuration"
+      lines:
+      - "## Serializer Configuration"
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_output_formatting
+    title: Output Formatting
+    source_line: 243
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 245
+      children: []
+      content: |-
+        # Configure output formatting
+        Ceradoc::Output::Adoc.configure do |config|
+          config.indent_sections = true
+          config.blank_line_after_block = true
+          config compact_lists = false
+        end
+      lines:
+      - "# Configure output formatting"
+      - Ceradoc::Output::Adoc.configure do |config|
+      - "  config.indent_sections = true"
+      - "  config.blank_line_after_block = true"
+      - "  config compact_lists = false"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_element_serialization
+    title: Element Serialization
+    source_line: 255
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 257
+      children: []
+      content: |-
+        # Configure specific element serialization
+        Ceradoc::Output::Adoc.configure(:section) do |config|
+          config.underline_style = false
+          config.anchor_before_title = true
+        end
+      lines:
+      - "# Configure specific element serialization"
+      - Ceradoc::Output::Adoc.configure(:section) do |config|
+      - "  config.underline_style = false"
+      - "  config.anchor_before_title = true"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 266
+      children:
+      - type: TextContent
+        text: "## Extension Configuration"
+      content: "## Extension Configuration"
+      lines:
+      - "## Extension Configuration"
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_register_custom_elements
+    title: Register Custom Elements
+    source_line: 268
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 270
+      children: []
+      content: |-
+        # In .ceradoc.yml
+        extensions:
+          custom_blocks:
+            - MyCustomBlock
+            - AnotherBlock
+          custom_inline:
+            - MyInline
+          serializers:
+            - MyCustomSerializer
+      lines:
+      - "# In .ceradoc.yml"
+      - 'extensions:'
+      - "  custom_blocks:"
+      - "    - MyCustomBlock"
+      - "    - AnotherBlock"
+      - "  custom_inline:"
+      - "    - MyInline"
+      - "  serializers:"
+      - "    - MyCustomSerializer"
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 283
+      children:
+      - type: TextContent
+        text: 'Or programmatically:'
+      content: 'Or programmatically:'
+      lines:
+      - 'Or programmatically:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 285
+      children: []
+      content: |-
+        Ceradoc.config.extensions do |ext|
+          ext.register_block(MyCustomBlock)
+          ext.register_inline(MyInline)
+          ext.register_serializer(MyCustomSerializer)
+        end
+      lines:
+      - Ceradoc.config.extensions do |ext|
+      - "  ext.register_block(MyCustomBlock)"
+      - "  ext.register_inline(MyInline)"
+      - "  ext.register_serializer(MyCustomSerializer)"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 294
+      children:
+      - type: TextContent
+        text: "## Error Handling Configuration"
+      content: "## Error Handling Configuration"
+      lines:
+      - "## Error Handling Configuration"
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_error_reporting
+    title: Error Reporting
+    source_line: 296
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 298
+      children: []
+      content: |-
+        # Configure error handling
+        Ceradoc::Errors.configure do |config|
+          config.raise_on_parse_error = false
+          config.collect_errors = true
+          config.max_errors = 10
+        end
+      lines:
+      - "# Configure error handling"
+      - Ceradoc::Errors.configure do |config|
+      - "  config.raise_on_parse_error = false"
+      - "  config.collect_errors = true"
+      - "  config.max_errors = 10"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_error_callbacks
+    title: Error Callbacks
+    source_line: 308
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 310
+      children: []
+      content: |-
+        # Set error callback
+        Ceradoc.config.on_error do |error|
+          puts "Parse error: #{error.message}"
+          # Log to external service
+        end
+      lines:
+      - "# Set error callback"
+      - Ceradoc.config.on_error do |error|
+      - '  puts "Parse error: #{error.message}"'
+      - "  # Log to external service"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 319
+      children:
+      - type: TextContent
+        text: "## Performance Configuration"
+      content: "## Performance Configuration"
+      lines:
+      - "## Performance Configuration"
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_caching
+    title: Caching
+    source_line: 321
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 323
+      children: []
+      content: |-
+        # Enable caching
+        Ceradoc::Cache.configure do |config|
+          config.enabled = true
+          config.size = 100
+          config.ttl = 3600
+        end
+      lines:
+      - "# Enable caching"
+      - Ceradoc::Cache.configure do |config|
+      - "  config.enabled = true"
+      - "  config.size = 100"
+      - "  config.ttl = 3600"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _configuration_file_parallel_processing
+    title: Parallel Processing
+    source_line: 333
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 335
+      children: []
+      content: |-
+        # Configure parallel processing
+        Ceradoc.config.parallel do |config|
+          config.enabled = true
+          config.workers = 4
+        end
+      lines:
+      - "# Configure parallel processing"
+      - Ceradoc.config.parallel do |config|
+      - "  config.enabled = true"
+      - "  config.workers = 4"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 344
+      children:
+      - type: TextContent
+        text: "## Complete Configuration Example"
+      content: "## Complete Configuration Example"
+      lines:
+      - "## Complete Configuration Example"
+      callouts: []
+    - type: SourceBlock
+      source_line: 346
+      children: []
+      content: |-
+        # config/initializers/ceradoc.rb
+        Ceradoc.configure do |config|
+          # General settings
+          config.default_schema = :iso
+          config.strict = false
+          # Parser settings
+          config.parser do |parser|
+            parser.warn_on_undefined = true
+            parser.preserve_whitespace = false
+          end
+          # Serializer settings
+          config.serializer do |ser|
+            ser.indent = 0
+            ser.line_width = nil
+          end
+          # Default attributes
+          config.default_attributes = {
+            "source-highlighter" => "rouge",
+            "icons" => "font",
+            "toc" => "macro"
+          }
+          # Extensions
+          config.extensions do |ext|
+            ext.register_block(CustomBlock)
+            ext.register_inline(CustomInline)
+          end
+          # Error handling
+          config.error_handler do |err|
+            Rails.logger.error("Ceradoc error: #{err.message}")
+          end
+        end
+      lines:
+      - "# config/initializers/ceradoc.rb"
+      - Ceradoc.configure do |config|
+      - "  # General settings"
+      - "  config.default_schema = :iso"
+      - "  config.strict = false"
+      - "  # Parser settings"
+      - "  config.parser do |parser|"
+      - "    parser.warn_on_undefined = true"
+      - "    parser.preserve_whitespace = false"
+      - "  end"
+      - "  # Serializer settings"
+      - "  config.serializer do |ser|"
+      - "    ser.indent = 0"
+      - "    ser.line_width = nil"
+      - "  end"
+      - "  # Default attributes"
+      - "  config.default_attributes = {"
+      - '    "source-highlighter" => "rouge",'
+      - '    "icons" => "font",'
+      - '    "toc" => "macro"'
+      - "  }"
+      - "  # Extensions"
+      - "  config.extensions do |ext|"
+      - "    ext.register_block(CustomBlock)"
+      - "    ext.register_inline(CustomInline)"
+      - "  end"
+      - "  # Error handling"
+      - "  config.error_handler do |err|"
+      - '    Rails.logger.error("Ceradoc error: #{err.message}")'
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 386
+      children:
+      - type: TextContent
+        text: "## Environment Variables"
+      content: "## Environment Variables"
+      lines:
+      - "## Environment Variables"
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 388
+      children:
+      - type: TextContent
+        text: 'Ceradoc respects the following environment variables:'
+      content: 'Ceradoc respects the following environment variables:'
+      lines:
+      - 'Ceradoc respects the following environment variables:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 390
+      children: []
+      content: |-
+        # Schema
+        export CERADOC_SCHEMA=iso
+        # Strict mode
+        export CERADOC_STRICT=true
+        # Debug mode
+        export CERADOC_DEBUG=1
+        # Cache directory
+        export CERADOC_CACHE=/tmp/ceradoc
+      lines:
+      - "# Schema"
+      - export CERADOC_SCHEMA=iso
+      - "# Strict mode"
+      - export CERADOC_STRICT=true
+      - "# Debug mode"
+      - export CERADOC_DEBUG=1
+      - "# Cache directory"
+      - export CERADOC_CACHE=/tmp/ceradoc
+      language: bash
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 405
+      children:
+      - type: HighlightElement
+        source_line: 405
+        children: []
+        content: |+2
+           Configuration Precedence
+
+          Configuration is applied in this order (later overrides earlier):
+
+          1. Default configuration
+          2. `.ceradoc.yml` file
+          3. Environment variables
+          4. Runtime options (`parse(input, options)`)
+
+        constraint: unconstrained
+      - type: TextContent
+        text: " Troubleshooting"
+      content: |-2
+         Configuration Precedence
+
+        Configuration is applied in this order (later overrides earlier):
+
+        1. Default configuration
+        2. `.ceradoc.yml` file
+        3. Environment variables
+        4. Runtime options (`parse(input, options)`)
+
+         Troubleshooting
+      lines:
+      - |-2
+         Configuration Precedence
+
+        Configuration is applied in this order (later overrides earlier):
+
+        1. Default configuration
+        2. `.ceradoc.yml` file
+        3. Environment variables
+        4. Runtime options (`parse(input, options)`)
+
+         Troubleshooting
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 416
+      children:
+      - type: BoldElement
+        source_line: 416
+        children: []
+        content: 'Problem:'
+        constraint: unconstrained
+      - type: TextContent
+        text: " Configuration file isn't being loaded."
+      content: 'Problem: Configuration file isn''t being loaded.'
+      lines:
+      - 'Problem: Configuration file isn''t being loaded.'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 418
+      children:
+      - type: BoldElement
+        source_line: 418
+        children: []
+        content: 'Solution:'
+        constraint: unconstrained
+      - type: TextContent
+        text: " Ensure "
+      - type: MonospaceElement
+        source_line: 418
+        children: []
+        content: ".ceradoc.yml"
+        constraint: constrained
+      - type: TextContent
+        text: " is in the project root or current working directory. Check YAML syntax."
+      content: 'Solution: Ensure .ceradoc.yml is in the project root or current working
+        directory. Check YAML syntax.'
+      lines:
+      - 'Solution: Ensure .ceradoc.yml is in the project root or current working directory.
+        Check YAML syntax.'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 420
+      children:
+      - type: BoldElement
+        source_line: 420
+        children: []
+        content: 'Problem:'
+        constraint: unconstrained
+      - type: TextContent
+        text: " Schema options aren't being applied."
+      content: 'Problem: Schema options aren''t being applied.'
+      lines:
+      - 'Problem: Schema options aren''t being applied.'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 422
+      children:
+      - type: BoldElement
+        source_line: 422
+        children: []
+        content: 'Solution:'
+        constraint: unconstrained
+      - type: TextContent
+        text: " Verify schema is loaded before parsing. Check "
+      - type: MonospaceElement
+        source_line: 422
+        children: []
+        content: Ceradoc::Schema.registered?
+        constraint: constrained
+      - type: TextContent
+        text: " to confirm registration."
+      content: 'Solution: Verify schema is loaded before parsing. Check Ceradoc::Schema.registered?
+        to confirm registration.'
+      lines:
+      - 'Solution: Verify schema is loaded before parsing. Check Ceradoc::Schema.registered?
+        to confirm registration.'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 424
+      children:
+      - type: BoldElement
+        source_line: 424
+        children: []
+        content: 'Problem:'
+        constraint: unconstrained
+      - type: TextContent
+        text: " Custom extensions aren't working."
+      content: 'Problem: Custom extensions aren''t working.'
+      lines:
+      - 'Problem: Custom extensions aren''t working.'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 426
+      children:
+      - type: BoldElement
+        source_line: 426
+        children: []
+        content: 'Solution:'
+        constraint: unconstrained
+      - type: TextContent
+        text: " Ensure extensions are loaded before use. Register extensions in an initializer or before first parse."
+      content: 'Solution: Ensure extensions are loaded before use. Register extensions
+        in an initializer or before first parse.'
+      lines:
+      - 'Solution: Ensure extensions are loaded before use. Register extensions in
+        an initializer or before first parse.'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 428
+      children:
+      - type: HighlightElement
+        source_line: 428
+        children: []
+        content: |+2
+           Summary
+
+          In this guide you learned:
+
+          * How to configure parsing behavior
+          * How to configure serialization output
+          * How to use configuration files
+          * How to configure schemas
+          * How to handle errors
+          * Performance optimization options
+
+        constraint: unconstrained
+      - type: TextContent
+        text: " Related Documentation"
+      content: |-2
+         Summary
+
+        In this guide you learned:
+
+        * How to configure parsing behavior
+        * How to configure serialization output
+        * How to use configuration files
+        * How to configure schemas
+        * How to handle errors
+        * Performance optimization options
+
+         Related Documentation
+      lines:
+      - |-2
+         Summary
+
+        In this guide you learned:
+
+        * How to configure parsing behavior
+        * How to configure serialization output
+        * How to use configuration files
+        * How to configure schemas
+        * How to handle errors
+        * Performance optimization options
+
+         Related Documentation
+      callouts: []
+    - type: ListBlock
+      source_line: 441
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 441
+        children:
+        - type: LinkElement
+          source_line: 441
+          children: []
+          content: Architecture
+          target: "/ceradoc/pages/architecture"
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: "/ceradoc/pages/architecture"
+            label: Architecture
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Configuration layer"
+        marker: "*"
+        content: Architecture - Configuration layer
+      - type: ListItem
+        source_line: 442
+        children:
+        - type: LinkElement
+          source_line: 442
+          children: []
+          content: Schema System Guide
+          target: schema-system
+          edges:
+          - kind: link
+            address:
+              scheme: anchor
+              target: schema-system
+            label: Schema System Guide
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Schema configuration"
+        marker: "*"
+        content: Schema System Guide - Schema configuration
+      - type: ListItem
+        source_line: 443
+        children:
+        - type: LinkElement
+          source_line: 443
+          children: []
+          content: API Reference
+          target: "/ceradoc/references/api-reference"
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: "/ceradoc/references/api-reference"
+            label: API Reference
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Configuration API"
+        marker: "*"
+        content: API Reference - Configuration API
+    - type: ParagraphBlock
+      source_line: 445
+      children:
+      - type: TextContent
+        text: "## Bibliography"
+      content: "## Bibliography"
+      lines:
+      - "## Bibliography"
+      callouts: []
+    - type: ListBlock
+      source_line: 447
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 447
+        children:
+        - type: LinkElement
+          source_line: 447
+          children: []
+          content: Configuration implementation
+          target: https://github.com/ceradoc/ceradoc/blob/main/lib/ceradoc/configuration.rb
+          edges:
+          - kind: link
+            address:
+              scheme: url
+              target: https://github.com/ceradoc/ceradoc/blob/main/lib/ceradoc/configuration.rb
+            label: Configuration implementation
+            options:
+              type: LinkOptions
+        marker: "*"
+        content: Configuration implementation
+      - type: ListItem
+        source_line: 448
+        children:
+        - type: LinkElement
+          source_line: 448
+          children: []
+          content: Ruby YAML Guide
+          target: https://www.rubyguides.com/2018/10/ruby-yaml/
+          edges:
+          - kind: link
+            address:
+              scheme: url
+              target: https://www.rubyguides.com/2018/10/ruby-yaml/
+            label: Ruby YAML Guide
+            options:
+              type: LinkOptions
+        marker: "*"
+        content: Ruby YAML Guide
+attributes:
+  type: Metadata

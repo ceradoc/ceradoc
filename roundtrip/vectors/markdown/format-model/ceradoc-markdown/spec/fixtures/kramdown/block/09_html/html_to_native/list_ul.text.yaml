@@ -1,0 +1,96 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <ul>
+    <li>This is a simple list item</li>
+    <li>
+    <p>Followed by another</p>
+    </li>
+    <li>
+    <p>Followed by</p>
+  children:
+  - attributes: []
+    content: "<ul>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<li>This is a simple list item</li>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<li>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<p>Followed by another</p>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</li>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<li>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<p>Followed by</p>"
+- attributes: []
+  code: "<p>a para list item</p>"
+- attributes: []
+  text: |-
+    </li>
+    <li>and a normal one</li>
+    <li>
+    <p>and</p>
+  children:
+  - attributes: []
+    content: "</li>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<li>and a normal one</li>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<li>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<p>and</p>"
+- attributes: []
+  code: "<p>a para</p>"
+- attributes: []
+  text: |-
+    </li>
+    </ul>
+  children:
+  - attributes: []
+    content: "</li>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</ul>"
+- attributes: []
+  text: |-
+    <ul>
+    <li>multi line
+    list item</li>
+    </ul>
+  children:
+  - attributes: []
+    content: "<ul>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<li>multi line"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: list item</li>
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</ul>"

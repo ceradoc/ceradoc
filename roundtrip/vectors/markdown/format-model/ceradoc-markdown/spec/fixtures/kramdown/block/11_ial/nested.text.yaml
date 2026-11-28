@@ -1,0 +1,55 @@
+---
+attributes: []
+blocks:
+- classes:
+  - cls
+  attributes: []
+- attributes: []
+  text: |-
+    <div>
+    test
+    </div>
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: test
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- id: id
+  classes: []
+  attributes: []
+- classes:
+  - cls
+  attributes: []
+- attributes: []
+  text: |-
+    <div markdown="1">
+    test
+    </div>
+  children:
+  - attributes: []
+    content: <div markdown="1">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: test
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- id: id
+  classes: []
+  attributes: []
+- classes:
+  - cls
+  attributes: []
+- attributes: []
+  content: para
+- id: id
+  classes: []
+  attributes: []

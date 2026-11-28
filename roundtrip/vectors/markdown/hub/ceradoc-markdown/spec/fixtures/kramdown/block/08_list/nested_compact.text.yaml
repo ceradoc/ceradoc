@@ -1,0 +1,44 @@
+---
+type: DocumentElement
+children:
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: First item
+    marker: "*"
+    content: First item
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Sub item 1
+    marker: "*"
+    content: Sub item 1
+    nested_list:
+      type: ListBlock
+      marker_type: unordered
+      items:
+      - type: ListItem
+        children: []
+        marker: "*"
+        content: Sub sub item
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Sub item 2
+    marker: "*"
+    content: Sub item 2
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Second item
+    marker: "*"
+    content: Second item
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Sub item
+    marker: "*"
+    content: Sub item

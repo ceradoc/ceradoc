@@ -1,0 +1,54 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: SectionElement
+  id: cls-9
+  title: Marking
+  source_line: 1
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 4
+    children:
+    - type: TextContent
+      text: Marking and labelling shall specify the date of testing and the proportion
+        of moisture, waxy rice, nitrogen and crude protein.
+    content: Marking and labelling shall specify the date of testing and the proportion
+      of moisture, waxy rice, nitrogen and crude protein.
+    lines:
+    - Marking and labelling shall specify the date of testing and the proportion of
+      moisture, waxy rice, nitrogen and crude protein.
+    callouts: []
+  - type: AnnotationBlock
+    source_line: 7
+    children:
+    - type: ParagraphBlock
+      source_line: 7
+      children:
+      - type: TextContent
+        text: National regulations can apply.
+      content: National regulations can apply.
+      callouts: []
+    content: National regulations can apply.
+    callouts: []
+    annotation_type: NOTE
+  - type: ReviewerBlock
+    source_line: 9
+    children:
+    - type: ListBlock
+      source_line: 11
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 11
+        children:
+        - type: TextContent
+          text: ISO/IEC Directives, Part 2, 2021, Clause 19
+        marker: "*"
+        content: ISO/IEC Directives, Part 2, 2021, Clause 19
+    callouts: []
+    annotation_type: reviewer
+    annotation_label: ISO
+attributes:
+  type: Metadata

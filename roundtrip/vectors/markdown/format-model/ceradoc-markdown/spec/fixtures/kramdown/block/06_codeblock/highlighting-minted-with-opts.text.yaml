@@ -1,0 +1,13 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  code: x = Class.new
+- classes:
+  - language-ruby
+  attributes: []
+- attributes: []
+  code: "<a>this is a reaally, reaally, reaally, reaally, reaally, reaally, reaally, reaally, reaally, reaally, reaally, long link</a>"
+- classes:
+  - language-html
+  attributes: []

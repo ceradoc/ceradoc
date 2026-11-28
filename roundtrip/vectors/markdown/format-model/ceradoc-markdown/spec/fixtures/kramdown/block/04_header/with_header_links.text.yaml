@@ -1,0 +1,19 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: This is a header {#header}
+- attributes: []
+  level: 2
+  text: 12. Another one-1-here
+- attributes: []
+  level: 3
+  text: Do ^& it now
+- attributes: []
+  level: 1
+  text: Header without ID
+- classes: []
+  attributes:
+  - name: id
+    value: ''

@@ -1,0 +1,57 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <div class="example-1" markdown="1">
+  - type: TextContent
+    text: "\n"
+  - type: Image
+    src: src.png
+    alt: inside
+    edges:
+    - kind: image_ref
+      address:
+        scheme: path
+        target: src.png
+      label: inside
+      options:
+        type: ImageRefOptions
+        alt_text: inside
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div class="example-1" markdown="1">
+    ![inside](src.png)
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <div class="example-2" markdown="1">
+  - type: TextContent
+    text: "\n"
+  - type: LinkElement
+    children: []
+    content: text
+    target: website.html
+    edges:
+    - kind: link
+      address:
+        scheme: anchor
+        target: website.html
+      label: text
+      options:
+        type: LinkOptions
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div class="example-2" markdown="1">
+    [text](website.html)
+    </div>
+  callouts: []

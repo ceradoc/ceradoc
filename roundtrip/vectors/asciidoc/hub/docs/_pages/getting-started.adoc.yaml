@@ -1,0 +1,558 @@
+---
+type: DocumentElement
+title: Getting Started with Ceradoc
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Getting Started
+  - type: FrontmatterEntry
+    key: parent
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Core Pages
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 1
+- type: HeaderElement
+  id: _getting_started_with_ceradoc
+  title: Getting Started with Ceradoc
+  level: 0
+  content: Getting Started with Ceradoc
+- type: SectionElement
+  id: _purpose
+  title: Purpose
+  source_line: 3
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 5
+    children:
+    - type: TextContent
+      text: This page helps you install Ceradoc and write your first AsciiDoc parsing
+        code. You'll learn how to parse AsciiDoc documents, access document structure,
+        and serialize back to AsciiDoc.
+    content: This page helps you install Ceradoc and write your first AsciiDoc parsing
+      code. You'll learn how to parse AsciiDoc documents, access document structure,
+      and serialize back to AsciiDoc.
+    lines:
+    - This page helps you install Ceradoc and write your first AsciiDoc parsing code.
+      You'll learn how to parse AsciiDoc documents, access document structure, and
+      serialize back to AsciiDoc.
+    callouts: []
+- type: SectionElement
+  id: _prerequisites
+  title: Prerequisites
+  source_line: 7
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 9
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 9
+      children:
+      - type: TextContent
+        text: Ruby 3.1 or higher
+      marker: "*"
+      content: Ruby 3.1 or higher
+    - type: ListItem
+      source_line: 10
+      children:
+      - type: TextContent
+        text: Basic knowledge of AsciiDoc syntax
+      marker: "*"
+      content: Basic knowledge of AsciiDoc syntax
+- type: SectionElement
+  id: _installation
+  title: Installation
+  source_line: 12
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 14
+    children:
+    - type: TextContent
+      text: 'Add Ceradoc to your application''s Gemfile:'
+    content: 'Add Ceradoc to your application''s Gemfile:'
+    lines:
+    - 'Add Ceradoc to your application''s Gemfile:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 16
+    children: []
+    content: gem 'ceradoc'
+    lines:
+    - gem 'ceradoc'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 21
+    children:
+    - type: TextContent
+      text: 'Then execute:'
+    content: 'Then execute:'
+    lines:
+    - 'Then execute:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 23
+    children: []
+    content: bundle install
+    lines:
+    - bundle install
+    language: bash
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 28
+    children:
+    - type: TextContent
+      text: 'Or install it yourself as a gem:'
+    content: 'Or install it yourself as a gem:'
+    lines:
+    - 'Or install it yourself as a gem:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 30
+    children: []
+    content: gem install ceradoc
+    lines:
+    - gem install ceradoc
+    language: bash
+    callouts: []
+- type: SectionElement
+  id: _basic_parsing
+  title: Basic Parsing
+  source_line: 35
+  level: 1
+  children:
+  - type: SectionElement
+    id: _basic_parsing_parse_a_simple_document
+    title: Parse a Simple Document
+    source_line: 37
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 39
+      children:
+      - type: TextContent
+        text: 'Parse an AsciiDoc string into a document model:'
+      content: 'Parse an AsciiDoc string into a document model:'
+      lines:
+      - 'Parse an AsciiDoc string into a document model:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 41
+      children: []
+      content: |-
+        # Parse AsciiDoc input
+        doc = Ceradoc.parse("== Hello World\n\nThis is a paragraph.")
+        # Access document structure
+        doc.header.title                    # => "Hello World"
+        doc.sections.first.title.level_int  # => 2
+        doc.sections.first.paragraphs.first # => First paragraph object
+        # Serialize back to AsciiDoc
+        output = doc.to_adoc
+      lines:
+      - "# Parse AsciiDoc input"
+      - doc = Ceradoc.parse("== Hello World\n\nThis is a paragraph.")
+      - "# Access document structure"
+      - 'doc.header.title                    # => "Hello World"'
+      - 'doc.sections.first.title.level_int  # => 2'
+      - 'doc.sections.first.paragraphs.first # => First paragraph object'
+      - "# Serialize back to AsciiDoc"
+      - output = doc.to_adoc
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _basic_parsing_parse_from_file
+    title: Parse from File
+    source_line: 55
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 57
+      children:
+      - type: TextContent
+        text: 'Parse an AsciiDoc file:'
+      content: 'Parse an AsciiDoc file:'
+      lines:
+      - 'Parse an AsciiDoc file:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 59
+      children: []
+      content: |-
+        # Parse from file
+        doc = Ceradoc.parse_file("document.adoc")
+        # Work with the model
+        doc.sections.each do |section|
+          puts "Section: #{section.title}"
+        end
+      lines:
+      - "# Parse from file"
+      - doc = Ceradoc.parse_file("document.adoc")
+      - "# Work with the model"
+      - doc.sections.each do |section|
+      - '  puts "Section: #{section.title}"'
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _basic_parsing_accessing_document_structure
+    title: Accessing Document Structure
+    source_line: 70
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 72
+      children:
+      - type: TextContent
+        text: 'The document model includes:'
+      content: 'The document model includes:'
+      lines:
+      - 'The document model includes:'
+      callouts: []
+    - type: ListBlock
+      source_line: 74
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 74
+        children:
+        - type: BoldElement
+          source_line: 74
+          children: []
+          content: header
+          constraint: constrained
+        - type: TextContent
+          text: " - Title, author, revision info"
+        marker: "*"
+        content: header - Title, author, revision info
+      - type: ListItem
+        source_line: 75
+        children:
+        - type: BoldElement
+          source_line: 75
+          children: []
+          content: document_attributes
+          constraint: constrained
+        - type: TextContent
+          text: " - Key-value metadata"
+        marker: "*"
+        content: document_attributes - Key-value metadata
+      - type: ListItem
+        source_line: 76
+        children:
+        - type: BoldElement
+          source_line: 76
+          children: []
+          content: sections
+          constraint: constrained
+        - type: TextContent
+          text: " - Hierarchical content structure"
+        marker: "*"
+        content: sections - Hierarchical content structure
+      - type: ListItem
+        source_line: 77
+        children:
+        - type: BoldElement
+          source_line: 77
+          children: []
+          content: blocks
+          constraint: constrained
+        - type: TextContent
+          text: " - Paragraphs, lists, code blocks, tables, etc."
+        marker: "*"
+        content: blocks - Paragraphs, lists, code blocks, tables, etc.
+      - type: ListItem
+        source_line: 78
+        children:
+        - type: BoldElement
+          source_line: 78
+          children: []
+          content: inline elements
+          constraint: constrained
+        - type: TextContent
+          text: " - Links, formatting, etc."
+        marker: "*"
+        content: inline elements - Links, formatting, etc.
+    - type: SourceBlock
+      source_line: 80
+      children: []
+      content: |-
+        # Access document structure
+        doc.header.title                  # Document title
+        doc.document_attributes.data     # Metadata attributes
+        doc.sections                      # Top-level sections
+        doc.sections.first.sections       # Nested sections
+        doc.sections.first.paragraphs    # Content blocks
+      lines:
+      - "# Access document structure"
+      - 'doc.header.title                  # Document title'
+      - 'doc.document_attributes.data     # Metadata attributes'
+      - 'doc.sections                      # Top-level sections'
+      - 'doc.sections.first.sections       # Nested sections'
+      - 'doc.sections.first.paragraphs    # Content blocks'
+      language: ruby
+      callouts: []
+- type: SectionElement
+  id: _serialization
+  title: Serialization
+  source_line: 90
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 92
+    children:
+    - type: TextContent
+      text: 'Convert document models to AsciiDoc output:'
+    content: 'Convert document models to AsciiDoc output:'
+    lines:
+    - 'Convert document models to AsciiDoc output:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 94
+    children: []
+    content: |-
+      # Any Model object can be serialized to AsciiDoc
+      paragraph = Ceradoc::Model::Paragraph.new
+      paragraph.content = [Ceradoc::Model::TextElement.new("Hello")]
+      paragraph.to_adoc  # => "Hello\n"
+    lines:
+    - "# Any Model object can be serialized to AsciiDoc"
+    - paragraph = Ceradoc::Model::Paragraph.new
+    - paragraph.content = [Ceradoc::Model::TextElement.new("Hello")]
+    - 'paragraph.to_adoc  # => "Hello\n"'
+    language: ruby
+    callouts: []
+  - type: SectionElement
+    id: _serialization_using_the_converter
+    title: Using the Converter
+    source_line: 102
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 104
+      children:
+      - type: TextContent
+        text: 'The '
+      - type: MonospaceElement
+        source_line: 104
+        children: []
+        content: Ceradoc.convert
+        constraint: constrained
+      - type: TextContent
+        text: " method provides explicit format conversion:"
+      content: 'The Ceradoc.convert method provides explicit format conversion:'
+      lines:
+      - 'The Ceradoc.convert method provides explicit format conversion:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 106
+      children: []
+      content: |-
+        doc = Ceradoc.parse_file("input.adoc")
+        # Convert to AsciiDoc (same as to_adoc)
+        asciidoc_output = Ceradoc.convert(doc, to: :adoc)
+      lines:
+      - doc = Ceradoc.parse_file("input.adoc")
+      - "# Convert to AsciiDoc (same as to_adoc)"
+      - 'asciidoc_output = Ceradoc.convert(doc, to: :adoc)'
+      language: ruby
+      callouts: []
+- type: SectionElement
+  id: _docx_conversion
+  title: DOCX Conversion
+  source_line: 114
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 116
+    children:
+    - type: TextContent
+      text: 'Convert Word documents to AsciiDoc or Markdown:'
+    content: 'Convert Word documents to AsciiDoc or Markdown:'
+    lines:
+    - 'Convert Word documents to AsciiDoc or Markdown:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 118
+    children: []
+    content: |-
+      require 'ceradoc/docx'
+      # Convert DOCX to AsciiDoc
+      adoc = Ceradoc.convert("input.docx", from: :docx, to: :asciidoc)
+      # Convert DOCX to Markdown
+      md = Ceradoc.convert("input.docx", from: :docx, to: :markdown)
+      # Parse DOCX to CoreModel for inspection
+      core = Ceradoc.parse("input.docx", format: :docx)
+      core.title         # => "Document Title"
+      core.children      # => Array of sections, paragraphs, tables
+    lines:
+    - require 'ceradoc/docx'
+    - "# Convert DOCX to AsciiDoc"
+    - 'adoc = Ceradoc.convert("input.docx", from: :docx, to: :asciidoc)'
+    - "# Convert DOCX to Markdown"
+    - 'md = Ceradoc.convert("input.docx", from: :docx, to: :markdown)'
+    - "# Parse DOCX to CoreModel for inspection"
+    - 'core = Ceradoc.parse("input.docx", format: :docx)'
+    - 'core.title         # => "Document Title"'
+    - 'core.children      # => Array of sections, paragraphs, tables'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 134
+    children:
+    - type: TextContent
+      text: 'Install DOCX support:'
+    content: 'Install DOCX support:'
+    lines:
+    - 'Install DOCX support:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 136
+    children: []
+    content: |-
+      # Gemfile
+      gem 'ceradoc-docx'
+      gem 'uniword'
+    lines:
+    - "# Gemfile"
+    - gem 'ceradoc-docx'
+    - gem 'uniword'
+    language: ruby
+    callouts: []
+- type: SectionElement
+  id: _next_steps
+  title: Next Steps
+  source_line: 143
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 145
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 145
+      children:
+      - type: LinkElement
+        source_line: 145
+        children: []
+        content: Basic Parsing Tutorial
+        target: "/ceradoc/tutorials/basic-parsing"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/tutorials/basic-parsing"
+          label: Basic Parsing Tutorial
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Deep dive into parsing"
+      marker: "*"
+      content: Basic Parsing Tutorial - Deep dive into parsing
+    - type: ListItem
+      source_line: 146
+      children:
+      - type: LinkElement
+        source_line: 146
+        children: []
+        content: Architecture
+        target: architecture
+        edges:
+        - kind: link
+          address:
+            scheme: anchor
+            target: architecture
+          label: Architecture
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Understand Ceradoc's architecture"
+      marker: "*"
+      content: Architecture - Understand Ceradoc's architecture
+    - type: ListItem
+      source_line: 147
+      children:
+      - type: LinkElement
+        source_line: 147
+        children: []
+        content: Document Model
+        target: model
+        edges:
+        - kind: link
+          address:
+            scheme: anchor
+            target: model
+          label: Document Model
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Learn about the document model"
+      marker: "*"
+      content: Document Model - Learn about the document model
+- type: SectionElement
+  id: _references
+  title: References
+  source_line: 149
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 151
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 151
+      children:
+      - type: LinkElement
+        source_line: 151
+        children: []
+        content: API Reference
+        target: "/ceradoc/references/api-reference"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/references/api-reference"
+          label: API Reference
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Complete API documentation"
+      marker: "*"
+      content: API Reference - Complete API documentation
+    - type: ListItem
+      source_line: 152
+      children:
+      - type: LinkElement
+        source_line: 152
+        children: []
+        content: AsciiDoctor Documentation
+        target: https://asciidoctor.org
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://asciidoctor.org
+          label: AsciiDoctor Documentation
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - AsciiDoc syntax reference"
+      marker: "*"
+      content: AsciiDoctor Documentation - AsciiDoc syntax reference
+attributes:
+  type: Metadata

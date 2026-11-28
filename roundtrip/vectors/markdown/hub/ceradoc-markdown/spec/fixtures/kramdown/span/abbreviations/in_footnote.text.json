@@ -1,0 +1,1 @@
+{"type":"DocumentElement","children":[{"type":"ParagraphBlock","children":[{"type":"TextContent","text":"There is a TXT file here. [^1]"}],"content":"There is a TXT file here. [^1]","callouts":[]},{"type":"Abbreviation","term":"TXT","definition":"Text File"},{"type":"Footnote","id":"1","content":"A TXT file.","backlink":true}]}

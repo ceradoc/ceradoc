@@ -1,0 +1,1166 @@
+---
+type: DocumentElement
+title: Ceradoc Documentation
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Ceradoc Documentation
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 1
+- type: HeaderElement
+  id: _ceradoc_documentation
+  title: Ceradoc Documentation
+  level: 0
+  content: Ceradoc Documentation
+- type: ParagraphBlock
+  source_line: 3
+  children:
+  - type: Image
+    source_line: 3
+    src: https://img.shields.io/gem/v/ceradoc.svg
+    alt: Gem Version
+    inline: true
+    edges:
+    - kind: image_ref
+      address:
+        scheme: url
+        target: https://img.shields.io/gem/v/ceradoc.svg
+      label: Gem Version
+      options:
+        type: ImageRefOptions
+        alt_text: Gem Version
+  - type: TextContent
+    text: " "
+  - type: Image
+    source_line: 4
+    src: https://img.shields.io/github/license/ceradoc/ceradoc
+    alt: License
+    inline: true
+    edges:
+    - kind: image_ref
+      address:
+        scheme: url
+        target: https://img.shields.io/github/license/ceradoc/ceradoc
+      label: License
+      options:
+        type: ImageRefOptions
+        alt_text: License
+  - type: TextContent
+    text: " "
+  - type: Image
+    source_line: 5
+    src: https://github.com/ceradoc/ceradoc/actions/workflows/rake.yml/badge.svg
+    alt: '"Build Status"'
+    link: '"https://github.com/ceradoc/ceradoc/actions/workflows/rake.yml"'
+    inline: true
+    edges:
+    - kind: image_ref
+      address:
+        scheme: url
+        target: https://github.com/ceradoc/ceradoc/actions/workflows/rake.yml/badge.svg
+      label: '"Build Status"'
+      options:
+        type: ImageRefOptions
+        alt_text: '"Build Status"'
+  content: Gem Version License "Build Status"
+  lines:
+  - Gem Version License "Build Status"
+  callouts: []
+- type: SectionElement
+  id: _purpose
+  title: Purpose
+  source_line: 7
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 9
+    children:
+    - type: TextContent
+      text: Ceradoc is a parser, model, and serializer for AsciiDoc documents.
+    content: Ceradoc is a parser, model, and serializer for AsciiDoc documents.
+    lines:
+    - Ceradoc is a parser, model, and serializer for AsciiDoc documents.
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 11
+    children:
+    - type: TextContent
+      text: 'It provides a complete toolchain for working with AsciiDoc:'
+    content: 'It provides a complete toolchain for working with AsciiDoc:'
+    lines:
+    - 'It provides a complete toolchain for working with AsciiDoc:'
+    callouts: []
+  - type: ListBlock
+    source_line: 13
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 13
+      children:
+      - type: BoldElement
+        source_line: 13
+        children: []
+        content: Parsing
+        constraint: constrained
+      - type: TextContent
+        text: " - Convert AsciiDoc text into a structured document model"
+      marker: "*"
+      content: Parsing - Convert AsciiDoc text into a structured document model
+    - type: ListItem
+      source_line: 14
+      children:
+      - type: BoldElement
+        source_line: 14
+        children: []
+        content: Manipulation
+        constraint: constrained
+      - type: TextContent
+        text: " - Modify document content through Ruby objects"
+      marker: "*"
+      content: Manipulation - Modify document content through Ruby objects
+    - type: ListItem
+      source_line: 15
+      children:
+      - type: BoldElement
+        source_line: 15
+        children: []
+        content: Serialization
+        constraint: constrained
+      - type: TextContent
+        text: " - Generate AsciiDoc output from document models"
+      marker: "*"
+      content: Serialization - Generate AsciiDoc output from document models
+    - type: ListItem
+      source_line: 16
+      children:
+      - type: BoldElement
+        source_line: 16
+        children: []
+        content: Round-tripping
+        constraint: constrained
+      - type: TextContent
+        text: " - Parse and serialize while preserving semantic meaning"
+      marker: "*"
+      content: Round-tripping - Parse and serialize while preserving semantic meaning
+  - type: ParagraphBlock
+    source_line: 18
+    children:
+    - type: TextContent
+      text: 'Ceradoc uses '
+    - type: LinkElement
+      source_line: 18
+      children: []
+      content: Parsanol
+      target: https://rubygems.org/gems/parsanol
+      edges:
+      - kind: link
+        address:
+          scheme: url
+          target: https://rubygems.org/gems/parsanol
+        label: Parsanol
+        options:
+          type: LinkOptions
+    - type: TextContent
+      text: " for parsing and "
+    - type: LinkElement
+      source_line: 18
+      children: []
+      content: lutaml-model
+      target: https://rubygems.org/gems/lutaml-model
+      edges:
+      - kind: link
+        address:
+          scheme: url
+          target: https://rubygems.org/gems/lutaml-model
+        label: lutaml-model
+        options:
+          type: LinkOptions
+    - type: TextContent
+      text: " for model definition, providing a robust foundation for AsciiDoc document processing."
+    content: Ceradoc uses Parsanol for parsing and lutaml-model for model definition,
+      providing a robust foundation for AsciiDoc document processing.
+    lines:
+    - Ceradoc uses Parsanol for parsing and lutaml-model for model definition, providing
+      a robust foundation for AsciiDoc document processing.
+    callouts: []
+- type: SectionElement
+  id: _quick_start
+  title: Quick Start
+  source_line: 20
+  level: 1
+  children:
+  - type: SourceBlock
+    source_line: 22
+    children: []
+    content: |-
+      # Parse AsciiDoc input
+      doc = Ceradoc.parse("== Hello World\n\nThis is a paragraph.")
+      # Access document structure
+      doc.header.title                    # => "Hello World"
+      doc.sections.first.title.level_int  # => 2
+      # Serialize back to AsciiDoc
+      output = doc.to_adoc
+    lines:
+    - "# Parse AsciiDoc input"
+    - doc = Ceradoc.parse("== Hello World\n\nThis is a paragraph.")
+    - "# Access document structure"
+    - 'doc.header.title                    # => "Hello World"'
+    - 'doc.sections.first.title.level_int  # => 2'
+    - "# Serialize back to AsciiDoc"
+    - output = doc.to_adoc
+    language: ruby
+    callouts: []
+- type: SectionElement
+  id: _documentation_collections
+  title: Documentation Collections
+  source_line: 35
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 37
+    children:
+    - type: TextContent
+      text: 'This documentation is organized into four collections to help you find
+        what you need:'
+    content: 'This documentation is organized into four collections to help you find
+      what you need:'
+    lines:
+    - 'This documentation is organized into four collections to help you find what
+      you need:'
+    callouts: []
+  - type: SectionElement
+    id: _documentation_collections_core_pages_linkpagesconceptual_documentation
+    title: Core Pages (link:pages/[Conceptual Documentation])
+    source_line: 39
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 41
+      children:
+      - type: TextContent
+        text: 'Foundational documentation about Ceradoc''s architecture and features:'
+      content: 'Foundational documentation about Ceradoc''s architecture and features:'
+      lines:
+      - 'Foundational documentation about Ceradoc''s architecture and features:'
+      callouts: []
+    - type: ListBlock
+      source_line: 43
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 43
+        children:
+        - type: LinkElement
+          source_line: 43
+          children: []
+          content: Getting Started
+          target: pages/getting-started
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: pages/getting-started
+            label: Getting Started
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Installation and quick start guide"
+        marker: "*"
+        content: Getting Started - Installation and quick start guide
+      - type: ListItem
+        source_line: 44
+        children:
+        - type: LinkElement
+          source_line: 44
+          children: []
+          content: Architecture
+          target: pages/architecture
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: pages/architecture
+            label: Architecture
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Data flow and layer structure"
+        marker: "*"
+        content: Architecture - Data flow and layer structure
+      - type: ListItem
+        source_line: 45
+        children:
+        - type: LinkElement
+          source_line: 45
+          children: []
+          content: Parsing
+          target: pages/parsing
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: pages/parsing
+            label: Parsing
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - AsciiDoc parsing layer"
+        marker: "*"
+        content: Parsing - AsciiDoc parsing layer
+      - type: ListItem
+        source_line: 46
+        children:
+        - type: LinkElement
+          source_line: 46
+          children: []
+          content: Transformation
+          target: pages/transformation
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: pages/transformation
+            label: Transformation
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - AST to Model transformation"
+        marker: "*"
+        content: Transformation - AST to Model transformation
+      - type: ListItem
+        source_line: 47
+        children:
+        - type: LinkElement
+          source_line: 47
+          children: []
+          content: Document Model
+          target: pages/model
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: pages/model
+            label: Document Model
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Document structure and elements"
+        marker: "*"
+        content: Document Model - Document structure and elements
+      - type: ListItem
+        source_line: 48
+        children:
+        - type: LinkElement
+          source_line: 48
+          children: []
+          content: Serialization
+          target: pages/serialization
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: pages/serialization
+            label: Serialization
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Generating AsciiDoc output"
+        marker: "*"
+        content: Serialization - Generating AsciiDoc output
+  - type: SectionElement
+    id: _documentation_collections_tutorials_linktutorialsstepbystep_learning
+    title: Tutorials (link:tutorials/[Step-by-Step Learning])
+    source_line: 50
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 52
+      children:
+      - type: TextContent
+        text: 'Learn Ceradoc through hands-on tutorials:'
+      content: 'Learn Ceradoc through hands-on tutorials:'
+      lines:
+      - 'Learn Ceradoc through hands-on tutorials:'
+      callouts: []
+    - type: ListBlock
+      source_line: 54
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 54
+        children:
+        - type: LinkElement
+          source_line: 54
+          children: []
+          content: Basic Parsing
+          target: tutorials/basic-parsing
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: tutorials/basic-parsing
+            label: Basic Parsing
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Parse your first document"
+        marker: "*"
+        content: Basic Parsing - Parse your first document
+      - type: ListItem
+        source_line: 55
+        children:
+        - type: LinkElement
+          source_line: 55
+          children: []
+          content: Document Modeling
+          target: tutorials/document-modeling
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: tutorials/document-modeling
+            label: Document Modeling
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Work with the document model"
+        marker: "*"
+        content: Document Modeling - Work with the document model
+      - type: ListItem
+        source_line: 56
+        children:
+        - type: LinkElement
+          source_line: 56
+          children: []
+          content: Serialization
+          target: tutorials/serialization
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: tutorials/serialization
+            label: Serialization
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Serialize to AsciiDoc"
+        marker: "*"
+        content: Serialization - Serialize to AsciiDoc
+      - type: ListItem
+        source_line: 57
+        children:
+        - type: LinkElement
+          source_line: 57
+          children: []
+          content: Round-tripping
+          target: tutorials/round-tripping
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: tutorials/round-tripping
+            label: Round-tripping
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Preserve semantics through parse cycles"
+        marker: "*"
+        content: Round-tripping - Preserve semantics through parse cycles
+      - type: ListItem
+        source_line: 58
+        children:
+        - type: LinkElement
+          source_line: 58
+          children: []
+          content: HTML Conversion
+          target: tutorials/html-conversion
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: tutorials/html-conversion
+            label: HTML Conversion
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Convert HTML to AsciiDoc"
+        marker: "*"
+        content: HTML Conversion - Convert HTML to AsciiDoc
+  - type: SectionElement
+    id: _documentation_collections_guides_linkguidestaskoriented_guides
+    title: Guides (link:guides/[Task-Oriented Guides])
+    source_line: 60
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 62
+      children:
+      - type: TextContent
+        text: 'Solve specific problems with focused guides:'
+      content: 'Solve specific problems with focused guides:'
+      lines:
+      - 'Solve specific problems with focused guides:'
+      callouts: []
+    - type: ListBlock
+      source_line: 64
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 64
+        children:
+        - type: LinkElement
+          source_line: 64
+          children: []
+          content: Ruby API Guide
+          target: guides/ruby-api
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: guides/ruby-api
+            label: Ruby API Guide
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Complete Ruby API usage guide"
+        marker: "*"
+        content: Ruby API Guide - Complete Ruby API usage guide
+      - type: ListItem
+        source_line: 65
+        children:
+        - type: LinkElement
+          source_line: 65
+          children: []
+          content: Custom Blocks
+          target: guides/custom-blocks
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: guides/custom-blocks
+            label: Custom Blocks
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Create custom block types"
+        marker: "*"
+        content: Custom Blocks - Create custom block types
+      - type: ListItem
+        source_line: 66
+        children:
+        - type: LinkElement
+          source_line: 66
+          children: []
+          content: Custom Inline Elements
+          target: guides/custom-inline
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: guides/custom-inline
+            label: Custom Inline Elements
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Create custom inline elements"
+        marker: "*"
+        content: Custom Inline Elements - Create custom inline elements
+      - type: ListItem
+        source_line: 67
+        children:
+        - type: LinkElement
+          source_line: 67
+          children: []
+          content: Schema System
+          target: guides/schema-system
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: guides/schema-system
+            label: Schema System
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Use schemas for document types"
+        marker: "*"
+        content: Schema System - Use schemas for document types
+      - type: ListItem
+        source_line: 68
+        children:
+        - type: LinkElement
+          source_line: 68
+          children: []
+          content: Configuration
+          target: guides/configuration
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: guides/configuration
+            label: Configuration
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Configuration options reference"
+        marker: "*"
+        content: Configuration - Configuration options reference
+      - type: ListItem
+        source_line: 69
+        children:
+        - type: LinkElement
+          source_line: 69
+          children: []
+          content: Troubleshooting
+          target: guides/troubleshooting
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: guides/troubleshooting
+            label: Troubleshooting
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Common issues and solutions"
+        marker: "*"
+        content: Troubleshooting - Common issues and solutions
+  - type: SectionElement
+    id: _documentation_collections_references_linkreferencestechnical_specifications
+    title: References (link:references/[Technical Specifications])
+    source_line: 71
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 73
+      children:
+      - type: TextContent
+        text: 'Detailed technical specifications:'
+      content: 'Detailed technical specifications:'
+      lines:
+      - 'Detailed technical specifications:'
+      callouts: []
+    - type: ListBlock
+      source_line: 75
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 75
+        children:
+        - type: LinkElement
+          source_line: 75
+          children: []
+          content: API Reference
+          target: references/api-reference
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/api-reference
+            label: API Reference
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Complete API documentation"
+        marker: "*"
+        content: API Reference - Complete API documentation
+      - type: ListItem
+        source_line: 76
+        children:
+        - type: LinkElement
+          source_line: 76
+          children: []
+          content: Ruby Methods Reference
+          target: references/ruby-methods
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/ruby-methods
+            label: Ruby Methods Reference
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Ruby API methods reference"
+        marker: "*"
+        content: Ruby Methods Reference - Ruby API methods reference
+      - type: ListItem
+        source_line: 77
+        children:
+        - type: LinkElement
+          source_line: 77
+          children: []
+          content: CoreModel Types
+          target: references/coremodel-types
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/coremodel-types
+            label: CoreModel Types
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - CoreModel type definitions"
+        marker: "*"
+        content: CoreModel Types - CoreModel type definitions
+      - type: ListItem
+        source_line: 78
+        children:
+        - type: LinkElement
+          source_line: 78
+          children: []
+          content: AsciiDoc Syntax
+          target: references/asciidoc-syntax
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/asciidoc-syntax
+            label: AsciiDoc Syntax
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - AsciiDoc authoring guide"
+        marker: "*"
+        content: AsciiDoc Syntax - AsciiDoc authoring guide
+      - type: ListItem
+        source_line: 79
+        children:
+        - type: LinkElement
+          source_line: 79
+          children: []
+          content: Markdown Syntax
+          target: references/markdown-syntax
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/markdown-syntax
+            label: Markdown Syntax
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Markdown authoring guide"
+        marker: "*"
+        content: Markdown Syntax - Markdown authoring guide
+      - type: ListItem
+        source_line: 80
+        children:
+        - type: LinkElement
+          source_line: 80
+          children: []
+          content: CLI Commands
+          target: references/cli-commands
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/cli-commands
+            label: CLI Commands
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Command-line interface reference"
+        marker: "*"
+        content: CLI Commands - Command-line interface reference
+      - type: ListItem
+        source_line: 81
+        children:
+        - type: LinkElement
+          source_line: 81
+          children: []
+          content: Error Codes
+          target: references/error-codes
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/error-codes
+            label: Error Codes
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Error codes and recovery strategies"
+        marker: "*"
+        content: Error Codes - Error codes and recovery strategies
+      - type: ListItem
+        source_line: 82
+        children:
+        - type: LinkElement
+          source_line: 82
+          children: []
+          content: Feature Matrix
+          target: references/feature-matrix
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/feature-matrix
+            label: Feature Matrix
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Feature support across formats"
+        marker: "*"
+        content: Feature Matrix - Feature support across formats
+      - type: ListItem
+        source_line: 83
+        children:
+        - type: LinkElement
+          source_line: 83
+          children: []
+          content: Model Classes
+          target: references/model-classes
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/model-classes
+            label: Model Classes
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - All model classes catalog"
+        marker: "*"
+        content: Model Classes - All model classes catalog
+      - type: ListItem
+        source_line: 84
+        children:
+        - type: LinkElement
+          source_line: 84
+          children: []
+          content: Output Formats
+          target: references/output-formats
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/output-formats
+            label: Output Formats
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Format options and converters"
+        marker: "*"
+        content: Output Formats - Format options and converters
+      - type: ListItem
+        source_line: 85
+        children:
+        - type: LinkElement
+          source_line: 85
+          children: []
+          content: Extension Points
+          target: references/extension-points
+          edges:
+          - kind: link
+            address:
+              scheme: path
+              target: references/extension-points
+            label: Extension Points
+            options:
+              type: LinkOptions
+        - type: TextContent
+          text: " - Extension API specification"
+        marker: "*"
+        content: Extension Points - Extension API specification
+- type: SectionElement
+  id: _key_features
+  title: Key Features
+  source_line: 87
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 89
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 89
+      children:
+      - type: LinkElement
+        source_line: 89
+        children: []
+        content: Parsing
+        target: pages/parsing
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: pages/parsing
+          label: Parsing
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Parse AsciiDoc into document models"
+      marker: "*"
+      content: Parsing - Parse AsciiDoc into document models
+    - type: ListItem
+      source_line: 90
+      children:
+      - type: LinkElement
+        source_line: 90
+        children: []
+        content: Document Modeling
+        target: pages/model
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: pages/model
+          label: Document Modeling
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Rich object model for document structure"
+      marker: "*"
+      content: Document Modeling - Rich object model for document structure
+    - type: ListItem
+      source_line: 91
+      children:
+      - type: LinkElement
+        source_line: 91
+        children: []
+        content: Serialization
+        target: pages/serialization
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: pages/serialization
+          label: Serialization
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Generate AsciiDoc from models"
+      marker: "*"
+      content: Serialization - Generate AsciiDoc from models
+    - type: ListItem
+      source_line: 92
+      children:
+      - type: LinkElement
+        source_line: 92
+        children: []
+        content: Round-tripping
+        target: tutorials/round-tripping
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: tutorials/round-tripping
+          label: Round-tripping
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Preserve semantics through parse/serialize cycles"
+      marker: "*"
+      content: Round-tripping - Preserve semantics through parse/serialize cycles
+    - type: ListItem
+      source_line: 93
+      children:
+      - type: LinkElement
+        source_line: 93
+        children: []
+        content: Schema Support
+        target: guides/schema-system
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: guides/schema-system
+          label: Schema Support
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Customizable schemas for different document types"
+      marker: "*"
+      content: Schema Support - Customizable schemas for different document types
+    - type: ListItem
+      source_line: 94
+      children:
+      - type: LinkElement
+        source_line: 94
+        children: []
+        content: Extending
+        target: guides/custom-blocks
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: guides/custom-blocks
+          label: Extending
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Add custom blocks, inline elements, and serializers"
+      marker: "*"
+      content: Extending - Add custom blocks, inline elements, and serializers
+- type: SectionElement
+  id: _installation
+  title: Installation
+  source_line: 96
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 98
+    children:
+    - type: TextContent
+      text: 'Add this line to your application''s Gemfile:'
+    content: 'Add this line to your application''s Gemfile:'
+    lines:
+    - 'Add this line to your application''s Gemfile:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 100
+    children: []
+    content: gem 'ceradoc'
+    lines:
+    - gem 'ceradoc'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 105
+    children:
+    - type: TextContent
+      text: 'And then execute:'
+    content: 'And then execute:'
+    lines:
+    - 'And then execute:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 107
+    children: []
+    content: bundle install
+    lines:
+    - bundle install
+    language: bash
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 112
+    children:
+    - type: TextContent
+      text: 'Or install it yourself as:'
+    content: 'Or install it yourself as:'
+    lines:
+    - 'Or install it yourself as:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 114
+    children: []
+    content: gem install ceradoc
+    lines:
+    - gem install ceradoc
+    language: bash
+    callouts: []
+- type: SectionElement
+  id: _resources
+  title: Resources
+  source_line: 119
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 121
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 121
+      children:
+      - type: LinkElement
+        source_line: 121
+        children: []
+        content: Getting Started Guide
+        target: pages/getting-started
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: pages/getting-started
+          label: Getting Started Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: Getting Started Guide
+    - type: ListItem
+      source_line: 122
+      children:
+      - type: LinkElement
+        source_line: 122
+        children: []
+        content: All Tutorials
+        target: tutorials/
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: tutorials/
+          label: All Tutorials
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: All Tutorials
+    - type: ListItem
+      source_line: 123
+      children:
+      - type: LinkElement
+        source_line: 123
+        children: []
+        content: API Reference
+        target: references/api-reference
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: references/api-reference
+          label: API Reference
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: API Reference
+    - type: ListItem
+      source_line: 124
+      children:
+      - type: LinkElement
+        source_line: 124
+        children: []
+        content: GitHub Repository
+        target: https://github.com/ceradoc/ceradoc
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://github.com/ceradoc/ceradoc
+          label: GitHub Repository
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: GitHub Repository
+    - type: ListItem
+      source_line: 125
+      children:
+      - type: LinkElement
+        source_line: 125
+        children: []
+        content: RubyGems Page
+        target: https://rubygems.org/gems/ceradoc
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://rubygems.org/gems/ceradoc
+          label: RubyGems Page
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: RubyGems Page
+attributes:
+  type: Metadata

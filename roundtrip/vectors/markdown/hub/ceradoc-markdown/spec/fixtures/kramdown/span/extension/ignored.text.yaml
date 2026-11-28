@@ -1,0 +1,9 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is {::something}paragraph{:/}
+  content: This is {::something}paragraph{:/}
+  callouts: []

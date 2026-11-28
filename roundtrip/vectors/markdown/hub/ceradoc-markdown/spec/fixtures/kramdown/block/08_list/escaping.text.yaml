@@ -1,0 +1,98 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: I have read the book
+  content: I have read the book
+  callouts: []
+- type: ListBlock
+  marker_type: ordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: It was great
+    marker: '1.'
+    content: It was great
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: other say that, too!
+    marker: "*"
+    content: other say that, too!
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: I have read the book
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: 1984. It was great
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "- other say that, too!"
+  content: |-
+    I have read the book
+    1984\. It was great
+    \- other say that, too!
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: I have read the book
+  content: I have read the book
+  callouts: []
+- type: ListBlock
+  marker_type: ordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: It was great.
+    marker: '1.'
+    content: It was great.
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: I have read the book 1984.
+  content: I have read the book 1984.
+  callouts: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: it was great!
+    marker: "*"
+    content: it was great!
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 1984. Was great!
+  content: 1984\. Was great!
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 1984.5 is not a book.
+  content: 1984.5 is not a book.
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '1984. '
+  content: '1984\. '
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "- This too!"
+  content: "\\- This too!"
+  callouts: []

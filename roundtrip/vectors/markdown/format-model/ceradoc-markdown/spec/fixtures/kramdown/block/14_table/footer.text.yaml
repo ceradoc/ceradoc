@@ -1,0 +1,97 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: Simple footer
+  children:
+  - attributes: []
+    content: Simple footer
+- attributes: []
+  text: |-
+    | cell1 | cell2
+    |=
+    | cell3 | cell4
+  children:
+  - attributes: []
+    content: "| cell1 | cell2"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "|="
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "| cell3 | cell4"
+- attributes: []
+  text: Full footer
+  children:
+  - attributes: []
+    content: Full footer
+- attributes: []
+  text: |-
+    | cell1 | cell2
+    |=======|=======|
+    | cell3 | cell4
+  children:
+  - attributes: []
+    content: "| cell1 | cell2"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "|=======|=======|"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "| cell3 | cell4"
+- attributes: []
+  text: Footer with separator lines
+  children:
+  - attributes: []
+    content: Footer with separator lines
+- attributes: []
+  text: |-
+    | cell1 | cell2
+    |=======|=======|
+    | cell3 | cell4
+    |---
+    | cell5 | cell6
+    |---
+  children:
+  - attributes: []
+    content: "| cell1 | cell2"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "|=======|=======|"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "| cell3 | cell4"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "|---"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "| cell5 | cell6"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "|---"
+- attributes: []
+  text: Empty footer
+  children:
+  - attributes: []
+    content: Empty footer
+- attributes: []
+  text: |-
+    | cell1 | cell2
+    |=
+  children:
+  - attributes: []
+    content: "| cell1 | cell2"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "|="

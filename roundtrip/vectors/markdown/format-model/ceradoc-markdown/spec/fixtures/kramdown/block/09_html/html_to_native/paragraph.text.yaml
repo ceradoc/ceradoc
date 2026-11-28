@@ -1,0 +1,19 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <p>Some text here<span> and </span>end
+    </p>
+  children:
+  - attributes: []
+    content: "<p>Some text here<span> and </span>end"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p>"
+- attributes: []
+  text: "<p>Some other text here</p>"
+  children:
+  - attributes: []
+    content: "<p>Some other text here</p>"

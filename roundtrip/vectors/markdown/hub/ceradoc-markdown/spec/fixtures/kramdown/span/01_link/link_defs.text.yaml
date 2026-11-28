@@ -1,0 +1,127 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is a para.
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[id]: http://www.example.com/"
+  content: |-
+    This is a para.
+    [id]: http://www.example.com/
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '[otherid1]: http://wwww.example.com/ "title 1"'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[otherid2]: http://wwww.example.com/ 'title 2'"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[otherid3]: <some spaces.html>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[otherid4]: <some spaces.html> 'title'"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[otherid5]: some spaces.html"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[otherid6]: some spaces.html 'title'"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[otherid7]: some spaces"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: '"title"'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[otherid8]:test.html#'test' 'title'"
+  content: |-
+    [otherid1]: http://wwww.example.com/ "title 1"
+    [otherid2]: http://wwww.example.com/ 'title 2'
+    [otherid3]: <some spaces.html>
+    [otherid4]: <some spaces.html> 'title'
+    [otherid5]: some spaces.html
+    [otherid6]: some spaces.html 'title'
+    [otherid7]: some spaces
+    "title"
+    [otherid8]:test.html#'test' 'title'
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "[break]:\thttp://www.example.com/test/asdf.html"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "'Another title'"
+  content: |-
+    [break]:	http://www.example.com/test/asdf.html
+    'Another title'
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "[1]: ignored.url"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[1]: one.url"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[2]: two.url"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[3]: three.url"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "[4]: nourl"
+  content: |-
+    [1]: ignored.url
+    [1]: one.url
+    [2]: two.url
+    [3]: three.url
+    [4]: nourl
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Points to [1] and [2] and [3] but not [4]
+  content: Points to [1] and [2] and [3] but not [4]
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "["
+  - type: TextContent
+    text: _
+  - type: TextContent
+    text: ".:,;!?-]: http://example.com"
+  content: "[_.:,;!?-]: http://example.com"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Points to [
+  - type: TextContent
+    text: _
+  - type: TextContent
+    text: ".:,;!?-] and [otherid8]"
+  content: Points to [_.:,;!?-] and [otherid8]
+  callouts: []

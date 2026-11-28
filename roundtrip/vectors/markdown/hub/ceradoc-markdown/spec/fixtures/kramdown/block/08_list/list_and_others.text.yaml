@@ -1,0 +1,93 @@
+---
+type: DocumentElement
+children:
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: list item
+    marker: "*"
+    content: list item
+- type: QuoteBlock
+  children: []
+  content: blockquote
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para
+  content: para
+  callouts: []
+- type: HorizontalRuleBlock
+  children: []
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para
+  content: para
+  callouts: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: no list
+    marker: "*"
+    content: no list
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: item
+    marker: "*"
+    content: item
+- type: QuoteBlock
+  children: []
+  content: block
+  callouts: []
+- type: SectionElement
+  title: header
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: test
+    marker: "*"
+    content: test
+- type: SourceBlock
+  children: []
+  content: "  codeblock"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: test
+  content: test
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "*"
+  - type: TextContent
+    text: "\ttest"
+  content: "*\ttest"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "\t\tcodeblock"
+  content: "\t\tcodeblock"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "\ttest"
+  content: "\ttest"
+  callouts: []

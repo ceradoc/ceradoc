@@ -1,0 +1,12 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  language: asn.1
+  code: text
+- attributes: []
+  language: asn#w1
+  code: text
+- attributes: []
+  language: русский
+  code: text

@@ -1,0 +1,39 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <table>
+    <tr>
+    <th>test</th>
+    <th></th>
+    <td></td>
+    </tr>
+    </table>
+  children:
+  - attributes: []
+    content: "<table>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th>test</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th></th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<td></td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</table>"

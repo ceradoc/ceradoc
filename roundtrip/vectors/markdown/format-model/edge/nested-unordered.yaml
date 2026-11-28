@@ -1,0 +1,28 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: a
+    sublist:
+      attributes: []
+      ordered: false
+      items:
+      - attributes: []
+        text: b
+        children: []
+    children:
+    - attributes: []
+      content: a
+- attributes: []
+  code: "    - c"
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: d
+    children:
+    - attributes: []
+      content: d

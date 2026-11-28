@@ -1,0 +1,58 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: |-
+    def what?
+      42
+    end
+  language: ruby
+  callouts: []
+- type: SourceBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: class
+    value: class1
+  children: []
+  content: |-
+    def what?
+      42
+    end
+  language: ruby
+  callouts: []
+- type: SourceBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: class
+    value: language-ruby
+  children: []
+  content: |-
+    def what?
+      42
+    end
+  callouts: []
+- type: SourceBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: class
+    value: language-python
+  children: []
+  content: |-
+    def what?
+      42
+    end
+  language: ruby
+  callouts: []
+- type: SourceBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: class
+    value: language-python
+  children: []
+  content: |-
+    def what?
+      42
+    end
+  language: ruby
+  callouts: []

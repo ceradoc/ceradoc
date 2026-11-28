@@ -1,0 +1,81 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<DIV>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: test
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</diV>"
+  content: |-
+    <DIV>
+    test
+    </diV>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: test
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: test
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div>
+    test
+    <div>
+    test
+    </div>
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: code block with </div>
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div>
+    code block with </div>
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: No matching end tag
+  content: |-
+    <div>
+    No matching end tag
+  callouts: []

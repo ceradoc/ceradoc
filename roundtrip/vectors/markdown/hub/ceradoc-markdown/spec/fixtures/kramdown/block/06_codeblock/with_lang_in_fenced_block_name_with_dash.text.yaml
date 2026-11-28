@@ -1,0 +1,10 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: |-
+    s1'dim'a'500'm'500'q'500''
+    index'j'j+1'j-1''
+  language: act-iii
+  callouts: []

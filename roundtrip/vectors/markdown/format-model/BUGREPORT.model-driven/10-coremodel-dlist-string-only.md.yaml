@@ -1,0 +1,545 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '10: CoreModel DefinitionItem stores only strings — cannot hold structured
+    content'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`DefinitionItem` has `term_children` and `definition_children` for structured content (arrays of mixed `String` + `InlineElement`)"
+    children:
+    - attributes: []
+      text: DefinitionItem
+    - attributes: []
+      content: " has "
+    - attributes: []
+      text: term_children
+    - attributes: []
+      content: " and "
+    - attributes: []
+      text: definition_children
+    - attributes: []
+      content: " for structured content (arrays of mixed "
+    - attributes: []
+      text: String
+    - attributes: []
+      content: " + "
+    - attributes: []
+      text: InlineElement
+    - attributes: []
+      content: ")"
+  - attributes: []
+    text: "`term_renderable` and `definition_renderable` methods provide mixed content access (following `Block#renderable_content` pattern)"
+    children:
+    - attributes: []
+      text: term_renderable
+    - attributes: []
+      content: " and "
+    - attributes: []
+      text: definition_renderable
+    - attributes: []
+      content: " methods provide mixed content access (following "
+    - attributes: []
+      text: Block#renderable_content
+    - attributes: []
+      content: " pattern)"
+  - attributes: []
+    text: "`term` and `definitions` attributes remain `:string` for backward compatibility"
+    children:
+    - attributes: []
+      text: term
+    - attributes: []
+      content: " and "
+    - attributes: []
+      text: definitions
+    - attributes: []
+      content: " attributes remain "
+    - attributes: []
+      text: ":string"
+    - attributes: []
+      content: " for backward compatibility"
+  - attributes: []
+    text: ToCoreModel transformer populates both flat string and structured children
+      arrays
+    children:
+    - attributes: []
+      content: ToCoreModel transformer populates both flat string and structured children
+        arrays
+  - attributes: []
+    text: "`term_children` and `definition_children` now included in `comparable_attributes` for equality checking"
+    children:
+    - attributes: []
+      text: term_children
+    - attributes: []
+      content: " and "
+    - attributes: []
+      text: definition_children
+    - attributes: []
+      content: " now included in "
+    - attributes: []
+      text: comparable_attributes
+    - attributes: []
+      content: " for equality checking"
+- attributes: []
+  text: |-
+    **Severity:** HIGH
+    **Location:** `lib/ceradoc/core_model/definition_item.rb`, `lib/ceradoc/core_model/definition_list.rb`
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " HIGH"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: lib/ceradoc/core_model/definition_item.rb
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: lib/ceradoc/core_model/definition_list.rb
+- attributes: []
+  level: 2
+  text: Test file
+- attributes: []
+  text: "`/Users/mulgogi/src/chinese/cham-format/sections/03-terms.adoc` — definition list entries like `[[term-cham-file]]CHAM file:: A thing. See <<file-format>>.`"
+  children:
+  - attributes: []
+    text: "/Users/mulgogi/src/chinese/cham-format/sections/03-terms.adoc"
+  - attributes: []
+    content: " — definition list entries like "
+  - attributes: []
+    text: "[[term-cham-file]]CHAM file:: A thing. See <<file-format>>."
+- attributes: []
+  level: 2
+  text: Problem
+- attributes: []
+  text: "`CoreModel::DefinitionItem` declares `term` as `:string` and `definitions` as `:string, collection: true`. These fields can only hold flat text — they cannot carry `InlineElement` children for anchors, cross-references, or monospace formatting. This is the same architectural gap that `Block` solved via the `ChildrenContent` module, but `DefinitionItem` does not include it."
+  children:
+  - attributes: []
+    text: CoreModel::DefinitionItem
+  - attributes: []
+    content: " declares "
+  - attributes: []
+    text: term
+  - attributes: []
+    content: " as "
+  - attributes: []
+    text: ":string"
+  - attributes: []
+    content: " and "
+  - attributes: []
+    text: definitions
+  - attributes: []
+    content: " as "
+  - attributes: []
+    text: ":string, collection: true"
+  - attributes: []
+    content: ". These fields can only hold flat text — they cannot carry "
+  - attributes: []
+    text: InlineElement
+  - attributes: []
+    content: " children for anchors, cross-references, or monospace formatting. This is the same architectural gap that "
+  - attributes: []
+    text: Block
+  - attributes: []
+    content: " solved via the "
+  - attributes: []
+    text: ChildrenContent
+  - attributes: []
+    content: " module, but "
+  - attributes: []
+    text: DefinitionItem
+  - attributes: []
+    content: " does not include it."
+- attributes: []
+  text: Meanwhile, the ToCoreModel transformer actively discards inline structure
+    by calling `extract_text_content` instead of `transform_inline_content`.
+  children:
+  - attributes: []
+    content: 'Meanwhile, the ToCoreModel transformer actively discards inline structure
+      by calling '
+  - attributes: []
+    text: extract_text_content
+  - attributes: []
+    content: " instead of "
+  - attributes: []
+    text: transform_inline_content
+  - attributes: []
+    content: "."
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  level: 3
+  text: 10A. DefinitionItem has no children support
+- attributes: []
+  text: "`lib/ceradoc/core_model/definition_item.rb:14-15`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/definition_item.rb:14-15
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    class DefinitionItem < Base
+      attribute :term, :string
+      attribute :definitions, :string, collection: true
+    end
+- attributes: []
+  text: No `include ChildrenContent`. No `children` array. The class inherits from
+    `Base` directly.
+  children:
+  - attributes: []
+    content: 'No '
+  - attributes: []
+    text: include ChildrenContent
+  - attributes: []
+    content: ". No "
+  - attributes: []
+    text: children
+  - attributes: []
+    content: " array. The class inherits from "
+  - attributes: []
+    text: Base
+  - attributes: []
+    content: " directly."
+- attributes: []
+  level: 3
+  text: 10B. Block has children support — the pattern to follow
+- attributes: []
+  text: "`lib/ceradoc/core_model/block.rb:58-59`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/block.rb:58-59
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    class Block < Base
+      include ChildrenContent
+- attributes: []
+  text: "`lib/ceradoc/core_model/children_content.rb:31-36`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/children_content.rb:31-36
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def renderable_content
+      return content if children.nil? || children.none?
+      return content if content && children.all?(String)
+      children
+    end
+- attributes: []
+  text: Block can carry both a `content` string (for simple text) and a `children`
+    array (for mixed strings + InlineElements). `renderable_content` prefers children
+    when they contain non-string objects.
+  children:
+  - attributes: []
+    content: 'Block can carry both a '
+  - attributes: []
+    text: content
+  - attributes: []
+    content: " string (for simple text) and a "
+  - attributes: []
+    text: children
+  - attributes: []
+    content: " array (for mixed strings + InlineElements). "
+  - attributes: []
+    text: renderable_content
+  - attributes: []
+    content: " prefers children when they contain non-string objects."
+- attributes: []
+  level: 3
+  text: 10C. ToCoreModel collapses definition list structure to strings
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb:229-236`:"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb:229-236
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    Ceradoc::CoreModel::DefinitionItem.new(
+      term: extract_text_content(term_content),
+      definitions: [extract_text_content(def_content)]
+    )
+- attributes: []
+  text: "`extract_text_content` (line 457) recursively flattens everything to a string. Compare with the regular list item path just below it (line 239-246):"
+  children:
+  - attributes: []
+    text: extract_text_content
+  - attributes: []
+    content: " (line 457) recursively flattens everything to a string. Compare with the regular list item path just below it (line 239-246):"
+- attributes: []
+  language: ruby
+  code: |-
+    content_val = item.content
+    children = transform_inline_content(content_val)
+
+    li = Ceradoc::CoreModel::ListItem.new(
+      content: extract_text_content(content_val),
+      marker: item.marker
+    )
+    li.children = children
+- attributes: []
+  text: Regular list items call both `extract_text_content` (for the flat text fallback)
+    AND `transform_inline_content` (for structured children). Definition items only
+    call `extract_text_content`.
+  children:
+  - attributes: []
+    content: 'Regular list items call both '
+  - attributes: []
+    text: extract_text_content
+  - attributes: []
+    content: " (for the flat text fallback) AND "
+  - attributes: []
+    text: transform_inline_content
+  - attributes: []
+    content: " (for structured children). Definition items only call "
+  - attributes: []
+    text: extract_text_content
+  - attributes: []
+    content: "."
+- attributes: []
+  level: 3
+  text: 10D. ToCoreModel collapses admonition content to string
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb:274-278`:"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/transform/to_core_model.rb:274-278
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def transform_admonition(admonition)
+      CoreModel::AnnotationBlock.new(
+        annotation_type: admonition.type,
+        content: extract_text_content(admonition.content)
+      )
+    end
+- attributes: []
+  text: Same pattern — `extract_text_content` instead of `transform_inline_content`.
+    The resulting `AnnotationBlock` (which extends `Block` and therefore HAS `children`)
+    gets a `content` string but empty `children`, so `renderable_content` returns
+    the flat string. No inline elements survive.
+  children:
+  - attributes: []
+    content: 'Same pattern — '
+  - attributes: []
+    text: extract_text_content
+  - attributes: []
+    content: " instead of "
+  - attributes: []
+    text: transform_inline_content
+  - attributes: []
+    content: ". The resulting "
+  - attributes: []
+    text: AnnotationBlock
+  - attributes: []
+    content: " (which extends "
+  - attributes: []
+    text: Block
+  - attributes: []
+    content: " and therefore HAS "
+  - attributes: []
+    text: children
+  - attributes: []
+    content: ") gets a "
+  - attributes: []
+    text: content
+  - attributes: []
+    content: " string but empty "
+  - attributes: []
+    text: children
+  - attributes: []
+    content: ", so "
+  - attributes: []
+    text: renderable_content
+  - attributes: []
+    content: " returns the flat string. No inline elements survive."
+- attributes: []
+  level: 3
+  text: 10E. Confirmed CoreModel output
+- attributes: []
+  text: 'Parsing `[[term-cham-file]]CHAM file:: A thing. See <<file-format>>.` produces:'
+  children:
+  - attributes: []
+    content: 'Parsing '
+  - attributes: []
+    text: "[[term-cham-file]]CHAM file:: A thing. See <<file-format>>."
+  - attributes: []
+    content: " produces:"
+- attributes: []
+  code: 'DefinitionItem: term="[[term-cham-file]]CHAM file" defs=["A thing. See <<file-format>>."]'
+- attributes: []
+  text: Flat strings throughout. No `InlineElement` instances for the anchor or cross-reference.
+  children:
+  - attributes: []
+    content: 'Flat strings throughout. No '
+  - attributes: []
+    text: InlineElement
+  - attributes: []
+    content: " instances for the anchor or cross-reference."
+- attributes: []
+  level: 2
+  text: Impact
+- attributes: []
+  text: Even if the AsciiDoc parser (report 09) is fixed to produce structured model
+    objects for definition list content, the CoreModel cannot store them. The `term`
+    attribute rejects non-string values. The `definitions` attribute rejects non-string
+    values.
+  children:
+  - attributes: []
+    content: 'Even if the AsciiDoc parser (report 09) is fixed to produce structured
+      model objects for definition list content, the CoreModel cannot store them.
+      The '
+  - attributes: []
+    text: term
+  - attributes: []
+    content: " attribute rejects non-string values. The "
+  - attributes: []
+    text: definitions
+  - attributes: []
+    content: " attribute rejects non-string values."
+- attributes: []
+  text: For admonitions, the CoreModel (`AnnotationBlock < Block`) can technically
+    hold children, but the ToCoreModel transformer never populates them — it only
+    sets the flat `content` string.
+  children:
+  - attributes: []
+    content: For admonitions, the CoreModel (
+  - attributes: []
+    text: AnnotationBlock < Block
+  - attributes: []
+    content: ") can technically hold children, but the ToCoreModel transformer never populates them — it only sets the flat "
+  - attributes: []
+    text: content
+  - attributes: []
+    content: " string."
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: "**DefinitionItem**: Add `include ChildrenContent` or equivalent support for storing inline elements alongside the term text. Consider separate children arrays for term and definitions, since term and definitions are independent content areas."
+    children:
+    - attributes: []
+      text: DefinitionItem
+    - attributes: []
+      content: ": Add "
+    - attributes: []
+      text: include ChildrenContent
+    - attributes: []
+      content: " or equivalent support for storing inline elements alongside the term text. Consider separate children arrays for term and definitions, since term and definitions are independent content areas."
+- attributes: []
+  text: 'One approach: add `term_children` and `definition_children` attributes (arrays
+    of mixed String + InlineElement), with a `term_renderable` method that follows
+    the same pattern as `Block#renderable_content`.'
+  children:
+  - attributes: []
+    content: 'One approach: add '
+  - attributes: []
+    text: term_children
+  - attributes: []
+    content: " and "
+  - attributes: []
+    text: definition_children
+  - attributes: []
+    content: " attributes (arrays of mixed String + InlineElement), with a "
+  - attributes: []
+    text: term_renderable
+  - attributes: []
+    content: " method that follows the same pattern as "
+  - attributes: []
+    text: Block#renderable_content
+  - attributes: []
+    content: "."
+- attributes: []
+  text: 'Another approach: model the term as a `CoreModel::Term` object that itself
+    has structured content, and store definition content similarly to how `Block`
+    does.'
+  children:
+  - attributes: []
+    content: 'Another approach: model the term as a '
+  - attributes: []
+    text: CoreModel::Term
+  - attributes: []
+    content: " object that itself has structured content, and store definition content similarly to how "
+  - attributes: []
+    text: Block
+  - attributes: []
+    content: " does."
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: "**ToCoreModel transformer**: For definition items, call `transform_inline_content` on term content and definition content, and populate the children arrays. Follow the same pattern used for `ListItem` (line 239-246)."
+    children:
+    - attributes: []
+      text: ToCoreModel transformer
+    - attributes: []
+      content: ": For definition items, call "
+    - attributes: []
+      text: transform_inline_content
+    - attributes: []
+      content: " on term content and definition content, and populate the children arrays. Follow the same pattern used for "
+    - attributes: []
+      text: ListItem
+    - attributes: []
+      content: " (line 239-246)."
+  - attributes: []
+    text: "**ToCoreModel transformer**: For admonitions, call `transform_inline_content` on admonition content and set the `children` array on the resulting `AnnotationBlock`. The `AnnotationBlock` already extends `Block` which includes `ChildrenContent`, so no model change is needed — only the transformer needs to populate `children`."
+    children:
+    - attributes: []
+      text: ToCoreModel transformer
+    - attributes: []
+      content: ": For admonitions, call "
+    - attributes: []
+      text: transform_inline_content
+    - attributes: []
+      content: " on admonition content and set the "
+    - attributes: []
+      text: children
+    - attributes: []
+      content: " array on the resulting "
+    - attributes: []
+      text: AnnotationBlock
+    - attributes: []
+      content: ". The "
+    - attributes: []
+      text: AnnotationBlock
+    - attributes: []
+      content: " already extends "
+    - attributes: []
+      text: Block
+    - attributes: []
+      content: " which includes "
+    - attributes: []
+      text: ChildrenContent
+    - attributes: []
+      content: ", so no model change is needed — only the transformer needs to populate "
+    - attributes: []
+      text: children
+    - attributes: []
+      content: "."

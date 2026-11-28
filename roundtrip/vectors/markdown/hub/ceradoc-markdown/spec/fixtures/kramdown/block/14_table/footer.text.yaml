@@ -1,0 +1,105 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Simple footer
+  content: Simple footer
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| cell1 | cell2"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|="
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell3 | cell4"
+  content: |-
+    | cell1 | cell2
+    |=
+    | cell3 | cell4
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Full footer
+  content: Full footer
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| cell1 | cell2"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|=======|=======|"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell3 | cell4"
+  content: |-
+    | cell1 | cell2
+    |=======|=======|
+    | cell3 | cell4
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Footer with separator lines
+  content: Footer with separator lines
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| cell1 | cell2"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|=======|=======|"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell3 | cell4"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|---"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell5 | cell6"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|---"
+  content: |-
+    | cell1 | cell2
+    |=======|=======|
+    | cell3 | cell4
+    |---
+    | cell5 | cell6
+    |---
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Empty footer
+  content: Empty footer
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| cell1 | cell2"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|="
+  content: |-
+    | cell1 | cell2
+    |=
+  callouts: []

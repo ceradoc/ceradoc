@@ -1,0 +1,19 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    This is just a normal paragraph.
+    That goes on to the second line.
+  children:
+  - attributes: []
+    content: This is just a normal paragraph.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: That goes on to the second line.
+- attributes: []
+  text: Another paragraph.
+  children:
+  - attributes: []
+    content: Another paragraph.

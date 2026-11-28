@@ -1,0 +1,81 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <table class="examples">
+    <tr>
+    <th markdown="span">*Usage*</th>
+    <th>
+    Output
+    </th>
+    </tr>
+    <tr>
+    <td markdown="span">Some *data*</td>
+    <td markdown="1">
+  children:
+  - attributes: []
+    content: <table class="examples">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: <th markdown="span">
+  - attributes: []
+    text: Usage
+  - attributes: []
+    content: "</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Output
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</th>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '<td markdown="span">Some '
+  - attributes: []
+    text: data
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: <td markdown="1">
+- attributes: []
+  level: 1
+  text: Some more
+- attributes: []
+  text: |-
+    </td>
+    </tr>
+    </table>
+  children:
+  - attributes: []
+    content: "</td>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</tr>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</table>"

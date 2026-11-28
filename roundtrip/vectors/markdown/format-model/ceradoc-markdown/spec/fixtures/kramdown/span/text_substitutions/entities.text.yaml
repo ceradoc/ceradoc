@@ -1,0 +1,29 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    This is the A&O. &copy; 2008 by me
+    As well \& as this. Some &#343; other
+    values may &#xAF; may also show but
+    not st. like &#xYZ;.
+  children:
+  - attributes: []
+    content: '["©"]'
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '["ŗ"]'
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '["¯"]'
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: not st. like &#xYZ;.
+- attributes: []
+  text: This &lt;span&gt; is BS&T; done!
+  children:
+  - attributes: []
+    content: '["<", ">", "&T;"]'

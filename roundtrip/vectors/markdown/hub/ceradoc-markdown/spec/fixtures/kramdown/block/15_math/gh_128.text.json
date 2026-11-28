@@ -1,0 +1,1 @@
+{"type":"DocumentElement","children":[{"type":"ParagraphBlock","children":[{"type":"TextContent","text":"$$ <script>alert('a')</script> <script>alert('b<')</script> $$"}],"content":"$$ <script>alert('a')</script> <script>alert('b<')</script> $$","callouts":[]}]}

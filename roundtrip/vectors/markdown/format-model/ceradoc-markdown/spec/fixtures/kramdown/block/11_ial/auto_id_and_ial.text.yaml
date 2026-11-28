@@ -1,0 +1,10 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 2
+  text: A header
+- id: myid
+  classes:
+  - cls
+  attributes: []

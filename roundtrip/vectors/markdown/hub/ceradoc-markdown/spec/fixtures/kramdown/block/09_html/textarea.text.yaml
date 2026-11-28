@@ -1,0 +1,38 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is a <textarea>inline</textarea>
+  content: This is a <textarea>inline</textarea>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<textarea>This"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: is
+  content: |-
+    <textarea>This
+    is
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: some
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: text
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</textarea>"
+  content: |-
+    some
+    text
+    </textarea>
+  callouts: []

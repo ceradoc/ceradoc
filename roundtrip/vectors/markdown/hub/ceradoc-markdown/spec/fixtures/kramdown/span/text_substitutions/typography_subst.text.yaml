@@ -1,0 +1,15 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This ... something---this too--!
+  content: This ... something---this too--!
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This <<is>> some text, << this >> too!
+  content: This <<is>> some text, << this >> too!
+  callouts: []

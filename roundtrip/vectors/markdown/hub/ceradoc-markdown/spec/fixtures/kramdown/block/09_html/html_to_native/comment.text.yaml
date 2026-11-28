@@ -1,0 +1,42 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<!--comment-->"
+  content: |-
+    <div>
+    <!--comment-->
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<!--"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Blah
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Blah
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "-->"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <!--
+    Blah
+    Blah
+    -->
+    </div>
+  callouts: []

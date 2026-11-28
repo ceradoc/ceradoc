@@ -1,0 +1,39 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: Table
+  source_line: 1
+  rows:
+  - type: TableRow
+    cells:
+    - type: TableCell
+      source_line: 2
+      children:
+      - type: TextContent
+        text: a 2+
+      content: a 2+
+    - type: TableCell
+      source_line: 2
+      children:
+      - type: TextContent
+        text: b
+      content: b
+    header: true
+  - type: TableRow
+    cells:
+    - type: TableCell
+      source_line: 3
+      children:
+      - type: TextContent
+        text: c
+      content: c
+    - type: TableCell
+      source_line: 3
+      children:
+      - type: TextContent
+        text: d
+      content: d
+    header: false
+attributes:
+  type: Metadata

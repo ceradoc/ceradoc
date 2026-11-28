@@ -1,0 +1,18 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: "<https://example.com/~tilde/>"
+  children:
+  - attributes: []
+    content: "<https://example.com/~tilde/>"
+- attributes: []
+  text: "<http://example.com/percent%20percent>"
+  children:
+  - attributes: []
+    content: "<http://example.com/percent%20percent>"
+- attributes: []
+  text: "<http://example.com/hash#hash>"
+  children:
+  - attributes: []
+    content: "<http://example.com/hash#hash>"

@@ -1,0 +1,53 @@
+---
+type: DocumentElement
+children:
+- type: ListBlock
+  marker_type: ordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: This is a simple list item
+    marker: '1.'
+    content: This is a simple list item
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Followed by another
+    marker: '1.'
+    content: Followed by another
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: '10.	Followed by'
+  content: '10.	Followed by'
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: a para list item
+  callouts: []
+- type: ListBlock
+  marker_type: ordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: and a normal one
+    marker: '1.'
+    content: and a normal one
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: and
+    marker: '1.'
+    content: and
+- type: SourceBlock
+  children: []
+  content: a para
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para
+  content: para
+  callouts: []

@@ -1,0 +1,1 @@
+{"type":"DocumentElement","children":[{"type":"ParagraphBlock","children":[{"type":"TextContent","text":"Some footnote here[^fn]"}],"content":"Some footnote here[^fn]","callouts":[]},{"type":"Footnote","id":"fn","content":"Some text here","backlink":true}]}

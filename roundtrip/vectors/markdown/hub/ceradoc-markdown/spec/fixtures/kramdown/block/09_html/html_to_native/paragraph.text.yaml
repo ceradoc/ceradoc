@@ -1,0 +1,21 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p>Some text here<span> and </span>end"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</p>"
+  content: |-
+    <p>Some text here<span> and </span>end
+    </p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<p>Some other text here</p>"
+  content: "<p>Some other text here</p>"
+  callouts: []

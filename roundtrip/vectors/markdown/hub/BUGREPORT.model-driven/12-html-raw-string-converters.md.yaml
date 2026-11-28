@@ -1,0 +1,501 @@
+---
+type: DocumentElement
+title: '12: 23 HTML converter files use raw string concatenation instead of NodeBuilder'
+children:
+- type: SectionElement
+  title: '12: 23 HTML converter files use raw string concatenation instead of NodeBuilder'
+  level: 1
+  children: []
+- type: SectionElement
+  title: 'Status: FIXED'
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: '23 converter files in '
+    - type: MonospaceElement
+      children: []
+      content: ceradoc-html/lib/ceradoc/html/converters/
+    - type: TextContent
+      text: " construct HTML via string interpolation"
+    marker: "*"
+    content: 23 converter files in `ceradoc-html/lib/ceradoc/html/converters/` construct
+      HTML via string interpolation
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 26 files already use NodeBuilder correctly (bold, paragraph, section,
+        table, etc.)
+    marker: "*"
+    content: 26 files already use NodeBuilder correctly (bold, paragraph, section,
+      table, etc.)
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: The clean pattern exists and is well-established — conversion is mechanical
+    marker: "*"
+    content: The clean pattern exists and is well-established — conversion is mechanical
+- type: ParagraphBlock
+  children:
+  - type: BoldElement
+    children: []
+    content: 'Severity:'
+  - type: TextContent
+    text: " HIGH"
+  - type: TextContent
+    text: "\n"
+  - type: BoldElement
+    children: []
+    content: 'Location:'
+  - type: TextContent
+    text: " "
+  - type: MonospaceElement
+    children: []
+    content: ceradoc-html/lib/ceradoc/html/converters/
+  - type: TextContent
+    text: " (23 files)"
+  content: |-
+    **Severity:** HIGH
+    **Location:** `ceradoc-html/lib/ceradoc/html/converters/` (23 files)
+  callouts: []
+- type: SectionElement
+  title: Problem
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'The '
+  - type: MonospaceElement
+    children: []
+    content: NO RAW HTML STRINGS
+  - type: TextContent
+    text: " convention in CLAUDE.md mandates that all HTML construction must use NodeBuilder or Nokogiri. However, 23 converter files still construct HTML via string interpolation ("
+  - type: MonospaceElement
+    children: []
+    content: "%()"
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: '"#{}"'
+  - type: TextContent
+    text: ", heredocs)."
+  content: The `NO RAW HTML STRINGS` convention in CLAUDE.md mandates that all HTML
+    construction must use NodeBuilder or Nokogiri. However, 23 converter files still
+    construct HTML via string interpolation (`%()`, `"#{}"`, heredocs).
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 26 converters already follow the pattern correctly. The clean pattern is
+      well-established — conversion is mechanical.
+  content: 26 converters already follow the pattern correctly. The clean pattern is
+    well-established — conversion is mechanical.
+  callouts: []
+- type: SectionElement
+  title: Affected Files (RAW)
+  level: 2
+  children: []
+- type: Table
+  rows:
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: File
+      header: true
+    - type: TableCell
+      children: []
+      content: Key Raw Patterns
+      header: true
+    header: true
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`admonition.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`%(<div#{attrs}>\n...#{content}...</div>)`, `"<p>#{...}</p>"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`attribute.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`"<!-- :#{key}: -->"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`audio.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: heredocs for `<figure>/<audio>`, `%(<source src=...>)`
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`bibliography.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`%(<section#{attrs}>...#{content}...</section>)`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`bibliography_entry.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`%(<a id=...>)`, `%(<div#{attrs}>...</div>)`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`comment_block.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`"<!--\n#{content}\n-->"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`comment_line.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`"<!-- #{content} -->"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`cross_reference.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`%(<a href=...>#{text}</a>)`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`example.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`%(<div#{attrs}>...#{content}...</div>)`, `"<p>#{...}</p>"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`include.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`"<!-- #{content} -->"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`listing.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`%(<pre#{attrs}>#{content}</pre>)`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`literal.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`%(<pre#{attrs}>#{content}</pre>)`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`open.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`"<div#{attrs}>...#{content}...</div>"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`quote.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`"<blockquote#{attrs}>...#{content}...</blockquote>"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`reviewer_comment.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: multiline `%(<div#{attrs}>...)`
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`reviewer_note.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: multiline `%(<aside#{attrs}>...)`
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`sidebar.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`%(<aside#{attrs}>...#{content}...</aside>)`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`source.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`%(<pre...><code...>#{content}</code></pre>)`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`table_cell.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`"<#{tag}#{attrs}>#{content}</#{tag}>"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`table_row.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`"<tr#{attrs}>...#{content}...</tr>"`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`term.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`%(<span class=...>#{text}</span>)`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`verse.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: '`%(<pre class="verse">#{content}</pre>)`'
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`video.rb`"
+      header: false
+    - type: TableCell
+      children: []
+      content: heredocs for `<figure>/<video>`, `%(<source src=...>)`
+      header: false
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Also in theme layer:'
+  content: 'Also in theme layer:'
+  callouts: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: classic_renderer.rb
+    - type: TextContent
+      text: " (build"
+    - type: TextContent
+      text: _
+    - type: TextContent
+      text: html5
+    - type: TextContent
+      text: _
+    - type: TextContent
+      text: document — array join of raw HTML strings)
+    marker: "*"
+    content: "`classic_renderer.rb` (build_html5_document — array join of raw HTML strings)"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: config.rb
+    - type: TextContent
+      text: " (css"
+    - type: TextContent
+      text: _
+    - type: TextContent
+      text: tags, js
+    - type: TextContent
+      text: _
+    - type: TextContent
+      text: 'tags — raw '
+    - type: MonospaceElement
+      children: []
+      content: "<link>"
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: "<script>"
+    - type: TextContent
+      text: " strings)"
+    marker: "*"
+    content: "`config.rb` (css_tags, js_tags — raw `<link>`, `<script>` strings)"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: theme/base.rb
+    - type: TextContent
+      text: " (build"
+    - type: TextContent
+      text: _
+    - type: TextContent
+      text: meta
+    - type: TextContent
+      text: _
+    - type: TextContent
+      text: 'tags — raw '
+    - type: MonospaceElement
+      children: []
+      content: "<meta>"
+    - type: TextContent
+      text: " strings)"
+    marker: "*"
+    content: "`theme/base.rb` (build_meta_tags — raw `<meta>` strings)"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: modern_renderer.rb
+    - type: TextContent
+      text: " (build"
+    - type: TextContent
+      text: _
+    - type: TextContent
+      text: meta
+    - type: TextContent
+      text: _
+    - type: TextContent
+      text: 'tags — raw '
+    - type: MonospaceElement
+      children: []
+      content: "<meta>"
+    - type: TextContent
+      text: " strings)"
+    marker: "*"
+    content: "`modern_renderer.rb` (build_meta_tags — raw `<meta>` strings)"
+- type: SectionElement
+  title: Clean Pattern (from bold.rb, paragraph.rb, etc.)
+  level: 2
+  children: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def self.to_html(model, options = {})
+      content = escape_html(model.content)
+      attrs = {}
+      attrs[:id] = model.id if model.id
+      build_element('strong', content, **attrs)
+    end
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Where '
+  - type: MonospaceElement
+    children: []
+    content: build_element
+  - type: TextContent
+    text: " delegates to "
+  - type: MonospaceElement
+    children: []
+    content: NodeBuilder.build(tag, content, **attrs)
+  - type: TextContent
+    text: "."
+  content: Where `build_element` delegates to `NodeBuilder.build(tag, content, **attrs)`.
+  callouts: []
+- type: SectionElement
+  title: Fix
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Convert each RAW file to use '
+  - type: MonospaceElement
+    children: []
+    content: NodeBuilder.build(tag, content, **attrs)
+  - type: TextContent
+    text: " following the established pattern. The "
+  - type: MonospaceElement
+    children: []
+    content: build_element
+  - type: TextContent
+    text: " helper in "
+  - type: MonospaceElement
+    children: []
+    content: base.rb
+  - type: TextContent
+    text: " already provides the correct interface."
+  content: Convert each RAW file to use `NodeBuilder.build(tag, content, **attrs)`
+    following the established pattern. The `build_element` helper in `base.rb` already
+    provides the correct interface.
+  callouts: []

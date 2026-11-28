@@ -1,0 +1,119 @@
+---
+type: DocumentElement
+title: '13: AsciiDoc parser uses `send` instead of `public_send`'
+children:
+- type: SectionElement
+  title: '13: AsciiDoc parser uses `send` instead of `public_send`'
+  level: 1
+  children: []
+- type: SectionElement
+  title: 'Status: FIXED'
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: '3 '
+    - type: MonospaceElement
+      children: []
+      content: send
+    - type: TextContent
+      text: " calls in "
+    - type: MonospaceElement
+      children: []
+      content: parser/base.rb
+    - type: TextContent
+      text: " bypass access control"
+    marker: "*"
+    content: 3 `send` calls in `parser/base.rb` bypass access control
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'All target methods are public, so '
+    - type: MonospaceElement
+      children: []
+      content: public_send
+    - type: TextContent
+      text: " is safe"
+    marker: "*"
+    content: All target methods are public, so `public_send` is safe
+- type: ParagraphBlock
+  children:
+  - type: BoldElement
+    children: []
+    content: 'Severity:'
+  - type: TextContent
+    text: " MEDIUM"
+  - type: TextContent
+    text: "\n"
+  - type: BoldElement
+    children: []
+    content: 'Location:'
+  - type: TextContent
+    text: " "
+  - type: MonospaceElement
+    children: []
+    content: ceradoc-adoc/lib/ceradoc/asciidoc/parser/base.rb
+  content: |-
+    **Severity:** MEDIUM
+    **Location:** `ceradoc-adoc/lib/ceradoc/asciidoc/parser/base.rb`
+  callouts: []
+- type: SectionElement
+  title: Evidence
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Line 93: '
+  - type: MonospaceElement
+    children: []
+    content: send(rule_name, *args, **kwargs)
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: 'Line 99: '
+  - type: MonospaceElement
+    children: []
+    content: send(dispatch_method)
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: 'Line 143: '
+  - type: MonospaceElement
+    children: []
+    content: send(alias_name)
+  content: |-
+    Line 93: `send(rule_name, *args, **kwargs)`
+    Line 99: `send(dispatch_method)`
+    Line 143: `send(alias_name)`
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: All three call dynamically computed method names for Parslet rule dispatch.
+  content: All three call dynamically computed method names for Parslet rule dispatch.
+  callouts: []
+- type: SectionElement
+  title: Fix
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Replace all 3 '
+  - type: MonospaceElement
+    children: []
+    content: send
+  - type: TextContent
+    text: " calls with "
+  - type: MonospaceElement
+    children: []
+    content: public_send
+  - type: TextContent
+    text: "."
+  content: Replace all 3 `send` calls with `public_send`.
+  callouts: []

@@ -1,0 +1,542 @@
+---
+type: DocumentElement
+title: Guides
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Guides
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 4
+  - type: FrontmatterEntry
+    key: has_children
+    value:
+      type: FrontmatterValue
+      value_type: boolean
+      boolean_value: true
+- type: HeaderElement
+  id: _guides
+  title: Guides
+  level: 0
+  content: Guides
+- type: SectionElement
+  id: _purpose
+  title: Purpose
+  source_line: 3
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 5
+    children:
+    - type: TextContent
+      text: This section contains task-oriented guides to help you accomplish specific
+        goals with Ceradoc. Each guide focuses on a particular task or problem.
+    content: This section contains task-oriented guides to help you accomplish specific
+      goals with Ceradoc. Each guide focuses on a particular task or problem.
+    lines:
+    - This section contains task-oriented guides to help you accomplish specific goals
+      with Ceradoc. Each guide focuses on a particular task or problem.
+    callouts: []
+- type: SectionElement
+  id: _overview
+  title: Overview
+  source_line: 7
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 9
+    children:
+    - type: TextContent
+      text: 'Guides are organized by task:'
+    content: 'Guides are organized by task:'
+    lines:
+    - 'Guides are organized by task:'
+    callouts: []
+  - type: ListBlock
+    source_line: 11
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 11
+      children:
+      - type: LinkElement
+        source_line: 11
+        children: []
+        content: Ruby API Guide
+        target: "/ceradoc/guides/ruby-api/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/ruby-api/"
+          label: Ruby API Guide
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Complete Ruby API usage guide"
+      marker: "*"
+      content: Ruby API Guide - Complete Ruby API usage guide
+    - type: ListItem
+      source_line: 12
+      children:
+      - type: LinkElement
+        source_line: 12
+        children: []
+        content: Custom Blocks
+        target: "/ceradoc/guides/custom-blocks/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/custom-blocks/"
+          label: Custom Blocks
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Create custom block types"
+      marker: "*"
+      content: Custom Blocks - Create custom block types
+    - type: ListItem
+      source_line: 13
+      children:
+      - type: LinkElement
+        source_line: 13
+        children: []
+        content: Custom Inline Elements
+        target: "/ceradoc/guides/custom-inline/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/custom-inline/"
+          label: Custom Inline Elements
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Create custom inline elements"
+      marker: "*"
+      content: Custom Inline Elements - Create custom inline elements
+    - type: ListItem
+      source_line: 14
+      children:
+      - type: LinkElement
+        source_line: 14
+        children: []
+        content: Schema System
+        target: "/ceradoc/guides/schema-system/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/schema-system/"
+          label: Schema System
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Use schemas for document types"
+      marker: "*"
+      content: Schema System - Use schemas for document types
+    - type: ListItem
+      source_line: 15
+      children:
+      - type: LinkElement
+        source_line: 15
+        children: []
+        content: Configuration
+        target: "/ceradoc/guides/configuration/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/configuration/"
+          label: Configuration
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Configuration options reference"
+      marker: "*"
+      content: Configuration - Configuration options reference
+    - type: ListItem
+      source_line: 16
+      children:
+      - type: LinkElement
+        source_line: 16
+        children: []
+        content: Troubleshooting
+        target: "/ceradoc/guides/troubleshooting/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/troubleshooting/"
+          label: Troubleshooting
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Common issues and solutions"
+      marker: "*"
+      content: Troubleshooting - Common issues and solutions
+- type: SectionElement
+  id: _guide_structure
+  title: Guide Structure
+  source_line: 18
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 20
+    children:
+    - type: TextContent
+      text: 'Each guide follows this structure:'
+    content: 'Each guide follows this structure:'
+    lines:
+    - 'Each guide follows this structure:'
+    callouts: []
+  - type: ListBlock
+    source_line: 22
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 22
+      children:
+      - type: BoldElement
+        source_line: 22
+        children: []
+        content: Task
+        constraint: unconstrained
+      - type: TextContent
+        text: " - What you want to accomplish"
+      marker: "*"
+      content: Task - What you want to accomplish
+    - type: ListItem
+      source_line: 23
+      children:
+      - type: BoldElement
+        source_line: 23
+        children: []
+        content: Approach
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Recommended solution"
+      marker: "*"
+      content: Approach - Recommended solution
+    - type: ListItem
+      source_line: 24
+      children:
+      - type: BoldElement
+        source_line: 24
+        children: []
+        content: Steps
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Detailed implementation"
+      marker: "*"
+      content: Steps - Detailed implementation
+    - type: ListItem
+      source_line: 25
+      children:
+      - type: BoldElement
+        source_line: 25
+        children: []
+        content: Examples
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Working code samples"
+      marker: "*"
+      content: Examples - Working code samples
+    - type: ListItem
+      source_line: 26
+      children:
+      - type: BoldElement
+        source_line: 26
+        children: []
+        content: Caveats
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Things to watch out for"
+      marker: "*"
+      content: Caveats - Things to watch out for
+- type: SectionElement
+  id: _when_to_use_guides_vs_tutorials
+  title: When to Use Guides vs. Tutorials
+  source_line: 28
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 30
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 30
+      children:
+      - type: BoldElement
+        source_line: 30
+        children: []
+        content: Tutorials
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Learn step-by-step from basics"
+      marker: "*"
+      content: Tutorials - Learn step-by-step from basics
+    - type: ListItem
+      source_line: 31
+      children:
+      - type: BoldElement
+        source_line: 31
+        children: []
+        content: Guides
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Solve specific problems (assume some knowledge)"
+      marker: "*"
+      content: Guides - Solve specific problems (assume some knowledge)
+- type: SectionElement
+  id: _common_tasks
+  title: Common Tasks
+  source_line: 33
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 35
+    children:
+    - type: TextContent
+      text: 'Quick links for common tasks:'
+    content: 'Quick links for common tasks:'
+    lines:
+    - 'Quick links for common tasks:'
+    callouts: []
+  - type: ListBlock
+    source_line: 37
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 37
+      children:
+      - type: BoldElement
+        source_line: 37
+        children: []
+        content: '"I need to use the Ruby API"'
+        constraint: constrained
+      - type: TextContent
+        text: " → "
+      - type: LinkElement
+        source_line: 37
+        children: []
+        content: Ruby API Guide
+        target: "/ceradoc/guides/ruby-api/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/ruby-api/"
+          label: Ruby API Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: '"I need to use the Ruby API" → Ruby API Guide'
+    - type: ListItem
+      source_line: 38
+      children:
+      - type: BoldElement
+        source_line: 38
+        children: []
+        content: '"I need a custom block type"'
+        constraint: constrained
+      - type: TextContent
+        text: " → "
+      - type: LinkElement
+        source_line: 38
+        children: []
+        content: Custom Blocks Guide
+        target: "/ceradoc/guides/custom-blocks/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/custom-blocks/"
+          label: Custom Blocks Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: '"I need a custom block type" → Custom Blocks Guide'
+    - type: ListItem
+      source_line: 39
+      children:
+      - type: BoldElement
+        source_line: 39
+        children: []
+        content: '"I want to extend inline formatting"'
+        constraint: constrained
+      - type: TextContent
+        text: " → "
+      - type: LinkElement
+        source_line: 39
+        children: []
+        content: Custom Inline Guide
+        target: "/ceradoc/guides/custom-inline/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/custom-inline/"
+          label: Custom Inline Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: '"I want to extend inline formatting" → Custom Inline Guide'
+    - type: ListItem
+      source_line: 40
+      children:
+      - type: BoldElement
+        source_line: 40
+        children: []
+        content: '"I''m working with ISO documents"'
+        constraint: constrained
+      - type: TextContent
+        text: " → "
+      - type: LinkElement
+        source_line: 40
+        children: []
+        content: Schema System Guide
+        target: "/ceradoc/guides/schema-system/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/schema-system/"
+          label: Schema System Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: '"I''m working with ISO documents" → Schema System Guide'
+    - type: ListItem
+      source_line: 41
+      children:
+      - type: BoldElement
+        source_line: 41
+        children: []
+        content: '"Something isn''t working"'
+        constraint: constrained
+      - type: TextContent
+        text: " → "
+      - type: LinkElement
+        source_line: 41
+        children: []
+        content: Troubleshooting Guide
+        target: "/ceradoc/guides/troubleshooting/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/troubleshooting/"
+          label: Troubleshooting Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: '"Something isn''t working" → Troubleshooting Guide'
+    - type: ListItem
+      source_line: 42
+      children:
+      - type: BoldElement
+        source_line: 42
+        children: []
+        content: '"I need to configure parsing options"'
+        constraint: constrained
+      - type: TextContent
+        text: " → "
+      - type: LinkElement
+        source_line: 42
+        children: []
+        content: Configuration Guide
+        target: "/ceradoc/guides/configuration/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/configuration/"
+          label: Configuration Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: '"I need to configure parsing options" → Configuration Guide'
+- type: SectionElement
+  id: _related_documentation
+  title: Related Documentation
+  source_line: 44
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 46
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 46
+      children:
+      - type: LinkElement
+        source_line: 46
+        children: []
+        content: Core Pages
+        target: "/ceradoc/pages/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/"
+          label: Core Pages
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Conceptual documentation"
+      marker: "*"
+      content: Core Pages - Conceptual documentation
+    - type: ListItem
+      source_line: 47
+      children:
+      - type: LinkElement
+        source_line: 47
+        children: []
+        content: Tutorials
+        target: "/ceradoc/tutorials/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/tutorials/"
+          label: Tutorials
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Step-by-step learning"
+      marker: "*"
+      content: Tutorials - Step-by-step learning
+    - type: ListItem
+      source_line: 48
+      children:
+      - type: LinkElement
+        source_line: 48
+        children: []
+        content: References
+        target: "/ceradoc/references/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/references/"
+          label: References
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Technical specifications"
+      marker: "*"
+      content: References - Technical specifications
+attributes:
+  type: Metadata

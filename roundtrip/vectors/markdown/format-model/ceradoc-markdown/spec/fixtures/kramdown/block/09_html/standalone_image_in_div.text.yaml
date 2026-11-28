@@ -1,0 +1,37 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <div class="example-1" markdown="1">
+    ![inside](src.png)
+    </div>
+  children:
+  - attributes: []
+    content: <div class="example-1" markdown="1">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    alt: inside
+    src: src.png
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <div class="example-2" markdown="1">
+    [text](website.html)
+    </div>
+  children:
+  - attributes: []
+    content: <div class="example-2" markdown="1">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: text
+    url: website.html
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"

@@ -1,0 +1,11 @@
+---
+attributes: []
+blocks:
+- id: math-id
+  classes: []
+  attributes: []
+- attributes: []
+  text: "$$5+5$$"
+  children:
+  - attributes: []
+    content: "$$5+5$$"

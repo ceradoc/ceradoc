@@ -1,0 +1,54 @@
+---
+type: DocumentElement
+children:
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: "{:.cls} IAL at first"
+    - type: TextContent
+      text: "\n"
+    - type: TextContent
+      text: continued
+    marker: "*"
+    content: |-
+      {:.cls} IAL at first
+      continued
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: another {:.cls}
+    marker: "*"
+    content: another {:.cls}
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: "{:.cls} IAL at last"
+    - type: TextContent
+      text: "\n"
+    - type: TextContent
+      text: "  code"
+    marker: "*"
+    content: |-
+      {:.cls} IAL at last
+        code
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: '{::nomarkdown type="html"}X{:/nomarkdown}'
+    - type: TextContent
+      text: "\n"
+    - type: TextContent
+      text: test
+    marker: "*"
+    content: |-
+      {::nomarkdown type="html"}X{:/nomarkdown}
+      test
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: '{::nomarkdown type="html"}X{:/nomarkdown} OK'
+    marker: "*"
+    content: '{::nomarkdown type="html"}X{:/nomarkdown} OK'

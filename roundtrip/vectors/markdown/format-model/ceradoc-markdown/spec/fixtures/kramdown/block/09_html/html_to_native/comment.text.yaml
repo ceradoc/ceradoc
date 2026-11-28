@@ -1,0 +1,40 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <div>
+    <!--comment-->
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<!--comment-->"
+- attributes: []
+  text: |-
+    <!--
+    Blah
+    Blah
+    -->
+    </div>
+  children:
+  - attributes: []
+    content: "<!--"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Blah
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Blah
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "-->"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"

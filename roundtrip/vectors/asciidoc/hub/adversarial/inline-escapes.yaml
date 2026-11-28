@@ -1,0 +1,31 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: ParagraphBlock
+  source_line: 1
+  children:
+  - type: TextContent
+    text: 'Not bold: '
+  - type: TextContent
+    text: "*"
+  - type: TextContent
+    text: text
+  - type: TextContent
+    text: "*"
+  - type: TextContent
+    text: " and "
+  - type: TextContent
+    text: _
+  - type: TextContent
+    text: underline
+  - type: TextContent
+    text: _
+  - type: TextContent
+    text: " stay literal."
+  content: 'Not bold: *text* and _underline_ stay literal.'
+  lines:
+  - 'Not bold: *text* and _underline_ stay literal.'
+  callouts: []
+attributes:
+  type: Metadata

@@ -1,0 +1,126 @@
+---
+type: DocumentElement
+title: This is a header
+children:
+- type: SectionElement
+  title: This is a header
+  level: 1
+  children: []
+- type: SectionElement
+  title: This is a header
+  level: 2
+  children: []
+- type: SectionElement
+  title: This is a header
+  level: 3
+  children: []
+- type: SectionElement
+  title: This is a header
+  level: 4
+  children: []
+- type: SectionElement
+  title: This is a header
+  level: 5
+  children: []
+- type: SectionElement
+  title: This is a header
+  level: 6
+  children: []
+- type: SectionElement
+  title: Header
+  level: 1
+  children: []
+- type: SectionElement
+  title: Header
+  level: 1
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "##Header   #####"
+  content: "##Header   #####"
+  callouts: []
+- type: QuoteBlock
+  children: []
+  content: blockquote
+  callouts: []
+- type: SectionElement
+  title: header
+  level: 6
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: paragraph
+  content: paragraph
+  callouts: []
+- type: QuoteBlock
+  children: []
+  content: blockquote
+  callouts: []
+- type: SectionElement
+  title: not a header
+  level: 3
+  children: []
+- type: SectionElement
+  title: header
+  level: 1
+  children: []
+- type: SectionElement
+  title: header#
+  level: 1
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "#header#"
+  content: "#header#"
+  callouts: []
+- type: SectionElement
+  title: header \#
+  level: 1
+  children: []
+- type: SectionElement
+  title: header
+  level: 1
+  children: []
+- type: SectionElement
+  title: ''
+  level: 1
+  children: []
+- type: SectionElement
+  title: ''
+  level: 1
+  children: []
+- type: SectionElement
+  title: Header {#id}
+  level: 3
+  children: []
+- type: SectionElement
+  title: 'Header ## {#Id}'
+  level: 3
+  children: []
+- type: SectionElement
+  title: 'Header    ##    {#id}'
+  level: 3
+  children: []
+- type: SectionElement
+  title: Header {#A-Za-z0-9_:t}
+  level: 3
+  children: []
+- type: SectionElement
+  title: Header {#9ab}
+  level: 3
+  children: []
+- type: SectionElement
+  title: Header{#noid}
+  level: 3
+  children: []
+- type: SectionElement
+  title: 'Header ##{#noid}'
+  level: 3
+  children: []
+- type: SectionElement
+  title: Last
+  level: 3
+  children: []

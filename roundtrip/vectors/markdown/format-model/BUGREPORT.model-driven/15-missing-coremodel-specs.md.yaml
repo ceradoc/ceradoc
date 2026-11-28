@@ -1,0 +1,114 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '15: 14 CoreModel typed Block subclasses have no specs'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: 14 of 34 CoreModel classes lack dedicated spec files
+    children:
+    - attributes: []
+      content: 14 of 34 CoreModel classes lack dedicated spec files
+  - attributes: []
+    text: Typed block subclasses define `semantic_type` but have no test coverage
+    children:
+    - attributes: []
+      content: 'Typed block subclasses define '
+    - attributes: []
+      text: semantic_type
+    - attributes: []
+      content: " but have no test coverage"
+- attributes: []
+  text: |-
+    **Severity:** MEDIUM
+    **Location:** `spec/core_model/`
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " MEDIUM"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: spec/core_model/
+- attributes: []
+  level: 2
+  text: Missing Specs
+- attributes: []
+  headers:
+  - Class
+  - File
+  rows:
+  - "`CommentBlock` | `lib/ceradoc/core_model/comment_block.rb`"
+  - "`ExampleBlock` | `lib/ceradoc/core_model/example_block.rb`"
+  - "`HorizontalRuleBlock` | `lib/ceradoc/core_model/horizontal_rule_block.rb`"
+  - "`ListingBlock` | `lib/ceradoc/core_model/listing_block.rb`"
+  - "`LiteralBlock` | `lib/ceradoc/core_model/literal_block.rb`"
+  - "`OpenBlock` | `lib/ceradoc/core_model/open_block.rb`"
+  - "`ParagraphBlock` | `lib/ceradoc/core_model/paragraph_block.rb`"
+  - "`PassBlock` | `lib/ceradoc/core_model/pass_block.rb`"
+  - "`QuoteBlock` | `lib/ceradoc/core_model/quote_block.rb`"
+  - "`ReviewerBlock` | `lib/ceradoc/core_model/reviewer_block.rb`"
+  - "`SidebarBlock` | `lib/ceradoc/core_model/sidebar_block.rb`"
+  - "`SourceBlock` | `lib/ceradoc/core_model/source_block.rb`"
+  - "`VerseBlock` | `lib/ceradoc/core_model/verse_block.rb`"
+  - "`DefinitionItem` | `lib/ceradoc/core_model/definition_item.rb`"
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  text: 'Create a single spec file `spec/core_model/typed_blocks_spec.rb` covering
+    all typed block subclasses. Each should test:'
+  children:
+  - attributes: []
+    content: 'Create a single spec file '
+  - attributes: []
+    text: spec/core_model/typed_blocks_spec.rb
+  - attributes: []
+    content: " covering all typed block subclasses. Each should test:"
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: Inherits from `Block`
+    children:
+    - attributes: []
+      content: 'Inherits from '
+    - attributes: []
+      text: Block
+  - attributes: []
+    text: "`semantic_type` returns the correct symbol"
+    children:
+    - attributes: []
+      text: semantic_type
+    - attributes: []
+      content: " returns the correct symbol"
+  - attributes: []
+    text: "`element_type` returns the correct string"
+    children:
+    - attributes: []
+      text: element_type
+    - attributes: []
+      content: " returns the correct string"
+  - attributes: []
+    text: Can be instantiated with content/attributes
+    children:
+    - attributes: []
+      content: Can be instantiated with content/attributes
+  - attributes: []
+    text: "`comparable_attributes` works correctly"
+    children:
+    - attributes: []
+      text: comparable_attributes
+    - attributes: []
+      content: " works correctly"

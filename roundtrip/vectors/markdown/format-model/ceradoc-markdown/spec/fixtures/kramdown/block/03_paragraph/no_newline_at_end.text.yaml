@@ -1,0 +1,24 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    One paragraph
+    over
+    multiple lines.
+  children:
+  - attributes: []
+    content: One paragraph
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: over
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: multiple lines.
+- attributes: []
+  text: Second one without newline.
+  children:
+  - attributes: []
+    content: Second one without newline.

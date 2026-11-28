@@ -1,0 +1,21 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: 'Image with empty title: ![alt text](/images/other.png)'
+  children:
+  - attributes: []
+    content: 'Image with empty title: '
+  - attributes: []
+    alt: alt text
+    src: "/images/other.png"
+- attributes: []
+  text: Link [reference][1] with empty title.
+  children:
+  - attributes: []
+    content: Link [reference][1] with empty title.
+- attributes: []
+  text: "[1]: http://example.tld"
+  children:
+  - attributes: []
+    content: "[1]: http://example.tld"

@@ -1,0 +1,51 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: No table body
+  content: No table body
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "|-|-|-"
+  content: "|-|-|-"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "[5]: test"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|no|table|here|"
+  content: |-
+    [5]: test
+    |no|table|here|
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "|no|table|here|"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: paragraph
+  content: |-
+    |no|table|here|
+    paragraph
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "|-|-|"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|-|-|"
+  content: |-
+    |-|-|
+    |-|-|
+  callouts: []

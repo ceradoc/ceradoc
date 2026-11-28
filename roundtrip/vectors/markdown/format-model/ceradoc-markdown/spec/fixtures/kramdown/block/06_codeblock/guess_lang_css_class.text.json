@@ -1,0 +1,1 @@
+{"attributes":[],"blocks":[{"attributes":[],"code":"class Foo\n  def bar\n    puts 'Hello'\n  end\nend"},{"attributes":[],"code":"class Foo\n  def bar\n    puts 'Hello'\n  end\nend"}]}

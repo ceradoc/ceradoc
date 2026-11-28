@@ -1,0 +1,1 @@
+{"type":"DocumentElement","children":[{"type":"ListBlock","marker_type":"unordered","items":[{"type":"ListItem","children":[{"type":"TextContent","text":"a"}],"marker":"*","content":"a"},{"type":"ListItem","children":[{"type":"TextContent","text":"b"}],"marker":"*","content":"b"},{"type":"ListItem","children":[{"type":"TextContent","text":"c"}],"marker":"*","content":"c"}]}]}

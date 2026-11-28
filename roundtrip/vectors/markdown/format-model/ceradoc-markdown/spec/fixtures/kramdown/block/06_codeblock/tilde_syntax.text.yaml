@@ -1,0 +1,10 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  code: Here comes some code.
+- attributes: []
+  code: |-
+    ~~~~~~~
+    code with tildes
+    ~~~~~~~~

@@ -1,0 +1,9 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| first line of cell<br>second line of cell | another cell |"
+  content: "| first line of cell<br>second line of cell | another cell |"
+  callouts: []

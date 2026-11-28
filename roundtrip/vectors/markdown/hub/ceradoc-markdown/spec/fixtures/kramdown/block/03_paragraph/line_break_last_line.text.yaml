@@ -1,0 +1,37 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'First line  '
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<https://example.com>"
+  content: "First line  \n<https://example.com>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: First line\
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<https://example.com>"
+  content: |-
+    First line\\
+    <https://example.com>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Last Line  '
+  content: 'Last Line  '
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Last Line\
+  content: Last Line\\
+  callouts: []

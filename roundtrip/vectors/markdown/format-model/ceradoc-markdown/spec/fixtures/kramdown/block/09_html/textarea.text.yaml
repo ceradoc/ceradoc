@@ -1,0 +1,35 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: This is a <textarea>inline</textarea>
+  children:
+  - attributes: []
+    content: This is a <textarea>inline</textarea>
+- attributes: []
+  text: |-
+    <textarea>This
+    is
+  children:
+  - attributes: []
+    content: "<textarea>This"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: is
+- attributes: []
+  text: |-
+    some
+    text
+    </textarea>
+  children:
+  - attributes: []
+    content: some
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: text
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</textarea>"

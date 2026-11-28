@@ -1,0 +1,605 @@
+---
+type: DocumentElement
+title: Ceradoc Examples
+children:
+- type: HeaderElement
+  id: _ceradoc_examples
+  title: Ceradoc Examples
+  level: 0
+  content: Ceradoc Examples
+- type: ParagraphBlock
+  source_line: 3
+  children:
+  - type: TextContent
+    text: This directory contains examples demonstrating how to use Ceradoc for parsing,
+      modeling, and serializing AsciiDoc documents.
+  content: This directory contains examples demonstrating how to use Ceradoc for parsing,
+    modeling, and serializing AsciiDoc documents.
+  lines:
+  - This directory contains examples demonstrating how to use Ceradoc for parsing,
+    modeling, and serializing AsciiDoc documents.
+  callouts: []
+- type: ParagraphBlock
+  source_line: 5
+  children:
+  - type: HighlightElement
+    source_line: 5
+    children: []
+    content: |+2
+       Running the Examples
+
+      To run any of the Ruby examples:
+
+      [source,bash]
+      ----
+      ruby examples/basic_parsing.rb
+      ----
+
+    constraint: unconstrained
+  - type: TextContent
+    text: " Examples by Category"
+  content: |-2
+     Running the Examples
+
+    To run any of the Ruby examples:
+
+    [source,bash]
+    ----
+    ruby examples/basic_parsing.rb
+    ----
+
+     Examples by Category
+  lines:
+  - |-2
+     Running the Examples
+
+    To run any of the Ruby examples:
+
+    [source,bash]
+    ----
+    ruby examples/basic_parsing.rb
+    ----
+
+     Examples by Category
+  callouts: []
+- type: SectionElement
+  id: _basic_parsing
+  title: Basic Parsing
+  source_line: 16
+  level: 2
+  children:
+  - type: ParagraphBlock
+    source_line: 18
+    children:
+    - type: MonospaceElement
+      source_line: 18
+      children: []
+      content: basic_parsing.rb
+      constraint: constrained
+    - type: TextContent
+      text: " - Demonstrates how to parse AsciiDoc documents."
+    content: basic_parsing.rb - Demonstrates how to parse AsciiDoc documents.
+    lines:
+    - basic_parsing.rb - Demonstrates how to parse AsciiDoc documents.
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 20
+    children:
+    - type: TextContent
+      text: 'Topics covered:'
+    content: 'Topics covered:'
+    lines:
+    - 'Topics covered:'
+    callouts: []
+  - type: ListBlock
+    source_line: 22
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 22
+      children:
+      - type: TextContent
+        text: Parse a simple document
+      marker: "*"
+      content: Parse a simple document
+    - type: ListItem
+      source_line: 23
+      children:
+      - type: TextContent
+        text: Parse from a file
+      marker: "*"
+      content: Parse from a file
+    - type: ListItem
+      source_line: 24
+      children:
+      - type: TextContent
+        text: Parse with inline formatting
+      marker: "*"
+      content: Parse with inline formatting
+    - type: ListItem
+      source_line: 25
+      children:
+      - type: TextContent
+        text: Parse lists
+      marker: "*"
+      content: Parse lists
+    - type: ListItem
+      source_line: 26
+      children:
+      - type: TextContent
+        text: Parse blocks
+      marker: "*"
+      content: Parse blocks
+  - type: SectionElement
+    id: _basic_parsing_document_modeling
+    title: Document Modeling
+    source_line: 28
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 30
+      children:
+      - type: MonospaceElement
+        source_line: 30
+        children: []
+        content: document_modeling.rb
+        constraint: constrained
+      - type: TextContent
+        text: " - Demonstrates how to work with the Ceradoc document model."
+      content: document_modeling.rb - Demonstrates how to work with the Ceradoc document
+        model.
+      lines:
+      - document_modeling.rb - Demonstrates how to work with the Ceradoc document
+        model.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 32
+      children:
+      - type: TextContent
+        text: 'Topics covered:'
+      content: 'Topics covered:'
+      lines:
+      - 'Topics covered:'
+      callouts: []
+    - type: ListBlock
+      source_line: 34
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 34
+        children:
+        - type: TextContent
+          text: Accessing document structure
+        marker: "*"
+        content: Accessing document structure
+      - type: ListItem
+        source_line: 35
+        children:
+        - type: TextContent
+          text: Working with paragraphs
+        marker: "*"
+        content: Working with paragraphs
+      - type: ListItem
+        source_line: 36
+        children:
+        - type: TextContent
+          text: Working with lists
+        marker: "*"
+        content: Working with lists
+      - type: ListItem
+        source_line: 37
+        children:
+        - type: TextContent
+          text: Working with tables
+        marker: "*"
+        content: Working with tables
+      - type: ListItem
+        source_line: 38
+        children:
+        - type: TextContent
+          text: Working with inline elements
+        marker: "*"
+        content: Working with inline elements
+      - type: ListItem
+        source_line: 39
+        children:
+        - type: TextContent
+          text: Working with attributes
+        marker: "*"
+        content: Working with attributes
+      - type: ListItem
+        source_line: 40
+        children:
+        - type: TextContent
+          text: Working with blocks
+        marker: "*"
+        content: Working with blocks
+  - type: SectionElement
+    id: _basic_parsing_serialization
+    title: Serialization
+    source_line: 42
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 44
+      children:
+      - type: MonospaceElement
+        source_line: 44
+        children: []
+        content: serialization.rb
+        constraint: constrained
+      - type: TextContent
+        text: " - Demonstrates how to serialize Ceradoc document models to AsciiDoc."
+      content: serialization.rb - Demonstrates how to serialize Ceradoc document models
+        to AsciiDoc.
+      lines:
+      - serialization.rb - Demonstrates how to serialize Ceradoc document models to
+        AsciiDoc.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 46
+      children:
+      - type: TextContent
+        text: 'Topics covered:'
+      content: 'Topics covered:'
+      lines:
+      - 'Topics covered:'
+      callouts: []
+    - type: ListBlock
+      source_line: 48
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 48
+        children:
+        - type: TextContent
+          text: Basic serialization
+        marker: "*"
+        content: Basic serialization
+      - type: ListItem
+        source_line: 49
+        children:
+        - type: TextContent
+          text: Serialize individual elements
+        marker: "*"
+        content: Serialize individual elements
+      - type: ListItem
+        source_line: 50
+        children:
+        - type: TextContent
+          text: Serialize lists
+        marker: "*"
+        content: Serialize lists
+      - type: ListItem
+        source_line: 51
+        children:
+        - type: TextContent
+          text: Serialize tables
+        marker: "*"
+        content: Serialize tables
+      - type: ListItem
+        source_line: 52
+        children:
+        - type: TextContent
+          text: Serialize blocks
+        marker: "*"
+        content: Serialize blocks
+      - type: ListItem
+        source_line: 53
+        children:
+        - type: TextContent
+          text: Serialize inline elements
+        marker: "*"
+        content: Serialize inline elements
+      - type: ListItem
+        source_line: 54
+        children:
+        - type: TextContent
+          text: Round-trip preservation
+        marker: "*"
+        content: Round-trip preservation
+      - type: ListItem
+        source_line: 55
+        children:
+        - type: TextContent
+          text: 'Using '
+        - type: MonospaceElement
+          source_line: 55
+          children: []
+          content: Ceradoc.convert
+          constraint: constrained
+        marker: "*"
+        content: Using Ceradoc.convert
+  - type: SectionElement
+    id: _basic_parsing_custom_blocks
+    title: Custom Blocks
+    source_line: 57
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 59
+      children:
+      - type: MonospaceElement
+        source_line: 59
+        children: []
+        content: custom_blocks.rb
+        constraint: constrained
+      - type: TextContent
+        text: " - Demonstrates how to create custom block types."
+      content: custom_blocks.rb - Demonstrates how to create custom block types.
+      lines:
+      - custom_blocks.rb - Demonstrates how to create custom block types.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 61
+      children:
+      - type: TextContent
+        text: 'Topics covered:'
+      content: 'Topics covered:'
+      lines:
+      - 'Topics covered:'
+      callouts: []
+    - type: ListBlock
+      source_line: 63
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 63
+        children:
+        - type: TextContent
+          text: Create a custom callout block
+        marker: "*"
+        content: Create a custom callout block
+      - type: ListItem
+        source_line: 64
+        children:
+        - type: TextContent
+          text: Create a custom tip block
+        marker: "*"
+        content: Create a custom tip block
+      - type: ListItem
+        source_line: 65
+        children:
+        - type: TextContent
+          text: Create a custom remark block
+        marker: "*"
+        content: Create a custom remark block
+      - type: ListItem
+        source_line: 66
+        children:
+        - type: TextContent
+          text: Use custom blocks in a document
+        marker: "*"
+        content: Use custom blocks in a document
+      - type: ListItem
+        source_line: 67
+        children:
+        - type: TextContent
+          text: Custom block with attributes
+        marker: "*"
+        content: Custom block with attributes
+      - type: ListItem
+        source_line: 68
+        children:
+        - type: TextContent
+          text: Custom block with title
+        marker: "*"
+        content: Custom block with title
+  - type: SectionElement
+    id: _basic_parsing_custom_inline_elements
+    title: Custom Inline Elements
+    source_line: 70
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 72
+      children:
+      - type: MonospaceElement
+        source_line: 72
+        children: []
+        content: custom_inline.rb
+        constraint: constrained
+      - type: TextContent
+        text: " - Demonstrates how to create custom inline elements."
+      content: custom_inline.rb - Demonstrates how to create custom inline elements.
+      lines:
+      - custom_inline.rb - Demonstrates how to create custom inline elements.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 74
+      children:
+      - type: TextContent
+        text: 'Topics covered:'
+      content: 'Topics covered:'
+      lines:
+      - 'Topics covered:'
+      callouts: []
+    - type: ListBlock
+      source_line: 76
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 76
+        children:
+        - type: TextContent
+          text: Create a custom highlight element
+        marker: "*"
+        content: Create a custom highlight element
+      - type: ListItem
+        source_line: 77
+        children:
+        - type: TextContent
+          text: Create a custom code element
+        marker: "*"
+        content: Create a custom code element
+      - type: ListItem
+        source_line: 78
+        children:
+        - type: TextContent
+          text: Create a custom mark element
+        marker: "*"
+        content: Create a custom mark element
+      - type: ListItem
+        source_line: 79
+        children:
+        - type: TextContent
+          text: Create a custom keycap element
+        marker: "*"
+        content: Create a custom keycap element
+      - type: ListItem
+        source_line: 80
+        children:
+        - type: TextContent
+          text: Use custom inline elements in a paragraph
+        marker: "*"
+        content: Use custom inline elements in a paragraph
+      - type: ListItem
+        source_line: 81
+        children:
+        - type: TextContent
+          text: Mix custom and built-in inline elements
+        marker: "*"
+        content: Mix custom and built-in inline elements
+      - type: ListItem
+        source_line: 82
+        children:
+        - type: TextContent
+          text: Custom icon element
+        marker: "*"
+        content: Custom icon element
+      - type: ListItem
+        source_line: 83
+        children:
+        - type: TextContent
+          text: Custom menu element
+        marker: "*"
+        content: Custom menu element
+    - type: ParagraphBlock
+      source_line: 85
+      children:
+      - type: HighlightElement
+        source_line: 85
+        children: []
+        content: |+2
+           Example Documents
+
+          The `documents/` directory contains sample AsciiDoc files for testing:
+
+          * `basic_document.adoc` - A simple document demonstrating basic features
+          * `technical_documentation.adoc` - Technical documentation with code examples, tables, and admonitions
+          * `article.adoc` - An article with abstracts, block quotes, and callouts
+
+          To parse these documents:
+
+          [source,ruby]
+          ----
+          doc = Ceradoc.parse_file("examples/documents/basic_document.adoc")
+          puts doc.to_adoc
+          ----
+
+        constraint: unconstrained
+      - type: TextContent
+        text: " Quick Reference"
+      content: |-2
+         Example Documents
+
+        The `documents/` directory contains sample AsciiDoc files for testing:
+
+        * `basic_document.adoc` - A simple document demonstrating basic features
+        * `technical_documentation.adoc` - Technical documentation with code examples, tables, and admonitions
+        * `article.adoc` - An article with abstracts, block quotes, and callouts
+
+        To parse these documents:
+
+        [source,ruby]
+        ----
+        doc = Ceradoc.parse_file("examples/documents/basic_document.adoc")
+        puts doc.to_adoc
+        ----
+
+         Quick Reference
+      lines:
+      - |-2
+         Example Documents
+
+        The `documents/` directory contains sample AsciiDoc files for testing:
+
+        * `basic_document.adoc` - A simple document demonstrating basic features
+        * `technical_documentation.adoc` - Technical documentation with code examples, tables, and admonitions
+        * `article.adoc` - An article with abstracts, block quotes, and callouts
+
+        To parse these documents:
+
+        [source,ruby]
+        ----
+        doc = Ceradoc.parse_file("examples/documents/basic_document.adoc")
+        puts doc.to_adoc
+        ----
+
+         Quick Reference
+      callouts: []
+  - type: SectionElement
+    id: _basic_parsing_parse_a_document
+    title: Parse a Document
+    source_line: 103
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 105
+      children: []
+      content: doc = Ceradoc.parse("= Title\n\nContent")
+      lines:
+      - doc = Ceradoc.parse("= Title\n\nContent")
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _basic_parsing_parse_from_file
+    title: Parse from File
+    source_line: 110
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 112
+      children: []
+      content: doc = Ceradoc.parse_file("document.adoc")
+      lines:
+      - doc = Ceradoc.parse_file("document.adoc")
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _basic_parsing_serialize_to_asciidoc
+    title: Serialize to AsciiDoc
+    source_line: 117
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 119
+      children: []
+      content: output = doc.to_adoc
+      lines:
+      - output = doc.to_adoc
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _basic_parsing_access_document_structure
+    title: Access Document Structure
+    source_line: 124
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 126
+      children: []
+      content: |-
+        doc.header.title           # Document title
+        doc.sections              # Array of sections
+        doc.sections.first.title  # First section title
+        doc.sections.first.paragraphs # First section paragraphs
+      lines:
+      - 'doc.header.title           # Document title'
+      - 'doc.sections              # Array of sections'
+      - 'doc.sections.first.title  # First section title'
+      - 'doc.sections.first.paragraphs # First section paragraphs'
+      language: ruby
+      callouts: []
+attributes:
+  type: Metadata

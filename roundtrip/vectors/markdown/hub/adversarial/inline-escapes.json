@@ -1,0 +1,1 @@
+{"type":"DocumentElement","children":[{"type":"ParagraphBlock","children":[{"type":"TextContent","text":"Not emphasis: *stars* and _under_ stay literal."}],"content":"Not emphasis: \\*stars\\* and \\_under\\_ stay literal.","callouts":[]}]}

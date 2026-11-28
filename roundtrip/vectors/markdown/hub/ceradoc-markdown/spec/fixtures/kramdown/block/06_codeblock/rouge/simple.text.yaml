@@ -1,0 +1,20 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: x = Class.new
+  callouts: []
+- type: SourceBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: class
+    value: language-html
+  children: []
+  content: "<a>href</a>"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: "$foo = new Bar;"
+  language: php?start_inline=1
+  callouts: []

@@ -1,0 +1,14 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    This is a para
+    \: and not a definition list
+  children:
+  - attributes: []
+    content: This is a para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: ": and not a definition list"

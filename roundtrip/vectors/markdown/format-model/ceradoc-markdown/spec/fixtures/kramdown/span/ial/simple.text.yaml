@@ -1,0 +1,32 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: 'This is a `span`{: .hund #dog}.'
+  children:
+  - attributes: []
+    content: 'This is a '
+  - attributes: []
+    text: span
+  - attributes: []
+    content: "{: .hund #dog}."
+- attributes: []
+  text: 'This is a `span`{: .hund #dog}{: .katz key=''val''}.'
+  children:
+  - attributes: []
+    content: 'This is a '
+  - attributes: []
+    text: span
+  - attributes: []
+    content: "{: .hund #dog}{: .katz key='val'}."
+- attributes: []
+  text: |-
+    This is an{: .ignored} span ial.
+    This is an\{: .escaped} span ial.
+  children:
+  - attributes: []
+    content: 'This is an{: .ignored} span ial.'
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: 'This is an{: .escaped} span ial.'

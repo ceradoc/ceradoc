@@ -1,0 +1,35 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is a {::comment}simple{:/} paragraph.
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: This is a {::comment}simple{:/comment} paragraph.
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: This is a {::comment}simple {:/other} paragraph{:/comment}.
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: This is a {::comment/} paragraph.
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: This is a {:/comment} simple {:/} paragraph.
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: This is a {::comment} paragraph.
+  content: |-
+    This is a {::comment}simple{:/} paragraph.
+    This is a {::comment}simple{:/comment} paragraph.
+    This is a {::comment}simple {:/other} paragraph{:/comment}.
+    This is a {::comment/} paragraph.
+    This is a {:/comment} simple {:/} paragraph.
+    This is a {::comment} paragraph.
+  callouts: []

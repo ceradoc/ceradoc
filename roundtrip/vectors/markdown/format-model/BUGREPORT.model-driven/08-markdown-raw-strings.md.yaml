@@ -1,0 +1,116 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '08: Markdown FromCoreModel returns raw strings instead of model instances'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: Markdown `FromCoreModel#transform_inline` now returns model instances for
+      all inline element types (subscript, superscript, underline, xref)
+    children:
+    - attributes: []
+      content: 'Markdown '
+    - attributes: []
+      text: FromCoreModel#transform_inline
+    - attributes: []
+      content: " now returns model instances for all inline element types (subscript, superscript, underline, xref)"
+  - attributes: []
+    text: Proper Markdown model classes handle string representation via the serializer
+      layer
+    children:
+    - attributes: []
+      content: Proper Markdown model classes handle string representation via the
+        serializer layer
+- attributes: []
+  text: "**Severity:** LOW  \n**Location:** `ceradoc-markdown/lib/ceradoc/markdown/transform/from_core_model.rb`"
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " LOW  "
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: ceradoc-markdown/lib/ceradoc/markdown/transform/from_core_model.rb
+- attributes: []
+  level: 2
+  text: Problem
+- attributes: []
+  text: The Markdown `FromCoreModel#transform_inline` method returns raw HTML/Markdown
+    strings for four inline element types instead of proper Markdown model instances.
+    This bypasses the serializer layer and breaks the model pipeline.
+  children:
+  - attributes: []
+    content: 'The Markdown '
+  - attributes: []
+    text: FromCoreModel#transform_inline
+  - attributes: []
+    content: " method returns raw HTML/Markdown strings for four inline element types instead of proper Markdown model instances. This bypasses the serializer layer and breaks the model pipeline."
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  text: "`from_core_model.rb:258-264`:"
+  children:
+  - attributes: []
+    text: from_core_model.rb:258-264
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    when 'subscript'
+      "<sub>#{element.content}</sub>"       # raw HTML string
+    when 'superscript'
+      "<sup>#{element.content}</sup>"       # raw HTML string
+    when 'underline'
+      "<u>#{element.content}</u>"           # raw HTML string
+    when 'xref'
+      "[#{element.content}](##{element.target})"  # raw Markdown string
+- attributes: []
+  text: Other inline types in the same method correctly return `Ceradoc::Markdown::*`
+    model instances.
+  children:
+  - attributes: []
+    content: 'Other inline types in the same method correctly return '
+  - attributes: []
+    text: Ceradoc::Markdown::*
+  - attributes: []
+    content: " model instances."
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  text: Create proper Markdown model classes for `Subscript`, `Superscript`, `Underline`,
+    and `Xref` (or add these types to existing inline model classes). Return model
+    instances from the FromCoreModel transformer and let the serializer handle the
+    string representation.
+  children:
+  - attributes: []
+    content: 'Create proper Markdown model classes for '
+  - attributes: []
+    text: Subscript
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: Superscript
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: Underline
+  - attributes: []
+    content: ", and "
+  - attributes: []
+    text: Xref
+  - attributes: []
+    content: " (or add these types to existing inline model classes). Return model instances from the FromCoreModel transformer and let the serializer handle the string representation."

@@ -1,0 +1,55 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: Link def with [attr] and [attr 2] and [attr 3] and [attr before]
+  children:
+  - attributes: []
+    content: Link def with [attr] and [attr 2] and [attr 3] and [attr before]
+- attributes: []
+  text: "[attr]: http://example.com 'title'"
+  children:
+  - attributes: []
+    content: "[attr]: http://example.com 'title'"
+- classes:
+  - test
+  attributes:
+  - name: hreflang
+    value: en
+- attributes: []
+  text: "[attr 2]: http://example.com 'title'"
+  children:
+  - attributes: []
+    content: "[attr 2]: http://example.com 'title'"
+- classes: []
+  attributes:
+  - name: hreflang
+    value: en
+- classes:
+  - test
+  attributes: []
+- attributes: []
+  text: "[attr 3]: http://example.com"
+  children:
+  - attributes: []
+    content: "[attr 3]: http://example.com"
+- classes:
+  - test
+  attributes: []
+- attributes: []
+  text: test
+  children:
+  - attributes: []
+    content: test
+- classes: []
+  attributes:
+  - name: hreflang
+    value: en
+- classes:
+  - test
+  attributes: []
+- attributes: []
+  text: "[attr before]: http://example.com"
+  children:
+  - attributes: []
+    content: "[attr before]: http://example.com"

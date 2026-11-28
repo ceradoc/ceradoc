@@ -1,0 +1,775 @@
+---
+type: DocumentElement
+title: ceradoc-docx
+children:
+- type: HeaderElement
+  id: _ceradocdocx
+  title: ceradoc-docx
+  level: 0
+  content: ceradoc-docx
+- type: ParagraphBlock
+  source_line: 2
+  children:
+  - type: Image
+    source_line: 2
+    src: https://img.shields.io/gem/v/ceradoc-docx.svg
+    alt: RubyGems Version
+    inline: true
+    edges:
+    - kind: image_ref
+      address:
+        scheme: url
+        target: https://img.shields.io/gem/v/ceradoc-docx.svg
+      label: RubyGems Version
+      options:
+        type: ImageRefOptions
+        alt_text: RubyGems Version
+  content: RubyGems Version
+  lines:
+  - RubyGems Version
+  callouts: []
+- type: ParagraphBlock
+  source_line: 4
+  children:
+  - type: TextContent
+    text: 'DOCX (OOXML) format support for the '
+  - type: LinkElement
+    source_line: 5
+    children: []
+    content: Ceradoc
+    target: https://github.com/ceradoc/ceradoc
+    edges:
+    - kind: link
+      address:
+        scheme: url
+        target: https://github.com/ceradoc/ceradoc
+      label: Ceradoc
+      options:
+        type: LinkOptions
+  - type: TextContent
+    text: " document transformation library."
+  content: DOCX (OOXML) format support for the Ceradoc document transformation library.
+  lines:
+  - DOCX (OOXML) format support for the Ceradoc document transformation library.
+  callouts: []
+- type: SectionElement
+  id: _purpose
+  title: Purpose
+  source_line: 7
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 9
+    children:
+    - type: TextContent
+      text: 'ceradoc-docx reads Microsoft Word '
+    - type: MonospaceElement
+      source_line: 9
+      children: []
+      content: ".docx"
+      constraint: constrained
+    - type: TextContent
+      text: " files via "
+    - type: LinkElement
+      source_line: 10
+      children: []
+      content: Uniword
+      target: https://github.com/lutaml/uniword
+      edges:
+      - kind: link
+        address:
+          scheme: url
+          target: https://github.com/lutaml/uniword
+        label: Uniword
+        options:
+          type: LinkOptions
+    - type: TextContent
+      text: " and transforms the OOXML model tree into Ceradoc's canonical CoreModel. Once in CoreModel, the document can be serialized to AsciiDoc, Markdown, or any other supported output format."
+    content: ceradoc-docx reads Microsoft Word .docx files via Uniword and transforms
+      the OOXML model tree into Ceradoc's canonical CoreModel. Once in CoreModel,
+      the document can be serialized to AsciiDoc, Markdown, or any other supported
+      output format.
+    lines:
+    - ceradoc-docx reads Microsoft Word .docx files via Uniword and transforms the
+      OOXML model tree into Ceradoc's canonical CoreModel. Once in CoreModel, the
+      document can be serialized to AsciiDoc, Markdown, or any other supported output
+      format.
+    callouts: []
+- type: SectionElement
+  id: _installation
+  title: Installation
+  source_line: 14
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 16
+    children:
+    - type: TextContent
+      text: 'Add to your Gemfile:'
+    content: 'Add to your Gemfile:'
+    lines:
+    - 'Add to your Gemfile:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 18
+    children: []
+    content: gem 'ceradoc-docx'
+    lines:
+    - gem 'ceradoc-docx'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 23
+    children:
+    - type: TextContent
+      text: 'Or install directly:'
+    content: 'Or install directly:'
+    lines:
+    - 'Or install directly:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 25
+    children: []
+    content: gem install ceradoc-docx
+    lines:
+    - gem install ceradoc-docx
+    language: bash
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 30
+    children:
+    - type: TextContent
+      text: 'The gem depends on '
+    - type: MonospaceElement
+      source_line: 30
+      children: []
+      content: ceradoc
+      constraint: constrained
+    - type: TextContent
+      text: " and "
+    - type: MonospaceElement
+      source_line: 30
+      children: []
+      content: uniword
+      constraint: constrained
+    - type: TextContent
+      text: ", which will be installed automatically."
+    content: The gem depends on ceradoc and uniword, which will be installed automatically.
+    lines:
+    - The gem depends on ceradoc and uniword, which will be installed automatically.
+    callouts: []
+- type: SectionElement
+  id: _usage
+  title: Usage
+  source_line: 33
+  level: 1
+  children:
+  - type: SectionElement
+    id: _usage_convert_docx_to_asciidoc
+    title: Convert DOCX to AsciiDoc
+    source_line: 35
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 37
+      children: []
+      content: |-
+        require 'ceradoc'
+        require 'ceradoc/docx'
+        adoc = Ceradoc.convert("input.docx", from: :docx, to: :asciidoc)
+      lines:
+      - require 'ceradoc'
+      - require 'ceradoc/docx'
+      - 'adoc = Ceradoc.convert("input.docx", from: :docx, to: :asciidoc)'
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _usage_convert_docx_to_markdown
+    title: Convert DOCX to Markdown
+    source_line: 45
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 47
+      children: []
+      content: 'md = Ceradoc.convert("input.docx", from: :docx, to: :markdown)'
+      lines:
+      - 'md = Ceradoc.convert("input.docx", from: :docx, to: :markdown)'
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _usage_parse_docx_to_coremodel
+    title: Parse DOCX to CoreModel
+    source_line: 52
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 54
+      children: []
+      content: |-
+        core = Ceradoc.parse("input.docx", format: :docx)
+        core.title         # => "Document Title"
+        core.children      # => Array of sections, paragraphs, tables, etc.
+        # Serialize to any format
+        adoc = Ceradoc.serialize(core, to: :asciidoc)
+        html = Ceradoc.serialize(core, to: :html)
+      lines:
+      - 'core = Ceradoc.parse("input.docx", format: :docx)'
+      - 'core.title         # => "Document Title"'
+      - 'core.children      # => Array of sections, paragraphs, tables, etc.'
+      - "# Serialize to any format"
+      - 'adoc = Ceradoc.serialize(core, to: :asciidoc)'
+      - 'html = Ceradoc.serialize(core, to: :html)'
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _usage_cli
+    title: CLI
+    source_line: 66
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 68
+      children: []
+      content: |-
+        # Convert DOCX to AsciiDoc
+        ceradoc convert document.docx -o output.adoc
+        # Convert DOCX to Markdown
+        ceradoc convert document.docx -o output.md
+      lines:
+      - "# Convert DOCX to AsciiDoc"
+      - ceradoc convert document.docx -o output.adoc
+      - "# Convert DOCX to Markdown"
+      - ceradoc convert document.docx -o output.md
+      language: bash
+      callouts: []
+- type: SectionElement
+  id: _how_it_works
+  title: How It Works
+  source_line: 77
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 79
+    children:
+    - type: TextContent
+      text: 'The DOCX pipeline uses Uniword to parse the OOXML zip archive into a
+        typed model tree, then transforms it to CoreModel:'
+    content: 'The DOCX pipeline uses Uniword to parse the OOXML zip archive into a
+      typed model tree, then transforms it to CoreModel:'
+    lines:
+    - 'The DOCX pipeline uses Uniword to parse the OOXML zip archive into a typed
+      model tree, then transforms it to CoreModel:'
+    callouts: []
+  - type: LiteralBlock
+    source_line: 82
+    children: []
+    content: |-
+      DOCX file
+        → Uniword::DocumentFactory.from_file
+        → OOXML model tree (Uniword::Wordprocessingml::*)
+        → Ceradoc::Docx::Transform::ToCoreModel (rule-based dispatch)
+        → CoreModel tree (canonical hub)
+        → FromCoreModel (AsciiDoc or Markdown)
+        → Format model tree → Serializer → .adoc or .md file
+    lines:
+    - DOCX file
+    - "  → Uniword::DocumentFactory.from_file"
+    - "  → OOXML model tree (Uniword::Wordprocessingml::*)"
+    - "  → Ceradoc::Docx::Transform::ToCoreModel (rule-based dispatch)"
+    - "  → CoreModel tree (canonical hub)"
+    - "  → FromCoreModel (AsciiDoc or Markdown)"
+    - "  → Format model tree → Serializer → .adoc or .md file"
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 92
+    children:
+    - type: TextContent
+      text: 'The transform uses a '
+    - type: BoldElement
+      source_line: 92
+      children: []
+      content: rule registry
+      constraint: unconstrained
+    - type: TextContent
+      text: " with priority-based dispatch. Each OOXML element type has a dedicated rule class that produces a typed CoreModel node. Style-based semantic detection (headings, lists, quotes) is handled by "
+    - type: MonospaceElement
+      source_line: 95
+      children: []
+      content: StyleResolver
+      constraint: constrained
+    - type: TextContent
+      text: " and "
+    - type: MonospaceElement
+      source_line: 95
+      children: []
+      content: NumberingResolver
+      constraint: constrained
+    - type: TextContent
+      text: "."
+    content: The transform uses a rule registry with priority-based dispatch. Each
+      OOXML element type has a dedicated rule class that produces a typed CoreModel
+      node. Style-based semantic detection (headings, lists, quotes) is handled by
+      StyleResolver and NumberingResolver.
+    lines:
+    - The transform uses a rule registry with priority-based dispatch. Each OOXML
+      element type has a dedicated rule class that produces a typed CoreModel node.
+      Style-based semantic detection (headings, lists, quotes) is handled by StyleResolver
+      and NumberingResolver.
+    callouts: []
+  - type: SectionElement
+    id: _how_it_works_supported_ooxml_elements
+    title: Supported OOXML Elements
+    source_line: 97
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 99
+      children:
+      - type: TextContent
+        text: "| OOXML Element | Style/Condition | CoreModel Target | |---------------|-----------------|------------------| | "
+      - type: MonospaceElement
+        source_line: 101
+        children: []
+        content: w:p
+        constraint: constrained
+      - type: TextContent
+        text: " (Heading style) | pStyle=HeadingN | StructuralElement (section) | | "
+      - type: MonospaceElement
+        source_line: 102
+        children: []
+        content: w:p
+        constraint: constrained
+      - type: TextContent
+        text: " (numPr) | numbering reference | ListBlock + ListItem | | "
+      - type: MonospaceElement
+        source_line: 103
+        children: []
+        content: w:p
+        constraint: constrained
+      - type: TextContent
+        text: " (Quote style) | style detection | Block (quote) | | "
+      - type: MonospaceElement
+        source_line: 104
+        children: []
+        content: w:p
+        constraint: constrained
+      - type: TextContent
+        text: " (Code style) | style detection | Block (source/listing) | | "
+      - type: MonospaceElement
+        source_line: 105
+        children: []
+        content: w:p
+        constraint: constrained
+      - type: TextContent
+        text: " (default) | - | Block (paragraph) | | "
+      - type: MonospaceElement
+        source_line: 106
+        children: []
+        content: w:r
+        constraint: constrained
+      - type: TextContent
+        text: " (bold) | rPr/bold | InlineElement (bold) | | "
+      - type: MonospaceElement
+        source_line: 107
+        children: []
+        content: w:r
+        constraint: constrained
+      - type: TextContent
+        text: " (italic) | rPr/italic | InlineElement (italic) | | "
+      - type: MonospaceElement
+        source_line: 108
+        children: []
+        content: w:r
+        constraint: constrained
+      - type: TextContent
+        text: " (underline) | rPr/underline | InlineElement (underline) | | "
+      - type: MonospaceElement
+        source_line: 109
+        children: []
+        content: w:r
+        constraint: constrained
+      - type: TextContent
+        text: " (strike) | rPr/strike | InlineElement (strikethrough) | | "
+      - type: MonospaceElement
+        source_line: 110
+        children: []
+        content: w:r
+        constraint: constrained
+      - type: TextContent
+        text: " (sub/sup) | rPr/vertAlign | InlineElement (subscript/superscript) | | "
+      - type: MonospaceElement
+        source_line: 111
+        children: []
+        content: w:hyperlink
+        constraint: constrained
+      - type: TextContent
+        text: " | r:id or w:anchor | InlineElement (link) | | "
+      - type: MonospaceElement
+        source_line: 112
+        children: []
+        content: w:tbl
+        constraint: constrained
+      - type: TextContent
+        text: " | - | Table | | "
+      - type: MonospaceElement
+        source_line: 113
+        children: []
+        content: w:drawing
+        constraint: constrained
+      - type: TextContent
+        text: " / "
+      - type: MonospaceElement
+        source_line: 113
+        children: []
+        content: w:pict
+        constraint: constrained
+      - type: TextContent
+        text: " | inline or anchor | Image | | "
+      - type: MonospaceElement
+        source_line: 114
+        children: []
+        content: m:oMathPara
+        constraint: constrained
+      - type: TextContent
+        text: " / "
+      - type: MonospaceElement
+        source_line: 114
+        children: []
+        content: m:oMath
+        constraint: constrained
+      - type: TextContent
+        text: " | - | Block or InlineElement (stem) | | "
+      - type: MonospaceElement
+        source_line: 115
+        children: []
+        content: w:footnoteReference
+        constraint: constrained
+      - type: TextContent
+        text: " | - | FootnoteReference |"
+      content: "| OOXML Element | Style/Condition | CoreModel Target | |---------------|-----------------|------------------| | w:p (Heading style) | pStyle=HeadingN | StructuralElement (section) | | w:p (numPr) | numbering reference | ListBlock + ListItem | | w:p (Quote style) | style detection | Block (quote) | | w:p (Code style) | style detection | Block (source/listing) | | w:p (default) | - | Block (paragraph) | | w:r (bold) | rPr/bold | InlineElement (bold) | | w:r (italic) | rPr/italic | InlineElement (italic) | | w:r (underline) | rPr/underline | InlineElement (underline) | | w:r (strike) | rPr/strike | InlineElement (strikethrough) | | w:r (sub/sup) | rPr/vertAlign | InlineElement (subscript/superscript) | | w:hyperlink | r:id or w:anchor | InlineElement (link) | | w:tbl | - | Table | | w:drawing / w:pict | inline or anchor | Image | | m:oMathPara / m:oMath | - | Block or InlineElement (stem) | | w:footnoteReference | - | FootnoteReference |"
+      lines:
+      - "| OOXML Element | Style/Condition | CoreModel Target | |---------------|-----------------|------------------| | w:p (Heading style) | pStyle=HeadingN | StructuralElement (section) | | w:p (numPr) | numbering reference | ListBlock + ListItem | | w:p (Quote style) | style detection | Block (quote) | | w:p (Code style) | style detection | Block (source/listing) | | w:p (default) | - | Block (paragraph) | | w:r (bold) | rPr/bold | InlineElement (bold) | | w:r (italic) | rPr/italic | InlineElement (italic) | | w:r (underline) | rPr/underline | InlineElement (underline) | | w:r (strike) | rPr/strike | InlineElement (strikethrough) | | w:r (sub/sup) | rPr/vertAlign | InlineElement (subscript/superscript) | | w:hyperlink | r:id or w:anchor | InlineElement (link) | | w:tbl | - | Table | | w:drawing / w:pict | inline or anchor | Image | | m:oMathPara / m:oMath | - | Block or InlineElement (stem) | | w:footnoteReference | - | FootnoteReference |"
+      callouts: []
+- type: SectionElement
+  id: _limitations
+  title: Limitations
+  source_line: 117
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 119
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 119
+      children:
+      - type: BoldElement
+        source_line: 119
+        children: []
+        content: Parse only
+        constraint: unconstrained
+      - type: TextContent
+        text: " -- DOCX to CoreModel is supported; CoreModel to DOCX is not yet implemented."
+      marker: "*"
+      content: Parse only -- DOCX to CoreModel is supported; CoreModel to DOCX is
+        not yet implemented.
+    - type: ListItem
+      source_line: 121
+      children:
+      - type: BoldElement
+        source_line: 121
+        children: []
+        content: Print layout
+        constraint: unconstrained
+      - type: TextContent
+        text: " -- Page size, margins, headers/footers as page regions are discarded (CoreModel is semantic, not print layout)."
+      marker: "*"
+      content: Print layout -- Page size, margins, headers/footers as page regions
+        are discarded (CoreModel is semantic, not print layout).
+    - type: ListItem
+      source_line: 123
+      children:
+      - type: BoldElement
+        source_line: 123
+        children: []
+        content: Complex fields
+        constraint: unconstrained
+      - type: TextContent
+        text: " -- Field characters (TOC, PAGE) are partially handled."
+      marker: "*"
+      content: Complex fields -- Field characters (TOC, PAGE) are partially handled.
+    - type: ListItem
+      source_line: 124
+      children:
+      - type: BoldElement
+        source_line: 124
+        children: []
+        content: Tracked changes
+        constraint: unconstrained
+      - type: TextContent
+        text: " -- Deleted text is currently skipped."
+      marker: "*"
+      content: Tracked changes -- Deleted text is currently skipped.
+    - type: ListItem
+      source_line: 125
+      children:
+      - type: BoldElement
+        source_line: 125
+        children: []
+        content: VML shapes
+        constraint: unconstrained
+      - type: TextContent
+        text: " -- Only inline drawings are extracted."
+      marker: "*"
+      content: VML shapes -- Only inline drawings are extracted.
+- type: SectionElement
+  id: _architecture
+  title: Architecture
+  source_line: 127
+  level: 1
+  children:
+  - type: SectionElement
+    id: _architecture_rule_classes
+    title: Rule Classes
+    source_line: 129
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 131
+      children:
+      - type: TextContent
+        text: 'Each OOXML element type is handled by a dedicated rule class in '
+      - type: MonospaceElement
+        source_line: 132
+        children: []
+        content: Ceradoc::Docx::Transform::Rules
+        constraint: constrained
+      - type: TextContent
+        text: ":"
+      content: 'Each OOXML element type is handled by a dedicated rule class in Ceradoc::Docx::Transform::Rules:'
+      lines:
+      - 'Each OOXML element type is handled by a dedicated rule class in Ceradoc::Docx::Transform::Rules:'
+      callouts: []
+    - type: ListBlock
+      source_line: 134
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 134
+        children:
+        - type: MonospaceElement
+          source_line: 134
+          children: []
+          content: HeadingRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- Detects heading paragraphs via style or outline level"
+        marker: "-"
+        content: HeadingRule -- Detects heading paragraphs via style or outline level
+      - type: ListItem
+        source_line: 135
+        children:
+        - type: MonospaceElement
+          source_line: 135
+          children: []
+          content: ListItemRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- Detects numbered/bulleted paragraphs via numbering resolver"
+        marker: "-"
+        content: ListItemRule -- Detects numbered/bulleted paragraphs via numbering
+          resolver
+      - type: ListItem
+        source_line: 136
+        children:
+        - type: MonospaceElement
+          source_line: 136
+          children: []
+          content: ParagraphRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- Default paragraph transform"
+        marker: "-"
+        content: ParagraphRule -- Default paragraph transform
+      - type: ListItem
+        source_line: 137
+        children:
+        - type: MonospaceElement
+          source_line: 137
+          children: []
+          content: RunRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- Inline formatting (bold, italic, monospace, links, etc.)"
+        marker: "-"
+        content: RunRule -- Inline formatting (bold, italic, monospace, links, etc.)
+      - type: ListItem
+        source_line: 138
+        children:
+        - type: MonospaceElement
+          source_line: 138
+          children: []
+          content: TableRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- Table structure with rowspan/colspan"
+        marker: "-"
+        content: TableRule -- Table structure with rowspan/colspan
+      - type: ListItem
+        source_line: 139
+        children:
+        - type: MonospaceElement
+          source_line: 139
+          children: []
+          content: HyperlinkRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- External links and bookmarks"
+        marker: "-"
+        content: HyperlinkRule -- External links and bookmarks
+      - type: ListItem
+        source_line: 140
+        children:
+        - type: MonospaceElement
+          source_line: 140
+          children: []
+          content: ImageRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- Inline and anchored drawings"
+        marker: "-"
+        content: ImageRule -- Inline and anchored drawings
+      - type: ListItem
+        source_line: 141
+        children:
+        - type: MonospaceElement
+          source_line: 141
+          children: []
+          content: FootnoteRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- Footnote references"
+        marker: "-"
+        content: FootnoteRule -- Footnote references
+      - type: ListItem
+        source_line: 142
+        children:
+        - type: MonospaceElement
+          source_line: 142
+          children: []
+          content: MathRule
+          constraint: constrained
+        - type: TextContent
+          text: " -- OMML math via Plurimath/LaTeX"
+        marker: "-"
+        content: MathRule -- OMML math via Plurimath/LaTeX
+  - type: SectionElement
+    id: _architecture_resolvers
+    title: Resolvers
+    source_line: 144
+    level: 2
+    children:
+    - type: ListBlock
+      source_line: 146
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 146
+        children:
+        - type: MonospaceElement
+          source_line: 146
+          children: []
+          content: StyleResolver
+          constraint: constrained
+        - type: TextContent
+          text: " -- Walks the OOXML style definitions to detect semantic roles (heading levels, code style, quote style) including "
+        - type: MonospaceElement
+          source_line: 147
+          children: []
+          content: basedOn
+          constraint: constrained
+        - type: TextContent
+          text: " chains"
+        marker: "-"
+        content: StyleResolver -- Walks the OOXML style definitions to detect semantic
+          roles (heading levels, code style, quote style) including basedOn chains
+      - type: ListItem
+        source_line: 148
+        children:
+        - type: MonospaceElement
+          source_line: 148
+          children: []
+          content: NumberingResolver
+          constraint: constrained
+        - type: TextContent
+          text: " -- Resolves numbering definitions to detect ordered vs. unordered lists and their marker types"
+        marker: "-"
+        content: NumberingResolver -- Resolves numbering definitions to detect ordered
+          vs. unordered lists and their marker types
+- type: SectionElement
+  id: _development
+  title: Development
+  source_line: 151
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 153
+    children:
+    - type: TextContent
+      text: 'Run tests:'
+    content: 'Run tests:'
+    lines:
+    - 'Run tests:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 155
+    children: []
+    content: bundle exec rake spec:ceradoc_docx
+    lines:
+    - bundle exec rake spec:ceradoc_docx
+    language: bash
+    callouts: []
+- type: SectionElement
+  id: _license
+  title: License
+  source_line: 160
+  level: 1
+  children:
+  - type: DefinitionList
+    source_line: 162
+    items:
+    - type: DefinitionItem
+      source_line: 162
+      term: Copyright
+      terms:
+      - Copyright
+      definitions:
+      - 2024-2026 Ribose Inc.
+      attached_children: []
+  - type: ParagraphBlock
+    source_line: 164
+    children:
+    - type: TextContent
+      text: 'Licensed under the '
+    - type: LinkElement
+      source_line: 164
+      children: []
+      content: Apache License, Version 2.0
+      target: https://www.apache.org/licenses/LICENSE-2.0.html
+      edges:
+      - kind: link
+        address:
+          scheme: url
+          target: https://www.apache.org/licenses/LICENSE-2.0.html
+        label: Apache License, Version 2.0
+        options:
+          type: LinkOptions
+    - type: TextContent
+      text: "."
+    content: Licensed under the Apache License, Version 2.0.
+    lines:
+    - Licensed under the Apache License, Version 2.0.
+    callouts: []
+attributes:
+  type: Metadata

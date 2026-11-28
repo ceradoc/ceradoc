@@ -1,0 +1,8 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: 'Not emphasis: \*stars\* and \_under\_ stay literal.'
+  children:
+  - attributes: []
+    content: 'Not emphasis: *stars* and _under_ stay literal.'

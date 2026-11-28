@@ -1,0 +1,693 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: layout
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: post
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: 'Metanorma CLI 1.10.2: HTML Navigation Enhancements and ISO Document
+        Refinements'
+  - type: FrontmatterEntry
+    key: date
+    value:
+      type: FrontmatterValue
+      value_type: date
+      date_value: '2024-07-09'
+  - type: FrontmatterEntry
+    key: categories
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: news release
+  - type: FrontmatterEntry
+    key: authors
+    value:
+      type: FrontmatterValue
+      value_type: array
+      items:
+      - type: FrontmatterValue
+        value_type: map
+        entries:
+        - type: FrontmatterEntry
+          key: name
+          value:
+            type: FrontmatterValue
+            value_type: string
+            string_value: Nick Nicholas
+        - type: FrontmatterEntry
+          key: email
+          value:
+            type: FrontmatterValue
+            value_type: string
+            string_value: nick.nicholas@ribose.com
+        - type: FrontmatterEntry
+          key: social_links
+          value:
+            type: FrontmatterValue
+            value_type: array
+            items:
+            - type: FrontmatterValue
+              value_type: string
+              string_value: https://github.com/opoudjis
+  - type: FrontmatterEntry
+    key: excerpt
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: This release brings significant improvements to HTML navigation,
+        introduces new number formatting capabilities, and includes several format-specific
+        enhancements for ISO, IEEE, and IHO document types.
+- type: SectionElement
+  id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements
+  title: 'Metanorma CLI 1.10.2: HTML navigation enhancements and ISO document refinements'
+  source_line: 1
+  level: 1
+  children:
+  - type: CommentLine
+    text: image::/assets/blog/2024/metanorma-cli-1.10.2-nature.png[A whimsical forest
+      with trees shaped like navigation elements and sidebar menus, with numbered
+      leaves arranged in perfect order]
+  - type: ParagraphBlock
+    source_line: 5
+    children:
+    - type: TextContent
+      text: We are pleased to announce the release of Metanorma CLI version 1.10.2,
+        the latest update in our biweekly release schedule. This version introduces
+        significant improvements to HTML navigation, enhances number formatting capabilities,
+        and includes several format-specific refinements to ensure compliance with
+        organizational style guidelines.
+    content: We are pleased to announce the release of Metanorma CLI version 1.10.2,
+      the latest update in our biweekly release schedule. This version introduces
+      significant improvements to HTML navigation, enhances number formatting capabilities,
+      and includes several format-specific refinements to ensure compliance with organizational
+      style guidelines.
+    lines:
+    - We are pleased to announce the release of Metanorma CLI version 1.10.2, the
+      latest update in our biweekly release schedule. This version introduces significant
+      improvements to HTML navigation, enhances number formatting capabilities, and
+      includes several format-specific refinements to ensure compliance with organizational
+      style guidelines.
+    callouts: []
+  - type: SectionElement
+    id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_general_improvements
+    title: General improvements
+    source_line: 7
+    level: 2
+    children:
+    - type: SectionElement
+      id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_general_improvements_enhanced_html_table_of_contents_sidebar
+      title: Enhanced HTML table of contents sidebar
+      source_line: 9
+      level: 3
+      children:
+      - type: ParagraphBlock
+        source_line: 11
+        children:
+        - type: TextContent
+          text: 'A major enhancement in this release is the refinement of the HTML
+            table of contents sidebar. This improvement:'
+        content: 'A major enhancement in this release is the refinement of the HTML
+          table of contents sidebar. This improvement:'
+        lines:
+        - 'A major enhancement in this release is the refinement of the HTML table
+          of contents sidebar. This improvement:'
+        callouts: []
+      - type: ListBlock
+        source_line: 13
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 13
+          children:
+          - type: TextContent
+            text: Makes document navigation more intuitive and user-friendly
+          marker: "*"
+          content: Makes document navigation more intuitive and user-friendly
+        - type: ListItem
+          source_line: 14
+          children:
+          - type: TextContent
+            text: Ensures proper highlighting of the current section
+          marker: "*"
+          content: Ensures proper highlighting of the current section
+        - type: ListItem
+          source_line: 15
+          children:
+          - type: TextContent
+            text: Improves the responsiveness and visual consistency of the navigation
+              interface
+          marker: "*"
+          content: Improves the responsiveness and visual consistency of the navigation
+            interface
+        - type: ListItem
+          source_line: 16
+          children:
+          - type: TextContent
+            text: Enhances accessibility for users with different browsing environments
+          marker: "*"
+          content: Enhances accessibility for users with different browsing environments
+      - type: ParagraphBlock
+        source_line: 18
+        children:
+        - type: TextContent
+          text: For users working with large, complex standards documents, this improvement
+            significantly enhances the reading experience by providing clearer orientation
+            within the document structure and more reliable navigation between sections.
+        content: For users working with large, complex standards documents, this improvement
+          significantly enhances the reading experience by providing clearer orientation
+          within the document structure and more reliable navigation between sections.
+        lines:
+        - For users working with large, complex standards documents, this improvement
+          significantly enhances the reading experience by providing clearer orientation
+          within the document structure and more reliable navigation between sections.
+        callouts: []
+    - type: SectionElement
+      id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_general_improvements_advanced_number_formatting_controls
+      title: Advanced number formatting controls
+      source_line: 20
+      level: 3
+      children:
+      - type: ParagraphBlock
+        source_line: 22
+        children:
+        - type: TextContent
+          text: 'This release introduces powerful new number formatting capabilities,
+            including the '
+        - type: MonospaceElement
+          source_line: 22
+          children: []
+          content: number:[]
+          constraint: constrained
+        - type: TextContent
+          text: " macro for fine-grained control over numerical presentations. These enhancements enable:"
+        content: 'This release introduces powerful new number formatting capabilities,
+          including the number:[] macro for fine-grained control over numerical presentations.
+          These enhancements enable:'
+        lines:
+        - 'This release introduces powerful new number formatting capabilities, including
+          the number:[] macro for fine-grained control over numerical presentations.
+          These enhancements enable:'
+        callouts: []
+      - type: ListBlock
+        source_line: 24
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 24
+          children:
+          - type: TextContent
+            text: Consistent application of formatting rules to numbers throughout
+              a document
+          marker: "*"
+          content: Consistent application of formatting rules to numbers throughout
+            a document
+        - type: ListItem
+          source_line: 25
+          children:
+          - type: TextContent
+            text: More precise control over decimal places, significant figures, and
+              notation styles
+          marker: "*"
+          content: More precise control over decimal places, significant figures,
+            and notation styles
+        - type: ListItem
+          source_line: 26
+          children:
+          - type: TextContent
+            text: Support for specialized number representation requirements in different
+              standards domains
+          marker: "*"
+          content: Support for specialized number representation requirements in different
+            standards domains
+        - type: ListItem
+          source_line: 27
+          children:
+          - type: TextContent
+            text: Greater compliance with field-specific conventions for numerical
+              data presentation
+          marker: "*"
+          content: Greater compliance with field-specific conventions for numerical
+            data presentation
+      - type: ParagraphBlock
+        source_line: 29
+        children:
+        - type: TextContent
+          text: By providing more sophisticated number formatting tools, Metanorma
+            now better serves fields with strict requirements for numerical precision
+            and presentation, such as engineering, scientific, and financial standards.
+        content: By providing more sophisticated number formatting tools, Metanorma
+          now better serves fields with strict requirements for numerical precision
+          and presentation, such as engineering, scientific, and financial standards.
+        lines:
+        - By providing more sophisticated number formatting tools, Metanorma now better
+          serves fields with strict requirements for numerical precision and presentation,
+          such as engineering, scientific, and financial standards.
+        callouts: []
+    - type: SectionElement
+      id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_general_improvements_improved_content_division_processing
+      title: Improved content division processing
+      source_line: 31
+      level: 3
+      children:
+      - type: ParagraphBlock
+        source_line: 33
+        children:
+        - type: TextContent
+          text: 'We''ve enhanced the processing of lists, captions, and notes as unified
+            divisions of content in HTML and DOC outputs. This improvement:'
+        content: 'We''ve enhanced the processing of lists, captions, and notes as
+          unified divisions of content in HTML and DOC outputs. This improvement:'
+        lines:
+        - 'We''ve enhanced the processing of lists, captions, and notes as unified
+          divisions of content in HTML and DOC outputs. This improvement:'
+        callouts: []
+      - type: ListBlock
+        source_line: 35
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 35
+          children:
+          - type: TextContent
+            text: Creates more semantically meaningful document structures
+          marker: "*"
+          content: Creates more semantically meaningful document structures
+        - type: ListItem
+          source_line: 36
+          children:
+          - type: TextContent
+            text: Improves the visual consistency of related content elements
+          marker: "*"
+          content: Improves the visual consistency of related content elements
+        - type: ListItem
+          source_line: 37
+          children:
+          - type: TextContent
+            text: Enhances accessibility by grouping related content appropriately
+          marker: "*"
+          content: Enhances accessibility by grouping related content appropriately
+        - type: ListItem
+          source_line: 38
+          children:
+          - type: TextContent
+            text: Provides more predictable and appealing formatting of complex content
+              structures
+          marker: "*"
+          content: Provides more predictable and appealing formatting of complex content
+            structures
+      - type: ParagraphBlock
+        source_line: 40
+        children:
+        - type: TextContent
+          text: These refinements result in cleaner, more professional-looking documents
+            that better preserve the logical relationships between content elements.
+        content: These refinements result in cleaner, more professional-looking documents
+          that better preserve the logical relationships between content elements.
+        lines:
+        - These refinements result in cleaner, more professional-looking documents
+          that better preserve the logical relationships between content elements.
+        callouts: []
+    - type: SectionElement
+      id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_general_improvements_bug_fixes_and_optimizations
+      title: Bug fixes and optimizations
+      source_line: 42
+      level: 3
+      children:
+      - type: ParagraphBlock
+        source_line: 44
+        children:
+        - type: TextContent
+          text: 'Several important bug fixes have been implemented in this release:'
+        content: 'Several important bug fixes have been implemented in this release:'
+        lines:
+        - 'Several important bug fixes have been implemented in this release:'
+        callouts: []
+      - type: ListBlock
+        source_line: 46
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 46
+          children:
+          - type: TextContent
+            text: Corrected the naming of folders containing document attachments
+              for output rendering
+          marker: "*"
+          content: Corrected the naming of folders containing document attachments
+            for output rendering
+        - type: ListItem
+          source_line: 47
+          children:
+          - type: TextContent
+            text: Modified the fontist option in compilation from no_install_fonts
+              to install_fonts for more intuitive configuration
+          marker: "*"
+          content: Modified the fontist option in compilation from no_install_fonts
+            to install_fonts for more intuitive configuration
+        - type: ListItem
+          source_line: 48
+          children:
+          - type: TextContent
+            text: Implemented a safeguard to abort processing if empty tables are
+              detected in markup, preventing potential errors in output generation
+          marker: "*"
+          content: Implemented a safeguard to abort processing if empty tables are
+            detected in markup, preventing potential errors in output generation
+      - type: ParagraphBlock
+        source_line: 50
+        children:
+        - type: TextContent
+          text: These fixes enhance the overall stability and reliability of the Metanorma
+            toolchain, particularly for complex documents with numerous assets and
+            attachments.
+        content: These fixes enhance the overall stability and reliability of the
+          Metanorma toolchain, particularly for complex documents with numerous assets
+          and attachments.
+        lines:
+        - These fixes enhance the overall stability and reliability of the Metanorma
+          toolchain, particularly for complex documents with numerous assets and attachments.
+        callouts: []
+  - type: SectionElement
+    id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_formatspecific_improvements
+    title: Format-specific improvements
+    source_line: 52
+    level: 2
+    children:
+    - type: SectionElement
+      id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_formatspecific_improvements_iso_document_enhancements
+      title: ISO document enhancements
+      source_line: 54
+      level: 3
+      children:
+      - type: ParagraphBlock
+        source_line: 56
+        children:
+        - type: TextContent
+          text: 'For users working with ISO standards, we''ve made several targeted
+            improvements:'
+        content: 'For users working with ISO standards, we''ve made several targeted
+          improvements:'
+        lines:
+        - 'For users working with ISO standards, we''ve made several targeted improvements:'
+        callouts: []
+      - type: ListBlock
+        source_line: 58
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 58
+          children:
+          - type: TextContent
+            text: Rationalized the placement of predefined introductory text for Normative
+              References and Terms and Definitions sections, ensuring compliance with
+              ISO style guidelines
+          marker: "*"
+          content: Rationalized the placement of predefined introductory text for
+            Normative References and Terms and Definitions sections, ensuring compliance
+            with ISO style guidelines
+        - type: ListItem
+          source_line: 59
+          children:
+          - type: TextContent
+            text: Added support for historical (pre-2014) document formats, allowing
+              normative references as subclauses of the main clause with correct placement
+              of predefined introductory text
+          marker: "*"
+          content: Added support for historical (pre-2014) document formats, allowing
+            normative references as subclauses of the main clause with correct placement
+            of predefined introductory text
+        - type: ListItem
+          source_line: 60
+          children:
+          - type: TextContent
+            text: Implemented automatic aborts when empty tables are detected, preventing
+              the generation of non-compliant documents
+          marker: "*"
+          content: Implemented automatic aborts when empty tables are detected, preventing
+            the generation of non-compliant documents
+      - type: ParagraphBlock
+        source_line: 62
+        children:
+        - type: TextContent
+          text: These enhancements ensure that ISO documents produced with Metanorma
+            maintain strict conformance with organizational style requirements while
+            providing flexibility for historical document formats.
+        content: These enhancements ensure that ISO documents produced with Metanorma
+          maintain strict conformance with organizational style requirements while
+          providing flexibility for historical document formats.
+        lines:
+        - These enhancements ensure that ISO documents produced with Metanorma maintain
+          strict conformance with organizational style requirements while providing
+          flexibility for historical document formats.
+        callouts: []
+    - type: SectionElement
+      id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_formatspecific_improvements_ieee_document_refinements
+      title: IEEE document refinements
+      source_line: 64
+      level: 3
+      children:
+      - type: ParagraphBlock
+        source_line: 66
+        children:
+        - type: TextContent
+          text: 'For IEEE standards, we''ve implemented consistent insertion of the
+            "Abstract:" heading in Word outputs. This seemingly small change:'
+        content: 'For IEEE standards, we''ve implemented consistent insertion of the
+          "Abstract:" heading in Word outputs. This seemingly small change:'
+        lines:
+        - 'For IEEE standards, we''ve implemented consistent insertion of the "Abstract:"
+          heading in Word outputs. This seemingly small change:'
+        callouts: []
+      - type: ListBlock
+        source_line: 68
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 68
+          children:
+          - type: TextContent
+            text: Ensures compliance with IEEE formatting requirements
+          marker: "*"
+          content: Ensures compliance with IEEE formatting requirements
+        - type: ListItem
+          source_line: 69
+          children:
+          - type: TextContent
+            text: Creates a more professional and consistent appearance across IEEE
+              documents
+          marker: "*"
+          content: Creates a more professional and consistent appearance across IEEE
+            documents
+        - type: ListItem
+          source_line: 70
+          children:
+          - type: TextContent
+            text: Improves document navigability by clearly marking the abstract section
+          marker: "*"
+          content: Improves document navigability by clearly marking the abstract
+            section
+        - type: ListItem
+          source_line: 71
+          children:
+          - type: TextContent
+            text: Supports automated processing and extraction of abstract content
+          marker: "*"
+          content: Supports automated processing and extraction of abstract content
+      - type: ParagraphBlock
+        source_line: 73
+        children:
+        - type: TextContent
+          text: This enhancement helps authors of IEEE standards produce more compliant
+            and professional-looking documents with less manual intervention.
+        content: This enhancement helps authors of IEEE standards produce more compliant
+          and professional-looking documents with less manual intervention.
+        lines:
+        - This enhancement helps authors of IEEE standards produce more compliant
+          and professional-looking documents with less manual intervention.
+        callouts: []
+    - type: SectionElement
+      id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_formatspecific_improvements_iho_document_improvements
+      title: IHO document improvements
+      source_line: 75
+      level: 3
+      children:
+      - type: ParagraphBlock
+        source_line: 77
+        children:
+        - type: TextContent
+          text: 'For International Hydrographic Organization (IHO) standards, we''ve
+            added support for processing bibliographies entered as subclauses. This
+            enhancement:'
+        content: 'For International Hydrographic Organization (IHO) standards, we''ve
+          added support for processing bibliographies entered as subclauses. This
+          enhancement:'
+        lines:
+        - 'For International Hydrographic Organization (IHO) standards, we''ve added
+          support for processing bibliographies entered as subclauses. This enhancement:'
+        callouts: []
+      - type: ListBlock
+        source_line: 79
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 79
+          children:
+          - type: TextContent
+            text: Provides more flexibility in organizing bibliographic content
+          marker: "*"
+          content: Provides more flexibility in organizing bibliographic content
+        - type: ListItem
+          source_line: 80
+          children:
+          - type: TextContent
+            text: Supports IHO-specific document organization patterns
+          marker: "*"
+          content: Supports IHO-specific document organization patterns
+        - type: ListItem
+          source_line: 81
+          children:
+          - type: TextContent
+            text: Maintains proper formatting and numbering of bibliographic entries
+          marker: "*"
+          content: Maintains proper formatting and numbering of bibliographic entries
+        - type: ListItem
+          source_line: 82
+          children:
+          - type: TextContent
+            text: Ensures compliance with IHO style guidelines
+          marker: "*"
+          content: Ensures compliance with IHO style guidelines
+      - type: ParagraphBlock
+        source_line: 84
+        children:
+        - type: TextContent
+          text: By supporting more sophisticated bibliography structures, this improvement
+            makes Metanorma a more versatile tool for IHO standards development.
+        content: By supporting more sophisticated bibliography structures, this improvement
+          makes Metanorma a more versatile tool for IHO standards development.
+        lines:
+        - By supporting more sophisticated bibliography structures, this improvement
+          makes Metanorma a more versatile tool for IHO standards development.
+        callouts: []
+  - type: SectionElement
+    id: _metanorma_cli_1102_html_navigation_enhancements_and_iso_document_refinements_conclusion
+    title: Conclusion
+    source_line: 86
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 88
+      children:
+      - type: TextContent
+        text: Metanorma CLI 1.10.2 delivers substantial improvements to HTML navigation,
+          number formatting, and format-specific document processing. These enhancements
+          reflect our ongoing commitment to making Metanorma a comprehensive and reliable
+          solution for standards development across diverse technical domains and
+          organizational contexts.
+      content: Metanorma CLI 1.10.2 delivers substantial improvements to HTML navigation,
+        number formatting, and format-specific document processing. These enhancements
+        reflect our ongoing commitment to making Metanorma a comprehensive and reliable
+        solution for standards development across diverse technical domains and organizational
+        contexts.
+      lines:
+      - Metanorma CLI 1.10.2 delivers substantial improvements to HTML navigation,
+        number formatting, and format-specific document processing. These enhancements
+        reflect our ongoing commitment to making Metanorma a comprehensive and reliable
+        solution for standards development across diverse technical domains and organizational
+        contexts.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 90
+      children:
+      - type: TextContent
+        text: For more detailed information about the changes in this release, please
+          refer to the individual gem release pages. As always, PDF rendering updates
+          are not tracked separately but are incorporated into the overall improvements.
+      content: For more detailed information about the changes in this release, please
+        refer to the individual gem release pages. As always, PDF rendering updates
+        are not tracked separately but are incorporated into the overall improvements.
+      lines:
+      - For more detailed information about the changes in this release, please refer
+        to the individual gem release pages. As always, PDF rendering updates are
+        not tracked separately but are incorporated into the overall improvements.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 92
+      children:
+      - type: TextContent
+        text: The successful release of Metanorma on various distribution platforms
+          has been announced separately by the Metanorma team.
+      content: The successful release of Metanorma on various distribution platforms
+        has been announced separately by the Metanorma team.
+      lines:
+      - The successful release of Metanorma on various distribution platforms has
+        been announced separately by the Metanorma team.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 94
+      children:
+      - type: BoldElement
+        source_line: 94
+        children: []
+        content: 'Release link:'
+        constraint: constrained
+      - type: TextContent
+        text: " "
+      - type: LinkElement
+        source_line: 94
+        children: []
+        content: https://github.com/metanorma/metanorma-cli/releases/tag/v1.10.2
+        target: https://github.com/metanorma/metanorma-cli/releases/tag/v1.10.2
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://github.com/metanorma/metanorma-cli/releases/tag/v1.10.2
+          label: https://github.com/metanorma/metanorma-cli/releases/tag/v1.10.2
+          options:
+            type: LinkOptions
+      content: 'Release link: https://github.com/metanorma/metanorma-cli/releases/tag/v1.10.2'
+      lines:
+      - 'Release link: https://github.com/metanorma/metanorma-cli/releases/tag/v1.10.2'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 96
+      children:
+      - type: BoldElement
+        source_line: 96
+        children: []
+        content: 'Announcement link:'
+        constraint: constrained
+      - type: TextContent
+        text: " "
+      - type: LinkElement
+        source_line: 96
+        children: []
+        content: https://github.com/orgs/metanorma/discussions/6
+        target: https://github.com/orgs/metanorma/discussions/6
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://github.com/orgs/metanorma/discussions/6
+          label: https://github.com/orgs/metanorma/discussions/6
+          options:
+            type: LinkOptions
+      content: 'Announcement link: https://github.com/orgs/metanorma/discussions/6'
+      lines:
+      - 'Announcement link: https://github.com/orgs/metanorma/discussions/6'
+      callouts: []
+attributes:
+  type: Metadata

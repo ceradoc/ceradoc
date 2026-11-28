@@ -1,0 +1,99 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <div>
+    This is some text
+    </div>
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is some text
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <div><div>
+    This is some text
+    </div></div>
+  children:
+  - attributes: []
+    content: "<div><div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is some text
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div></div>"
+- attributes: []
+  text: |-
+    <div>
+    </p>
+    </div>
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <div>
+    <p><a href="/">Foo</a></p>
+    </div>
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: <p><a href="/">Foo</a></p>
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <p>This is some
+    text</p>
+  children:
+  - attributes: []
+    content: "<p>This is some"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: text</p>
+- attributes: []
+  text: "<http://example.com>"
+  children:
+  - attributes: []
+    content: "<http://example.com>"
+- attributes: []
+  text: |-
+    <div>
+    <http://example.com>
+    </div>
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<http://example.com>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"

@@ -1,0 +1,1 @@
+{"type":"DocumentElement","children":[{"type":"ParagraphBlock","children":[{"type":"TextContent","text":"Link: <a href=\"test"},{"type":"TextContent","text":"\n"},{"type":"TextContent","text":"foo\">test</a>"}],"content":"Link: <a href=\"test\nfoo\">test</a>","callouts":[]}]}

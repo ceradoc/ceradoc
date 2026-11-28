@@ -1,0 +1,77 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <DIV>
+    test
+    </diV>
+  children:
+  - attributes: []
+    content: "<DIV>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: test
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</diV>"
+- attributes: []
+  text: |-
+    <div>
+    test
+    <div>
+    test
+    </div>
+    </div>
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: test
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: test
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <div>
+    code block with </div>
+    </div>
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: code block with </div>
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <div>
+    No matching end tag
+  children:
+  - attributes: []
+    content: "<div>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: No matching end tag

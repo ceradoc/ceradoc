@@ -1,0 +1,312 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '05: CoreModel Builder encodes format-specific parsing knowledge'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: Builder methods now return typed CoreModel objects (ParagraphBlock, SectionElement,
+      HeaderElement, CommentBlock, Table, BibliographyEntry, ElementAttribute) instead
+      of raw Hashes
+    children:
+    - attributes: []
+      content: Builder methods now return typed CoreModel objects (ParagraphBlock,
+        SectionElement, HeaderElement, CommentBlock, Table, BibliographyEntry, ElementAttribute)
+        instead of raw Hashes
+  - attributes: []
+    text: "`group_document_elements` uses `is_a?` class checks instead of Hash `[:type]` discrimination"
+    children:
+    - attributes: []
+      text: group_document_elements
+    - attributes: []
+      content: " uses "
+    - attributes: []
+      text: is_a?
+    - attributes: []
+      content: " class checks instead of Hash "
+    - attributes: []
+      text: "[:type]"
+    - attributes: []
+      content: " discrimination"
+  - attributes: []
+    text: "`build_attributes` returns `ElementAttribute` typed objects"
+    children:
+    - attributes: []
+      text: build_attributes
+    - attributes: []
+      content: " returns "
+    - attributes: []
+      text: ElementAttribute
+    - attributes: []
+      content: " typed objects"
+  - attributes: []
+    text: Detection logic (marker types, inline format detection) remains AsciiDoc-specific
+      as it lives under `ceradoc-adoc/`
+    children:
+    - attributes: []
+      content: 'Detection logic (marker types, inline format detection) remains AsciiDoc-specific
+        as it lives under '
+    - attributes: []
+      text: ceradoc-adoc/
+  - attributes: []
+    text: "`document_builder.rb` in core remains format-neutral"
+    children:
+    - attributes: []
+      text: document_builder.rb
+    - attributes: []
+      content: " in core remains format-neutral"
+- attributes: []
+  text: "**Severity:** HIGH  \n**Location:** `lib/ceradoc/core_model/builder/` (all files)"
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " HIGH  "
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: lib/ceradoc/core_model/builder/
+  - attributes: []
+    content: " (all files)"
+- attributes: []
+  level: 2
+  text: Problem
+- attributes: []
+  text: The `Builder` class lives under `lib/ceradoc/core_model/builder/` but contains
+    AsciiDoc-specific parsing logic throughout. The Builder should be format-neutral
+    — it is part of CoreModel.
+  children:
+  - attributes: []
+    content: 'The '
+  - attributes: []
+    text: Builder
+  - attributes: []
+    content: " class lives under "
+  - attributes: []
+    text: lib/ceradoc/core_model/builder/
+  - attributes: []
+    content: " but contains AsciiDoc-specific parsing logic throughout. The Builder should be format-neutral — it is part of CoreModel."
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  level: 3
+  text: 5A. `detect_marker_type` maps AsciiDoc markers to names
+- attributes: []
+  text: "`lib/ceradoc/core_model/builder/detection.rb:107-115`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/builder/detection.rb:107-115
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def detect_marker_type(ast)
+      marker = ast[:marker]&.to_s
+      return 'asterisk' if marker&.start_with?('*')
+      return 'dash' if marker&.start_with?('-')
+      return 'numbered' if marker&.match?(/^\d+\./) || marker&.start_with?('.')
+      return 'labeled' if marker&.end_with?('::')
+      'asterisk'
+    end
+- attributes: []
+  text: '`::` for labeled lists is purely AsciiDoc. The default `''asterisk''` is
+    AsciiDoc''s default. Markdown uses `-`, `*`, `+` for unordered and `1.` for ordered
+    — no "labeled" type.'
+  children:
+  - attributes: []
+    text: "::"
+  - attributes: []
+    content: " for labeled lists is purely AsciiDoc. The default "
+  - attributes: []
+    text: "'asterisk'"
+  - attributes: []
+    content: " is AsciiDoc's default. Markdown uses "
+  - attributes: []
+    text: "-"
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: "*"
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: "+"
+  - attributes: []
+    content: " for unordered and "
+  - attributes: []
+    text: '1.'
+  - attributes: []
+    content: ' for ordered — no "labeled" type.'
+- attributes: []
+  level: 3
+  text: 5B. `detect_marker_level` counts AsciiDoc marker repetition
+- attributes: []
+  text: "`lib/ceradoc/core_model/builder/detection.rb:117-122`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/builder/detection.rb:117-122
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def detect_marker_level(ast)
+      marker = ast[:marker]&.to_s
+      return marker.length if marker&.match?(/^[*.]+$/)
+      1
+    end
+- attributes: []
+  text: Nesting level encoded by marker repetition (`*` = level 1, `**` = level 2)
+    is AsciiDoc. Markdown encodes nesting via indentation.
+  children:
+  - attributes: []
+    content: Nesting level encoded by marker repetition (
+  - attributes: []
+    text: "*"
+  - attributes: []
+    content: " = level 1, "
+  - attributes: []
+    text: "**"
+  - attributes: []
+    content: " = level 2) is AsciiDoc. Markdown encodes nesting via indentation."
+- attributes: []
+  level: 3
+  text: 5C. `extract_level` decodes `=` prefixed levels
+- attributes: []
+  text: "`lib/ceradoc/core_model/builder/detection.rb:157-165`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/builder/detection.rb:157-165
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def extract_level(ast)
+      if ast[:level]
+        level_str = ast[:level].to_s
+        return level_str.length - 1 if level_str.start_with?('=')
+        return level_str.to_i if level_str.match?(/^\d+$/)
+      end
+      1
+    end
+- attributes: []
+  text: Decoding heading level from `=` count (`==` = level 2) is AsciiDoc ATX-style
+    heading syntax.
+  children:
+  - attributes: []
+    content: 'Decoding heading level from '
+  - attributes: []
+    text: "="
+  - attributes: []
+    content: " count ("
+  - attributes: []
+    text: "=="
+  - attributes: []
+    content: " = level 2) is AsciiDoc ATX-style heading syntax."
+- attributes: []
+  level: 3
+  text: 5D. `list_markers` hardcodes AsciiDoc markers
+- attributes: []
+  text: "`lib/ceradoc/core_model/builder/detection.rb:172-175`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/builder/detection.rb:172-175
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def list_markers
+      %w[* - . :: numbered]
+    end
+- attributes: []
+  level: 3
+  text: 5E. `extract_annotation_type` checks AsciiDoc-specific AST
+- attributes: []
+  text: "`lib/ceradoc/core_model/builder/detection.rb:67-87`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/builder/detection.rb:67-87
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def extract_annotation_type(ast)
+      attr_list = ast[:attribute_list]
+      if attr_list.is_a?(Hash) && attr_list[:positional]
+        positional = Array(attr_list[:positional])
+        annotation = positional.find do |p|
+          annotation_types.include?(p.to_s.downcase)
+        end
+        return annotation.to_s.downcase if annotation
+      end
+      return ast[:admonition_type]&.to_s&.downcase if ast[:admonition_type]
+- attributes: []
+  text: "`attribute_list[:positional]` for `[NOTE]` syntax and `admonition_type` are AsciiDoc AST concepts."
+  children:
+  - attributes: []
+    text: attribute_list[:positional]
+  - attributes: []
+    content: " for "
+  - attributes: []
+    text: "[NOTE]"
+  - attributes: []
+    content: " syntax and "
+  - attributes: []
+    text: admonition_type
+  - attributes: []
+    content: " are AsciiDoc AST concepts."
+- attributes: []
+  level: 3
+  text: 5F. Builder methods return raw Hashes, not CoreModel objects
+- attributes: []
+  text: "`lib/ceradoc/core_model/builder.rb:179-189`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/builder.rb:179-189
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def build_paragraph(ast)
+      {
+        type: :paragraph,
+        content: build_paragraph_content(para_ast[:lines]),
+      }
+    end
+- attributes: []
+  text: Many builder methods return plain Hashes instead of typed CoreModel objects,
+    undermining the purpose of having typed models.
+  children:
+  - attributes: []
+    content: Many builder methods return plain Hashes instead of typed CoreModel objects,
+      undermining the purpose of having typed models.
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  text: Relocate the Builder from `core_model/builder/` to the format gems. Only format-neutral
+    construction logic should remain in CoreModel. The AsciiDoc gem should own its
+    own builder that knows about AsciiDoc AST structure.
+  children:
+  - attributes: []
+    content: 'Relocate the Builder from '
+  - attributes: []
+    text: core_model/builder/
+  - attributes: []
+    content: " to the format gems. Only format-neutral construction logic should remain in CoreModel. The AsciiDoc gem should own its own builder that knows about AsciiDoc AST structure."

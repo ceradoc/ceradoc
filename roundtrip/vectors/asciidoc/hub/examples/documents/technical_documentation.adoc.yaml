@@ -1,0 +1,507 @@
+---
+type: DocumentElement
+title: Technical Documentation Example
+children:
+- type: HeaderElement
+  id: _technical_documentation_example
+  title: Technical Documentation Example
+  level: 0
+  content: Technical Documentation Example
+- type: SectionElement
+  id: _overview
+  title: Overview
+  source_line: 8
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 10
+    children:
+    - type: TextContent
+      text: This document demonstrates various AsciiDoc features for technical documentation.
+    content: This document demonstrates various AsciiDoc features for technical documentation.
+    lines:
+    - This document demonstrates various AsciiDoc features for technical documentation.
+    callouts: []
+- type: SectionElement
+  id: _code_examples
+  title: Code Examples
+  source_line: 12
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 14
+    children:
+    - type: TextContent
+      text: 'Literal block without syntax highlighting:'
+    content: 'Literal block without syntax highlighting:'
+    lines:
+    - 'Literal block without syntax highlighting:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 16
+    children: []
+    content: |-
+      def hello_world
+        puts "Hello, World!"
+      end
+    lines:
+    - def hello_world
+    - '  puts "Hello, World!"'
+    - end
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 22
+    children:
+    - type: TextContent
+      text: 'Listing block with syntax highlighting:'
+    content: 'Listing block with syntax highlighting:'
+    lines:
+    - 'Listing block with syntax highlighting:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 24
+    children: []
+    content: |-
+      class Greeter
+        def initialize(name)
+          @name = name
+        end
+        def greet
+          puts "Hello, #{@name}!"
+        end
+      end
+    lines:
+    - class Greeter
+    - "  def initialize(name)"
+    - "    @name = name"
+    - "  end"
+    - "  def greet"
+    - '    puts "Hello, #{@name}!"'
+    - "  end"
+    - end
+    language: ruby
+    callouts: []
+- type: SectionElement
+  id: _tables
+  title: Tables
+  source_line: 37
+  level: 1
+  children:
+  - type: Table
+    title: Table of Commands
+    source_line: 39
+    rows:
+    - type: TableRow
+      cells:
+      - type: TableCell
+        source_line: 42
+        children:
+        - type: TextContent
+          text: Command
+        content: Command
+      - type: TableCell
+        source_line: 42
+        children:
+        - type: TextContent
+          text: Description
+        content: Description
+      - type: TableCell
+        source_line: 42
+        children:
+        - type: TextContent
+          text: Example
+        content: Example
+      header: true
+    - type: TableRow
+      cells:
+      - type: TableCell
+        source_line: 44
+        children:
+        - type: MonospaceElement
+          source_line: 1
+          children: []
+          content: ls
+          constraint: constrained
+        content: ls
+      - type: TableCell
+        source_line: 44
+        children:
+        - type: TextContent
+          text: List directory contents
+        content: List directory contents
+      - type: TableCell
+        source_line: 44
+        children:
+        - type: MonospaceElement
+          source_line: 1
+          children: []
+          content: ls -la
+          constraint: constrained
+        content: ls -la
+      header: false
+    - type: TableRow
+      cells:
+      - type: TableCell
+        source_line: 46
+        children:
+        - type: MonospaceElement
+          source_line: 1
+          children: []
+          content: cd
+          constraint: constrained
+        content: cd
+      - type: TableCell
+        source_line: 46
+        children:
+        - type: TextContent
+          text: Change directory
+        content: Change directory
+      - type: TableCell
+        source_line: 46
+        children:
+        - type: MonospaceElement
+          source_line: 1
+          children: []
+          content: cd /home
+          constraint: constrained
+        content: cd /home
+      header: false
+    - type: TableRow
+      cells:
+      - type: TableCell
+        source_line: 48
+        children:
+        - type: MonospaceElement
+          source_line: 1
+          children: []
+          content: pwd
+          constraint: constrained
+        content: pwd
+      - type: TableCell
+        source_line: 48
+        children:
+        - type: TextContent
+          text: Print working directory
+        content: Print working directory
+      - type: TableCell
+        source_line: 48
+        children:
+        - type: MonospaceElement
+          source_line: 1
+          children: []
+          content: pwd
+          constraint: constrained
+        content: pwd
+      header: false
+- type: SectionElement
+  id: _admonitions
+  title: Admonitions
+  source_line: 51
+  level: 1
+  children:
+  - type: AnnotationBlock
+    source_line: 53
+    children:
+    - type: ParagraphBlock
+      source_line: 53
+      children:
+      - type: TextContent
+        text: This is a note admonition for important information.
+      content: This is a note admonition for important information.
+      callouts: []
+    content: This is a note admonition for important information.
+    callouts: []
+    annotation_type: NOTE
+  - type: AnnotationBlock
+    source_line: 55
+    children:
+    - type: ParagraphBlock
+      source_line: 55
+      children:
+      - type: TextContent
+        text: This is a tip for helpful advice.
+      content: This is a tip for helpful advice.
+      callouts: []
+    content: This is a tip for helpful advice.
+    callouts: []
+    annotation_type: TIP
+  - type: AnnotationBlock
+    source_line: 57
+    children:
+    - type: ParagraphBlock
+      source_line: 57
+      children:
+      - type: TextContent
+        text: This is a warning for cautionary information.
+      content: This is a warning for cautionary information.
+      callouts: []
+    content: This is a warning for cautionary information.
+    callouts: []
+    annotation_type: WARNING
+  - type: AnnotationBlock
+    source_line: 59
+    children:
+    - type: ParagraphBlock
+      source_line: 59
+      children:
+      - type: TextContent
+        text: This is a caution for potential issues.
+      content: This is a caution for potential issues.
+      callouts: []
+    content: This is a caution for potential issues.
+    callouts: []
+    annotation_type: CAUTION
+  - type: AnnotationBlock
+    source_line: 61
+    children:
+    - type: ParagraphBlock
+      source_line: 61
+      children:
+      - type: TextContent
+        text: This is important information that should be highlighted.
+      content: This is important information that should be highlighted.
+      callouts: []
+    content: This is important information that should be highlighted.
+    callouts: []
+    annotation_type: IMPORTANT
+- type: SectionElement
+  id: _lists
+  title: Lists
+  source_line: 63
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 65
+    children:
+    - type: TextContent
+      text: 'Unordered list:'
+    content: 'Unordered list:'
+    lines:
+    - 'Unordered list:'
+    callouts: []
+  - type: ListBlock
+    source_line: 67
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 67
+      children:
+      - type: TextContent
+        text: Item 1
+      marker: "*"
+      content: Item 1
+    - type: ListItem
+      source_line: 68
+      children:
+      - type: TextContent
+        text: Item 2
+      marker: "*"
+      content: Item 2
+      nested_list:
+        type: ListBlock
+        source_line: 69
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 69
+          children:
+          - type: TextContent
+            text: Nested item 2.1
+          marker: "**"
+          content: Nested item 2.1
+        - type: ListItem
+          source_line: 70
+          children:
+          - type: TextContent
+            text: Nested item 2.2
+          marker: "**"
+          content: Nested item 2.2
+    - type: ListItem
+      source_line: 71
+      children:
+      - type: TextContent
+        text: Item 3
+      marker: "*"
+      content: Item 3
+  - type: ParagraphBlock
+    source_line: 73
+    children:
+    - type: TextContent
+      text: 'Ordered list:'
+    content: 'Ordered list:'
+    lines:
+    - 'Ordered list:'
+    callouts: []
+  - type: ListBlock
+    source_line: 75
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 75
+      children:
+      - type: TextContent
+        text: Step one
+      marker: "."
+      content: Step one
+    - type: ListItem
+      source_line: 76
+      children:
+      - type: TextContent
+        text: Step two
+      marker: "."
+      content: Step two
+    - type: ListItem
+      source_line: 77
+      children:
+      - type: TextContent
+        text: Step three
+      marker: "."
+      content: Step three
+  - type: ParagraphBlock
+    source_line: 79
+    children:
+    - type: TextContent
+      text: 'Definition list:'
+    content: 'Definition list:'
+    lines:
+    - 'Definition list:'
+    callouts: []
+  - type: DefinitionList
+    source_line: 81
+    items:
+    - type: DefinitionItem
+      source_line: 82
+      term: Term 1
+      terms:
+      - Term 1
+      definitions:
+      - Definition of term 1
+      attached_children: []
+    - type: DefinitionItem
+      source_line: 83
+      term: Term 2
+      terms:
+      - Term 2
+      definitions:
+      - Definition of term 2
+      attached_children: []
+    - type: DefinitionItem
+      source_line: 84
+      term: Term 3
+      terms:
+      - Term 3
+      definitions:
+      - Definition of term 3
+      attached_children: []
+- type: SectionElement
+  id: _inline_formatting
+  title: Inline Formatting
+  source_line: 86
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 88
+    children:
+    - type: TextContent
+      text: 'You can use '
+    - type: BoldElement
+      source_line: 88
+      children: []
+      content: bold text
+      constraint: constrained
+    - type: TextContent
+      text: ", "
+    - type: ItalicElement
+      source_line: 88
+      children: []
+      content: italic text
+      constraint: constrained
+    - type: TextContent
+      text: ", and "
+    - type: MonospaceElement
+      source_line: 88
+      children: []
+      content: monospace text
+      constraint: constrained
+    - type: TextContent
+      text: " for emphasis."
+    content: You can use bold text, italic text, and monospace text for emphasis.
+    lines:
+    - You can use bold text, italic text, and monospace text for emphasis.
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 90
+    children:
+    - type: TextContent
+      text: 'Links are easy: '
+    - type: LinkElement
+      source_line: 90
+      children: []
+      content: AsciiDoctor Home
+      target: https://www.asciidoctor.org
+      edges:
+      - kind: link
+        address:
+          scheme: url
+          target: https://www.asciidoctor.org
+        label: AsciiDoctor Home
+        options:
+          type: LinkOptions
+    content: 'Links are easy: AsciiDoctor Home'
+    lines:
+    - 'Links are easy: AsciiDoctor Home'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 92
+    children:
+    - type: TextContent
+      text: 'You can also create '
+    - type: CrossReferenceElement
+      source_line: 92
+      children: []
+      content: cross-references
+      target: section-cross-references
+      edges:
+      - kind: navigation
+        address:
+          scheme: anchor
+          target: section-cross-references
+        label: cross-references
+        options:
+          type: NavigationOptions
+    - type: TextContent
+      text: " to other sections."
+    content: You can also create section-cross-references to other sections.
+    lines:
+    - You can also create section-cross-references to other sections.
+    callouts: []
+- type: SectionElement
+  id: section-cross-references
+  title: Cross References
+  source_line: 94
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 97
+    children:
+    - type: TextContent
+      text: This section demonstrates cross-references within the document.
+    content: This section demonstrates cross-references within the document.
+    lines:
+    - This section demonstrates cross-references within the document.
+    callouts: []
+attributes:
+  type: Metadata
+  entries:
+  - type: MetadataEntry
+    key: author
+    value: Jane Doe
+  - type: MetadataEntry
+    key: email
+    value: jane@example.com
+  - type: MetadataEntry
+    key: version
+    value: '1.0'
+  - type: MetadataEntry
+    key: revdate
+    value: '2024-01-15'

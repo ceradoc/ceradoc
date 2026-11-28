@@ -1,0 +1,59 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: id
+    value: id
+  - type: ElementAttribute
+    name: class
+    value: cls
+  children:
+  - type: TextContent
+    text: "<div>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: test
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div>
+    test
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: id
+    value: id
+  - type: ElementAttribute
+    name: class
+    value: cls
+  children:
+  - type: TextContent
+    text: <div markdown="1">
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: test
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div markdown="1">
+    test
+    </div>
+  callouts: []
+- type: QuoteBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: id
+    value: id
+  children: []
+  content: para
+  callouts: []

@@ -1,0 +1,12 @@
+---
+type: DocumentElement
+title: Title
+children:
+- type: SectionElement
+  title: Title
+  level: 1
+  children: []
+- type: SectionElement
+  title: Sub
+  level: 2
+  children: []

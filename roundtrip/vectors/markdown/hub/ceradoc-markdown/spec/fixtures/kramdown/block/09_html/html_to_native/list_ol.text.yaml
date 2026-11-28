@@ -1,0 +1,82 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<ol>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<li>This is a simple list item</li>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<li>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<p>Followed by another</p>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</li>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<li>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<p>Followed by</p>"
+  content: |-
+    <ol>
+    <li>This is a simple list item</li>
+    <li>
+    <p>Followed by another</p>
+    </li>
+    <li>
+    <p>Followed by</p>
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: "<p>a para list item</p>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "</li>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<li>and a normal one</li>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<li>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<p>and</p>"
+  content: |-
+    </li>
+    <li>and a normal one</li>
+    <li>
+    <p>and</p>
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: "<p>a para</p>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "</li>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</ol>"
+  content: |-
+    </li>
+    </ol>
+  callouts: []

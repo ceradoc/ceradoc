@@ -1,0 +1,14 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: This is a footnote[^ab]. And another[^bc].
+  children:
+  - attributes: []
+    content: This is a footnote[^ab]. And another[^bc].
+- id: ab
+  attributes: []
+  content: Some text.
+- id: bc
+  attributes: []
+  content: Some other text.

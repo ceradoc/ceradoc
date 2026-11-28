@@ -1,0 +1,45 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: _ * _
+  children:
+  - attributes: []
+    content: _
+  - attributes: []
+    content: " "
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: " "
+  - attributes: []
+    content: _
+- attributes: []
+  text: "--- * * *"
+  children:
+  - attributes: []
+    content: "--- "
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: " "
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: " "
+  - attributes: []
+    content: "*"
+- attributes: []
+  text: _ - *
+  children:
+  - attributes: []
+    content: _
+  - attributes: []
+    content: " - "
+  - attributes: []
+    content: "*"
+- attributes: []
+  text: "---------------------------------------------- test"
+  children:
+  - attributes: []
+    content: "---------------------------------------------- test"

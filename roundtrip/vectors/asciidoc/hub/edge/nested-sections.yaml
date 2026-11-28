@@ -1,0 +1,38 @@
+---
+type: DocumentElement
+title: T
+children:
+- type: HeaderElement
+  id: _t
+  title: T
+  level: 0
+  content: T
+- type: SectionElement
+  id: _a
+  title: A
+  source_line: 3
+  level: 1
+  children:
+  - type: SectionElement
+    id: _a_b
+    title: B
+    source_line: 5
+    level: 2
+    children:
+    - type: SectionElement
+      id: _a_b_c
+      title: C
+      source_line: 7
+      level: 3
+      children:
+      - type: ParagraphBlock
+        source_line: 9
+        children:
+        - type: TextContent
+          text: text
+        content: text
+        lines:
+        - text
+        callouts: []
+attributes:
+  type: Metadata

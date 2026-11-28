@@ -1,0 +1,11 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  code: x = Class.new
+- attributes: []
+  code: "<a>href</a>"
+- classes: []
+  attributes:
+  - name: lang
+    value: html

@@ -1,0 +1,58 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    This is <span markdown="1">*text*</span>
+    This is <span markdown="0">*text*</span>
+    This is <span markdown="span">*text*</span>
+    This is <span markdown="block">*text*</span>
+    This is <span markdown="0">*nothing* <strong markdown="1">to *fear*</strong> about</span>.
+    This is <span markdown="0"><http://example.com></span>.
+  children:
+  - attributes: []
+    content: This is <span markdown="1">
+  - attributes: []
+    text: text
+  - attributes: []
+    content: "</span>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is <span markdown="0">
+  - attributes: []
+    text: text
+  - attributes: []
+    content: "</span>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is <span markdown="span">
+  - attributes: []
+    text: text
+  - attributes: []
+    content: "</span>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is <span markdown="block">
+  - attributes: []
+    text: text
+  - attributes: []
+    content: "</span>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is <span markdown="0">
+  - attributes: []
+    text: nothing
+  - attributes: []
+    content: ' <strong markdown="1">to '
+  - attributes: []
+    text: fear
+  - attributes: []
+    content: "</strong> about</span>."
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This is <span markdown="0"><http://example.com></span>.

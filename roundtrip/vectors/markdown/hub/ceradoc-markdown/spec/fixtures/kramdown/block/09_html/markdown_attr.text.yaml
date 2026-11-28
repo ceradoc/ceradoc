@@ -1,0 +1,184 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <div markdown="block">
+  - type: TextContent
+    text: "\n"
+  - type: ItalicElement
+    children: []
+    content: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div markdown="block">
+    *para*
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <div markdown="span">
+  - type: TextContent
+    text: "\n"
+  - type: ItalicElement
+    children: []
+    content: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div markdown="span">
+    *para*
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <div markdown="1">
+  - type: TextContent
+    text: "\n"
+  - type: ItalicElement
+    children: []
+    content: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div markdown="1">
+    *para*
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <div markdown="0">
+  - type: TextContent
+    text: "\n"
+  - type: ItalicElement
+    children: []
+    content: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</div>"
+  content: |-
+    <div markdown="0">
+    *para*
+    </div>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p markdown="block">
+  - type: TextContent
+    text: "\n"
+  - type: ItalicElement
+    children: []
+    content: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</p>"
+  content: |-
+    <p markdown="block">
+    *para*
+    </p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p markdown="span">
+  - type: TextContent
+    text: "\n"
+  - type: ItalicElement
+    children: []
+    content: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</p>"
+  content: |-
+    <p markdown="span">
+    *para*
+    </p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p markdown="1">
+  - type: TextContent
+    text: "\n"
+  - type: ItalicElement
+    children: []
+    content: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</p>"
+  content: |-
+    <p markdown="1">
+    *para*
+    </p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <p markdown="0">
+  - type: TextContent
+    text: "\n"
+  - type: ItalicElement
+    children: []
+    content: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</p>"
+  content: |-
+    <p markdown="0">
+    *para*
+    </p>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<dl>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: <dt markdown="1">
+  - type: ItalicElement
+    children: []
+    content: emphasize
+  - type: TextContent
+    text: "</dt>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: <dd markdown="1">
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</dd>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</dl>"
+  content: |-
+    <dl>
+    <dt markdown="1">*emphasize*</dt>
+    <dd markdown="1">
+    para
+    </dd>
+    </dl>
+  callouts: []

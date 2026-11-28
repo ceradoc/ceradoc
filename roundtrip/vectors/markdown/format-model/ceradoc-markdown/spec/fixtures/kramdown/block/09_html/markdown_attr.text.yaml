@@ -1,0 +1,166 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <div markdown="block">
+    *para*
+    </div>
+  children:
+  - attributes: []
+    content: <div markdown="block">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <div markdown="span">
+    *para*
+    </div>
+  children:
+  - attributes: []
+    content: <div markdown="span">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <div markdown="1">
+    *para*
+    </div>
+  children:
+  - attributes: []
+    content: <div markdown="1">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <div markdown="0">
+    *para*
+    </div>
+  children:
+  - attributes: []
+    content: <div markdown="0">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</div>"
+- attributes: []
+  text: |-
+    <p markdown="block">
+    *para*
+    </p>
+  children:
+  - attributes: []
+    content: <p markdown="block">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p>"
+- attributes: []
+  text: |-
+    <p markdown="span">
+    *para*
+    </p>
+  children:
+  - attributes: []
+    content: <p markdown="span">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p>"
+- attributes: []
+  text: |-
+    <p markdown="1">
+    *para*
+    </p>
+  children:
+  - attributes: []
+    content: <p markdown="1">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p>"
+- attributes: []
+  text: |-
+    <p markdown="0">
+    *para*
+    </p>
+  children:
+  - attributes: []
+    content: <p markdown="0">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p>"
+- attributes: []
+  text: |-
+    <dl>
+    <dt markdown="1">*emphasize*</dt>
+    <dd markdown="1">
+    para
+    </dd>
+    </dl>
+  children:
+  - attributes: []
+    content: "<dl>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: <dt markdown="1">
+  - attributes: []
+    text: emphasize
+  - attributes: []
+    content: "</dt>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: <dd markdown="1">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</dd>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</dl>"

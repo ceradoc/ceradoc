@@ -1,0 +1,51 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<button>Some Text</button>"
+  content: "<button>Some Text</button>"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: First some text and then a <button>here</button>
+  content: First some text and then a <button>here</button>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<button>A button</button> and then text."
+  content: "<button>A button</button> and then text."
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'A <button>with '
+  - type: BoldElement
+    children: []
+    content: some
+  - type: TextContent
+    text: " "
+  - type: MonospaceElement
+    children: []
+    content: code
+  - type: TextContent
+    text: " in "
+  - type: Image
+    src: image.png
+    alt: alt
+    edges:
+    - kind: image_ref
+      address:
+        scheme: path
+        target: image.png
+      label: alt
+      options:
+        type: ImageRefOptions
+        alt_text: alt
+  - type: TextContent
+    text: "</button> it."
+  content: A <button>with **some** `code` in ![alt](image.png)</button> it.
+  callouts: []

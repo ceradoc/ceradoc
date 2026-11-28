@@ -1,0 +1,2036 @@
+---
+type: DocumentElement
+title: Troubleshooting Guide
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Troubleshooting
+  - type: FrontmatterEntry
+    key: parent
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Guides
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 5
+- type: HeaderElement
+  id: _troubleshooting_guide
+  title: Troubleshooting Guide
+  level: 0
+  content: Troubleshooting Guide
+- type: SectionElement
+  id: _purpose
+  title: Purpose
+  source_line: 3
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 5
+    children:
+    - type: TextContent
+      text: This guide helps you diagnose and resolve common issues when working with
+        Ceradoc.
+    content: This guide helps you diagnose and resolve common issues when working
+      with Ceradoc.
+    lines:
+    - This guide helps you diagnose and resolve common issues when working with Ceradoc.
+    callouts: []
+- type: SectionElement
+  id: _quick_diagnosis
+  title: Quick Diagnosis
+  source_line: 7
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 9
+    children:
+    - type: TextContent
+      text: 'Use this checklist to quickly identify issues:'
+    content: 'Use this checklist to quickly identify issues:'
+    lines:
+    - 'Use this checklist to quickly identify issues:'
+    callouts: []
+  - type: ListBlock
+    source_line: 11
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 11
+      children:
+      - type: TextContent
+        text: "[ ] Can you parse a simple document?"
+      marker: "*"
+      content: "[ ] Can you parse a simple document?"
+    - type: ListItem
+      source_line: 12
+      children:
+      - type: TextContent
+        text: "[ ] Do you get error messages? What do they say?"
+      marker: "*"
+      content: "[ ] Do you get error messages? What do they say?"
+    - type: ListItem
+      source_line: 13
+      children:
+      - type: TextContent
+        text: "[ ] Does the issue occur with parsing or serialization?"
+      marker: "*"
+      content: "[ ] Does the issue occur with parsing or serialization?"
+    - type: ListItem
+      source_line: 14
+      children:
+      - type: TextContent
+        text: "[ ] Is the issue reproducible with minimal input?"
+      marker: "*"
+      content: "[ ] Is the issue reproducible with minimal input?"
+    - type: ListItem
+      source_line: 15
+      children:
+      - type: TextContent
+        text: "[ ] Are you using a custom schema or extensions?"
+      marker: "*"
+      content: "[ ] Are you using a custom schema or extensions?"
+- type: SectionElement
+  id: _common_issues
+  title: Common Issues
+  source_line: 17
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 19
+    children:
+    - type: TextContent
+      text: '### Issue: "Cannot parse document"'
+    content: '### Issue: "Cannot parse document"'
+    lines:
+    - '### Issue: "Cannot parse document"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 21
+    children:
+    - type: BoldElement
+      source_line: 21
+      children: []
+      content: 'Symptoms:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Parsing fails with an error or returns "
+    - type: MonospaceElement
+      source_line: 21
+      children: []
+      content: nil
+      constraint: constrained
+    - type: TextContent
+      text: "."
+    content: 'Symptoms: Parsing fails with an error or returns nil.'
+    lines:
+    - 'Symptoms: Parsing fails with an error or returns nil.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 23
+    children:
+    - type: BoldElement
+      source_line: 23
+      children: []
+      content: 'Diagnosis:'
+      constraint: unconstrained
+    content: 'Diagnosis:'
+    lines:
+    - 'Diagnosis:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 25
+    children: []
+    content: |-
+      begin
+        doc = Ceradoc.parse(input)
+      rescue Ceradoc::ParseError => e
+        puts "Parse error: #{e.message}"
+        puts "Line: #{e.line}, Column: #{e.column}"
+      end
+    lines:
+    - begin
+    - "  doc = Ceradoc.parse(input)"
+    - rescue Ceradoc::ParseError => e
+    - '  puts "Parse error: #{e.message}"'
+    - '  puts "Line: #{e.line}, Column: #{e.column}"'
+    - end
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 35
+    children:
+    - type: BoldElement
+      source_line: 35
+      children: []
+      content: 'Possible Causes:'
+      constraint: unconstrained
+    content: 'Possible Causes:'
+    lines:
+    - 'Possible Causes:'
+    callouts: []
+  - type: ListBlock
+    source_line: 37
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 37
+      children:
+      - type: BoldElement
+        source_line: 37
+        children: []
+        content: Invalid AsciiDoc syntax
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Check for syntax errors"
+      marker: '1.'
+      content: Invalid AsciiDoc syntax - Check for syntax errors
+    - type: ListItem
+      source_line: 38
+      children:
+      - type: BoldElement
+        source_line: 38
+        children: []
+        content: Unsupported features
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Some AsciiDoc features may not be supported"
+      marker: '2.'
+      content: Unsupported features - Some AsciiDoc features may not be supported
+    - type: ListItem
+      source_line: 39
+      children:
+      - type: BoldElement
+        source_line: 39
+        children: []
+        content: Encoding issues
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Ensure input is UTF-8 encoded"
+      marker: '3.'
+      content: Encoding issues - Ensure input is UTF-8 encoded
+  - type: ParagraphBlock
+    source_line: 41
+    children:
+    - type: BoldElement
+      source_line: 41
+      children: []
+      content: 'Solutions:'
+      constraint: unconstrained
+    content: 'Solutions:'
+    lines:
+    - 'Solutions:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 43
+    children: []
+    content: |-
+      # 1. Validate syntax
+      # Use a simple document first
+      doc = Ceradoc.parse("= Test\n\nContent")
+      # 2. Check encoding
+      input = File.read("file.adoc", encoding: "UTF-8")
+      doc = Ceradoc.parse(input)
+      # 3. Use non-strict mode
+      doc = Ceradoc.parse(input, strict: false)
+    lines:
+    - "# 1. Validate syntax"
+    - "# Use a simple document first"
+    - doc = Ceradoc.parse("= Test\n\nContent")
+    - "# 2. Check encoding"
+    - 'input = File.read("file.adoc", encoding: "UTF-8")'
+    - doc = Ceradoc.parse(input)
+    - "# 3. Use non-strict mode"
+    - 'doc = Ceradoc.parse(input, strict: false)'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 57
+    children:
+    - type: TextContent
+      text: '### Issue: "Serialization output is empty"'
+    content: '### Issue: "Serialization output is empty"'
+    lines:
+    - '### Issue: "Serialization output is empty"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 59
+    children:
+    - type: BoldElement
+      source_line: 59
+      children: []
+      content: 'Symptoms:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " "
+    - type: MonospaceElement
+      source_line: 59
+      children: []
+      content: to_adoc
+      constraint: constrained
+    - type: TextContent
+      text: " returns empty string or incomplete output."
+    content: 'Symptoms: to_adoc returns empty string or incomplete output.'
+    lines:
+    - 'Symptoms: to_adoc returns empty string or incomplete output.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 61
+    children:
+    - type: BoldElement
+      source_line: 61
+      children: []
+      content: 'Diagnosis:'
+      constraint: unconstrained
+    content: 'Diagnosis:'
+    lines:
+    - 'Diagnosis:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 63
+    children: []
+    content: |-
+      doc = Ceradoc.parse(input)
+      output = doc.to_adoc
+      puts "Document: #{doc.inspect}"
+      puts "Output length: #{output.length}"
+      puts "Output: #{output}"
+    lines:
+    - doc = Ceradoc.parse(input)
+    - output = doc.to_adoc
+    - 'puts "Document: #{doc.inspect}"'
+    - 'puts "Output length: #{output.length}"'
+    - 'puts "Output: #{output}"'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 73
+    children:
+    - type: BoldElement
+      source_line: 73
+      children: []
+      content: 'Possible Causes:'
+      constraint: unconstrained
+    content: 'Possible Causes:'
+    lines:
+    - 'Possible Causes:'
+    callouts: []
+  - type: ListBlock
+    source_line: 75
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 75
+      children:
+      - type: BoldElement
+        source_line: 75
+        children: []
+        content: Missing serializer
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Custom element without registered serializer"
+      marker: '1.'
+      content: Missing serializer - Custom element without registered serializer
+    - type: ListItem
+      source_line: 76
+      children:
+      - type: BoldElement
+        source_line: 76
+        children: []
+        content: Empty document
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Document has no content"
+      marker: '2.'
+      content: Empty document - Document has no content
+    - type: ListItem
+      source_line: 77
+      children:
+      - type: BoldElement
+        source_line: 77
+        children: []
+        content: Serializer error
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Silent failure in serializer"
+      marker: '3.'
+      content: Serializer error - Silent failure in serializer
+  - type: ParagraphBlock
+    source_line: 79
+    children:
+    - type: BoldElement
+      source_line: 79
+      children: []
+      content: 'Solutions:'
+      constraint: unconstrained
+    content: 'Solutions:'
+    lines:
+    - 'Solutions:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 81
+    children: []
+    content: |-
+      # 1. Check document structure
+      puts "Sections: #{doc.sections.size}"
+      puts "Header: #{doc.header.title}"
+      # 2. Verify serializers are registered
+      Ceradoc::Output::Adoc::ElementRegistry.each do |klass, serializer|
+        puts "#{klass} => #{serializer}"
+      end
+      # 3. Test individual elements
+      doc.sections.each do |section|
+        puts "Section serializes: #{section.to_adoc.length > 0}"
+      end
+    lines:
+    - "# 1. Check document structure"
+    - 'puts "Sections: #{doc.sections.size}"'
+    - 'puts "Header: #{doc.header.title}"'
+    - "# 2. Verify serializers are registered"
+    - Ceradoc::Output::Adoc::ElementRegistry.each do |klass, serializer|
+    - '  puts "#{klass} => #{serializer}"'
+    - end
+    - "# 3. Test individual elements"
+    - doc.sections.each do |section|
+    - '  puts "Section serializes: #{section.to_adoc.length > 0}"'
+    - end
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 98
+    children:
+    - type: TextContent
+      text: '### Issue: "Round-trip changes the document"'
+    content: '### Issue: "Round-trip changes the document"'
+    lines:
+    - '### Issue: "Round-trip changes the document"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 100
+    children:
+    - type: BoldElement
+      source_line: 100
+      children: []
+      content: 'Symptoms:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Parse/serialize cycle produces different output."
+    content: 'Symptoms: Parse/serialize cycle produces different output.'
+    lines:
+    - 'Symptoms: Parse/serialize cycle produces different output.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 102
+    children:
+    - type: BoldElement
+      source_line: 102
+      children: []
+      content: 'Diagnosis:'
+      constraint: unconstrained
+    content: 'Diagnosis:'
+    lines:
+    - 'Diagnosis:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 104
+    children: []
+    content: |-
+      original = "= Title\n\nContent"
+      doc = Ceradoc.parse(original)
+      roundtrip = doc.to_adoc
+      doc2 = Ceradoc.parse(roundtrip)
+      puts "Original: #{original}"
+      puts "Round-trip: #{roundtrip}"
+      puts "Structurally equivalent: #{equivalent?(doc, doc2)}"
+    lines:
+    - original = "= Title\n\nContent"
+    - doc = Ceradoc.parse(original)
+    - roundtrip = doc.to_adoc
+    - doc2 = Ceradoc.parse(roundtrip)
+    - 'puts "Original: #{original}"'
+    - 'puts "Round-trip: #{roundtrip}"'
+    - 'puts "Structurally equivalent: #{equivalent?(doc, doc2)}"'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 116
+    children:
+    - type: BoldElement
+      source_line: 116
+      children: []
+      content: 'Possible Causes:'
+      constraint: unconstrained
+    content: 'Possible Causes:'
+    lines:
+    - 'Possible Causes:'
+    callouts: []
+  - type: ListBlock
+    source_line: 118
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 118
+      children:
+      - type: BoldElement
+        source_line: 118
+        children: []
+        content: Whitespace normalization
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Extra spaces are removed"
+      marker: '1.'
+      content: Whitespace normalization - Extra spaces are removed
+    - type: ListItem
+      source_line: 119
+      children:
+      - type: BoldElement
+        source_line: 119
+        children: []
+        content: Attribute ordering
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Attributes may be reordered"
+      marker: '2.'
+      content: Attribute ordering - Attributes may be reordered
+    - type: ListItem
+      source_line: 120
+      children:
+      - type: BoldElement
+        source_line: 120
+        children: []
+        content: Syntactic variations
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Equivalent syntax may differ"
+      marker: '3.'
+      content: Syntactic variations - Equivalent syntax may differ
+  - type: ParagraphBlock
+    source_line: 122
+    children:
+    - type: BoldElement
+      source_line: 122
+      children: []
+      content: 'Solutions:'
+      constraint: unconstrained
+    content: 'Solutions:'
+    lines:
+    - 'Solutions:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 124
+    children: []
+    content: |-
+      # 1. Compare semantic structure, not exact text
+      def equivalent?(doc1, doc2)
+        doc1.header.title == doc2.header.title &&
+          doc1.sections.size == doc2.sections.size
+      end
+      # 2. Use preserve option
+      doc = Ceradoc.parse(input, preserve_whitespace: true)
+    lines:
+    - "# 1. Compare semantic structure, not exact text"
+    - def equivalent?(doc1, doc2)
+    - "  doc1.header.title == doc2.header.title &&"
+    - "    doc1.sections.size == doc2.sections.size"
+    - end
+    - "# 2. Use preserve option"
+    - 'doc = Ceradoc.parse(input, preserve_whitespace: true)'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 136
+    children:
+    - type: TextContent
+      text: '### Issue: "Custom elements aren''t recognized"'
+    content: '### Issue: "Custom elements aren''t recognized"'
+    lines:
+    - '### Issue: "Custom elements aren''t recognized"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 138
+    children:
+    - type: BoldElement
+      source_line: 138
+      children: []
+      content: 'Symptoms:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Custom blocks or inline elements aren't parsed."
+    content: 'Symptoms: Custom blocks or inline elements aren''t parsed.'
+    lines:
+    - 'Symptoms: Custom blocks or inline elements aren''t parsed.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 140
+    children:
+    - type: BoldElement
+      source_line: 140
+      children: []
+      content: 'Diagnosis:'
+      constraint: unconstrained
+    content: 'Diagnosis:'
+    lines:
+    - 'Diagnosis:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 142
+    children: []
+    content: |-
+      # Check if custom class is defined
+      p Ceradoc::Model::Block::MyCustomBlock
+      # Check if serializer is registered
+      registry = Ceradoc::Output::Adoc::ElementRegistry
+      p registry[Ceradoc::Model::Block::MyCustomBlock]
+    lines:
+    - "# Check if custom class is defined"
+    - p Ceradoc::Model::Block::MyCustomBlock
+    - "# Check if serializer is registered"
+    - registry = Ceradoc::Output::Adoc::ElementRegistry
+    - p registry[Ceradoc::Model::Block::MyCustomBlock]
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 152
+    children:
+    - type: BoldElement
+      source_line: 152
+      children: []
+      content: 'Possible Causes:'
+      constraint: unconstrained
+    content: 'Possible Causes:'
+    lines:
+    - 'Possible Causes:'
+    callouts: []
+  - type: ListBlock
+    source_line: 154
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 154
+      children:
+      - type: BoldElement
+        source_line: 154
+        children: []
+        content: Class not loaded
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Custom class not required"
+      marker: '1.'
+      content: Class not loaded - Custom class not required
+    - type: ListItem
+      source_line: 155
+      children:
+      - type: BoldElement
+        source_line: 155
+        children: []
+        content: Serializer not registered
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Registration missing"
+      marker: '2.'
+      content: Serializer not registered - Registration missing
+    - type: ListItem
+      source_line: 156
+      children:
+      - type: BoldElement
+        source_line: 156
+        children: []
+        content: Parser doesn't recognize
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Parser needs extension"
+      marker: '3.'
+      content: Parser doesn't recognize - Parser needs extension
+  - type: ParagraphBlock
+    source_line: 158
+    children:
+    - type: BoldElement
+      source_line: 158
+      children: []
+      content: 'Solutions:'
+      constraint: unconstrained
+    content: 'Solutions:'
+    lines:
+    - 'Solutions:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 160
+    children: []
+    content: |-
+      # 1. Require custom classes
+      require 'my_custom_blocks'
+      # 2. Register serializers
+      Ceradoc::Output::Adoc::ElementRegistry.register(
+        Ceradoc::Model::Block::MyCustomBlock,
+        MyCustomBlockSerializer
+      )
+      # 3. Extend parser (for parsing support)
+      # See Schema System guide
+    lines:
+    - "# 1. Require custom classes"
+    - require 'my_custom_blocks'
+    - "# 2. Register serializers"
+    - Ceradoc::Output::Adoc::ElementRegistry.register(
+    - "  Ceradoc::Model::Block::MyCustomBlock,"
+    - "  MyCustomBlockSerializer"
+    - ")"
+    - "# 3. Extend parser (for parsing support)"
+    - "# See Schema System guide"
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 175
+    children:
+    - type: TextContent
+      text: '### Issue: "Schema not found"'
+    content: '### Issue: "Schema not found"'
+    lines:
+    - '### Issue: "Schema not found"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 177
+    children:
+    - type: BoldElement
+      source_line: 177
+      children: []
+      content: 'Symptoms:'
+      constraint: unconstrained
+    - type: TextContent
+      text: ' Error "Unknown schema: :name"'
+    content: 'Symptoms: Error "Unknown schema: :name"'
+    lines:
+    - 'Symptoms: Error "Unknown schema: :name"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 179
+    children:
+    - type: BoldElement
+      source_line: 179
+      children: []
+      content: 'Diagnosis:'
+      constraint: unconstrained
+    content: 'Diagnosis:'
+    lines:
+    - 'Diagnosis:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 181
+    children: []
+    content: |-
+      # Check registered schemas
+      puts Ceradoc::Schema.registry.keys
+    lines:
+    - "# Check registered schemas"
+    - puts Ceradoc::Schema.registry.keys
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 187
+    children:
+    - type: BoldElement
+      source_line: 187
+      children: []
+      content: 'Possible Causes:'
+      constraint: unconstrained
+    content: 'Possible Causes:'
+    lines:
+    - 'Possible Causes:'
+    callouts: []
+  - type: ListBlock
+    source_line: 189
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 189
+      children:
+      - type: BoldElement
+        source_line: 189
+        children: []
+        content: Schema not registered
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Schema class not registered"
+      marker: '1.'
+      content: Schema not registered - Schema class not registered
+    - type: ListItem
+      source_line: 190
+      children:
+      - type: BoldElement
+        source_line: 190
+        children: []
+        content: Name mismatch
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Using wrong schema name"
+      marker: '2.'
+      content: Name mismatch - Using wrong schema name
+    - type: ListItem
+      source_line: 191
+      children:
+      - type: BoldElement
+        source_line: 191
+        children: []
+        content: Schema not loaded
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Schema file not required"
+      marker: '3.'
+      content: Schema not loaded - Schema file not required
+  - type: ParagraphBlock
+    source_line: 193
+    children:
+    - type: BoldElement
+      source_line: 193
+      children: []
+      content: 'Solutions:'
+      constraint: unconstrained
+    content: 'Solutions:'
+    lines:
+    - 'Solutions:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 195
+    children: []
+    content: |-
+      # 1. Register schema
+      Ceradoc::Schema.register(:my_schema, MySchemaClass)
+      # 2. Use correct name
+      doc = Ceradoc.parse(input, schema: :my_schema)  # not "my_schema"
+      # 3. Require schema file
+      require 'ceradoc/schema/my_schema'
+    lines:
+    - "# 1. Register schema"
+    - Ceradoc::Schema.register(:my_schema, MySchemaClass)
+    - "# 2. Use correct name"
+    - 'doc = Ceradoc.parse(input, schema: :my_schema)  # not "my_schema"'
+    - "# 3. Require schema file"
+    - require 'ceradoc/schema/my_schema'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 207
+    children:
+    - type: TextContent
+      text: '### Issue: "Memory usage is high"'
+    content: '### Issue: "Memory usage is high"'
+    lines:
+    - '### Issue: "Memory usage is high"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 209
+    children:
+    - type: BoldElement
+      source_line: 209
+      children: []
+      content: 'Symptoms:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Processing large documents consumes excessive memory."
+    content: 'Symptoms: Processing large documents consumes excessive memory.'
+    lines:
+    - 'Symptoms: Processing large documents consumes excessive memory.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 211
+    children:
+    - type: BoldElement
+      source_line: 211
+      children: []
+      content: 'Diagnosis:'
+      constraint: unconstrained
+    content: 'Diagnosis:'
+    lines:
+    - 'Diagnosis:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 213
+    children: []
+    content: |-
+      require 'memory_profiler'
+      report = MemoryProfiler.report do
+        doc = Ceradoc.parse_file("large.adoc")
+      end
+      report.pretty_print
+    lines:
+    - require 'memory_profiler'
+    - report = MemoryProfiler.report do
+    - '  doc = Ceradoc.parse_file("large.adoc")'
+    - end
+    - report.pretty_print
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 224
+    children:
+    - type: BoldElement
+      source_line: 224
+      children: []
+      content: 'Possible Causes:'
+      constraint: unconstrained
+    content: 'Possible Causes:'
+    lines:
+    - 'Possible Causes:'
+    callouts: []
+  - type: ListBlock
+    source_line: 226
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 226
+      children:
+      - type: BoldElement
+        source_line: 226
+        children: []
+        content: Large documents
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Document is genuinely large"
+      marker: '1.'
+      content: Large documents - Document is genuinely large
+    - type: ListItem
+      source_line: 227
+      children:
+      - type: BoldElement
+        source_line: 227
+        children: []
+        content: Memory leak
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Unreleased references"
+      marker: '2.'
+      content: Memory leak - Unreleased references
+    - type: ListItem
+      source_line: 228
+      children:
+      - type: BoldElement
+        source_line: 228
+        children: []
+        content: Inefficient parsing
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Parser creating unnecessary objects"
+      marker: '3.'
+      content: Inefficient parsing - Parser creating unnecessary objects
+  - type: ParagraphBlock
+    source_line: 230
+    children:
+    - type: BoldElement
+      source_line: 230
+      children: []
+      content: 'Solutions:'
+      constraint: unconstrained
+    content: 'Solutions:'
+    lines:
+    - 'Solutions:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 232
+    children: []
+    content: |-
+      # 1. Process in chunks
+      # Split large documents and process separately
+      # 2. Enable caching
+      Ceradoc::Cache.configure do |config|
+        config.enabled = true
+      end
+      # 3. Stream processing (if available)
+      doc = Ceradoc.parse_file(file, stream: true)
+    lines:
+    - "# 1. Process in chunks"
+    - "# Split large documents and process separately"
+    - "# 2. Enable caching"
+    - Ceradoc::Cache.configure do |config|
+    - "  config.enabled = true"
+    - end
+    - "# 3. Stream processing (if available)"
+    - 'doc = Ceradoc.parse_file(file, stream: true)'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 246
+    children:
+    - type: TextContent
+      text: '### Issue: "DOCX conversion fails"'
+    content: '### Issue: "DOCX conversion fails"'
+    lines:
+    - '### Issue: "DOCX conversion fails"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 248
+    children:
+    - type: BoldElement
+      source_line: 248
+      children: []
+      content: 'Symptoms:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Error when converting DOCX files."
+    content: 'Symptoms: Error when converting DOCX files.'
+    lines:
+    - 'Symptoms: Error when converting DOCX files.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 250
+    children:
+    - type: BoldElement
+      source_line: 250
+      children: []
+      content: 'Diagnosis:'
+      constraint: unconstrained
+    content: 'Diagnosis:'
+    lines:
+    - 'Diagnosis:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 252
+    children: []
+    content: |-
+      begin
+        core = Ceradoc.parse("document.docx", format: :docx)
+      rescue => e
+        puts "Error: #{e.class}: #{e.message}"
+      end
+    lines:
+    - begin
+    - '  core = Ceradoc.parse("document.docx", format: :docx)'
+    - rescue => e
+    - '  puts "Error: #{e.class}: #{e.message}"'
+    - end
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 261
+    children:
+    - type: BoldElement
+      source_line: 261
+      children: []
+      content: 'Possible Causes:'
+      constraint: unconstrained
+    content: 'Possible Causes:'
+    lines:
+    - 'Possible Causes:'
+    callouts: []
+  - type: ListBlock
+    source_line: 263
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 263
+      children:
+      - type: BoldElement
+        source_line: 263
+        children: []
+        content: Missing gem
+        constraint: unconstrained
+      - type: TextContent
+        text: " - "
+      - type: MonospaceElement
+        source_line: 263
+        children: []
+        content: ceradoc-docx
+        constraint: constrained
+      - type: TextContent
+        text: " or "
+      - type: MonospaceElement
+        source_line: 263
+        children: []
+        content: uniword
+        constraint: constrained
+      - type: TextContent
+        text: " gem not installed"
+      marker: '1.'
+      content: Missing gem - ceradoc-docx or uniword gem not installed
+    - type: ListItem
+      source_line: 264
+      children:
+      - type: BoldElement
+        source_line: 264
+        children: []
+        content: Invalid file
+        constraint: unconstrained
+      - type: TextContent
+        text: " - File is not a valid DOCX (ZIP archive)"
+      marker: '2.'
+      content: Invalid file - File is not a valid DOCX (ZIP archive)
+    - type: ListItem
+      source_line: 265
+      children:
+      - type: BoldElement
+        source_line: 265
+        children: []
+        content: Unsupported format
+        constraint: unconstrained
+      - type: TextContent
+        text: " - File uses complex OOXML features not yet supported"
+      marker: '3.'
+      content: Unsupported format - File uses complex OOXML features not yet supported
+  - type: ParagraphBlock
+    source_line: 267
+    children:
+    - type: BoldElement
+      source_line: 267
+      children: []
+      content: 'Solutions:'
+      constraint: unconstrained
+    content: 'Solutions:'
+    lines:
+    - 'Solutions:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 269
+    children: []
+    content: |-
+      # 1. Install required gems
+      # gem install ceradoc-docx uniword
+      # 2. Verify file is valid DOCX
+      require 'zip'
+      File.open("document.docx") do |f|
+        puts "Valid ZIP: #{Zip::File.valid_io?(f)}"
+      end
+      # 3. Parse with error handling
+      begin
+        require 'ceradoc/docx'
+        adoc = Ceradoc.convert("document.docx", from: :docx, to: :asciidoc)
+      rescue LoadError
+        warn "Install ceradoc-docx: gem install ceradoc-docx"
+      rescue => e
+        warn "Conversion failed: #{e.message}"
+      end
+    lines:
+    - "# 1. Install required gems"
+    - "# gem install ceradoc-docx uniword"
+    - "# 2. Verify file is valid DOCX"
+    - require 'zip'
+    - File.open("document.docx") do |f|
+    - '  puts "Valid ZIP: #{Zip::File.valid_io?(f)}"'
+    - end
+    - "# 3. Parse with error handling"
+    - begin
+    - "  require 'ceradoc/docx'"
+    - '  adoc = Ceradoc.convert("document.docx", from: :docx, to: :asciidoc)'
+    - rescue LoadError
+    - '  warn "Install ceradoc-docx: gem install ceradoc-docx"'
+    - rescue => e
+    - '  warn "Conversion failed: #{e.message}"'
+    - end
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 291
+    children:
+    - type: TextContent
+      text: '### Issue: "Performance is slow"'
+    content: '### Issue: "Performance is slow"'
+    lines:
+    - '### Issue: "Performance is slow"'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 293
+    children:
+    - type: BoldElement
+      source_line: 293
+      children: []
+      content: 'Symptoms:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Parsing or serialization takes too long."
+    content: 'Symptoms: Parsing or serialization takes too long.'
+    lines:
+    - 'Symptoms: Parsing or serialization takes too long.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 295
+    children:
+    - type: BoldElement
+      source_line: 295
+      children: []
+      content: 'Diagnosis:'
+      constraint: unconstrained
+    content: 'Diagnosis:'
+    lines:
+    - 'Diagnosis:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 297
+    children: []
+    content: |-
+      require 'benchmark'
+      time = Benchmark.realtime do
+        doc = Ceradoc.parse(input)
+      end
+      puts "Parsing took: #{time.round(2)}s"
+    lines:
+    - require 'benchmark'
+    - time = Benchmark.realtime do
+    - "  doc = Ceradoc.parse(input)"
+    - end
+    - 'puts "Parsing took: #{time.round(2)}s"'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 308
+    children:
+    - type: BoldElement
+      source_line: 308
+      children: []
+      content: 'Possible Causes:'
+      constraint: unconstrained
+    content: 'Possible Causes:'
+    lines:
+    - 'Possible Causes:'
+    callouts: []
+  - type: ListBlock
+    source_line: 310
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 310
+      children:
+      - type: BoldElement
+        source_line: 310
+        children: []
+        content: Complex documents
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Many nested elements"
+      marker: '1.'
+      content: Complex documents - Many nested elements
+    - type: ListItem
+      source_line: 311
+      children:
+      - type: BoldElement
+        source_line: 311
+        children: []
+        content: Inefficient extensions
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Custom extensions slowing processing"
+      marker: '2.'
+      content: Inefficient extensions - Custom extensions slowing processing
+    - type: ListItem
+      source_line: 312
+      children:
+      - type: BoldElement
+        source_line: 312
+        children: []
+        content: No caching
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Re-parsing same content"
+      marker: '3.'
+      content: No caching - Re-parsing same content
+  - type: ParagraphBlock
+    source_line: 314
+    children:
+    - type: BoldElement
+      source_line: 314
+      children: []
+      content: 'Solutions:'
+      constraint: unconstrained
+    content: 'Solutions:'
+    lines:
+    - 'Solutions:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 316
+    children: []
+    content: |-
+      # 1. Enable caching
+      doc = Ceradoc.parse(input, cache: true)
+      # 2. Optimize custom serializers
+      # Avoid unnecessary string operations
+      # 3. Use parallel processing for multiple files
+      files.map { |f| Thread.new { Ceradoc.parse_file(f) } }.map(&:value)
+    lines:
+    - "# 1. Enable caching"
+    - 'doc = Ceradoc.parse(input, cache: true)'
+    - "# 2. Optimize custom serializers"
+    - "# Avoid unnecessary string operations"
+    - "# 3. Use parallel processing for multiple files"
+    - files.map { |f| Thread.new { Ceradoc.parse_file(f) } }.map(&:value)
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 328
+    children:
+    - type: HighlightElement
+      source_line: 328
+      children: []
+      content: |+2
+         Error Messages Reference
+
+      constraint: unconstrained
+    - type: TextContent
+      text: "# Parse Errors"
+    content: |-2
+       Error Messages Reference
+
+      # Parse Errors
+    lines:
+    - |-2
+       Error Messages Reference
+
+      # Parse Errors
+    callouts: []
+  - type: SourceBlock
+    source_line: 332
+    children: []
+    content: 'Ceradoc::ParseError: Unexpected character at line 10, column 5'
+    lines:
+    - 'Ceradoc::ParseError: Unexpected character at line 10, column 5'
+    language: text
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 337
+    children:
+    - type: BoldElement
+      source_line: 337
+      children: []
+      content: 'Cause:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Invalid AsciiDoc syntax at the specified location."
+    content: 'Cause: Invalid AsciiDoc syntax at the specified location.'
+    lines:
+    - 'Cause: Invalid AsciiDoc syntax at the specified location.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 339
+    children:
+    - type: BoldElement
+      source_line: 339
+      children: []
+      content: 'Solution:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Check AsciiDoc syntax around the specified line/column."
+    content: 'Solution: Check AsciiDoc syntax around the specified line/column.'
+    lines:
+    - 'Solution: Check AsciiDoc syntax around the specified line/column.'
+    callouts: []
+  - type: SourceBlock
+    source_line: 341
+    children: []
+    content: 'Ceradoc::ParseError: Unclosed delimiter starting at line 5'
+    lines:
+    - 'Ceradoc::ParseError: Unclosed delimiter starting at line 5'
+    language: text
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 346
+    children:
+    - type: BoldElement
+      source_line: 346
+      children: []
+      content: 'Cause:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " A delimited block (quotes, code) is not properly closed."
+    content: 'Cause: A delimited block (quotes, code) is not properly closed.'
+    lines:
+    - 'Cause: A delimited block (quotes, code) is not properly closed.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 348
+    children:
+    - type: BoldElement
+      source_line: 348
+      children: []
+      content: 'Solution:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Ensure all delimited blocks have closing delimiters."
+    content: 'Solution: Ensure all delimited blocks have closing delimiters.'
+    lines:
+    - 'Solution: Ensure all delimited blocks have closing delimiters.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 350
+    children:
+    - type: TextContent
+      text: "#"
+    - type: HighlightElement
+      source_line: 350
+      children: []
+      content: |+2
+         Serialization Errors
+
+        [source,text]
+        ----
+        Ceradoc::SerializationError: No serializer found for MyClass
+        ----
+
+        **Cause:** Custom model class without registered serializer.
+
+        **Solution:** Register a serializer for the class.
+
+        [source,text]
+        ----
+        Ceradoc::SerializationError: Circular reference detected
+        ----
+
+        **Cause:** Document model contains circular references.
+
+        **Solution:** Remove circular references in the model.
+
+      constraint: unconstrained
+    - type: TextContent
+      text: "# Schema Errors"
+    content: |-
+      # Serialization Errors
+
+      [source,text]
+      ----
+      Ceradoc::SerializationError: No serializer found for MyClass
+      ----
+
+      **Cause:** Custom model class without registered serializer.
+
+      **Solution:** Register a serializer for the class.
+
+      [source,text]
+      ----
+      Ceradoc::SerializationError: Circular reference detected
+      ----
+
+      **Cause:** Document model contains circular references.
+
+      **Solution:** Remove circular references in the model.
+
+      # Schema Errors
+    lines:
+    - |-
+      # Serialization Errors
+
+      [source,text]
+      ----
+      Ceradoc::SerializationError: No serializer found for MyClass
+      ----
+
+      **Cause:** Custom model class without registered serializer.
+
+      **Solution:** Register a serializer for the class.
+
+      [source,text]
+      ----
+      Ceradoc::SerializationError: Circular reference detected
+      ----
+
+      **Cause:** Document model contains circular references.
+
+      **Solution:** Remove circular references in the model.
+
+      # Schema Errors
+    callouts: []
+  - type: SourceBlock
+    source_line: 372
+    children: []
+    content: 'Ceradoc::SchemaError: Unknown schema: :custom'
+    lines:
+    - 'Ceradoc::SchemaError: Unknown schema: :custom'
+    language: text
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 377
+    children:
+    - type: BoldElement
+      source_line: 377
+      children: []
+      content: 'Cause:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Schema not registered."
+    content: 'Cause: Schema not registered.'
+    lines:
+    - 'Cause: Schema not registered.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 379
+    children:
+    - type: BoldElement
+      source_line: 379
+      children: []
+      content: 'Solution:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Register the schema before use."
+    content: 'Solution: Register the schema before use.'
+    lines:
+    - 'Solution: Register the schema before use.'
+    callouts: []
+  - type: SourceBlock
+    source_line: 381
+    children: []
+    content: 'Ceradoc::SchemaError: Validation failed: missing required section'
+    lines:
+    - 'Ceradoc::SchemaError: Validation failed: missing required section'
+    language: text
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 386
+    children:
+    - type: BoldElement
+      source_line: 386
+      children: []
+      content: 'Cause:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Document doesn't meet schema requirements."
+    content: 'Cause: Document doesn''t meet schema requirements.'
+    lines:
+    - 'Cause: Document doesn''t meet schema requirements.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 388
+    children:
+    - type: BoldElement
+      source_line: 388
+      children: []
+      content: 'Solution:'
+      constraint: unconstrained
+    - type: TextContent
+      text: " Add missing required sections."
+    content: 'Solution: Add missing required sections.'
+    lines:
+    - 'Solution: Add missing required sections.'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 390
+    children:
+    - type: TextContent
+      text: "## Debug Mode"
+    content: "## Debug Mode"
+    lines:
+    - "## Debug Mode"
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 392
+    children:
+    - type: TextContent
+      text: 'Enable debug output for troubleshooting:'
+    content: 'Enable debug output for troubleshooting:'
+    lines:
+    - 'Enable debug output for troubleshooting:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 394
+    children: []
+    content: |-
+      # Enable debug mode
+      Ceradoc.debug = true
+      doc = Ceradoc.parse(input)
+      # Or with environment variable
+      # CERADOC_DEBUG=1 ruby script.rb
+    lines:
+    - "# Enable debug mode"
+    - Ceradoc.debug = true
+    - doc = Ceradoc.parse(input)
+    - "# Or with environment variable"
+    - "# CERADOC_DEBUG=1 ruby script.rb"
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 405
+    children:
+    - type: HighlightElement
+      source_line: 405
+      children: []
+      content: |+2
+         Getting Help
+
+        If you can't resolve the issue:
+
+      constraint: unconstrained
+    - type: TextContent
+      text: "# 1. Check Documentation"
+    content: |-2
+       Getting Help
+
+      If you can't resolve the issue:
+
+      # 1. Check Documentation
+    lines:
+    - |-2
+       Getting Help
+
+      If you can't resolve the issue:
+
+      # 1. Check Documentation
+    callouts: []
+  - type: ListBlock
+    source_line: 411
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 411
+      children:
+      - type: LinkElement
+        source_line: 411
+        children: []
+        content: Core Pages
+        target: "/ceradoc/pages/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/"
+          label: Core Pages
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Conceptual documentation"
+      marker: "*"
+      content: Core Pages - Conceptual documentation
+    - type: ListItem
+      source_line: 412
+      children:
+      - type: LinkElement
+        source_line: 412
+        children: []
+        content: Guides
+        target: "/ceradoc/guides/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/"
+          label: Guides
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Task-oriented help"
+      marker: "*"
+      content: Guides - Task-oriented help
+    - type: ListItem
+      source_line: 413
+      children:
+      - type: LinkElement
+        source_line: 413
+        children: []
+        content: API Reference
+        target: "/ceradoc/references/api-reference"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/references/api-reference"
+          label: API Reference
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Complete API"
+      marker: "*"
+      content: API Reference - Complete API
+  - type: ParagraphBlock
+    source_line: 415
+    children:
+    - type: TextContent
+      text: "#"
+    - type: HighlightElement
+      source_line: 415
+      children: []
+      content: |+2
+         2. Search Issues
+
+        https://github.com/ceradoc/ceradoc/issues[GitHub Issues]
+
+      constraint: unconstrained
+    - type: TextContent
+      text: "# 3. Ask for Help"
+    content: |-
+      # 2. Search Issues
+
+      https://github.com/ceradoc/ceradoc/issues[GitHub Issues]
+
+      # 3. Ask for Help
+    lines:
+    - |-
+      # 2. Search Issues
+
+      https://github.com/ceradoc/ceradoc/issues[GitHub Issues]
+
+      # 3. Ask for Help
+    callouts: []
+  - type: ListBlock
+    source_line: 421
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 421
+      children:
+      - type: TextContent
+        text: Create a minimal reproducible example
+      marker: "*"
+      content: Create a minimal reproducible example
+    - type: ListItem
+      source_line: 422
+      children:
+      - type: TextContent
+        text: Include Ceradoc version (
+      - type: MonospaceElement
+        source_line: 422
+        children: []
+        content: Ceradoc::VERSION
+        constraint: constrained
+      - type: TextContent
+        text: ")"
+      marker: "*"
+      content: Include Ceradoc version (Ceradoc::VERSION)
+    - type: ListItem
+      source_line: 423
+      children:
+      - type: TextContent
+        text: Include error messages and stack traces
+      marker: "*"
+      content: Include error messages and stack traces
+    - type: ListItem
+      source_line: 424
+      children:
+      - type: TextContent
+        text: Describe what you expected vs. what happened
+      marker: "*"
+      content: Describe what you expected vs. what happened
+  - type: ParagraphBlock
+    source_line: 426
+    children:
+    - type: TextContent
+      text: "#"
+    - type: HighlightElement
+      source_line: 426
+      children: []
+      content: |+2
+         4. Report a Bug
+
+        If you've found a bug:
+
+        1. Search existing issues first
+        2. Create a minimal example that reproduces the issue
+        3. Include the example in the bug report
+        4. Tag with `bug` label
+
+      constraint: unconstrained
+    - type: TextContent
+      text: " Preventive Measures"
+    content: |-
+      # 4. Report a Bug
+
+      If you've found a bug:
+
+      1. Search existing issues first
+      2. Create a minimal example that reproduces the issue
+      3. Include the example in the bug report
+      4. Tag with `bug` label
+
+       Preventive Measures
+    lines:
+    - |-
+      # 4. Report a Bug
+
+      If you've found a bug:
+
+      1. Search existing issues first
+      2. Create a minimal example that reproduces the issue
+      3. Include the example in the bug report
+      4. Tag with `bug` label
+
+       Preventive Measures
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 437
+    children:
+    - type: TextContent
+      text: "### Testing Your Setup"
+    content: "### Testing Your Setup"
+    lines:
+    - "### Testing Your Setup"
+    callouts: []
+  - type: SourceBlock
+    source_line: 439
+    children: []
+    content: |-
+      # test_ceradoc.rb
+      require 'ceradoc'
+      # Test basic parsing
+      doc = Ceradoc.parse("= Test\n\nContent")
+      raise "Parsing failed" unless doc.header.title == "Test"
+      # Test serialization
+      output = doc.to_adoc
+      raise "Serialization failed" unless output.include?("Test")
+      puts "All tests passed!"
+    lines:
+    - "# test_ceradoc.rb"
+    - require 'ceradoc'
+    - "# Test basic parsing"
+    - doc = Ceradoc.parse("= Test\n\nContent")
+    - raise "Parsing failed" unless doc.header.title == "Test"
+    - "# Test serialization"
+    - output = doc.to_adoc
+    - raise "Serialization failed" unless output.include?("Test")
+    - puts "All tests passed!"
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 455
+    children:
+    - type: TextContent
+      text: "### Validating Input"
+    content: "### Validating Input"
+    lines:
+    - "### Validating Input"
+    callouts: []
+  - type: SourceBlock
+    source_line: 457
+    children: []
+    content: |-
+      # Validate before parsing
+      def validate_asciidoc(input)
+        # Check for common issues
+        if input.include?("\r")
+          warn "Input contains Windows line endings"
+        end
+        # Check for balanced delimiters
+        delimiter_count = input.scan(/^----$/).count
+        if delimiter_count.odd?
+          warn "Unbalanced delimiters detected"
+        end
+      end
+      validate_asciidoc(input)
+      doc = Ceradoc.parse(input)
+    lines:
+    - "# Validate before parsing"
+    - def validate_asciidoc(input)
+    - "  # Check for common issues"
+    - '  if input.include?("\r")'
+    - '    warn "Input contains Windows line endings"'
+    - "  end"
+    - "  # Check for balanced delimiters"
+    - "  delimiter_count = input.scan(/^----$/).count"
+    - "  if delimiter_count.odd?"
+    - '    warn "Unbalanced delimiters detected"'
+    - "  end"
+    - end
+    - validate_asciidoc(input)
+    - doc = Ceradoc.parse(input)
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 477
+    children:
+    - type: TextContent
+      text: "### Monitoring Resources"
+    content: "### Monitoring Resources"
+    lines:
+    - "### Monitoring Resources"
+    callouts: []
+  - type: SourceBlock
+    source_line: 479
+    children: []
+    content: |-
+      # Monitor memory during processing
+      require 'objspace'
+      GC.start
+      before = ObjectSpace.memsize_of_all
+      doc = Ceradoc.parse_file("large.adoc")
+      GC.start
+      after = ObjectSpace.memsize_of_all
+      puts "Memory used: #{(after - before) / 1024.0 / 1024.0} MB"
+    lines:
+    - "# Monitor memory during processing"
+    - require 'objspace'
+    - GC.start
+    - before = ObjectSpace.memsize_of_all
+    - doc = Ceradoc.parse_file("large.adoc")
+    - GC.start
+    - after = ObjectSpace.memsize_of_all
+    - 'puts "Memory used: #{(after - before) / 1024.0 / 1024.0} MB"'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 495
+    children:
+    - type: HighlightElement
+      source_line: 495
+      children: []
+      content: |+2
+         Summary
+
+        In this guide you learned:
+
+        * How to diagnose common issues
+        * Solutions for frequent problems
+        * How to use debug mode
+        * Where to get help
+        * Preventive measures
+
+      constraint: unconstrained
+    - type: TextContent
+      text: " Related Documentation"
+    content: |-2
+       Summary
+
+      In this guide you learned:
+
+      * How to diagnose common issues
+      * Solutions for frequent problems
+      * How to use debug mode
+      * Where to get help
+      * Preventive measures
+
+       Related Documentation
+    lines:
+    - |-2
+       Summary
+
+      In this guide you learned:
+
+      * How to diagnose common issues
+      * Solutions for frequent problems
+      * How to use debug mode
+      * Where to get help
+      * Preventive measures
+
+       Related Documentation
+    callouts: []
+  - type: ListBlock
+    source_line: 507
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 507
+      children:
+      - type: LinkElement
+        source_line: 507
+        children: []
+        content: Configuration Guide
+        target: "/ceradoc/guides/configuration"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/configuration"
+          label: Configuration Guide
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Configuration options"
+      marker: "*"
+      content: Configuration Guide - Configuration options
+    - type: ListItem
+      source_line: 508
+      children:
+      - type: LinkElement
+        source_line: 508
+        children: []
+        content: Schema System Guide
+        target: "/ceradoc/guides/schema-system"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/schema-system"
+          label: Schema System Guide
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Schema issues"
+      marker: "*"
+      content: Schema System Guide - Schema issues
+    - type: ListItem
+      source_line: 509
+      children:
+      - type: LinkElement
+        source_line: 509
+        children: []
+        content: API Reference
+        target: "/ceradoc/references/api-reference"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/references/api-reference"
+          label: API Reference
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - API details"
+      marker: "*"
+      content: API Reference - API details
+    - type: ListItem
+      source_line: 510
+      children:
+      - type: LinkElement
+        source_line: 510
+        children: []
+        content: GitHub Issues
+        target: https://github.com/ceradoc/ceradoc/issues
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://github.com/ceradoc/ceradoc/issues
+          label: GitHub Issues
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: GitHub Issues
+  - type: ParagraphBlock
+    source_line: 512
+    children:
+    - type: TextContent
+      text: "## Bibliography"
+    content: "## Bibliography"
+    lines:
+    - "## Bibliography"
+    callouts: []
+  - type: ListBlock
+    source_line: 514
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 514
+      children:
+      - type: LinkElement
+        source_line: 514
+        children: []
+        content: Ruby Debugging Guide
+        target: https://www.thegeekstuff.com/2016/01/ruby-debug/
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://www.thegeekstuff.com/2016/01/ruby-debug/
+          label: Ruby Debugging Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: Ruby Debugging Guide
+    - type: ListItem
+      source_line: 515
+      children:
+      - type: LinkElement
+        source_line: 515
+        children: []
+        content: GitHub Markdown Guide
+        target: https://guides.github.com/features/master-markdown/
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://guides.github.com/features/master-markdown/
+          label: GitHub Markdown Guide
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: GitHub Markdown Guide
+attributes:
+  type: Metadata

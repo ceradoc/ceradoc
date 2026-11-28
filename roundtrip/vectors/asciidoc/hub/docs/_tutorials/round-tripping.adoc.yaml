@@ -1,0 +1,1058 @@
+---
+type: DocumentElement
+title: Round-tripping Tutorial
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Round-tripping
+  - type: FrontmatterEntry
+    key: parent
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Tutorials
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 4
+- type: HeaderElement
+  id: _roundtripping_tutorial
+  title: Round-tripping Tutorial
+  level: 0
+  content: Round-tripping Tutorial
+- type: SectionElement
+  id: _purpose
+  title: Purpose
+  source_line: 3
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 5
+    children:
+    - type: TextContent
+      text: This tutorial teaches you about round-trip processing with Ceradoc - parsing
+        a document, serializing it, and parsing again while preserving semantic meaning.
+    content: This tutorial teaches you about round-trip processing with Ceradoc -
+      parsing a document, serializing it, and parsing again while preserving semantic
+      meaning.
+    lines:
+    - This tutorial teaches you about round-trip processing with Ceradoc - parsing
+      a document, serializing it, and parsing again while preserving semantic meaning.
+    callouts: []
+- type: SectionElement
+  id: _prerequisites
+  title: Prerequisites
+  source_line: 7
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 9
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 9
+      children:
+      - type: TextContent
+        text: 'Completed '
+      - type: LinkElement
+        source_line: 9
+        children: []
+        content: Basic Parsing Tutorial
+        target: basic-parsing
+        edges:
+        - kind: link
+          address:
+            scheme: anchor
+            target: basic-parsing
+          label: Basic Parsing Tutorial
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: Completed Basic Parsing Tutorial
+    - type: ListItem
+      source_line: 10
+      children:
+      - type: TextContent
+        text: 'Completed '
+      - type: LinkElement
+        source_line: 10
+        children: []
+        content: Serialization Tutorial
+        target: serialization
+        edges:
+        - kind: link
+          address:
+            scheme: anchor
+            target: serialization
+          label: Serialization Tutorial
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: Completed Serialization Tutorial
+    - type: ListItem
+      source_line: 11
+      children:
+      - type: TextContent
+        text: Understanding of semantic vs. syntactic preservation
+      marker: "*"
+      content: Understanding of semantic vs. syntactic preservation
+- type: SectionElement
+  id: _tutorial_overview
+  title: Tutorial Overview
+  source_line: 13
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 15
+    children:
+    - type: TextContent
+      text: 'You''ll learn to:'
+    content: 'You''ll learn to:'
+    lines:
+    - 'You''ll learn to:'
+    callouts: []
+  - type: ListBlock
+    source_line: 17
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 17
+      children:
+      - type: TextContent
+        text: Understand what round-tripping means
+      marker: "*"
+      content: Understand what round-tripping means
+    - type: ListItem
+      source_line: 18
+      children:
+      - type: TextContent
+        text: Preserve semantic meaning through parse/serialize cycles
+      marker: "*"
+      content: Preserve semantic meaning through parse/serialize cycles
+    - type: ListItem
+      source_line: 19
+      children:
+      - type: TextContent
+        text: Handle common round-trip challenges
+      marker: "*"
+      content: Handle common round-trip challenges
+    - type: ListItem
+      source_line: 20
+      children:
+      - type: TextContent
+        text: Verify semantic equivalence
+      marker: "*"
+      content: Verify semantic equivalence
+- type: SectionElement
+  id: _what_is_roundtripping
+  title: What is Round-tripping?
+  source_line: 22
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 24
+    children:
+    - type: TextContent
+      text: 'Round-tripping is the process of:'
+    content: 'Round-tripping is the process of:'
+    lines:
+    - 'Round-tripping is the process of:'
+    callouts: []
+  - type: ListBlock
+    source_line: 26
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 26
+      children:
+      - type: BoldElement
+        source_line: 26
+        children: []
+        content: Parse
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Convert AsciiDoc text to a Document Model"
+      marker: '1.'
+      content: Parse - Convert AsciiDoc text to a Document Model
+    - type: ListItem
+      source_line: 27
+      children:
+      - type: BoldElement
+        source_line: 27
+        children: []
+        content: Serialize
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Convert the Document Model back to AsciiDoc text"
+      marker: '2.'
+      content: Serialize - Convert the Document Model back to AsciiDoc text
+    - type: ListItem
+      source_line: 28
+      children:
+      - type: BoldElement
+        source_line: 28
+        children: []
+        content: Re-parse
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Parse the serialized output again"
+      marker: '3.'
+      content: Re-parse - Parse the serialized output again
+  - type: ParagraphBlock
+    source_line: 30
+    children:
+    - type: TextContent
+      text: The goal is that the semantic meaning remains the same, even if the exact
+        formatting differs.
+    content: The goal is that the semantic meaning remains the same, even if the exact
+      formatting differs.
+    lines:
+    - The goal is that the semantic meaning remains the same, even if the exact formatting
+      differs.
+    callouts: []
+  - type: SectionElement
+    id: _what_is_roundtripping_semantic_vs_syntactic_preservation
+    title: Semantic vs. Syntactic Preservation
+    source_line: 32
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 34
+      children: []
+      content: |-
+        # Original (syntactic variation)
+        ==  My  Title
+        # After round-trip (normalized)
+        == My Title
+      lines:
+      - "# Original (syntactic variation)"
+      - "==  My  Title"
+      - "# After round-trip (normalized)"
+      - "== My Title"
+      language: ruby
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 43
+      children:
+      - type: TextContent
+        text: 'The '
+      - type: BoldElement
+        source_line: 43
+        children: []
+        content: syntax
+        constraint: constrained
+      - type: TextContent
+        text: " differs (spacing), but the "
+      - type: BoldElement
+        source_line: 43
+        children: []
+        content: semantics
+        constraint: constrained
+      - type: TextContent
+        text: ' are identical (level-2 heading "My Title").'
+      content: The syntax differs (spacing), but the semantics are identical (level-2
+        heading "My Title").
+      lines:
+      - The syntax differs (spacing), but the semantics are identical (level-2 heading
+        "My Title").
+      callouts: []
+- type: SectionElement
+  id: _example_1_basic_roundtrip
+  title: 'Example 1: Basic Round-trip'
+  source_line: 45
+  level: 1
+  children:
+  - type: SectionElement
+    id: _example_1_basic_roundtrip_the_code
+    title: The Code
+    source_line: 47
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 49
+      children: []
+      content: |-
+        require 'ceradoc'
+        original = <<~ASCIIDOC
+          = Document Title
+          == Section One
+          This is a paragraph with *bold* and _italic_ text.
+          * List item 1
+          * List item 2
+        ASCIIDOC
+        # Parse
+        doc1 = Ceradoc.parse(original)
+        # Serialize
+        serialized = doc1.to_adoc
+        # Parse again
+        doc2 = Ceradoc.parse(serialized)
+        # Compare
+        puts "Original title: #{doc1.header.title}"
+        puts "Re-parsed title: #{doc2.header.title}"
+        puts "\nOriginal sections: #{doc1.sections.size}"
+        puts "Re-parsed sections: #{doc2.sections.size}"
+        puts "\nSerialized output:"
+        puts serialized
+      lines:
+      - require 'ceradoc'
+      - original = <<~ASCIIDOC
+      - "  = Document Title"
+      - "  == Section One"
+      - "  This is a paragraph with *bold* and _italic_ text."
+      - "  * List item 1"
+      - "  * List item 2"
+      - ASCIIDOC
+      - "# Parse"
+      - doc1 = Ceradoc.parse(original)
+      - "# Serialize"
+      - serialized = doc1.to_adoc
+      - "# Parse again"
+      - doc2 = Ceradoc.parse(serialized)
+      - "# Compare"
+      - 'puts "Original title: #{doc1.header.title}"'
+      - 'puts "Re-parsed title: #{doc2.header.title}"'
+      - 'puts "\nOriginal sections: #{doc1.sections.size}"'
+      - 'puts "Re-parsed sections: #{doc2.sections.size}"'
+      - puts "\nSerialized output:"
+      - puts serialized
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _example_1_basic_roundtrip_what_it_does
+    title: What It Does
+    source_line: 84
+    level: 2
+    children:
+    - type: ListBlock
+      source_line: 86
+      marker_type: ordered
+      items:
+      - type: ListItem
+        source_line: 86
+        children:
+        - type: TextContent
+          text: Parses the original document
+        marker: '1.'
+        content: Parses the original document
+      - type: ListItem
+        source_line: 87
+        children:
+        - type: TextContent
+          text: Serializes it back to AsciiDoc
+        marker: '2.'
+        content: Serializes it back to AsciiDoc
+      - type: ListItem
+        source_line: 88
+        children:
+        - type: TextContent
+          text: Parses the serialized output
+        marker: '3.'
+        content: Parses the serialized output
+      - type: ListItem
+        source_line: 89
+        children:
+        - type: TextContent
+          text: Compares key properties
+        marker: '4.'
+        content: Compares key properties
+  - type: SectionElement
+    id: _example_1_basic_roundtrip_expected_output
+    title: Expected Output
+    source_line: 91
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 93
+      children: []
+      content: |-
+        Original title: Document Title
+        Re-parsed title: Document Title
+        Original sections: 1
+        Re-parsed sections: 1
+        Serialized output:
+        = Document Title
+        == Section One
+        This is a paragraph with *bold* and _italic_ text.
+        * List item 1
+        * List item 2
+      lines:
+      - 'Original title: Document Title'
+      - 'Re-parsed title: Document Title'
+      - 'Original sections: 1'
+      - 'Re-parsed sections: 1'
+      - 'Serialized output:'
+      - "= Document Title"
+      - "== Section One"
+      - This is a paragraph with *bold* and _italic_ text.
+      - "* List item 1"
+      - "* List item 2"
+      callouts: []
+- type: SectionElement
+  id: _example_2_preserving_document_attributes
+  title: 'Example 2: Preserving Document Attributes'
+  source_line: 111
+  level: 1
+  children:
+  - type: SectionElement
+    id: _example_2_preserving_document_attributes_the_code
+    title: The Code
+    source_line: 113
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 115
+      children: []
+      content: |-
+        require 'ceradoc'
+        original = <<~ASCIIDOC
+          = Document Title
+          :author: John Doe
+          :version: 1.0
+          Content here.
+        ASCIIDOC
+        doc1 = Ceradoc.parse(original)
+        serialized = doc1.to_adoc
+        doc2 = Ceradoc.parse(serialized)
+        puts "Original attributes:"
+        doc1.document_attributes.data.each { |k, v| puts "  #{k}: #{v}" }
+        puts "\nRe-parsed attributes:"
+        doc2.document_attributes.data.each { |k, v| puts "  #{k}: #{v}" }
+        puts "\nAttributes match: #{doc1.document_attributes.data == doc2.document_attributes.data}"
+      lines:
+      - require 'ceradoc'
+      - original = <<~ASCIIDOC
+      - "  = Document Title"
+      - "  :author: John Doe"
+      - "  :version: 1.0"
+      - "  Content here."
+      - ASCIIDOC
+      - doc1 = Ceradoc.parse(original)
+      - serialized = doc1.to_adoc
+      - doc2 = Ceradoc.parse(serialized)
+      - puts "Original attributes:"
+      - 'doc1.document_attributes.data.each { |k, v| puts "  #{k}: #{v}" }'
+      - puts "\nRe-parsed attributes:"
+      - 'doc2.document_attributes.data.each { |k, v| puts "  #{k}: #{v}" }'
+      - 'puts "\nAttributes match: #{doc1.document_attributes.data == doc2.document_attributes.data}"'
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _example_2_preserving_document_attributes_what_it_does
+    title: What It Does
+    source_line: 140
+    level: 2
+    children:
+    - type: ListBlock
+      source_line: 142
+      marker_type: ordered
+      items:
+      - type: ListItem
+        source_line: 142
+        children:
+        - type: TextContent
+          text: Parses a document with attributes
+        marker: '1.'
+        content: Parses a document with attributes
+      - type: ListItem
+        source_line: 143
+        children:
+        - type: TextContent
+          text: Serializes and re-parses
+        marker: '2.'
+        content: Serializes and re-parses
+      - type: ListItem
+        source_line: 144
+        children:
+        - type: TextContent
+          text: Compares attribute preservation
+        marker: '3.'
+        content: Compares attribute preservation
+  - type: SectionElement
+    id: _example_2_preserving_document_attributes_expected_output
+    title: Expected Output
+    source_line: 146
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 148
+      children: []
+      content: |-
+        Original attributes:
+          author: John Doe
+          version: 1.0
+        Re-parsed attributes:
+          author: John Doe
+          version: 1.0
+        Attributes match: true
+      lines:
+      - 'Original attributes:'
+      - "  author: John Doe"
+      - "  version: 1.0"
+      - 'Re-parsed attributes:'
+      - "  author: John Doe"
+      - "  version: 1.0"
+      - 'Attributes match: true'
+      callouts: []
+- type: SectionElement
+  id: _example_3_preserving_nested_structure
+  title: 'Example 3: Preserving Nested Structure'
+  source_line: 160
+  level: 1
+  children:
+  - type: SectionElement
+    id: _example_3_preserving_nested_structure_the_code
+    title: The Code
+    source_line: 162
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 164
+      children: []
+      content: |-
+        require 'ceradoc'
+        original = <<~ASCIIDOC
+          = Main
+          == Section 1
+          === Subsection 1.1
+          Content in 1.1
+          === Subsection 1.2
+          Content in 1.2
+          == Section 2
+          Content in section 2.
+        ASCIIDOC
+        doc1 = Ceradoc.parse(original)
+        serialized = doc1.to_adoc
+        doc2 = Ceradoc.parse(serialized)
+        def count_sections(doc)
+          count = 0
+          doc.sections.each do |s|
+            next unless s.is_a?(Ceradoc::Model::Section)
+            count += 1
+            count += count_sections(s)
+          end
+          count
+        end
+        puts "Original section count: #{count_sections(doc1)}"
+        puts "Re-parsed section count: #{count_sections(doc2)}"
+      lines:
+      - require 'ceradoc'
+      - original = <<~ASCIIDOC
+      - "  = Main"
+      - "  == Section 1"
+      - "  === Subsection 1.1"
+      - "  Content in 1.1"
+      - "  === Subsection 1.2"
+      - "  Content in 1.2"
+      - "  == Section 2"
+      - "  Content in section 2."
+      - ASCIIDOC
+      - doc1 = Ceradoc.parse(original)
+      - serialized = doc1.to_adoc
+      - doc2 = Ceradoc.parse(serialized)
+      - def count_sections(doc)
+      - "  count = 0"
+      - "  doc.sections.each do |s|"
+      - "    next unless s.is_a?(Ceradoc::Model::Section)"
+      - "    count += 1"
+      - "    count += count_sections(s)"
+      - "  end"
+      - "  count"
+      - end
+      - 'puts "Original section count: #{count_sections(doc1)}"'
+      - 'puts "Re-parsed section count: #{count_sections(doc2)}"'
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _example_3_preserving_nested_structure_what_it_does
+    title: What It Does
+    source_line: 204
+    level: 2
+    children:
+    - type: ListBlock
+      source_line: 206
+      marker_type: ordered
+      items:
+      - type: ListItem
+        source_line: 206
+        children:
+        - type: TextContent
+          text: Parses a document with nested sections
+        marker: '1.'
+        content: Parses a document with nested sections
+      - type: ListItem
+        source_line: 207
+        children:
+        - type: TextContent
+          text: Serializes and re-parses
+        marker: '2.'
+        content: Serializes and re-parses
+      - type: ListItem
+        source_line: 208
+        children:
+        - type: TextContent
+          text: Recursively counts sections in both versions
+        marker: '3.'
+        content: Recursively counts sections in both versions
+  - type: SectionElement
+    id: _example_3_preserving_nested_structure_expected_output
+    title: Expected Output
+    source_line: 210
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 212
+      children: []
+      content: |-
+        Original section count: 4
+        Re-parsed section count: 4
+      lines:
+      - 'Original section count: 4'
+      - 'Re-parsed section count: 4'
+      callouts: []
+- type: SectionElement
+  id: _example_4_preserving_block_types
+  title: 'Example 4: Preserving Block Types'
+  source_line: 217
+  level: 1
+  children:
+  - type: SectionElement
+    id: _example_4_preserving_block_types_the_code
+    title: The Code
+    source_line: 219
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 221
+      children: []
+      content: |-
+        require 'ceradoc'
+        original = <<~ASCIIDOC
+          = Blocks
+          [source,ruby]
+          ----
+          def hello
+            puts "world"
+          end
+          ----
+          ____
+          Quote block.
+          ____
+          NOTE: Admonition block.
+        ASCIIDOC
+        doc1 = Ceradoc.parse(original)
+        serialized = doc1.to_adoc
+        doc2 = Ceradoc.parse(serialized)
+        def block_types(doc)
+          section = doc.sections.find { |s| s.is_a?(Ceradoc::Model::Section) }
+          return [] unless section
+          section.contents.map { |b| b.class.name }
+        end
+        puts "Original block types: #{block_types(doc1).join(', ')}"
+        puts "Re-parsed block types: #{block_types(doc2).join(', ')}"
+      lines:
+      - require 'ceradoc'
+      - original = <<~ASCIIDOC
+      - "  = Blocks"
+      - "  [source,ruby]"
+      - "  ----"
+      - "  def hello"
+      - '    puts "world"'
+      - "  end"
+      - "  ----"
+      - "  ____"
+      - "  Quote block."
+      - "  ____"
+      - "  NOTE: Admonition block."
+      - ASCIIDOC
+      - doc1 = Ceradoc.parse(original)
+      - serialized = doc1.to_adoc
+      - doc2 = Ceradoc.parse(serialized)
+      - def block_types(doc)
+      - "  section = doc.sections.find { |s| s.is_a?(Ceradoc::Model::Section) }"
+      - "  return [] unless section"
+      - "  section.contents.map { |b| b.class.name }"
+      - end
+      - 'puts "Original block types: #{block_types(doc1).join('', '')}"'
+      - 'puts "Re-parsed block types: #{block_types(doc2).join('', '')}"'
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _example_4_preserving_block_types_what_it_does
+    title: What It Does
+    source_line: 256
+    level: 2
+    children:
+    - type: ListBlock
+      source_line: 258
+      marker_type: ordered
+      items:
+      - type: ListItem
+        source_line: 258
+        children:
+        - type: TextContent
+          text: Parses a document with different block types
+        marker: '1.'
+        content: Parses a document with different block types
+      - type: ListItem
+        source_line: 259
+        children:
+        - type: TextContent
+          text: Serializes and re-parses
+        marker: '2.'
+        content: Serializes and re-parses
+      - type: ListItem
+        source_line: 260
+        children:
+        - type: TextContent
+          text: Compares block type preservation
+        marker: '3.'
+        content: Compares block type preservation
+  - type: SectionElement
+    id: _example_4_preserving_block_types_expected_output
+    title: Expected Output
+    source_line: 262
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 264
+      children: []
+      content: |-
+        Original block types: Ceradoc::Model::Block::Listing, Ceradoc::Model::Block::Quote, Ceradoc::Model::Admonition
+        Re-parsed block types: Ceradoc::Model::Block::Listing, Ceradoc::Model::Block::Quote, Ceradoc::Model::Admonition
+      lines:
+      - 'Original block types: Ceradoc::Model::Block::Listing, Ceradoc::Model::Block::Quote,
+        Ceradoc::Model::Admonition'
+      - 'Re-parsed block types: Ceradoc::Model::Block::Listing, Ceradoc::Model::Block::Quote,
+        Ceradoc::Model::Admonition'
+      callouts: []
+- type: SectionElement
+  id: _roundtrip_considerations
+  title: Round-trip Considerations
+  source_line: 269
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 271
+    children:
+    - type: TextContent
+      text: "#"
+    - type: HighlightElement
+      source_line: 271
+      children: []
+      content: |+2
+         What Gets Preserved
+
+        * Semantic structure (sections, blocks, lists)
+        * Text content
+        * Inline formatting (bold, italic, links)
+        * Document attributes
+        * Block attributes
+
+      constraint: unconstrained
+    - type: TextContent
+      text: "# What May Change"
+    content: |-
+      # What Gets Preserved
+
+      * Semantic structure (sections, blocks, lists)
+      * Text content
+      * Inline formatting (bold, italic, links)
+      * Document attributes
+      * Block attributes
+
+      # What May Change
+    lines:
+    - |-
+      # What Gets Preserved
+
+      * Semantic structure (sections, blocks, lists)
+      * Text content
+      * Inline formatting (bold, italic, links)
+      * Document attributes
+      * Block attributes
+
+      # What May Change
+    callouts: []
+  - type: ListBlock
+    source_line: 281
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 281
+      children:
+      - type: TextContent
+        text: Whitespace normalization
+      marker: "*"
+      content: Whitespace normalization
+    - type: ListItem
+      source_line: 282
+      children:
+      - type: TextContent
+        text: Attribute order
+      marker: "*"
+      content: Attribute order
+    - type: ListItem
+      source_line: 283
+      children:
+      - type: TextContent
+        text: Delimiter length (for equivalent delimiters)
+      marker: "*"
+      content: Delimiter length (for equivalent delimiters)
+    - type: ListItem
+      source_line: 284
+      children:
+      - type: TextContent
+        text: Quote style (when equivalent)
+      marker: "*"
+      content: Quote style (when equivalent)
+  - type: ParagraphBlock
+    source_line: 286
+    children:
+    - type: TextContent
+      text: "#"
+    - type: HighlightElement
+      source_line: 286
+      children: []
+      content: |+2
+         What May Not Round-trip
+
+        * Unrecognized features
+        * Complex macro expansions
+        * Conditional processing directives
+
+      constraint: unconstrained
+    - type: TextContent
+      text: " Verifying Semantic Equivalence"
+    content: |-
+      # What May Not Round-trip
+
+      * Unrecognized features
+      * Complex macro expansions
+      * Conditional processing directives
+
+       Verifying Semantic Equivalence
+    lines:
+    - |-
+      # What May Not Round-trip
+
+      * Unrecognized features
+      * Complex macro expansions
+      * Conditional processing directives
+
+       Verifying Semantic Equivalence
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 294
+    children:
+    - type: TextContent
+      text: 'To verify round-trip success:'
+    content: 'To verify round-trip success:'
+    lines:
+    - 'To verify round-trip success:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 296
+    children: []
+    content: |-
+      def equivalent_models?(doc1, doc2)
+        # Compare structure
+        return false if doc1.header.title != doc2.header.title
+        return false if doc1.sections.size != doc2.sections.size
+        # Compare attributes
+        return false if doc1.document_attributes.data != doc2.document_attributes.data
+        true
+      rescue
+        false
+      end
+      original = "= Title\n\nContent"
+      doc1 = Ceradoc.parse(original)
+      serialized = doc1.to_adoc
+      doc2 = Ceradoc.parse(serialized)
+      puts "Equivalent: #{equivalent_models?(doc1, doc2)}"
+    lines:
+    - def equivalent_models?(doc1, doc2)
+    - "  # Compare structure"
+    - "  return false if doc1.header.title != doc2.header.title"
+    - "  return false if doc1.sections.size != doc2.sections.size"
+    - "  # Compare attributes"
+    - "  return false if doc1.document_attributes.data != doc2.document_attributes.data"
+    - "  true"
+    - rescue
+    - "  false"
+    - end
+    - original = "= Title\n\nContent"
+    - doc1 = Ceradoc.parse(original)
+    - serialized = doc1.to_adoc
+    - doc2 = Ceradoc.parse(serialized)
+    - 'puts "Equivalent: #{equivalent_models?(doc1, doc2)}"'
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 319
+    children:
+    - type: HighlightElement
+      source_line: 319
+      children: []
+      content: |+2
+         Summary
+
+        In this tutorial you learned:
+
+        * What round-tripping means
+        * How semantic meaning is preserved
+        * What may change during round-trip
+        * How to verify semantic equivalence
+
+      constraint: unconstrained
+    - type: TextContent
+      text: " Exercises"
+    content: |-2
+       Summary
+
+      In this tutorial you learned:
+
+      * What round-tripping means
+      * How semantic meaning is preserved
+      * What may change during round-trip
+      * How to verify semantic equivalence
+
+       Exercises
+    lines:
+    - |-2
+       Summary
+
+      In this tutorial you learned:
+
+      * What round-tripping means
+      * How semantic meaning is preserved
+      * What may change during round-trip
+      * How to verify semantic equivalence
+
+       Exercises
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 330
+    children:
+    - type: TextContent
+      text: 'Practice your skills:'
+    content: 'Practice your skills:'
+    lines:
+    - 'Practice your skills:'
+    callouts: []
+  - type: ListBlock
+    source_line: 332
+    marker_type: ordered
+    items:
+    - type: ListItem
+      source_line: 332
+      children:
+      - type: TextContent
+        text: Round-trip a complex document and inspect the differences
+      marker: '1.'
+      content: Round-trip a complex document and inspect the differences
+    - type: ListItem
+      source_line: 333
+      children:
+      - type: TextContent
+        text: Write a function that compares two document models for equivalence
+      marker: '2.'
+      content: Write a function that compares two document models for equivalence
+    - type: ListItem
+      source_line: 334
+      children:
+      - type: TextContent
+        text: Test round-tripping with tables and nested lists
+      marker: '3.'
+      content: Test round-tripping with tables and nested lists
+    - type: ListItem
+      source_line: 335
+      children:
+      - type: TextContent
+        text: Identify features that don't round-trip successfully
+      marker: '4.'
+      content: Identify features that don't round-trip successfully
+  - type: ParagraphBlock
+    source_line: 337
+    children:
+    - type: HighlightElement
+      source_line: 337
+      children: []
+      content: |+2
+         Next Steps
+
+        * link:html-conversion[HTML Conversion Tutorial] - Converting other formats
+        * link:/ceradoc/pages/architecture[Architecture] - Understanding the transformation layer
+        * link:/ceradoc/guides/troubleshooting[Troubleshooting] - Common issues
+
+      constraint: unconstrained
+    - type: TextContent
+      text: " Bibliography"
+    content: |-2
+       Next Steps
+
+      * link:html-conversion[HTML Conversion Tutorial] - Converting other formats
+      * link:/ceradoc/pages/architecture[Architecture] - Understanding the transformation layer
+      * link:/ceradoc/guides/troubleshooting[Troubleshooting] - Common issues
+
+       Bibliography
+    lines:
+    - |-2
+       Next Steps
+
+      * link:html-conversion[HTML Conversion Tutorial] - Converting other formats
+      * link:/ceradoc/pages/architecture[Architecture] - Understanding the transformation layer
+      * link:/ceradoc/guides/troubleshooting[Troubleshooting] - Common issues
+
+       Bibliography
+    callouts: []
+  - type: ListBlock
+    source_line: 345
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 345
+      children:
+      - type: LinkElement
+        source_line: 345
+        children: []
+        content: Round-trip protocols
+        target: https://en.wikipedia.org/wiki/Routing_Information_Protocol
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://en.wikipedia.org/wiki/Routing_Information_Protocol
+          label: Round-trip protocols
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: Round-trip protocols
+    - type: ListItem
+      source_line: 346
+      children:
+      - type: LinkElement
+        source_line: 346
+        children: []
+        content: AsciiDoc Syntax Reference
+        target: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+          label: AsciiDoc Syntax Reference
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: AsciiDoc Syntax Reference
+attributes:
+  type: Metadata

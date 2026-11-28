@@ -1,0 +1,271 @@
+---
+type: DocumentElement
+title: '15: 14 CoreModel typed Block subclasses have no specs'
+children:
+- type: SectionElement
+  title: '15: 14 CoreModel typed Block subclasses have no specs'
+  level: 1
+  children: []
+- type: SectionElement
+  title: 'Status: FIXED'
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 14 of 34 CoreModel classes lack dedicated spec files
+    marker: "*"
+    content: 14 of 34 CoreModel classes lack dedicated spec files
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Typed block subclasses define '
+    - type: MonospaceElement
+      children: []
+      content: semantic_type
+    - type: TextContent
+      text: " but have no test coverage"
+    marker: "*"
+    content: Typed block subclasses define `semantic_type` but have no test coverage
+- type: ParagraphBlock
+  children:
+  - type: BoldElement
+    children: []
+    content: 'Severity:'
+  - type: TextContent
+    text: " MEDIUM"
+  - type: TextContent
+    text: "\n"
+  - type: BoldElement
+    children: []
+    content: 'Location:'
+  - type: TextContent
+    text: " "
+  - type: MonospaceElement
+    children: []
+    content: spec/core_model/
+  content: |-
+    **Severity:** MEDIUM
+    **Location:** `spec/core_model/`
+  callouts: []
+- type: SectionElement
+  title: Missing Specs
+  level: 2
+  children: []
+- type: Table
+  rows:
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: Class
+      header: true
+    - type: TableCell
+      children: []
+      content: File
+      header: true
+    header: true
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`CommentBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/comment_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`ExampleBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/example_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`HorizontalRuleBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/horizontal_rule_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`ListingBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/listing_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`LiteralBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/literal_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`OpenBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/open_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`ParagraphBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/paragraph_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`PassBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/pass_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`QuoteBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/quote_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`ReviewerBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/reviewer_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`SidebarBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/sidebar_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`SourceBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/source_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`VerseBlock`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/verse_block.rb`"
+      header: false
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: "`DefinitionItem`"
+      header: false
+    - type: TableCell
+      children: []
+      content: "`lib/ceradoc/core_model/definition_item.rb`"
+      header: false
+- type: SectionElement
+  title: Fix
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Create a single spec file '
+  - type: MonospaceElement
+    children: []
+    content: spec/core_model/typed_blocks_spec.rb
+  - type: TextContent
+    text: " covering all typed block subclasses. Each should test:"
+  content: 'Create a single spec file `spec/core_model/typed_blocks_spec.rb` covering
+    all typed block subclasses. Each should test:'
+  callouts: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Inherits from '
+    - type: MonospaceElement
+      children: []
+      content: Block
+    marker: "*"
+    content: Inherits from `Block`
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: semantic_type
+    - type: TextContent
+      text: " returns the correct symbol"
+    marker: "*"
+    content: "`semantic_type` returns the correct symbol"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: element_type
+    - type: TextContent
+      text: " returns the correct string"
+    marker: "*"
+    content: "`element_type` returns the correct string"
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Can be instantiated with content/attributes
+    marker: "*"
+    content: Can be instantiated with content/attributes
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: comparable_attributes
+    - type: TextContent
+      text: " works correctly"
+    marker: "*"
+    content: "`comparable_attributes` works correctly"

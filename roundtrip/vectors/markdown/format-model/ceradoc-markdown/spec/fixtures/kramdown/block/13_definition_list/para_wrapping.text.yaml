@@ -1,0 +1,23 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: term
+  children:
+  - attributes: []
+    content: term
+- attributes: []
+  text: ": definition"
+  children:
+  - attributes: []
+    content: ": definition"
+- attributes: []
+  text: ": definition"
+  children:
+  - attributes: []
+    content: ": definition"
+- attributes: []
+  text: ": definition"
+  children:
+  - attributes: []
+    content: ": definition"

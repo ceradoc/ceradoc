@@ -1,0 +1,8 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  children: []
+  content: puts 1
+  language: ruby
+  callouts: []

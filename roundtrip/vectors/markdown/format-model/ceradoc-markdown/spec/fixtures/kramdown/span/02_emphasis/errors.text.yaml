@@ -1,0 +1,56 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: This is a *star.
+  children:
+  - attributes: []
+    content: 'This is a '
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: star.
+- attributes: []
+  text: This is a **star.
+  children:
+  - attributes: []
+    content: 'This is a '
+  - attributes: []
+    content: "**"
+  - attributes: []
+    content: star.
+- attributes: []
+  text: This is **a *star*.
+  children:
+  - attributes: []
+    content: 'This is '
+  - attributes: []
+    content: "**"
+  - attributes: []
+    content: 'a '
+  - attributes: []
+    text: star
+  - attributes: []
+    content: "."
+- attributes: []
+  text: This is *a star\*.
+  children:
+  - attributes: []
+    content: 'This is '
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: a star*.
+- attributes: []
+  text: This** is** a star.
+  children:
+  - attributes: []
+    content: This
+  - attributes: []
+    content: "**"
+  - attributes: []
+    content: " is"
+  - attributes: []
+    content: "**"
+  - attributes: []
+    content: " a star."

@@ -1,0 +1,48 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: "<!--comment-->"
+  children:
+  - attributes: []
+    content: "<!--comment-->"
+- attributes: []
+  text: para1
+  children:
+  - attributes: []
+    content: para1
+- attributes: []
+  text: "<!-- Comment -->"
+  children:
+  - attributes: []
+    content: "<!-- Comment -->"
+- attributes: []
+  text: para2
+  children:
+  - attributes: []
+    content: para2
+- attributes: []
+  text: |-
+    <!--
+    Blah
+    Blah
+    --> para
+  children:
+  - attributes: []
+    content: "<!--"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Blah
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Blah
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "--> para"
+- attributes: []
+  content: |-
+    This is
+    <!-- a comment -->

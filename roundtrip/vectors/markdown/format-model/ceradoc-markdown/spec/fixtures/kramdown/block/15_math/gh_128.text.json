@@ -1,0 +1,1 @@
+{"attributes":[],"blocks":[{"attributes":[],"text":"$$ <script>alert('a')</script> <script>alert('b<')</script> $$","children":[{"attributes":[],"content":"$$ <script>alert('a')</script> <script>alert('b<')</script> $$"}]}]}

@@ -1,0 +1,13 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: No table
+  children:
+  - attributes: []
+    content: No table
+- attributes: []
+  text: "\\| Some \\| thing \\| here"
+  children:
+  - attributes: []
+    content: "| Some | thing | here"

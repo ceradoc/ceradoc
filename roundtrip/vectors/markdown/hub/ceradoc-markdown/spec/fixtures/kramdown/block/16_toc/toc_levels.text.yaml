@@ -1,0 +1,46 @@
+---
+type: DocumentElement
+children:
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Here comes the table of content
+    - type: TextContent
+      text: "\n"
+    - type: TextContent
+      text: "{:toc}"
+    marker: "*"
+    content: |-
+      Here comes the table of content
+      {:toc}
+- type: SectionElement
+  title: Header level 1
+  level: 1
+  children: []
+- type: SectionElement
+  title: Header \\\` level 2
+  level: 2
+  children: []
+- type: SectionElement
+  title: Header level 3
+  level: 3
+  children: []
+- type: SectionElement
+  title: Header level 4
+  level: 4
+  children: []
+- type: SectionElement
+  title: Other header level 1
+  level: 1
+  children: []
+- type: SectionElement
+  title: Other header level 2
+  level: 2
+  children: []
+- type: SectionElement
+  title: Other header level 3
+  level: 3
+  children: []

@@ -1,0 +1,35 @@
+---
+title: Core Pages
+nav_order: 2
+has_children: true
+---
+
+= Core Pages
+
+This section contains the foundational documentation for Ceradoc. These pages explain the core concepts, architecture, and features of the library.
+
+== Overview
+
+The Core Pages are organized to help you understand Ceradoc from multiple perspectives:
+
+* link:/ceradoc/pages/getting-started/[Getting Started] - Begin here if you're new to Ceradoc
+* link:/ceradoc/pages/architecture/[Architecture] - Understand how Ceradoc works internally
+* link:/ceradoc/pages/parsing/[Parsing] - Learn about the parsing layer
+* link:/ceradoc/pages/transformation/[Transformation] - Understand AST to Model conversion
+* link:/ceradoc/pages/model/[Document Model] - Explore the document object model
+* link:/ceradoc/pages/serialization/[Serialization] - Learn about output generation
+
+== Navigation
+
+* link:/ceradoc/pages/getting-started/[Getting Started] - Installation and quick start
+* link:/ceradoc/pages/architecture/[Architecture] - System architecture and data flow
+* link:/ceradoc/pages/parsing/[Parsing] - AsciiDoc parsing with Parslet
+* link:/ceradoc/pages/transformation/[Transformation] - Transformer layer explanation
+* link:/ceradoc/pages/model/[Document Model] - Document model classes
+* link:/ceradoc/pages/serialization/[Serialization] - AsciiDoc serialization
+
+== Related Documentation
+
+* link:/ceradoc/tutorials/[Tutorials] - Hands-on learning with examples
+* link:/ceradoc/guides/[Guides] - Task-oriented documentation
+* link:/ceradoc/references/[References] - Technical specifications

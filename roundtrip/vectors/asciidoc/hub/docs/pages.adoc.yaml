@@ -1,0 +1,386 @@
+---
+type: DocumentElement
+title: Core Pages
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Core Pages
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 2
+  - type: FrontmatterEntry
+    key: has_children
+    value:
+      type: FrontmatterValue
+      value_type: boolean
+      boolean_value: true
+- type: HeaderElement
+  id: _core_pages
+  title: Core Pages
+  level: 0
+  content: Core Pages
+- type: ParagraphBlock
+  source_line: 3
+  children:
+  - type: TextContent
+    text: This section contains the foundational documentation for Ceradoc. These
+      pages explain the core concepts, architecture, and features of the library.
+  content: This section contains the foundational documentation for Ceradoc. These
+    pages explain the core concepts, architecture, and features of the library.
+  lines:
+  - This section contains the foundational documentation for Ceradoc. These pages
+    explain the core concepts, architecture, and features of the library.
+  callouts: []
+- type: SectionElement
+  id: _overview
+  title: Overview
+  source_line: 5
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 7
+    children:
+    - type: TextContent
+      text: 'The Core Pages are organized to help you understand Ceradoc from multiple
+        perspectives:'
+    content: 'The Core Pages are organized to help you understand Ceradoc from multiple
+      perspectives:'
+    lines:
+    - 'The Core Pages are organized to help you understand Ceradoc from multiple perspectives:'
+    callouts: []
+  - type: ListBlock
+    source_line: 9
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 9
+      children:
+      - type: LinkElement
+        source_line: 9
+        children: []
+        content: Getting Started
+        target: "/ceradoc/pages/getting-started/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/getting-started/"
+          label: Getting Started
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Begin here if you're new to Ceradoc"
+      marker: "*"
+      content: Getting Started - Begin here if you're new to Ceradoc
+    - type: ListItem
+      source_line: 10
+      children:
+      - type: LinkElement
+        source_line: 10
+        children: []
+        content: Architecture
+        target: "/ceradoc/pages/architecture/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/architecture/"
+          label: Architecture
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Understand how Ceradoc works internally"
+      marker: "*"
+      content: Architecture - Understand how Ceradoc works internally
+    - type: ListItem
+      source_line: 11
+      children:
+      - type: LinkElement
+        source_line: 11
+        children: []
+        content: Parsing
+        target: "/ceradoc/pages/parsing/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/parsing/"
+          label: Parsing
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Learn about the parsing layer"
+      marker: "*"
+      content: Parsing - Learn about the parsing layer
+    - type: ListItem
+      source_line: 12
+      children:
+      - type: LinkElement
+        source_line: 12
+        children: []
+        content: Transformation
+        target: "/ceradoc/pages/transformation/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/transformation/"
+          label: Transformation
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Understand AST to Model conversion"
+      marker: "*"
+      content: Transformation - Understand AST to Model conversion
+    - type: ListItem
+      source_line: 13
+      children:
+      - type: LinkElement
+        source_line: 13
+        children: []
+        content: Document Model
+        target: "/ceradoc/pages/model/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/model/"
+          label: Document Model
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Explore the document object model"
+      marker: "*"
+      content: Document Model - Explore the document object model
+    - type: ListItem
+      source_line: 14
+      children:
+      - type: LinkElement
+        source_line: 14
+        children: []
+        content: Serialization
+        target: "/ceradoc/pages/serialization/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/serialization/"
+          label: Serialization
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Learn about output generation"
+      marker: "*"
+      content: Serialization - Learn about output generation
+- type: SectionElement
+  id: _navigation
+  title: Navigation
+  source_line: 16
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 18
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 18
+      children:
+      - type: LinkElement
+        source_line: 18
+        children: []
+        content: Getting Started
+        target: "/ceradoc/pages/getting-started/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/getting-started/"
+          label: Getting Started
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Installation and quick start"
+      marker: "*"
+      content: Getting Started - Installation and quick start
+    - type: ListItem
+      source_line: 19
+      children:
+      - type: LinkElement
+        source_line: 19
+        children: []
+        content: Architecture
+        target: "/ceradoc/pages/architecture/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/architecture/"
+          label: Architecture
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - System architecture and data flow"
+      marker: "*"
+      content: Architecture - System architecture and data flow
+    - type: ListItem
+      source_line: 20
+      children:
+      - type: LinkElement
+        source_line: 20
+        children: []
+        content: Parsing
+        target: "/ceradoc/pages/parsing/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/parsing/"
+          label: Parsing
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - AsciiDoc parsing with Parslet"
+      marker: "*"
+      content: Parsing - AsciiDoc parsing with Parslet
+    - type: ListItem
+      source_line: 21
+      children:
+      - type: LinkElement
+        source_line: 21
+        children: []
+        content: Transformation
+        target: "/ceradoc/pages/transformation/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/transformation/"
+          label: Transformation
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Transformer layer explanation"
+      marker: "*"
+      content: Transformation - Transformer layer explanation
+    - type: ListItem
+      source_line: 22
+      children:
+      - type: LinkElement
+        source_line: 22
+        children: []
+        content: Document Model
+        target: "/ceradoc/pages/model/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/model/"
+          label: Document Model
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Document model classes"
+      marker: "*"
+      content: Document Model - Document model classes
+    - type: ListItem
+      source_line: 23
+      children:
+      - type: LinkElement
+        source_line: 23
+        children: []
+        content: Serialization
+        target: "/ceradoc/pages/serialization/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/pages/serialization/"
+          label: Serialization
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - AsciiDoc serialization"
+      marker: "*"
+      content: Serialization - AsciiDoc serialization
+- type: SectionElement
+  id: _related_documentation
+  title: Related Documentation
+  source_line: 25
+  level: 1
+  children:
+  - type: ListBlock
+    source_line: 27
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 27
+      children:
+      - type: LinkElement
+        source_line: 27
+        children: []
+        content: Tutorials
+        target: "/ceradoc/tutorials/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/tutorials/"
+          label: Tutorials
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Hands-on learning with examples"
+      marker: "*"
+      content: Tutorials - Hands-on learning with examples
+    - type: ListItem
+      source_line: 28
+      children:
+      - type: LinkElement
+        source_line: 28
+        children: []
+        content: Guides
+        target: "/ceradoc/guides/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/"
+          label: Guides
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Task-oriented documentation"
+      marker: "*"
+      content: Guides - Task-oriented documentation
+    - type: ListItem
+      source_line: 29
+      children:
+      - type: LinkElement
+        source_line: 29
+        children: []
+        content: References
+        target: "/ceradoc/references/"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/references/"
+          label: References
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Technical specifications"
+      marker: "*"
+      content: References - Technical specifications
+attributes:
+  type: Metadata

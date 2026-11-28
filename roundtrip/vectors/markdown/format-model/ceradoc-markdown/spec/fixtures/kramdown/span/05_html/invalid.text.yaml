@@ -1,0 +1,8 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: This is <span>some text
+  children:
+  - attributes: []
+    content: This is <span>some text

@@ -1,0 +1,67 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "{:standalone}"
+  content: |-
+    para
+    {:standalone}
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: Image
+    src: some.jpg
+    alt: standalone image
+    edges:
+    - kind: image_ref
+      address:
+        scheme: path
+        target: some.jpg
+      label: standalone image
+      options:
+        type: ImageRefOptions
+        alt_text: standalone image
+  - type: TextContent
+    text: '{:#id .class key="value" standalone}'
+  content: '![standalone image](some.jpg){:#id .class key="value" standalone}'
+  callouts: []
+- type: ParagraphBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: id
+    value: block-id
+  - type: ElementAttribute
+    name: block-key
+    value: block-value
+  - type: ElementAttribute
+    name: class
+    value: block-class
+  children:
+  - type: Image
+    src: some.jpg
+    alt: standalone image
+    edges:
+    - kind: image_ref
+      address:
+        scheme: path
+        target: some.jpg
+      label: standalone image
+      options:
+        type: ImageRefOptions
+        alt_text: standalone image
+  - type: TextContent
+    text: '{:#id .class key="value" standalone}'
+  content: '![standalone image](some.jpg){:#id .class key="value" standalone}'
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: para
+  content: para
+  callouts: []

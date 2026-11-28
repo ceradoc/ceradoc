@@ -1,0 +1,383 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <table class="examples">
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>Usage</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Output
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>Some "
+  - type: ItalicElement
+    children: []
+    content: data
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Some more
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</table>"
+  content: |-
+    <table class="examples">
+    <tr>
+    <td>Usage</td>
+    <td>
+    Output
+    </td>
+    </tr>
+    <tr>
+    <td>Some *data*</td>
+    <td>
+    Some more
+    </td>
+    </tr>
+    </table>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <table class="examples">
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<thead>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<th>Usage</th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Output
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</thead>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tbody>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>Some "
+  - type: ItalicElement
+    children: []
+    content: data
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Some more
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tbody>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tfoot>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>foot</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: locker
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tfoot>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</table>"
+  content: |-
+    <table class="examples">
+    <thead>
+    <tr>
+    <th>Usage</th>
+    <th>
+    Output
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>Some *data*</td>
+    <td>
+    Some more
+    </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+    <td>foot</td>
+    <td>
+    locker
+    </td>
+    </tr>
+    </tfoot>
+    </table>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <table class="examples">
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: '<td style="text-align: left">Usage</td>'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: '<td style="width: 10em">'
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Output
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: '<td style="text-align: left">Some '
+  - type: ItalicElement
+    children: []
+    content: data
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Some more
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</table>"
+  content: |-
+    <table class="examples">
+    <tr>
+    <td style="text-align: left">Usage</td>
+    <td style="width: 10em">
+    Output
+    </td>
+    </tr>
+    <tr>
+    <td style="text-align: left">Some *data*</td>
+    <td>
+    Some more
+    </td>
+    </tr>
+    </table>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: <table class="examples">
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<th>Usage</th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Output
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>Some "
+  - type: ItalicElement
+    children: []
+    content: data
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: Some more
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</table>"
+  content: |-
+    <table class="examples">
+    <tr>
+    <th>Usage</th>
+    <th>
+    Output
+    </th>
+    </tr>
+    <tr>
+    <td>Some *data*</td>
+    <td>
+    Some more
+    </td>
+    </tr>
+    </table>
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<table>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</table>"
+  content: |-
+    <table>
+    </table>
+  callouts: []

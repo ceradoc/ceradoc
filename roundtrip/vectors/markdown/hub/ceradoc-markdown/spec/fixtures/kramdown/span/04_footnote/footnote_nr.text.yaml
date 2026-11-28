@@ -1,0 +1,17 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: This is a footnote[^ab]. And another[^bc].
+  content: This is a footnote[^ab]. And another[^bc].
+  callouts: []
+- type: Footnote
+  id: ab
+  content: Some text.
+  backlink: true
+- type: Footnote
+  id: bc
+  content: Some other text.
+  backlink: true

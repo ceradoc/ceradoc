@@ -1,0 +1,38 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <dl>
+    <dt>*text*</dt>
+    <dd>
+    para
+    </dd>
+    </dl>
+  children:
+  - attributes: []
+    content: "<dl>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<dt>"
+  - attributes: []
+    text: text
+  - attributes: []
+    content: "</dt>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<dd>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: para
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</dd>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</dl>"

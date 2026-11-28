@@ -1,0 +1,80 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    This should be a <http://www.example.com/> link.
+    This should be a <mailto:john.doe@example.com> link.
+    As should <john.doe@example.com> this.
+    As should <john_doe@example.com> this.
+    As should <CSS@example.com> this.
+    Another ampersand <http://www.example.com/?doit&x=y> link.
+    More entities  <http://www.example.com/?doit&amp;x=&quot;y&z=y>.
+  children:
+  - attributes: []
+    content: This should be a <http://www.example.com/> link.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This should be a <mailto:john.doe@example.com> link.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: As should <john.doe@example.com> this.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: As should <john
+  - attributes: []
+    content: _
+  - attributes: []
+    content: doe@example.com> this.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: As should <CSS@example.com> this.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: Another ampersand <http://www.example.com/?doit&x=y> link.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: '["&", "\""]'
+- attributes: []
+  text: |-
+    Email international <übung@macht.den.meister.de>, <ü.äß@hülse.de>
+    Email invalid: <[me@example.com](mailtos:me@example.com)>
+  children:
+  - attributes: []
+    content: Email international <übung@macht.den.meister.de>, <ü.äß@hülse.de>
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: 'Email invalid: <'
+  - attributes: []
+    text: me@example.com
+    url: mailtos:me@example.com
+  - attributes: []
+    content: ">"
+- attributes: []
+  text: 'Autolink with underscore: <http://www.example.com/with_under_score>'
+  children:
+  - attributes: []
+    content: 'Autolink with underscore: <http://www.example.com/with'
+  - attributes: []
+    content: _
+  - attributes: []
+    content: under
+  - attributes: []
+    content: _
+  - attributes: []
+    content: score>
+- attributes: []
+  text: "<http://www.example.com/>"
+  children:
+  - attributes: []
+    content: "<http://www.example.com/>"
+- attributes: []
+  term: CSS
+  definition: Cascading

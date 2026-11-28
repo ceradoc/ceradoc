@@ -1,0 +1,28 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: "[Header]"
+- attributes: []
+  level: 1
+  text: "[Header]"
+- attributes: []
+  text: "[header]: test.html"
+  children:
+  - attributes: []
+    content: "[header]: test.html"
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: |-
+      toc
+      {:toc}
+    children:
+    - attributes: []
+      content: toc
+    - attributes: []
+      content: "\n"
+    - attributes: []
+      content: "{:toc}"

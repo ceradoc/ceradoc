@@ -1,0 +1,123 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: "\\\\"
+  children:
+  - attributes: []
+    content: "\\"
+- attributes: []
+  text: "\\."
+  children:
+  - attributes: []
+    content: "."
+- attributes: []
+  text: "\\*"
+  children:
+  - attributes: []
+    content: "*"
+- attributes: []
+  text: "\\_"
+  children:
+  - attributes: []
+    content: _
+- attributes: []
+  text: "\\+"
+  children:
+  - attributes: []
+    content: "+"
+- attributes: []
+  text: "\\-"
+  children:
+  - attributes: []
+    content: "-"
+- attributes: []
+  text: "\\`"
+  children:
+  - attributes: []
+    content: "`"
+- attributes: []
+  text: "\\("
+  children:
+  - attributes: []
+    content: "("
+- attributes: []
+  text: "\\)"
+  children:
+  - attributes: []
+    content: ")"
+- attributes: []
+  text: "\\["
+  children:
+  - attributes: []
+    content: "["
+- attributes: []
+  text: "\\]"
+  children:
+  - attributes: []
+    content: "]"
+- attributes: []
+  text: "\\{"
+  children:
+  - attributes: []
+    content: "{"
+- attributes: []
+  text: "\\}"
+  children:
+  - attributes: []
+    content: "}"
+- attributes: []
+  text: "\\#"
+  children:
+  - attributes: []
+    content: "#"
+- attributes: []
+  text: "\\!"
+  children:
+  - attributes: []
+    content: "!"
+- attributes: []
+  text: "\\<<"
+  children:
+  - attributes: []
+    content: "<<"
+- attributes: []
+  text: "\\>>"
+  children:
+  - attributes: []
+    content: ">>"
+- attributes: []
+  text: "\\:"
+  children:
+  - attributes: []
+    content: ":"
+- attributes: []
+  text: "\\|"
+  children:
+  - attributes: []
+    content: "|"
+- attributes: []
+  text: \"
+  children:
+  - attributes: []
+    content: '"'
+- attributes: []
+  text: "\\'"
+  children:
+  - attributes: []
+    content: "'"
+- attributes: []
+  text: "\\="
+  children:
+  - attributes: []
+    content: "="
+- attributes: []
+  text: "\\>"
+  children:
+  - attributes: []
+    content: ">"
+- attributes: []
+  text: "\\<"
+  children:
+  - attributes: []
+    content: "<"

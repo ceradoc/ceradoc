@@ -1,0 +1,30 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: |-
+      footnotes will be placed here
+      {:footnotes}
+    children:
+    - attributes: []
+      content: footnotes will be placed here
+    - attributes: []
+      content: "\n"
+    - attributes: []
+      content: "{:footnotes}"
+- attributes: []
+  text: Some para with a[^1] footnote.
+  children:
+  - attributes: []
+    content: Some para with a[^1] footnote.
+- id: '1'
+  attributes: []
+  content: Footnote \\\` text
+- attributes: []
+  text: And another para.
+  children:
+  - attributes: []
+    content: And another para.

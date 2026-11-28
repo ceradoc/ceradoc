@@ -1,0 +1,1270 @@
+---
+type: DocumentElement
+title: Transformation Layer
+children:
+- type: FrontmatterBlock
+  children: []
+  callouts: []
+  entries:
+  - type: FrontmatterEntry
+    key: title
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Transformation
+  - type: FrontmatterEntry
+    key: parent
+    value:
+      type: FrontmatterValue
+      value_type: string
+      string_value: Core Pages
+  - type: FrontmatterEntry
+    key: nav_order
+    value:
+      type: FrontmatterValue
+      value_type: integer
+      integer_value: 4
+- type: HeaderElement
+  id: _transformation_layer
+  title: Transformation Layer
+  level: 0
+  content: Transformation Layer
+- type: SectionElement
+  id: _purpose
+  title: Purpose
+  source_line: 3
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 5
+    children:
+    - type: TextContent
+      text: This page explains the Transformation layer, which converts the Abstract
+        Syntax Tree (AST) produced by the Parser into Ceradoc Model objects. Understanding
+        this layer is important for extending Ceradoc with custom elements.
+    content: This page explains the Transformation layer, which converts the Abstract
+      Syntax Tree (AST) produced by the Parser into Ceradoc Model objects. Understanding
+      this layer is important for extending Ceradoc with custom elements.
+    lines:
+    - This page explains the Transformation layer, which converts the Abstract Syntax
+      Tree (AST) produced by the Parser into Ceradoc Model objects. Understanding
+      this layer is important for extending Ceradoc with custom elements.
+    callouts: []
+- type: SectionElement
+  id: _overview
+  title: Overview
+  source_line: 7
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 9
+    children:
+    - type: TextContent
+      text: 'The Transformation layer is the bridge between the Parser and the Model.
+        While the Parser produces an AST representing the '
+    - type: BoldElement
+      source_line: 9
+      children: []
+      content: syntax
+      constraint: constrained
+    - type: TextContent
+      text: " of AsciiDoc, the Transformer converts this into Model objects representing the "
+    - type: BoldElement
+      source_line: 9
+      children: []
+      content: semantics
+      constraint: constrained
+    - type: TextContent
+      text: " of the document."
+    content: The Transformation layer is the bridge between the Parser and the Model.
+      While the Parser produces an AST representing the syntax of AsciiDoc, the Transformer
+      converts this into Model objects representing the semantics of the document.
+    lines:
+    - The Transformation layer is the bridge between the Parser and the Model. While
+      the Parser produces an AST representing the syntax of AsciiDoc, the Transformer
+      converts this into Model objects representing the semantics of the document.
+    callouts: []
+- type: SectionElement
+  id: _why_a_separate_transformation_layer
+  title: Why a Separate Transformation Layer?
+  source_line: 11
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 13
+    children:
+    - type: TextContent
+      text: 'Separating parsing from transformation provides several benefits:'
+    content: 'Separating parsing from transformation provides several benefits:'
+    lines:
+    - 'Separating parsing from transformation provides several benefits:'
+    callouts: []
+  - type: ListBlock
+    source_line: 15
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 15
+      children:
+      - type: BoldElement
+        source_line: 15
+        children: []
+        content: Clean separation
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Parser rules focus on syntax, transformer on semantics"
+      marker: "*"
+      content: Clean separation - Parser rules focus on syntax, transformer on semantics
+    - type: ListItem
+      source_line: 16
+      children:
+      - type: BoldElement
+        source_line: 16
+        children: []
+        content: Testability
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Each layer can be tested independently"
+      marker: "*"
+      content: Testability - Each layer can be tested independently
+    - type: ListItem
+      source_line: 17
+      children:
+      - type: BoldElement
+        source_line: 17
+        children: []
+        content: Flexibility
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Different parsers could produce the same models"
+      marker: "*"
+      content: Flexibility - Different parsers could produce the same models
+    - type: ListItem
+      source_line: 18
+      children:
+      - type: BoldElement
+        source_line: 18
+        children: []
+        content: Extensibility
+        constraint: unconstrained
+      - type: TextContent
+        text: " - Custom elements can be added without modifying parser"
+      marker: "*"
+      content: Extensibility - Custom elements can be added without modifying parser
+- type: SectionElement
+  id: _document_resolution
+  title: Document Resolution
+  source_line: 20
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 22
+    children:
+    - type: TextContent
+      text: When working with documents that have external references (includes, images,
+        media), you can "freeze" the document to resolve all references.
+    content: When working with documents that have external references (includes,
+      images, media), you can "freeze" the document to resolve all references.
+    lines:
+    - When working with documents that have external references (includes, images,
+      media), you can "freeze" the document to resolve all references.
+    callouts: []
+  - type: SectionElement
+    id: _document_resolution_the_freeze_method
+    title: The `freeze` Method
+    source_line: 24
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 26
+      children:
+      - type: TextContent
+        text: 'The '
+      - type: MonospaceElement
+        source_line: 26
+        children: []
+        content: freeze
+        constraint: constrained
+      - type: TextContent
+        text: " method creates a NEW document with resolved references:"
+      content: 'The freeze method creates a NEW document with resolved references:'
+      lines:
+      - 'The freeze method creates a NEW document with resolved references:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 28
+      children: []
+      content: |-
+        doc = Ceradoc::AsciiDoc.parse(File.read("document.adoc"))
+        # Resolve includes only
+        frozen = doc.freeze(base_dir: "/path/to/docs", includes: true)
+        # Create self-contained document with embedded images
+        frozen = doc.freeze(
+          base_dir: "/path/to/docs",
+          includes: true,
+          images: :embed,
+          output_dir: "/output"
+        )
+      lines:
+      - doc = Ceradoc::AsciiDoc.parse(File.read("document.adoc"))
+      - "# Resolve includes only"
+      - 'frozen = doc.freeze(base_dir: "/path/to/docs", includes: true)'
+      - "# Create self-contained document with embedded images"
+      - frozen = doc.freeze(
+      - '  base_dir: "/path/to/docs",'
+      - "  includes: true,"
+      - "  images: :embed,"
+      - '  output_dir: "/output"'
+      - ")"
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _document_resolution_resolution_strategies
+    title: Resolution Strategies
+    source_line: 44
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 46
+      children:
+      - type: TextContent
+        text: 'For images and media references:'
+      content: 'For images and media references:'
+      lines:
+      - 'For images and media references:'
+      callouts: []
+    - type: Table
+      source_line: 48
+      rows:
+      - type: TableRow
+        cells:
+        - type: TableCell
+          source_line: 50
+          children:
+          - type: TextContent
+            text: Strategy
+          content: Strategy
+        - type: TableCell
+          source_line: 50
+          children:
+          - type: TextContent
+            text: Description
+          content: Description
+        header: true
+      - type: TableRow
+        cells:
+        - type: TableCell
+          source_line: 52
+          children:
+          - type: MonospaceElement
+            source_line: 1
+            children: []
+            content: ":reference"
+            constraint: constrained
+          content: ":reference"
+        - type: TableCell
+          source_line: 53
+          children:
+          - type: TextContent
+            text: Keep path as-is (default)
+          content: Keep path as-is (default)
+        header: false
+      - type: TableRow
+        cells:
+        - type: TableCell
+          source_line: 55
+          children:
+          - type: MonospaceElement
+            source_line: 1
+            children: []
+            content: ":copy"
+            constraint: constrained
+          content: ":copy"
+        - type: TableCell
+          source_line: 56
+          children:
+          - type: TextContent
+            text: Copy file to output directory, update path
+          content: Copy file to output directory, update path
+        header: false
+      - type: TableRow
+        cells:
+        - type: TableCell
+          source_line: 58
+          children:
+          - type: MonospaceElement
+            source_line: 1
+            children: []
+            content: ":embed"
+            constraint: constrained
+          content: ":embed"
+        - type: TableCell
+          source_line: 59
+          children:
+          - type: TextContent
+            text: Embed as data URI (base64) for self-contained output
+          content: Embed as data URI (base64) for self-contained output
+        header: false
+  - type: SectionElement
+    id: _document_resolution_resolution_infrastructure
+    title: Resolution Infrastructure
+    source_line: 62
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 64
+      children:
+      - type: TextContent
+        text: 'The resolution infrastructure provides unified handling for different
+          reference types:'
+      content: 'The resolution infrastructure provides unified handling for different
+        reference types:'
+      lines:
+      - 'The resolution infrastructure provides unified handling for different reference
+        types:'
+      callouts: []
+    - type: ListBlock
+      source_line: 66
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 66
+        children:
+        - type: MonospaceElement
+          source_line: 66
+          children: []
+          content: Resolvable
+          constraint: constrained
+        - type: TextContent
+          text: " module - Interface for resolvable elements"
+        marker: "*"
+        content: Resolvable module - Interface for resolvable elements
+      - type: ListItem
+        source_line: 67
+        children:
+        - type: MonospaceElement
+          source_line: 67
+          children: []
+          content: Resolver
+          constraint: constrained
+        - type: TextContent
+          text: " class - Configurable resolution engine"
+        marker: "*"
+        content: Resolver class - Configurable resolution engine
+      - type: ListItem
+        source_line: 68
+        children:
+        - type: MonospaceElement
+          source_line: 68
+          children: []
+          content: IncludeResolver
+          constraint: constrained
+        - type: TextContent
+          text: " - Handles include directives"
+        marker: "*"
+        content: IncludeResolver - Handles include directives
+      - type: ListItem
+        source_line: 69
+        children:
+        - type: MonospaceElement
+          source_line: 69
+          children: []
+          content: ImageResolver
+          constraint: constrained
+        - type: TextContent
+          text: " - Handles image references"
+        marker: "*"
+        content: ImageResolver - Handles image references
+      - type: ListItem
+        source_line: 70
+        children:
+        - type: MonospaceElement
+          source_line: 70
+          children: []
+          content: MediaResolver
+          constraint: constrained
+        - type: TextContent
+          text: " - Handles video/audio references"
+        marker: "*"
+        content: MediaResolver - Handles video/audio references
+  - type: SectionElement
+    id: _document_resolution_legacy_method
+    title: Legacy Method
+    source_line: 72
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 74
+      children:
+      - type: TextContent
+        text: 'The '
+      - type: MonospaceElement
+        source_line: 74
+        children: []
+        content: expand_includes
+        constraint: constrained
+      - type: TextContent
+        text: " method is preserved for backward compatibility:"
+      content: 'The expand_includes method is preserved for backward compatibility:'
+      lines:
+      - 'The expand_includes method is preserved for backward compatibility:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 76
+      children: []
+      content: |-
+        # Equivalent to freeze(includes: true, images: :reference, media: :reference)
+        expanded = doc.expand_includes("/path/to/docs")
+      lines:
+      - "# Equivalent to freeze(includes: true, images: :reference, media: :reference)"
+      - expanded = doc.expand_includes("/path/to/docs")
+      language: ruby
+      callouts: []
+- type: SectionElement
+  id: _the_transformation_process
+  title: The Transformation Process
+  source_line: 82
+  level: 1
+  children:
+  - type: SectionElement
+    id: _the_transformation_process_ast_structure
+    title: AST Structure
+    source_line: 84
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 86
+      children:
+      - type: TextContent
+        text: 'The Parser produces an AST like:'
+      content: 'The Parser produces an AST like:'
+      lines:
+      - 'The Parser produces an AST like:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 88
+      children: []
+      content: |-
+        {
+          header: { title: "My Document", ... },
+          sections: [
+            { title: { level: 2, content: ["Section 1"] },
+              blocks: [...] }
+          ]
+        }
+      lines:
+      - "{"
+      - '  header: { title: "My Document", ... },'
+      - "  sections: ["
+      - '    { title: { level: 2, content: ["Section 1"] },'
+      - "      blocks: [...] }"
+      - "  ]"
+      - "}"
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _the_transformation_process_model_transformation
+    title: Model Transformation
+    source_line: 99
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 101
+      children:
+      - type: TextContent
+        text: 'The Transformer converts this AST node by node:'
+      content: 'The Transformer converts this AST node by node:'
+      lines:
+      - 'The Transformer converts this AST node by node:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 103
+      children: []
+      content: |-
+        # AST: { title: { level: 2, content: ["Section 1"] } }
+        # Becomes:
+        Ceradoc::Model::Section.new(
+          title: Ceradoc::Model::Title.new(level_int: 2, content: ["Section 1"])
+        )
+      lines:
+      - '# AST: { title: { level: 2, content: ["Section 1"] } }'
+      - "# Becomes:"
+      - Ceradoc::Model::Section.new(
+      - '  title: Ceradoc::Model::Title.new(level_int: 2, content: ["Section 1"])'
+      - ")"
+      language: ruby
+      callouts: []
+- type: SectionElement
+  id: _transformer_architecture
+  title: Transformer Architecture
+  source_line: 112
+  level: 1
+  children:
+  - type: SectionElement
+    id: _transformer_architecture_main_transformer
+    title: Main Transformer
+    source_line: 114
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 116
+      children:
+      - type: BoldElement
+        source_line: 116
+        children: []
+        content: 'Location:'
+        constraint: constrained
+      - type: TextContent
+        text: " "
+      - type: MonospaceElement
+        source_line: 116
+        children: []
+        content: lib/ceradoc/transformer.rb
+        constraint: constrained
+      content: 'Location: lib/ceradoc/transformer.rb'
+      lines:
+      - 'Location: lib/ceradoc/transformer.rb'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 118
+      children:
+      - type: TextContent
+        text: 'The main transformer coordinates the transformation process:'
+      content: 'The main transformer coordinates the transformation process:'
+      lines:
+      - 'The main transformer coordinates the transformation process:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 120
+      children: []
+      content: |-
+        module Ceradoc
+          class Transformer
+            def transform(ast)
+              # Transform document root
+              transform_document(ast)
+            end
+            private
+            def transform_document(ast)
+              # Create Document model
+              # Transform header
+              # Transform sections
+              # Return complete document
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  class Transformer"
+      - "    def transform(ast)"
+      - "      # Transform document root"
+      - "      transform_document(ast)"
+      - "    end"
+      - "    private"
+      - "    def transform_document(ast)"
+      - "      # Create Document model"
+      - "      # Transform header"
+      - "      # Transform sections"
+      - "      # Return complete document"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _transformer_architecture_transformers_router
+    title: Transformers Router
+    source_line: 141
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 143
+      children:
+      - type: BoldElement
+        source_line: 143
+        children: []
+        content: 'Location:'
+        constraint: constrained
+      - type: TextContent
+        text: " "
+      - type: MonospaceElement
+        source_line: 143
+        children: []
+        content: lib/ceradoc/transformer_router.rb
+        constraint: constrained
+      content: 'Location: lib/ceradoc/transformer_router.rb'
+      lines:
+      - 'Location: lib/ceradoc/transformer_router.rb'
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 145
+      children:
+      - type: TextContent
+        text: 'Routes specific AST node types to their corresponding transformers:'
+      content: 'Routes specific AST node types to their corresponding transformers:'
+      lines:
+      - 'Routes specific AST node types to their corresponding transformers:'
+      callouts: []
+    - type: SourceBlock
+      source_line: 147
+      children: []
+      content: |-
+        module Ceradoc
+          class TransformerRouter
+            TRANSFORMERS = {
+              section: SectionTransformer,
+              paragraph: ParagraphTransformer,
+              list: ListTransformer,
+              # ... more transformers
+            }
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  class TransformerRouter"
+      - "    TRANSFORMERS = {"
+      - "      section: SectionTransformer,"
+      - "      paragraph: ParagraphTransformer,"
+      - "      list: ListTransformer,"
+      - "      # ... more transformers"
+      - "    }"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _transformer_architecture_individual_transformers
+    title: Individual Transformers
+    source_line: 161
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 163
+      children:
+      - type: TextContent
+        text: 'Each document type has a dedicated transformer:'
+      content: 'Each document type has a dedicated transformer:'
+      lines:
+      - 'Each document type has a dedicated transformer:'
+      callouts: []
+    - type: ListBlock
+      source_line: 165
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 165
+        children:
+        - type: MonospaceElement
+          source_line: 165
+          children: []
+          content: SectionTransformer
+          constraint: constrained
+        - type: TextContent
+          text: " - Transforms section nodes"
+        marker: "*"
+        content: SectionTransformer - Transforms section nodes
+      - type: ListItem
+        source_line: 166
+        children:
+        - type: MonospaceElement
+          source_line: 166
+          children: []
+          content: ParagraphTransformer
+          constraint: constrained
+        - type: TextContent
+          text: " - Transforms paragraphs"
+        marker: "*"
+        content: ParagraphTransformer - Transforms paragraphs
+      - type: ListItem
+        source_line: 167
+        children:
+        - type: MonospaceElement
+          source_line: 167
+          children: []
+          content: ListTransformer
+          constraint: constrained
+        - type: TextContent
+          text: " - Transforms all list types"
+        marker: "*"
+        content: ListTransformer - Transforms all list types
+      - type: ListItem
+        source_line: 168
+        children:
+        - type: MonospaceElement
+          source_line: 168
+          children: []
+          content: BlockTransformer
+          constraint: constrained
+        - type: TextContent
+          text: " - Transforms delimited blocks"
+        marker: "*"
+        content: BlockTransformer - Transforms delimited blocks
+      - type: ListItem
+        source_line: 169
+        children:
+        - type: MonospaceElement
+          source_line: 169
+          children: []
+          content: InlineTransformer
+          constraint: constrained
+        - type: TextContent
+          text: " - Transforms inline elements"
+        marker: "*"
+        content: InlineTransformer - Transforms inline elements
+- type: SectionElement
+  id: _custom_transformers
+  title: Custom Transformers
+  source_line: 171
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 173
+    children:
+    - type: TextContent
+      text: 'To add a custom transformer for a new element:'
+    content: 'To add a custom transformer for a new element:'
+    lines:
+    - 'To add a custom transformer for a new element:'
+    callouts: []
+  - type: SectionElement
+    id: _custom_transformers_1_create_the_transformer_class
+    title: 1. Create the Transformer Class
+    source_line: 175
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 177
+      children: []
+      content: |-
+        module Ceradoc
+          class Transformer
+            class CustomBlockTransformer
+              def transform(ast_node)
+                Ceradoc::Model::Block::Custom.new(
+                  lines: ast_node[:lines],
+                  attributes: transform_attributes(ast_node[:attributes])
+                )
+              end
+              private
+              def transform_attributes(ast_attributes)
+                # Convert AST attributes to AttributeList
+              end
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  class Transformer"
+      - "    class CustomBlockTransformer"
+      - "      def transform(ast_node)"
+      - "        Ceradoc::Model::Block::Custom.new("
+      - "          lines: ast_node[:lines],"
+      - "          attributes: transform_attributes(ast_node[:attributes])"
+      - "        )"
+      - "      end"
+      - "      private"
+      - "      def transform_attributes(ast_attributes)"
+      - "        # Convert AST attributes to AttributeList"
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _custom_transformers_2_register_the_transformer
+    title: 2. Register the Transformer
+    source_line: 199
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 201
+      children: []
+      content: |-
+        Ceradoc::TransformerRouter::TRANSFORMERS[:custom_block] =
+          Ceradoc::Transformer::CustomBlockTransformer
+      lines:
+      - Ceradoc::TransformerRouter::TRANSFORMERS[:custom_block] =
+      - "  Ceradoc::Transformer::CustomBlockTransformer"
+      language: ruby
+      callouts: []
+  - type: SectionElement
+    id: _custom_transformers_3_create_a_corresponding_model_class
+    title: 3. Create a Corresponding Model Class
+    source_line: 207
+    level: 2
+    children:
+    - type: SourceBlock
+      source_line: 209
+      children: []
+      content: |-
+        module Ceradoc
+          module Model
+            module Block
+              class Custom < Core
+                attribute :lines, :array, default: -> { [] }
+                attribute :attributes, :AttributeList
+              end
+            end
+          end
+        end
+      lines:
+      - module Ceradoc
+      - "  module Model"
+      - "    module Block"
+      - "      class Custom < Core"
+      - "        attribute :lines, :array, default: -> { [] }"
+      - "        attribute :attributes, :AttributeList"
+      - "      end"
+      - "    end"
+      - "  end"
+      - end
+      language: ruby
+      callouts: []
+- type: SectionElement
+  id: _transformer_registry
+  title: Transformer Registry
+  source_line: 223
+  level: 1
+  children:
+  - type: ParagraphBlock
+    source_line: 225
+    children:
+    - type: TextContent
+      text: 'The transformer router maintains a registry of all transformers:'
+    content: 'The transformer router maintains a registry of all transformers:'
+    lines:
+    - 'The transformer router maintains a registry of all transformers:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 227
+    children: []
+    content: |-
+      # Get transformer for a node type
+      transformer = Ceradoc::TransformerRouter.get_transformer(:section)
+      # Transform a node
+      model = transformer.transform(ast_node)
+    lines:
+    - "# Get transformer for a node type"
+    - transformer = Ceradoc::TransformerRouter.get_transformer(:section)
+    - "# Transform a node"
+    - model = transformer.transform(ast_node)
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 236
+    children:
+    - type: HighlightElement
+      source_line: 236
+      children: []
+      content: |+2
+         Transformation Rules
+
+      constraint: unconstrained
+    - type: TextContent
+      text: "# Preserving Semantics"
+    content: |-2
+       Transformation Rules
+
+      # Preserving Semantics
+    lines:
+    - |-2
+       Transformation Rules
+
+      # Preserving Semantics
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 240
+    children:
+    - type: TextContent
+      text: 'The transformer preserves semantic meaning, not necessarily exact formatting:'
+    content: 'The transformer preserves semantic meaning, not necessarily exact formatting:'
+    lines:
+    - 'The transformer preserves semantic meaning, not necessarily exact formatting:'
+    callouts: []
+  - type: ListBlock
+    source_line: 242
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 242
+      children:
+      - type: TextContent
+        text: 'AsciiDoc: '
+      - type: MonospaceElement
+        source_line: 242
+        children: []
+        content: "==  Title  "
+        constraint: constrained
+      - type: TextContent
+        text: " (extra spaces)"
+      marker: "*"
+      content: 'AsciiDoc: ==  Title   (extra spaces)'
+    - type: ListItem
+      source_line: 243
+      children:
+      - type: TextContent
+        text: 'Model: '
+      - type: MonospaceElement
+        source_line: 243
+        children: []
+        content: 'Title.new(content: ["Title"])'
+        constraint: constrained
+      - type: TextContent
+        text: " (normalized)"
+      marker: "*"
+      content: 'Model: Title.new(content: ["Title"]) (normalized)'
+  - type: ParagraphBlock
+    source_line: 245
+    children:
+    - type: TextContent
+      text: "#"
+    - type: HighlightElement
+      source_line: 245
+      children: []
+      content: |+2
+         Handling Ambiguity
+
+        When AST structure is ambiguous, the transformer:
+
+        * Infers type from context
+        * Falls back to default behavior
+        * Logs warnings for uncertain cases
+
+      constraint: unconstrained
+    - type: TextContent
+      text: " Debugging Transformation"
+    content: |-
+      # Handling Ambiguity
+
+      When AST structure is ambiguous, the transformer:
+
+      * Infers type from context
+      * Falls back to default behavior
+      * Logs warnings for uncertain cases
+
+       Debugging Transformation
+    lines:
+    - |-
+      # Handling Ambiguity
+
+      When AST structure is ambiguous, the transformer:
+
+      * Infers type from context
+      * Falls back to default behavior
+      * Logs warnings for uncertain cases
+
+       Debugging Transformation
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 255
+    children:
+    - type: TextContent
+      text: "#"
+    - type: HighlightElement
+      source_line: 255
+      children: []
+      content: |+2
+         Inspect AST
+
+        To see what the parser produces:
+
+        [source,ruby]
+        ----
+        require 'ceradoc/parser'
+
+        parser = Ceradoc::Parser::AsciiDoc.new
+        ast = parser.parse("= Title\n\nContent")
+
+        puts ast.inspect
+        ----
+
+      constraint: unconstrained
+    - type: TextContent
+      text: "# Trace Transformation"
+    content: |-
+      # Inspect AST
+
+      To see what the parser produces:
+
+      [source,ruby]
+      ----
+      require 'ceradoc/parser'
+
+      parser = Ceradoc::Parser::AsciiDoc.new
+      ast = parser.parse("= Title\n\nContent")
+
+      puts ast.inspect
+      ----
+
+      # Trace Transformation
+    lines:
+    - |-
+      # Inspect AST
+
+      To see what the parser produces:
+
+      [source,ruby]
+      ----
+      require 'ceradoc/parser'
+
+      parser = Ceradoc::Parser::AsciiDoc.new
+      ast = parser.parse("= Title\n\nContent")
+
+      puts ast.inspect
+      ----
+
+      # Trace Transformation
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 271
+    children:
+    - type: TextContent
+      text: 'Enable debug output to trace transformation:'
+    content: 'Enable debug output to trace transformation:'
+    lines:
+    - 'Enable debug output to trace transformation:'
+    callouts: []
+  - type: SourceBlock
+    source_line: 273
+    children: []
+    content: |-
+      Ceradoc::Transformer.debug = true
+      doc = Ceradoc.parse(input)
+    lines:
+    - Ceradoc::Transformer.debug = true
+    - doc = Ceradoc.parse(input)
+    language: ruby
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 279
+    children:
+    - type: HighlightElement
+      source_line: 279
+      children: []
+      content: |+2
+         Common Transformation Issues
+
+      constraint: unconstrained
+    - type: TextContent
+      text: "# Missing Transformer"
+    content: |-2
+       Common Transformation Issues
+
+      # Missing Transformer
+    lines:
+    - |-2
+       Common Transformation Issues
+
+      # Missing Transformer
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 283
+    children:
+    - type: BoldElement
+      source_line: 283
+      children: []
+      content: 'Error:'
+      constraint: constrained
+    - type: TextContent
+      text: " "
+    - type: MonospaceElement
+      source_line: 283
+      children: []
+      content: 'No transformer found for node type: :custom'
+      constraint: constrained
+    content: 'Error: No transformer found for node type: :custom'
+    lines:
+    - 'Error: No transformer found for node type: :custom'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 285
+    children:
+    - type: BoldElement
+      source_line: 285
+      children: []
+      content: 'Solution:'
+      constraint: constrained
+    - type: TextContent
+      text: " Register a transformer for the custom node type"
+    content: 'Solution: Register a transformer for the custom node type'
+    lines:
+    - 'Solution: Register a transformer for the custom node type'
+    callouts: []
+  - type: ParagraphBlock
+    source_line: 287
+    children:
+    - type: TextContent
+      text: "#"
+    - type: HighlightElement
+      source_line: 287
+      children: []
+      content: |+2
+         Invalid AST Structure
+
+        *Error:* `Invalid AST node structure for :section`
+
+        *Solution:* Ensure parser produces correct AST structure
+
+        See link:/ceradoc/guides/troubleshooting[Troubleshooting] for more issues.
+
+      constraint: unconstrained
+    - type: TextContent
+      text: " Related Documentation"
+    content: |-
+      # Invalid AST Structure
+
+      *Error:* `Invalid AST node structure for :section`
+
+      *Solution:* Ensure parser produces correct AST structure
+
+      See link:/ceradoc/guides/troubleshooting[Troubleshooting] for more issues.
+
+       Related Documentation
+    lines:
+    - |-
+      # Invalid AST Structure
+
+      *Error:* `Invalid AST node structure for :section`
+
+      *Solution:* Ensure parser produces correct AST structure
+
+      See link:/ceradoc/guides/troubleshooting[Troubleshooting] for more issues.
+
+       Related Documentation
+    callouts: []
+  - type: ListBlock
+    source_line: 297
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 297
+      children:
+      - type: LinkElement
+        source_line: 297
+        children: []
+        content: Architecture
+        target: architecture
+        edges:
+        - kind: link
+          address:
+            scheme: anchor
+            target: architecture
+          label: Architecture
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Overall system architecture"
+      marker: "*"
+      content: Architecture - Overall system architecture
+    - type: ListItem
+      source_line: 298
+      children:
+      - type: LinkElement
+        source_line: 298
+        children: []
+        content: Parsing Layer
+        target: parsing
+        edges:
+        - kind: link
+          address:
+            scheme: anchor
+            target: parsing
+          label: Parsing Layer
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - How AST is produced"
+      marker: "*"
+      content: Parsing Layer - How AST is produced
+    - type: ListItem
+      source_line: 299
+      children:
+      - type: LinkElement
+        source_line: 299
+        children: []
+        content: Document Model
+        target: model
+        edges:
+        - kind: link
+          address:
+            scheme: anchor
+            target: model
+          label: Document Model
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Model object details"
+      marker: "*"
+      content: Document Model - Model object details
+    - type: ListItem
+      source_line: 300
+      children:
+      - type: LinkElement
+        source_line: 300
+        children: []
+        content: Custom Blocks Guide
+        target: "/ceradoc/guides/custom-blocks"
+        edges:
+        - kind: link
+          address:
+            scheme: path
+            target: "/ceradoc/guides/custom-blocks"
+          label: Custom Blocks Guide
+          options:
+            type: LinkOptions
+      - type: TextContent
+        text: " - Creating custom elements"
+      marker: "*"
+      content: Custom Blocks Guide - Creating custom elements
+  - type: ParagraphBlock
+    source_line: 302
+    children:
+    - type: TextContent
+      text: "## Bibliography"
+    content: "## Bibliography"
+    lines:
+    - "## Bibliography"
+    callouts: []
+  - type: ListBlock
+    source_line: 304
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 304
+      children:
+      - type: LinkElement
+        source_line: 304
+        children: []
+        content: Abstract Syntax Tree - Wikipedia
+        target: https://en.wikipedia.org/wiki/Abstract_syntax_tree
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://en.wikipedia.org/wiki/Abstract_syntax_tree
+          label: Abstract Syntax Tree - Wikipedia
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: Abstract Syntax Tree - Wikipedia
+    - type: ListItem
+      source_line: 305
+      children:
+      - type: LinkElement
+        source_line: 305
+        children: []
+        content: Parslet - Parsing Expression Grammars
+        target: https://github.com/kschiess/parslet
+        edges:
+        - kind: link
+          address:
+            scheme: url
+            target: https://github.com/kschiess/parslet
+          label: Parslet - Parsing Expression Grammars
+          options:
+            type: LinkOptions
+      marker: "*"
+      content: Parslet - Parsing Expression Grammars
+attributes:
+  type: Metadata

@@ -1,0 +1,48 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: ListBlock
+  source_line: 1
+  marker_type: unordered
+  items:
+  - type: ListItem
+    source_line: 1
+    children:
+    - type: TextContent
+      text: a
+    marker: "*"
+    content: a
+    nested_list:
+      type: ListBlock
+      source_line: 2
+      marker_type: unordered
+      items:
+      - type: ListItem
+        source_line: 2
+        children:
+        - type: TextContent
+          text: b
+        marker: "**"
+        content: b
+        nested_list:
+          type: ListBlock
+          source_line: 3
+          marker_type: unordered
+          items:
+          - type: ListItem
+            source_line: 3
+            children:
+            - type: TextContent
+              text: c
+            marker: "***"
+            content: c
+  - type: ListItem
+    source_line: 4
+    children:
+    - type: TextContent
+      text: d
+    marker: "*"
+    content: d
+attributes:
+  type: Metadata

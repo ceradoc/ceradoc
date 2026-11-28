@@ -1,0 +1,34 @@
+---
+type: DocumentElement
+children:
+- type: Table
+  rows:
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: l
+      header: true
+    - type: TableCell
+      children: []
+      content: c
+      header: true
+    - type: TableCell
+      children: []
+      content: r
+      header: true
+    header: true
+  - type: TableRow
+    cells:
+    - type: TableCell
+      children: []
+      content: a
+      header: false
+    - type: TableCell
+      children: []
+      content: b
+      header: false
+    - type: TableCell
+      children: []
+      content: c
+      header: false

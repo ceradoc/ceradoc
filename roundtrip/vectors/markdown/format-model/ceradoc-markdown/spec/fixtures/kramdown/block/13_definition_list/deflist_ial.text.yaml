@@ -1,0 +1,12 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  items:
+  - attributes: []
+    text: "{:.dl-horizontal}item"
+    definitions:
+    - attributes: []
+      content: definition{:.dl-other}
+      inline_content: []
+    text_children: []

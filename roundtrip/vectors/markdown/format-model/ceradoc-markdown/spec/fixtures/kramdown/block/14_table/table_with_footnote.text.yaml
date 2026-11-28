@@ -1,0 +1,19 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    | this is [^1] | a table
+    | with a | footnote
+  children:
+  - attributes: []
+    content: "| this is [^1] | a table"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "| with a | footnote"
+- id: '1'
+  attributes: []
+  content: Something
+- attributes: []
+  code: "> special here"

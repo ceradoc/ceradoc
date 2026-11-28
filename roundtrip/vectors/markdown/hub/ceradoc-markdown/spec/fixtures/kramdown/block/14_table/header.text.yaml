@@ -1,0 +1,165 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Simple header
+  content: Simple header
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| cell1 | cell2"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|-----"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell3 | cell4"
+  content: |-
+    | cell1 | cell2
+    |-----
+    | cell3 | cell4
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Full header
+  content: Full header
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| cell1 | cell2"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|-------|-------|"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell3 | cell4"
+  content: |-
+    | cell1 | cell2
+    |-------|-------|
+    | cell3 | cell4
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: With alignment and superfluous alignment defs
+  content: With alignment and superfluous alignment defs
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| default | left | center | right | default"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|-| :- |:-: | -: | - | :-: | :-"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell1 | cell2 | cell3 | cell4 | cell5"
+  content: |-
+    | default | left | center | right | default
+    |-| :- |:-: | -: | - | :-: | :-
+    | cell1 | cell2 | cell3 | cell4 | cell5
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: With leading sep line
+  content: With leading sep line
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "|:-:|-:|"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell1 | cell2"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "|-------|-------|"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "| cell3 | cell4"
+  content: |-
+    |:-:|-:|
+    | cell1 | cell2
+    |-------|-------|
+    | cell3 | cell4
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Multiple bodies
+  content: Multiple bodies
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "| cell1 | cell2"
+  content: "| cell1 | cell2"
+  callouts: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: ":-: |"
+    - type: TextContent
+      text: "\n"
+    - type: TextContent
+      text: "| cell3 | cell4"
+    - type: TextContent
+      text: "\n"
+    - type: TextContent
+      text: "|----|||"
+    - type: TextContent
+      text: "\n"
+    - type: TextContent
+      text: "| cell5 | cell6"
+    marker: "*"
+    content: |-
+      :-: |
+      | cell3 | cell4
+      |----|||
+      | cell5 | cell6
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: Sep line with tab
+  content: Sep line with tab
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: right | center
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "---:  \t|\t:---:"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: cell1 | cell2
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: cell3 | cell4
+  content: |-
+    right | center
+    ---:  	|	:---:
+    cell1 | cell2
+    cell3 | cell4
+  callouts: []

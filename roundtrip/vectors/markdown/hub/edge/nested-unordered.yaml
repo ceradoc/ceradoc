@@ -1,0 +1,33 @@
+---
+type: DocumentElement
+children:
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: a
+    marker: "*"
+    content: a
+    nested_list:
+      type: ListBlock
+      marker_type: unordered
+      items:
+      - type: ListItem
+        children: []
+        marker: "*"
+        content: b
+- type: SourceBlock
+  children: []
+  content: "    - c"
+  callouts: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: d
+    marker: "*"
+    content: d

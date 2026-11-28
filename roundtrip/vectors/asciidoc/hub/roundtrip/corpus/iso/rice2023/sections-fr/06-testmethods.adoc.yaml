@@ -1,0 +1,538 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: SectionElement
+  id: _mthodes_dessai
+  title: Méthodes d'essai
+  source_line: 1
+  level: 1
+  children:
+  - type: SectionElement
+    id: _mthodes_dessai_teneur_en_eau
+    title: Teneur en eau
+    source_line: 3
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 5
+      children:
+      - type: TextContent
+        text: Déterminer la fraction massique d'eau en utilisant la méthode spécifiée
+          dans l'
+      - type: CrossReferenceElement
+        source_line: 6
+        children: []
+        content: ISO712
+        target: ISO712
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO712
+          label: ISO712
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: "."
+      content: Déterminer la fraction massique d'eau en utilisant la méthode spécifiée
+        dans l'ISO712.
+      lines:
+      - Déterminer la fraction massique d'eau en utilisant la méthode spécifiée dans
+        l'ISO712.
+      callouts: []
+  - type: SectionElement
+    id: _mthodes_dessai_teneur_en_riz_gluant
+    title: Teneur en riz gluant
+    source_line: 8
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 10
+      children:
+      - type: TextContent
+        text: Déterminer la fraction massique de riz gluant. L'
+      - type: CrossReferenceElement
+        source_line: 10
+        children: []
+        content: annexB
+        target: annexB
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: annexB
+          label: annexB
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: " donne un exemple d'une méthode qui convient."
+      content: Déterminer la fraction massique de riz gluant. L'annexB donne un exemple
+        d'une méthode qui convient.
+      lines:
+      - Déterminer la fraction massique de riz gluant. L'annexB donne un exemple d'une
+        méthode qui convient.
+      callouts: []
+  - type: SectionElement
+    id: _mthodes_dessai_teneur_en_azote_et_en_protines_brutes
+    title: Teneur en azote et en protéines brutes
+    source_line: 13
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 15
+      children:
+      - type: TextContent
+        text: Déterminer la teneur en azote et en protéines brutes conformément soit
+          à l'
+      - type: CrossReferenceElement
+        source_line: 16
+        children: []
+        content: clause=10
+        target: ISO16634
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO16634
+          label: clause=10
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ", soit à l'"
+      - type: CrossReferenceElement
+        source_line: 16
+        children: []
+        content: ISO20483-all
+        target: ISO20483-all
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO20483-all
+          label: ISO20483-all
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ". Pour plus de détails concernant la détermination de la teneur en protéines au moyen de la méthode de Kjeldahl, voir la Référence "
+      - type: CrossReferenceElement
+        source_line: 18
+        children: []
+        content: ref12
+        target: ref12
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref12
+          label: ref12
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: " dans la Bibliographie. Pour la méthode de Dumas, voir les Références "
+      - type: CrossReferenceElement
+        source_line: 19
+        children: []
+        content: ref10
+        target: ref10
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref10
+          label: ref10
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: " et "
+      - type: CrossReferenceElement
+        source_line: 19
+        children: []
+        content: ref16
+        target: ref16
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref16
+          label: ref16
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: "."
+      content: Déterminer la teneur en azote et en protéines brutes conformément soit
+        à l'ISO16634, soit à l'ISO20483-all. Pour plus de détails concernant la détermination
+        de la teneur en protéines au moyen de la méthode de Kjeldahl, voir la Référence
+        ref12 dans la Bibliographie. Pour la méthode de Dumas, voir les Références
+        ref10 et ref16.
+      lines:
+      - Déterminer la teneur en azote et en protéines brutes conformément soit à l'ISO16634,
+        soit à l'ISO20483-all. Pour plus de détails concernant la détermination de
+        la teneur en protéines au moyen de la méthode de Kjeldahl, voir la Référence
+        ref12 dans la Bibliographie. Pour la méthode de Dumas, voir les Références
+        ref10 et ref16.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 21
+      children:
+      - type: TextContent
+        text: Calculer la teneur en protéines brutes du produit sec en multipliant
+          la valeur obtenue lors de la détermination de la teneur en azote par le
+          facteur de conversion spécifié dans l'
+      - type: CrossReferenceElement
+        source_line: 23
+        children: []
+        content: annex=C;and!table=C.1
+        target: ISO20483
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO20483
+          label: annex=C;and!table=C.1
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ", qui est adapté au type de céréales et de légumineuses "
+      - type: CrossReferenceElement
+        source_line: 24
+        children: []
+        content: " fn"
+        target: ref13
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref13
+          label: " fn"
+          options:
+            type: NavigationOptions
+      - type: CrossReferenceElement
+        source_line: 24
+        children: []
+        content: fn
+        target: ref14
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref14
+          label: fn
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: " et à leur utilisation."
+      content: Calculer la teneur en protéines brutes du produit sec en multipliant
+        la valeur obtenue lors de la détermination de la teneur en azote par le facteur
+        de conversion spécifié dans l'ISO20483, qui est adapté au type de céréales
+        et de légumineuses ref13ref14 et à leur utilisation.
+      lines:
+      - Calculer la teneur en protéines brutes du produit sec en multipliant la valeur
+        obtenue lors de la détermination de la teneur en azote par le facteur de conversion
+        spécifié dans l'ISO20483, qui est adapté au type de céréales et de légumineuses
+        ref13ref14 et à leur utilisation.
+      callouts: []
+  - type: SectionElement
+    id: _mthodes_dessai_temps_de_glatinisation
+    title: Temps de gélatinisation
+    source_line: 26
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 28
+      children:
+      - type: TextContent
+        text: 'Déterminer le temps de gélatinisation, t90, pour les grains de riz
+          durant la cuisson. Un exemple de courbe type est donné à la '
+      - type: CrossReferenceElement
+        source_line: 29
+        children: []
+        content: figureC-1
+        target: figureC-1
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: figureC-1
+          label: figureC-1
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ". Trois stades types de gélatinisation sont montrés à la "
+      - type: CrossReferenceElement
+        source_line: 30
+        children: []
+        content: figureC-2
+        target: figureC-2
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: figureC-2
+          label: figureC-2
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: "."
+      content: Déterminer le temps de gélatinisation, t90, pour les grains de riz
+        durant la cuisson. Un exemple de courbe type est donné à la figureC-1. Trois
+        stades types de gélatinisation sont montrés à la figureC-2.
+      lines:
+      - Déterminer le temps de gélatinisation, t90, pour les grains de riz durant
+        la cuisson. Un exemple de courbe type est donné à la figureC-1. Trois stades
+        types de gélatinisation sont montrés à la figureC-2.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 32
+      children:
+      - type: TextContent
+        text: Noter les résultats comme spécifié dans l'
+      - type: CrossReferenceElement
+        source_line: 32
+        children: []
+        content: clause7
+        target: clause7
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: clause7
+          label: clause7
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: "."
+      content: Noter les résultats comme spécifié dans l'clause7.
+      lines:
+      - Noter les résultats comme spécifié dans l'clause7.
+      callouts: []
+  - type: SectionElement
+    id: _mthodes_dessai_rendement_en_riz_dcortiqu
+    title: Rendement en riz décortiqué
+    source_line: 34
+    level: 2
+    children:
+    - type: SectionElement
+      id: _mthodes_dessai_rendement_en_riz_dcortiqu_dtermination
+      title: Détermination
+      source_line: 36
+      level: 3
+      children:
+      - type: AnnotationBlock
+        source_line: 38
+        children:
+        - type: ParagraphBlock
+          source_line: 38
+          children:
+          - type: TextContent
+            text: N'utiliser que du paddy ou du riz étuvé pour la détermination du
+              rendement en riz décortiqué.
+          content: N'utiliser que du paddy ou du riz étuvé pour la détermination du
+            rendement en riz décortiqué.
+          callouts: []
+        content: N'utiliser que du paddy ou du riz étuvé pour la détermination du
+          rendement en riz décortiqué.
+        callouts: []
+        annotation_type: WARNING
+      - type: ParagraphBlock
+        source_line: 41
+        children:
+        - type: TextContent
+          text: Déterminer le rendement en riz décortiqué conformément à l'
+        - type: CrossReferenceElement
+          source_line: 41
+          children: []
+          content: ISO6646
+          target: ISO6646
+          edges:
+          - kind: navigation
+            address:
+              scheme: anchor
+              target: ISO6646
+            label: ISO6646
+            options:
+              type: NavigationOptions
+        - type: TextContent
+          text: "."
+        content: Déterminer le rendement en riz décortiqué conformément à l'ISO6646.
+        lines:
+        - Déterminer le rendement en riz décortiqué conformément à l'ISO6646.
+        callouts: []
+    - type: SectionElement
+      id: _mthodes_dessai_rendement_en_riz_dcortiqu_fidlit
+      title: Fidélité
+      source_line: 43
+      level: 3
+      children:
+      - type: SectionElement
+        id: _mthodes_dessai_rendement_en_riz_dcortiqu_fidlit_essai_interlaboratoires
+        title: Essai interlaboratoires
+        source_line: 45
+        level: 4
+        children:
+        - type: ParagraphBlock
+          source_line: 47
+          children:
+          - type: TextContent
+            text: Les résultats d'un essai interlaboratoires sont donnés dans l'
+          - type: CrossReferenceElement
+            source_line: 47
+            children: []
+            content: annexD
+            target: annexD
+            edges:
+            - kind: navigation
+              address:
+                scheme: anchor
+                target: annexD
+              label: annexD
+              options:
+                type: NavigationOptions
+          - type: TextContent
+            text: " pour information."
+          content: Les résultats d'un essai interlaboratoires sont donnés dans l'annexD
+            pour information.
+          lines:
+          - Les résultats d'un essai interlaboratoires sont donnés dans l'annexD pour
+            information.
+          callouts: []
+        - type: ParagraphBlock
+          source_line: 50
+          children:
+          - type: TextContent
+            text: 'Les résultats des essais de répétabilité et de reproductibilité
+              (voir '
+          - type: CrossReferenceElement
+            source_line: 51
+            children: []
+            content: cls-6.5.2.2;and!cls-6.5.2.3
+            target: cls-6.5.2.2;and!cls-6.5.2.3
+            edges:
+            - kind: navigation
+              address:
+                scheme: anchor
+                target: cls-6.5.2.2;and!cls-6.5.2.3
+              label: cls-6.5.2.2;and!cls-6.5.2.3
+              options:
+                type: NavigationOptions
+          - type: TextContent
+            text: ") doivent être obtenus dans un court intervalle de temps, en utilisant :"
+          content: 'Les résultats des essais de répétabilité et de reproductibilité
+            (voir cls-6.5.2.2;and!cls-6.5.2.3) doivent être obtenus dans un court
+            intervalle de temps, en utilisant :'
+          lines:
+          - 'Les résultats des essais de répétabilité et de reproductibilité (voir
+            cls-6.5.2.2;and!cls-6.5.2.3) doivent être obtenus dans un court intervalle
+            de temps, en utilisant :'
+          callouts: []
+        - type: ListBlock
+          source_line: 54
+          marker_type: unordered
+          items:
+          - type: ListItem
+            source_line: 54
+            children:
+            - type: TextContent
+              text: méthode;
+            marker: "*"
+            content: méthode;
+          - type: ListItem
+            source_line: 55
+            children:
+            - type: TextContent
+              text: le matériel d'essai;
+            marker: "*"
+            content: le matériel d'essai;
+          - type: ListItem
+            source_line: 56
+            children:
+            - type: TextContent
+              text: laboratoire;
+            marker: "*"
+            content: laboratoire;
+          - type: ListItem
+            source_line: 57
+            children:
+            - type: TextContent
+              text: opérateur;
+            marker: "*"
+            content: opérateur;
+          - type: ListItem
+            source_line: 58
+            children:
+            - type: TextContent
+              text: équipement.
+            marker: "*"
+            content: équipement.
+      - type: SectionElement
+        id: cls-6.5.2.2
+        title: Répétabilité
+        source_line: 60
+        level: 4
+        children:
+        - type: ParagraphBlock
+          source_line: 63
+          children:
+          - type: TextContent
+            text: 'La différence absolue entre deux résultats d''essai individuels
+              indépendants, n''excédera que dans 5 % des cas au plus la moyenne arithmétique
+              des valeurs de limite de répétabilité, '
+          - type: StemElement
+            source_line: 65
+            children: []
+            content: r
+            stem_type: stem
+          - type: TextContent
+            text: " découlant de l'essai interlaboratoires:"
+          content: 'La différence absolue entre deux résultats d''essai individuels
+            indépendants, n''excédera que dans 5 % des cas au plus la moyenne arithmétique
+            des valeurs de limite de répétabilité, r découlant de l''essai interlaboratoires:'
+          lines:
+          - 'La différence absolue entre deux résultats d''essai individuels indépendants,
+            n''excédera que dans 5 % des cas au plus la moyenne arithmétique des valeurs
+            de limite de répétabilité, r découlant de l''essai interlaboratoires:'
+          callouts: []
+        - type: PassBlock
+          source_line: 67
+          children: []
+          content: r = 1 %
+          lines:
+          - r = 1 %
+          callouts: []
+      - type: SectionElement
+        id: cls-6.5.2.3
+        title: Reproductibilité
+        source_line: 72
+        level: 4
+        children:
+        - type: ParagraphBlock
+          source_line: 75
+          children:
+          - type: TextContent
+            text: 'La différence absolue entre deux résultats d''essai individuels,
+              n''excédera que dans 5 % des cas au plus la moyenne arithmétique de
+              la valeur de la limite de reproductibilité, '
+          - type: StemElement
+            source_line: 77
+            children: []
+            content: R
+            stem_type: stem
+          - type: TextContent
+            text: ", découlant de l'essai interlaboratoires:"
+          content: 'La différence absolue entre deux résultats d''essai individuels,
+            n''excédera que dans 5 % des cas au plus la moyenne arithmétique de la
+            valeur de la limite de reproductibilité, R, découlant de l''essai interlaboratoires:'
+          lines:
+          - 'La différence absolue entre deux résultats d''essai individuels, n''excédera
+            que dans 5 % des cas au plus la moyenne arithmétique de la valeur de la
+            limite de reproductibilité, R, découlant de l''essai interlaboratoires:'
+          callouts: []
+        - type: PassBlock
+          source_line: 79
+          children: []
+          content: R = 3 %
+          lines:
+          - R = 3 %
+          callouts: []
+attributes:
+  type: Metadata

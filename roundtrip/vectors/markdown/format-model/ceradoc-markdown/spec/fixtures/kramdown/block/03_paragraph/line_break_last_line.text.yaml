@@ -1,0 +1,33 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: "First line  \n<https://example.com>"
+  children:
+  - attributes: []
+    content: 'First line  '
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<https://example.com>"
+- attributes: []
+  text: |-
+    First line\\
+    <https://example.com>
+  children:
+  - attributes: []
+    content: First line\
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<https://example.com>"
+- attributes: []
+  text: 'Last Line  '
+  children:
+  - attributes: []
+    content: 'Last Line  '
+- attributes: []
+  text: Last Line\\
+  children:
+  - attributes: []
+    content: Last Line\

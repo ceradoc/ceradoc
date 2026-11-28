@@ -1,0 +1,682 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: SectionElement
+  id: _test_methods
+  title: Test methods
+  source_line: 1
+  level: 1
+  children:
+  - type: SectionElement
+    id: moisture-content
+    title: Moisture content
+    source_line: 3
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 6
+      children:
+      - type: TextContent
+        text: 'Determine the mass fraction of moisture in accordance with the method
+          specified in '
+      - type: CrossReferenceElement
+        source_line: 7
+        children: []
+        content: ISO712
+        target: ISO712
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO712
+          label: ISO712
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: "."
+      content: Determine the mass fraction of moisture in accordance with the method
+        specified in ISO712.
+      lines:
+      - Determine the mass fraction of moisture in accordance with the method specified
+        in ISO712.
+      callouts: []
+  - type: SectionElement
+    id: waxy-rice-content
+    title: Waxy rice content
+    source_line: 10
+    level: 2
+    children:
+    - type: ReviewerBlock
+      source_line: 13
+      children:
+      - type: ListBlock
+        source_line: 15
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 15
+          children:
+          - type: TextContent
+            text: Cross-references to normative references
+          marker: "*"
+          content: Cross-references to normative references
+          nested_list:
+            type: ListBlock
+            source_line: 16
+            marker_type: unordered
+            items:
+            - type: ListItem
+              source_line: 16
+              children:
+              - type: TextContent
+                text: ISO/IEC Directives, Part 2, 2021, Clause 15
+              marker: "**"
+              content: ISO/IEC Directives, Part 2, 2021, Clause 15
+        - type: ListItem
+          source_line: 17
+          children:
+          - type: TextContent
+            text: '"shall" or imperative'
+          marker: "*"
+          content: '"shall" or imperative'
+        - type: ListItem
+          source_line: 18
+          children:
+          - type: TextContent
+            text: ISO 24333:2009 and ISO 712 are normative and listed in Clause 2
+          marker: "*"
+          content: ISO 24333:2009 and ISO 712 are normative and listed in Clause 2
+        - type: ListItem
+          source_line: 19
+          children:
+          - type: TextContent
+            text: ISO 24333 is dated because it refers to a specific clause
+          marker: "*"
+          content: ISO 24333 is dated because it refers to a specific clause
+      callouts: []
+      annotation_type: reviewer
+      annotation_label: ISO
+    - type: ParagraphBlock
+      source_line: 22
+      children:
+      - type: TextContent
+        text: 'Determine the mass fraction of waxy rice. '
+      - type: CrossReferenceElement
+        source_line: 22
+        children: []
+        content: AnnexB
+        target: AnnexB
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: AnnexB
+          label: AnnexB
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: " gives an example of a suitable method."
+      content: Determine the mass fraction of waxy rice. AnnexB gives an example of
+        a suitable method.
+      lines:
+      - Determine the mass fraction of waxy rice. AnnexB gives an example of a suitable
+        method.
+      callouts: []
+  - type: SectionElement
+    id: _test_methods_nitrogen_content_and_crude_protein_content
+    title: Nitrogen content and crude protein content
+    source_line: 25
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 27
+      children:
+      - type: TextContent
+        text: 'Determine the nitrogen content and crude protein content in accordance
+          with either '
+      - type: CrossReferenceElement
+        source_line: 28
+        children: []
+        content: clause 10
+        target: ISO16634
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO16634
+          label: clause 10
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ", or "
+      - type: CrossReferenceElement
+        source_line: 28
+        children: []
+        content: ISO20483
+        target: ISO20483
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO20483
+          label: ISO20483
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ". For details on the determination of protein content using the Kjeldahl method, see Reference "
+      - type: CrossReferenceElement
+        source_line: 29
+        children: []
+        content: ref12
+        target: ref12
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref12
+          label: ref12
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: " in the Bibliography. For details concerning the use of the Dumas method, see References "
+      - type: CrossReferenceElement
+        source_line: 31
+        children: []
+        content: ref10
+        target: ref10
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref10
+          label: ref10
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: " and "
+      - type: CrossReferenceElement
+        source_line: 31
+        children: []
+        content: ref16
+        target: ref16
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref16
+          label: ref16
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: "."
+      content: Determine the nitrogen content and crude protein content in accordance
+        with either ISO16634, or ISO20483. For details on the determination of protein
+        content using the Kjeldahl method, see Reference ref12 in the Bibliography.
+        For details concerning the use of the Dumas method, see References ref10 and
+        ref16.
+      lines:
+      - Determine the nitrogen content and crude protein content in accordance with
+        either ISO16634, or ISO20483. For details on the determination of protein
+        content using the Kjeldahl method, see Reference ref12 in the Bibliography.
+        For details concerning the use of the Dumas method, see References ref10 and
+        ref16.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 33
+      children:
+      - type: TextContent
+        text: 'Calculate the crude protein content of the dry product by multiplying
+          the value of the nitrogen content by the conversion factor specified in '
+      - type: CrossReferenceElement
+        source_line: 35
+        children: []
+        content: annex=C;and!table=C.1
+        target: ISO20483
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ISO20483
+          label: annex=C;and!table=C.1
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ", that is adapted to the type of cereals or pulses "
+      - type: CrossReferenceElement
+        source_line: 36
+        children: []
+        content: fn
+        target: ref13
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref13
+          label: fn
+          options:
+            type: NavigationOptions
+      - type: CrossReferenceElement
+        source_line: 36
+        children: []
+        content: fn
+        target: ref14
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: ref14
+          label: fn
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: " and to their use."
+      content: Calculate the crude protein content of the dry product by multiplying
+        the value of the nitrogen content by the conversion factor specified in ISO20483,
+        that is adapted to the type of cereals or pulses ref13ref14 and to their use.
+      lines:
+      - Calculate the crude protein content of the dry product by multiplying the
+        value of the nitrogen content by the conversion factor specified in ISO20483,
+        that is adapted to the type of cereals or pulses ref13ref14 and to their use.
+      callouts: []
+    - type: ReviewerBlock
+      source_line: 38
+      children:
+      - type: ListBlock
+        source_line: 40
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 40
+          children:
+          - type: TextContent
+            text: Cross-references to bibliographic entries
+          marker: "*"
+          content: Cross-references to bibliographic entries
+          nested_list:
+            type: ListBlock
+            source_line: 41
+            marker_type: unordered
+            items:
+            - type: ListItem
+              source_line: 41
+              children:
+              - type: TextContent
+                text: ISO/IEC Directives, Part 2, 2021, 10.3
+              marker: "**"
+              content: ISO/IEC Directives, Part 2, 2021, 10.3
+      callouts: []
+      annotation_type: reviewer
+      annotation_label: ISO
+  - type: SectionElement
+    id: _test_methods_gelatinization_time
+    title: Gelatinization time
+    source_line: 44
+    level: 2
+    children:
+    - type: ParagraphBlock
+      source_line: 46
+      children:
+      - type: TextContent
+        text: 'Determine the gelatinization time, '
+      - type: StemElement
+        source_line: 46
+        children: []
+        content: t_90
+        stem_type: stem
+      - type: TextContent
+        text: ", for rice kernels during cooking. An example of a typical curve is given in "
+      - type: CrossReferenceElement
+        source_line: 47
+        children: []
+        content: figureC-1
+        target: figureC-1
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: figureC-1
+          label: figureC-1
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: ". Three typical stages of gelatinization are shown in "
+      - type: CrossReferenceElement
+        source_line: 48
+        children: []
+        content: figureC-2
+        target: figureC-2
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: figureC-2
+          label: figureC-2
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: "."
+      content: Determine the gelatinization time, t_90, for rice kernels during cooking.
+        An example of a typical curve is given in figureC-1. Three typical stages
+        of gelatinization are shown in figureC-2.
+      lines:
+      - Determine the gelatinization time, t_90, for rice kernels during cooking.
+        An example of a typical curve is given in figureC-1. Three typical stages
+        of gelatinization are shown in figureC-2.
+      callouts: []
+    - type: ParagraphBlock
+      source_line: 50
+      children:
+      - type: TextContent
+        text: 'Report the results as specified in '
+      - type: CrossReferenceElement
+        source_line: 50
+        children: []
+        content: clause7
+        target: clause7
+        edges:
+        - kind: navigation
+          address:
+            scheme: anchor
+            target: clause7
+          label: clause7
+          options:
+            type: NavigationOptions
+      - type: TextContent
+        text: "."
+      content: Report the results as specified in clause7.
+      lines:
+      - Report the results as specified in clause7.
+      callouts: []
+  - type: SectionElement
+    id: _test_methods_husked_rice_yield
+    title: Husked rice yield
+    source_line: 52
+    level: 2
+    children:
+    - type: SectionElement
+      id: _test_methods_husked_rice_yield_determination
+      title: Determination
+      source_line: 54
+      level: 3
+      children:
+      - type: AnnotationBlock
+        source_line: 56
+        children:
+        - type: ParagraphBlock
+          source_line: 56
+          children:
+          - type: TextContent
+            text: Only use paddy or parboiled rice for the determination of husked
+              rice yield.
+          content: Only use paddy or parboiled rice for the determination of husked
+            rice yield.
+          callouts: []
+        content: Only use paddy or parboiled rice for the determination of husked
+          rice yield.
+        callouts: []
+        annotation_type: WARNING
+      - type: ParagraphBlock
+        source_line: 59
+        children:
+        - type: TextContent
+          text: 'Determine the husked rice yield in accordance with '
+        - type: CrossReferenceElement
+          source_line: 59
+          children: []
+          content: ISO6646
+          target: ISO6646
+          edges:
+          - kind: navigation
+            address:
+              scheme: anchor
+              target: ISO6646
+            label: ISO6646
+            options:
+              type: NavigationOptions
+        - type: TextContent
+          text: "."
+        content: Determine the husked rice yield in accordance with ISO6646.
+        lines:
+        - Determine the husked rice yield in accordance with ISO6646.
+        callouts: []
+      - type: ReviewerBlock
+        source_line: 61
+        children:
+        - type: ListBlock
+          source_line: 63
+          marker_type: unordered
+          items:
+          - type: ListItem
+            source_line: 63
+            children:
+            - type: TextContent
+              text: Warnings should be placed next to the relevant content or at the
+                beginning of the clause
+            marker: "*"
+            content: Warnings should be placed next to the relevant content or at
+              the beginning of the clause
+            nested_list:
+              type: ListBlock
+              source_line: 64
+              marker_type: unordered
+              items:
+              - type: ListItem
+                source_line: 64
+                children:
+                - type: TextContent
+                  text: ISO/IEC Directives, Part 2, 2021, 18.4
+                marker: "**"
+                content: ISO/IEC Directives, Part 2, 2021, 18.4
+        callouts: []
+        annotation_type: reviewer
+        annotation_label: ISO
+    - type: SectionElement
+      id: _test_methods_husked_rice_yield_precision
+      title: Precision
+      source_line: 67
+      level: 3
+      children:
+      - type: SectionElement
+        id: _test_methods_husked_rice_yield_precision_interlaboratory_test
+        title: Interlaboratory test
+        source_line: 69
+        level: 4
+        children:
+        - type: ParagraphBlock
+          source_line: 71
+          children:
+          - type: TextContent
+            text: 'The results of an interlaboratory test are given in '
+          - type: CrossReferenceElement
+            source_line: 71
+            children: []
+            content: AnnexD
+            target: AnnexD
+            edges:
+            - kind: navigation
+              address:
+                scheme: anchor
+                target: AnnexD
+              label: AnnexD
+              options:
+                type: NavigationOptions
+          - type: TextContent
+            text: " for information."
+          content: The results of an interlaboratory test are given in AnnexD for
+            information.
+          lines:
+          - The results of an interlaboratory test are given in AnnexD for information.
+          callouts: []
+        - type: ReviewerBlock
+          source_line: 73
+          children:
+          - type: ListBlock
+            source_line: 75
+            marker_type: unordered
+            items:
+            - type: ListItem
+              source_line: 75
+              children:
+              - type: TextContent
+                text: Informative cross-reference to Annex D
+              marker: "*"
+              content: Informative cross-reference to Annex D
+          callouts: []
+          annotation_type: reviewer
+          annotation_label: ISO
+        - type: ParagraphBlock
+          source_line: 78
+          children:
+          - type: TextContent
+            text: 'The results of the repeatability and reproducibility tests (see '
+          - type: CrossReferenceElement
+            source_line: 78
+            children: []
+            content: cls-6.5.2.2
+            target: cls-6.5.2.2
+            edges:
+            - kind: navigation
+              address:
+                scheme: anchor
+                target: cls-6.5.2.2
+              label: cls-6.5.2.2
+              options:
+                type: NavigationOptions
+          - type: TextContent
+            text: " and "
+          - type: CrossReferenceElement
+            source_line: 79
+            children: []
+            content: cls-6.5.2.3
+            target: cls-6.5.2.3
+            edges:
+            - kind: navigation
+              address:
+                scheme: anchor
+                target: cls-6.5.2.3
+              label: cls-6.5.2.3
+              options:
+                type: NavigationOptions
+          - type: TextContent
+            text: ") shall be obtained within a short interval of time, using the same:"
+          content: 'The results of the repeatability and reproducibility tests (see
+            cls-6.5.2.2 and cls-6.5.2.3) shall be obtained within a short interval
+            of time, using the same:'
+          lines:
+          - 'The results of the repeatability and reproducibility tests (see cls-6.5.2.2
+            and cls-6.5.2.3) shall be obtained within a short interval of time, using
+            the same:'
+          callouts: []
+        - type: ListBlock
+          source_line: 82
+          marker_type: unordered
+          items:
+          - type: ListItem
+            source_line: 82
+            children:
+            - type: TextContent
+              text: method;
+            marker: "*"
+            content: method;
+          - type: ListItem
+            source_line: 83
+            children:
+            - type: TextContent
+              text: test material;
+            marker: "*"
+            content: test material;
+          - type: ListItem
+            source_line: 84
+            children:
+            - type: TextContent
+              text: laboratory;
+            marker: "*"
+            content: laboratory;
+          - type: ListItem
+            source_line: 85
+            children:
+            - type: TextContent
+              text: operator;
+            marker: "*"
+            content: operator;
+          - type: ListItem
+            source_line: 86
+            children:
+            - type: TextContent
+              text: equipment.
+            marker: "*"
+            content: equipment.
+      - type: SectionElement
+        id: cls-6.5.2.2
+        title: Repeatability
+        source_line: 88
+        level: 4
+        children:
+        - type: ParagraphBlock
+          source_line: 91
+          children:
+          - type: TextContent
+            text: 'The absolute difference between two independent single test results
+              shall not exceed the arithmetic mean of the values for the repeatability
+              limit, '
+          - type: StemElement
+            source_line: 92
+            children: []
+            content: r
+            stem_type: stem
+          - type: TextContent
+            text: ", obtained from the interlaboratory study for husked rice in more than 5 % of cases:"
+          content: 'The absolute difference between two independent single test results
+            shall not exceed the arithmetic mean of the values for the repeatability
+            limit, r, obtained from the interlaboratory study for husked rice in more
+            than 5 % of cases:'
+          lines:
+          - 'The absolute difference between two independent single test results shall
+            not exceed the arithmetic mean of the values for the repeatability limit,
+            r, obtained from the interlaboratory study for husked rice in more than
+            5 % of cases:'
+          callouts: []
+        - type: PassBlock
+          source_line: 96
+          children: []
+          content: r = 1 %
+          lines:
+          - r = 1 %
+          callouts: []
+      - type: SectionElement
+        id: cls-6.5.2.3
+        title: Reproducibility
+        source_line: 101
+        level: 4
+        children:
+        - type: ParagraphBlock
+          source_line: 104
+          children:
+          - type: TextContent
+            text: 'The absolute difference between two single test results shall not
+              exceed the arithmetic mean of the values for the reproducibility limit, '
+          - type: StemElement
+            source_line: 105
+            children: []
+            content: R
+            stem_type: stem
+          - type: TextContent
+            text: ", obtained from the interlaboratory study in more than 5 % of cases:"
+          content: 'The absolute difference between two single test results shall
+            not exceed the arithmetic mean of the values for the reproducibility limit,
+            R, obtained from the interlaboratory study in more than 5 % of cases:'
+          lines:
+          - 'The absolute difference between two single test results shall not exceed
+            the arithmetic mean of the values for the reproducibility limit, R, obtained
+            from the interlaboratory study in more than 5 % of cases:'
+          callouts: []
+        - type: PassBlock
+          source_line: 108
+          children: []
+          content: R = 3 %
+          lines:
+          - R = 3 %
+          callouts: []
+attributes:
+  type: Metadata

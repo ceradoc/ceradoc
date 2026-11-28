@@ -1,0 +1,32 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: paragraph
+  content: paragraph
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |
+    code block
+
+    continued here
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: ended
+  content: ended
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: next blank line has 4 spaces
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: paragraph
+  content: paragraph
+  callouts: []

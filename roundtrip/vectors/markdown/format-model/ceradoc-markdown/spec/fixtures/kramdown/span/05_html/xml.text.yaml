@@ -1,0 +1,18 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: This <some:url name:spac='hallo'>doit</some:url> test
+  children:
+  - attributes: []
+    content: This <some:url name:spac='hallo'>doit</some:url> test
+- attributes: []
+  text: This <SoMe:UrL NamE:SpAC='test'>doit</SoMe:UrL> test
+  children:
+  - attributes: []
+    content: This <SoMe:UrL NamE:SpAC='test'>doit</SoMe:UrL> test
+- attributes: []
+  text: This <SoMe>doit</some> test
+  children:
+  - attributes: []
+    content: This <SoMe>doit</some> test

@@ -1,0 +1,159 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: "<p>baz { |qux| quux }</p>"
+  children:
+  - attributes: []
+    content: "<p>baz { |qux| quux }</p>"
+- attributes: []
+  text: |-
+    This is some para.
+    <script type="javascript">
+    This *text* must not be converted.
+    </SCRIPT>
+  children:
+  - attributes: []
+    content: This is some para.
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: <script type="javascript">
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: 'This '
+  - attributes: []
+    text: text
+  - attributes: []
+    content: " must not be converted."
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</SCRIPT>"
+- attributes: []
+  text: "<script>Not *parsed* here</script>"
+  children:
+  - attributes: []
+    content: "<script>Not "
+  - attributes: []
+    text: parsed
+  - attributes: []
+    content: " here</script>"
+- attributes: []
+  text: |-
+    <script>*not*</script><p>*parsed*
+    This too
+    </p>
+  children:
+  - attributes: []
+    content: "<script>"
+  - attributes: []
+    text: not
+  - attributes: []
+    content: "</script><p>"
+  - attributes: []
+    text: parsed
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This too
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p>"
+- attributes: []
+  text: |-
+    <script>*not*<p>*parsed*
+    This too
+    </p></script>
+  children:
+  - attributes: []
+    content: "<script>"
+  - attributes: []
+    text: not
+  - attributes: []
+    content: "<p>"
+  - attributes: []
+    text: parsed
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This too
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p></script>"
+- attributes: []
+  text: "<script>something<p>*not*</p></script>"
+  children:
+  - attributes: []
+    content: "<script>something<p>"
+  - attributes: []
+    text: not
+  - attributes: []
+    content: "</p></script>"
+- attributes: []
+  text: "<script></script>"
+  children:
+  - attributes: []
+    content: "<script></script>"
+- attributes: []
+  text: |-
+    <script>
+    This should be output
+    <p> *as* is
+    </p> and nothing should be done
+    about it
+    </not>
+    </p>
+    </script>
+  children:
+  - attributes: []
+    content: "<script>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: This should be output
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "<p> "
+  - attributes: []
+    text: as
+  - attributes: []
+    content: " is"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p> and nothing should be done"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: about it
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</not>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</p>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</script>"
+- attributes: []
+  text: "<http://example.com>"
+  children:
+  - attributes: []
+    content: "<http://example.com>"
+- attributes: []
+  text: "<style> body > * { background-color: Red; } </style>"
+  children:
+  - attributes: []
+    content: "<style> body > "
+  - attributes: []
+    content: "*"
+  - attributes: []
+    content: " { background-color: Red; } </style>"

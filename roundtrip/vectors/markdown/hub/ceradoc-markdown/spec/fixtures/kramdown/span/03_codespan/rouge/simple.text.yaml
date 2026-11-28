@@ -1,0 +1,14 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'You can say '
+  - type: MonospaceElement
+    children: []
+    content: x = Class.new
+  - type: TextContent
+    text: "{:.language-ruby}, for example."
+  content: You can say `x = Class.new`{:.language-ruby}, for example.
+  callouts: []

@@ -1,0 +1,327 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '02: Quadruple redundancy of block type information'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`BlockSemanticType` module removed entirely"
+    children:
+    - attributes: []
+      text: BlockSemanticType
+    - attributes: []
+      content: " module removed entirely"
+  - attributes: []
+    text: "`element_type` attribute removed from `Block` (now a derived method via class hierarchy)"
+    children:
+    - attributes: []
+      text: element_type
+    - attributes: []
+      content: " attribute removed from "
+    - attributes: []
+      text: Block
+    - attributes: []
+      content: " (now a derived method via class hierarchy)"
+  - attributes: []
+    text: "`block_semantic_type` retained only on generic `Block` instances for untyped blocks"
+    children:
+    - attributes: []
+      text: block_semantic_type
+    - attributes: []
+      content: " retained only on generic "
+    - attributes: []
+      text: Block
+    - attributes: []
+      content: " instances for untyped blocks"
+  - attributes: []
+    text: "`resolve_semantic_type` simplified to check class hierarchy first, then fall back to `block_semantic_type`"
+    children:
+    - attributes: []
+      text: resolve_semantic_type
+    - attributes: []
+      content: " simplified to check class hierarchy first, then fall back to "
+    - attributes: []
+      text: block_semantic_type
+- attributes: []
+  text: "**Severity:** HIGH  \n**Location:** `lib/ceradoc/core_model/block.rb`, all typed block subclasses"
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " HIGH  "
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: lib/ceradoc/core_model/block.rb
+  - attributes: []
+    content: ", all typed block subclasses"
+- attributes: []
+  level: 2
+  text: Problem
+- attributes: []
+  text: Block type identity is expressed in **five** independent ways — four within
+    CoreModel, one in the class hierarchy. This creates confusion about which API
+    to use and makes adding new block types error-prone.
+  children:
+  - attributes: []
+    content: 'Block type identity is expressed in '
+  - attributes: []
+    text: five
+  - attributes: []
+    content: " independent ways — four within CoreModel, one in the class hierarchy. This creates confusion about which API to use and makes adding new block types error-prone."
+- attributes: []
+  text: 'The five expressions of "this is a source code block":'
+  children:
+  - attributes: []
+    content: 'The five expressions of "this is a source code block":'
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: "**Class:** `SourceBlock < Block` — the class IS the type"
+    children:
+    - attributes: []
+      text: 'Class:'
+    - attributes: []
+      content: " "
+    - attributes: []
+      text: SourceBlock < Block
+    - attributes: []
+      content: " — the class IS the type"
+  - attributes: []
+    text: "**`self.semantic_type`:** returns `:source_code` (symbol)"
+    children:
+    - attributes: []
+      text: "`self.semantic_type`:"
+    - attributes: []
+      content: " returns "
+    - attributes: []
+      text: ":source_code"
+    - attributes: []
+      content: " (symbol)"
+  - attributes: []
+    text: "**`block_semantic_type`:** defaults to `'source_code'` (string — inconsistent with symbol above)"
+    children:
+    - attributes: []
+      text: "`block_semantic_type`:"
+    - attributes: []
+      content: " defaults to "
+    - attributes: []
+      text: "'source_code'"
+    - attributes: []
+      content: " (string — inconsistent with symbol above)"
+  - attributes: []
+    text: "**`element_type`:** sometimes set to string like `'paragraph'`"
+    children:
+    - attributes: []
+      text: "`element_type`:"
+    - attributes: []
+      content: " sometimes set to string like "
+    - attributes: []
+      text: "'paragraph'"
+  - attributes: []
+    text: "**`BlockSemanticType::SOURCE_CODE`:** constant `= :source_code`"
+    children:
+    - attributes: []
+      text: "`BlockSemanticType::SOURCE_CODE`:"
+    - attributes: []
+      content: " constant "
+    - attributes: []
+      text: "= :source_code"
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  level: 3
+  text: 2A. Every typed subclass repeats the same value twice
+- attributes: []
+  headers:
+  - File
+  - Line
+  - "`self.semantic_type`"
+  - "`block_semantic_type` default"
+  rows:
+  - "`source_block.rb` | 17, 19 | `:source_code` | `'source_code'`"
+  - "`quote_block.rb` | 7, 9 | `:quote` | `'quote'`"
+  - "`example_block.rb` | 7, 9 | `:example` | `'example'`"
+  - "`sidebar_block.rb` | 7, 9 | `:sidebar` | `'sidebar'`"
+  - "`literal_block.rb` | 7, 9 | `:literal` | `'literal'`"
+  - "`open_block.rb` | 7, 9 | `:open` | `'open'`"
+  - "`pass_block.rb` | 7, 9 | `:pass` | `'pass'`"
+  - "`verse_block.rb` | 7, 9 | `:verse` | `'verse'`"
+  - "`listing_block.rb` | 10, 12 | `:listing` | `'listing'`"
+  - "`reviewer_block.rb` | 7, 9 | `:reviewer` | `'reviewer'`"
+- attributes: []
+  text: 'Example from `source_block.rb`:'
+  children:
+  - attributes: []
+    content: 'Example from '
+  - attributes: []
+    text: source_block.rb
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    class SourceBlock < Block
+      def self.semantic_type = :source_code
+      attribute :block_semantic_type, :string, default: -> { 'source_code' }
+    end
+- attributes: []
+  level: 3
+  text: 2B. Four-level fallback chain in `resolve_semantic_type`
+- attributes: []
+  text: "`lib/ceradoc/core_model/block.rb:73-77`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/block.rb:73-77
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def resolve_semantic_type
+      self.class.semantic_type ||
+        (block_semantic_type&.to_sym) ||
+        resolve_semantic_from_element_type ||
+        resolve_semantic_from_delimiter
+    end
+- attributes: []
+  level: 3
+  text: 2C. `BlockSemanticType` module — a FIFTH expression
+- attributes: []
+  text: "`lib/ceradoc/core_model/block.rb:10-32`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/block.rb:10-32
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    module BlockSemanticType
+      SOURCE_CODE = :source_code
+      LISTING = :listing
+      EXAMPLE = :example
+      # ... 16 constants total
+    end
+- attributes: []
+  text: Constants like `HORIZONTAL_RULE`, `VIDEO`, `AUDIO`, `COMMENT` have no corresponding
+    subclasses.
+  children:
+  - attributes: []
+    content: 'Constants like '
+  - attributes: []
+    text: HORIZONTAL_RULE
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: VIDEO
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: AUDIO
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: COMMENT
+  - attributes: []
+    content: " have no corresponding subclasses."
+- attributes: []
+  level: 3
+  text: 2D. `element_type` — a SIXTH expression on Block
+- attributes: []
+  text: "`lib/ceradoc/core_model/block.rb:87`:"
+  children:
+  - attributes: []
+    text: lib/ceradoc/core_model/block.rb:87
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: attribute :element_type, :string
+- attributes: []
+  text: Used for string-based dispatch in format gems instead of class checks.
+  children:
+  - attributes: []
+    content: Used for string-based dispatch in format gems instead of class checks.
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: Remove `block_semantic_type` attribute from typed subclasses — the class
+      IS the type.
+    children:
+    - attributes: []
+      content: 'Remove '
+    - attributes: []
+      text: block_semantic_type
+    - attributes: []
+      content: " attribute from typed subclasses — the class IS the type."
+  - attributes: []
+    text: Remove `element_type` from `Block` — use the class hierarchy.
+    children:
+    - attributes: []
+      content: 'Remove '
+    - attributes: []
+      text: element_type
+    - attributes: []
+      content: " from "
+    - attributes: []
+      text: Block
+    - attributes: []
+      content: " — use the class hierarchy."
+  - attributes: []
+    text: Remove `BlockSemanticType` constants — derive from `self.semantic_type`
+      on subclasses.
+    children:
+    - attributes: []
+      content: 'Remove '
+    - attributes: []
+      text: BlockSemanticType
+    - attributes: []
+      content: " constants — derive from "
+    - attributes: []
+      text: self.semantic_type
+    - attributes: []
+      content: " on subclasses."
+  - attributes: []
+    text: Simplify `resolve_semantic_type` to just `self.class.semantic_type`.
+    children:
+    - attributes: []
+      content: 'Simplify '
+    - attributes: []
+      text: resolve_semantic_type
+    - attributes: []
+      content: " to just "
+    - attributes: []
+      text: self.class.semantic_type
+    - attributes: []
+      content: "."
+  - attributes: []
+    text: Keep `block_semantic_type` only on the generic `Block` class for truly generic
+      instances.
+    children:
+    - attributes: []
+      content: 'Keep '
+    - attributes: []
+      text: block_semantic_type
+    - attributes: []
+      content: " only on the generic "
+    - attributes: []
+      text: Block
+    - attributes: []
+      content: " class for truly generic instances."

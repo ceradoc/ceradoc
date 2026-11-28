@@ -1,0 +1,352 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: ParagraphBlock
+  source_line: 2
+  children:
+  - type: TextContent
+    text: ISO (the International Organization for Standardization) is a worldwide
+      federation of national standards bodies (ISO member bodies). The work of preparing
+      International Standards is normally carried out through ISO technical committees.
+      Each member body interested in a subject for which a technical committee has
+      been established has the right to be represented on that committee. International
+      organizations, governmental and non-governmental, in liaison with ISO, also
+      take part in the work. ISO collaborates closely with the International Electrotechnical
+      Commission (IEC) on all matters of electrotechnical standardization.
+  content: ISO (the International Organization for Standardization) is a worldwide
+    federation of national standards bodies (ISO member bodies). The work of preparing
+    International Standards is normally carried out through ISO technical committees.
+    Each member body interested in a subject for which a technical committee has been
+    established has the right to be represented on that committee. International organizations,
+    governmental and non-governmental, in liaison with ISO, also take part in the
+    work. ISO collaborates closely with the International Electrotechnical Commission
+    (IEC) on all matters of electrotechnical standardization.
+  lines:
+  - ISO (the International Organization for Standardization) is a worldwide federation
+    of national standards bodies (ISO member bodies). The work of preparing International
+    Standards is normally carried out through ISO technical committees. Each member
+    body interested in a subject for which a technical committee has been established
+    has the right to be represented on that committee. International organizations,
+    governmental and non-governmental, in liaison with ISO, also take part in the
+    work. ISO collaborates closely with the International Electrotechnical Commission
+    (IEC) on all matters of electrotechnical standardization.
+  callouts: []
+- type: ParagraphBlock
+  source_line: 13
+  children:
+  - type: TextContent
+    text: 'The procedures used to develop this document and those intended for its
+      further maintenance are described in the ISO/IEC Directives, Part 1. In particular,
+      the different approval criteria needed for the different types of ISO documents
+      should be noted. This document was drafted in accordance with the editorial
+      rules of the ISO/IEC Directives, Part 2 (see '
+  - type: LinkElement
+    source_line: 17
+    children: []
+    content: www.iso.org/directives
+    target: https://www.iso.org/directives
+    edges:
+    - kind: link
+      address:
+        scheme: url
+        target: https://www.iso.org/directives
+      label: www.iso.org/directives
+      options:
+        type: LinkOptions
+  - type: TextContent
+    text: ")."
+  content: The procedures used to develop this document and those intended for its
+    further maintenance are described in the ISO/IEC Directives, Part 1. In particular,
+    the different approval criteria needed for the different types of ISO documents
+    should be noted. This document was drafted in accordance with the editorial rules
+    of the ISO/IEC Directives, Part 2 (see www.iso.org/directives).
+  lines:
+  - The procedures used to develop this document and those intended for its further
+    maintenance are described in the ISO/IEC Directives, Part 1. In particular, the
+    different approval criteria needed for the different types of ISO documents should
+    be noted. This document was drafted in accordance with the editorial rules of
+    the ISO/IEC Directives, Part 2 (see www.iso.org/directives).
+  callouts: []
+- type: ParagraphBlock
+  source_line: 19
+  children:
+  - type: TextContent
+    text: 'ISO draws attention to the possibility that the implementation of this
+      document may involve the use of (a) patent(s). ISO takes no position concerning
+      the evidence, validity or applicability of any claimed patent rights in respect
+      thereof. As of the date of publication of this document, ISO had not received
+      notice of (a) patent(s) which may be required to implement this document. However,
+      implementers are cautioned that this may not represent the latest information,
+      which may be obtained from the patent database available at '
+  - type: LinkElement
+    source_line: 26
+    children: []
+    content: www.iso.org/patents
+    target: https://www.iso.org/patents
+    edges:
+    - kind: link
+      address:
+        scheme: url
+        target: https://www.iso.org/patents
+      label: www.iso.org/patents
+      options:
+        type: LinkOptions
+  - type: TextContent
+    text: ". ISO shall not be held responsible for identifying any or all such patent rights."
+  content: ISO draws attention to the possibility that the implementation of this
+    document may involve the use of (a) patent(s). ISO takes no position concerning
+    the evidence, validity or applicability of any claimed patent rights in respect
+    thereof. As of the date of publication of this document, ISO had not received
+    notice of (a) patent(s) which may be required to implement this document. However,
+    implementers are cautioned that this may not represent the latest information,
+    which may be obtained from the patent database available at www.iso.org/patents.
+    ISO shall not be held responsible for identifying any or all such patent rights.
+  lines:
+  - ISO draws attention to the possibility that the implementation of this document
+    may involve the use of (a) patent(s). ISO takes no position concerning the evidence,
+    validity or applicability of any claimed patent rights in respect thereof. As
+    of the date of publication of this document, ISO had not received notice of (a)
+    patent(s) which may be required to implement this document. However, implementers
+    are cautioned that this may not represent the latest information, which may be
+    obtained from the patent database available at www.iso.org/patents. ISO shall
+    not be held responsible for identifying any or all such patent rights.
+  callouts: []
+- type: ParagraphBlock
+  source_line: 29
+  children:
+  - type: TextContent
+    text: Any trade name used in this document is information given for the convenience
+      of users and does not constitute an endorsement.
+  content: Any trade name used in this document is information given for the convenience
+    of users and does not constitute an endorsement.
+  lines:
+  - Any trade name used in this document is information given for the convenience
+    of users and does not constitute an endorsement.
+  callouts: []
+- type: ParagraphBlock
+  source_line: 32
+  children:
+  - type: TextContent
+    text: 'For an explanation of the voluntary nature of standards, the meaning of
+      ISO specific terms and expressions related to conformity assessment, as well
+      as information about ISO''s adherence to the World Trade Organization (WTO)
+      principles in the Technical Barriers to Trade (TBT), see '
+  - type: LinkElement
+    source_line: 36
+    children: []
+    content: www.iso.org/iso/foreword.html
+    target: https://www.iso.org/iso/foreword.html
+    edges:
+    - kind: link
+      address:
+        scheme: url
+        target: https://www.iso.org/iso/foreword.html
+      label: www.iso.org/iso/foreword.html
+      options:
+        type: LinkOptions
+  - type: TextContent
+    text: "."
+  content: For an explanation of the voluntary nature of standards, the meaning of
+    ISO specific terms and expressions related to conformity assessment, as well as
+    information about ISO's adherence to the World Trade Organization (WTO) principles
+    in the Technical Barriers to Trade (TBT), see www.iso.org/iso/foreword.html.
+  lines:
+  - For an explanation of the voluntary nature of standards, the meaning of ISO specific
+    terms and expressions related to conformity assessment, as well as information
+    about ISO's adherence to the World Trade Organization (WTO) principles in the
+    Technical Barriers to Trade (TBT), see www.iso.org/iso/foreword.html.
+  callouts: []
+- type: ReviewerBlock
+  source_line: 38
+  children:
+  - type: ListBlock
+    source_line: 40
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 40
+      children:
+      - type: TextContent
+        text: Template text for all committees
+      marker: "*"
+      content: Template text for all committees
+  callouts: []
+  annotation_type: reviewer
+  annotation_label: ISO
+- type: ParagraphBlock
+  source_line: 43
+  children:
+  - type: TextContent
+    text: 'This document was prepared by Technical Committee ISO/TC '
+  - type: InlineElement
+    children: []
+    format_type: attribute_reference
+    content: "{technical-committee-number}"
+    target: technical-committee-number
+  - type: TextContent
+    text: ", "
+  - type: ItalicElement
+    source_line: 44
+    children:
+    - type: InlineElement
+      children: []
+      format_type: attribute_reference
+      content: "{technical-committee}"
+      target: technical-committee
+    content: "{technical-committee}"
+    constraint: constrained
+  - type: TextContent
+    text: ", Subcommittee SC "
+  - type: InlineElement
+    children: []
+    format_type: attribute_reference
+    content: "{subcommittee-number}"
+    target: subcommittee-number
+  - type: TextContent
+    text: ", "
+  - type: ItalicElement
+    source_line: 45
+    children:
+    - type: InlineElement
+      children: []
+      format_type: attribute_reference
+      content: "{subcommittee}"
+      target: subcommittee
+    content: "{subcommittee}"
+    constraint: constrained
+  - type: TextContent
+    text: "."
+  content: This document was prepared by Technical Committee ISO/TC {technical-committee-number},
+    {technical-committee}, Subcommittee SC {subcommittee-number}, {subcommittee}.
+  lines:
+  - This document was prepared by Technical Committee ISO/TC {technical-committee-number},
+    {technical-committee}, Subcommittee SC {subcommittee-number}, {subcommittee}.
+  callouts: []
+- type: ParagraphBlock
+  source_line: 47
+  children:
+  - type: TextContent
+    text: 'This third edition cancels and replaces the second edition (ISO '
+  - type: InlineElement
+    children: []
+    format_type: attribute_reference
+    content: "{docnumber}"
+    target: docnumber
+  - type: TextContent
+    text: "-"
+  - type: InlineElement
+    children: []
+    format_type: attribute_reference
+    content: "{partnumber}"
+    target: partnumber
+  - type: TextContent
+    text: ":2016), which has been technically revised."
+  content: This third edition cancels and replaces the second edition (ISO {docnumber}-{partnumber}:2016),
+    which has been technically revised.
+  lines:
+  - This third edition cancels and replaces the second edition (ISO {docnumber}-{partnumber}:2016),
+    which has been technically revised.
+  callouts: []
+- type: ParagraphBlock
+  source_line: 50
+  children:
+  - type: TextContent
+    text: 'The main changes are as follows:'
+  content: 'The main changes are as follows:'
+  lines:
+  - 'The main changes are as follows:'
+  callouts: []
+- type: ListBlock
+  source_line: 52
+  marker_type: unordered
+  items:
+  - type: ListItem
+    source_line: 52
+    children:
+    - type: TextContent
+      text: updating of normative references;
+    marker: "*"
+    content: updating of normative references;
+  - type: ListItem
+    source_line: 53
+    children:
+    - type: TextContent
+      text: revision of Clause 9.
+    marker: "*"
+    content: revision of Clause 9.
+- type: ParagraphBlock
+  source_line: 55
+  children:
+  - type: TextContent
+    text: 'A list of all parts in the ISO '
+  - type: InlineElement
+    children: []
+    format_type: attribute_reference
+    content: "{docnumber}"
+    target: docnumber
+  - type: TextContent
+    text: " series can be found on the ISO website."
+  content: A list of all parts in the ISO {docnumber} series can be found on the ISO
+    website.
+  lines:
+  - A list of all parts in the ISO {docnumber} series can be found on the ISO website.
+  callouts: []
+- type: ParagraphBlock
+  source_line: 58
+  children:
+  - type: TextContent
+    text: 'Any feedback or questions on this document should be directed to the user’s
+      national standards body. A complete listing of these bodies can be found at '
+  - type: LinkElement
+    source_line: 60
+    children: []
+    content: www.iso.org/members.html
+    target: https://www.iso.org/members.html
+    edges:
+    - kind: link
+      address:
+        scheme: url
+        target: https://www.iso.org/members.html
+      label: www.iso.org/members.html
+      options:
+        type: LinkOptions
+  - type: TextContent
+    text: "."
+  content: Any feedback or questions on this document should be directed to the user’s
+    national standards body. A complete listing of these bodies can be found at www.iso.org/members.html.
+  lines:
+  - Any feedback or questions on this document should be directed to the user’s national
+    standards body. A complete listing of these bodies can be found at www.iso.org/members.html.
+  callouts: []
+- type: ReviewerBlock
+  source_line: 62
+  children:
+  - type: ListBlock
+    source_line: 64
+    marker_type: unordered
+    items:
+    - type: ListItem
+      source_line: 64
+      children:
+      - type: TextContent
+        text: Committee-specific text
+      marker: "*"
+      content: Committee-specific text
+      nested_list:
+        type: ListBlock
+        source_line: 65
+        marker_type: unordered
+        items:
+        - type: ListItem
+          source_line: 65
+          children:
+          - type: TextContent
+            text: ISO/IEC Directives, Part 2, 2021, Clause 12
+          marker: "**"
+          content: ISO/IEC Directives, Part 2, 2021, Clause 12
+  callouts: []
+  annotation_type: reviewer
+  annotation_label: ISO
+attributes:
+  type: Metadata

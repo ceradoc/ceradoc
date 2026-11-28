@@ -1,0 +1,22 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: Lorem ipsum[^first] dolor sit amet.
+  children:
+  - attributes: []
+    content: Lorem ipsum[^first] dolor sit amet.
+- attributes: []
+  text: Lorem ipsum[^second] dolor sit amet.
+  children:
+  - attributes: []
+    content: Lorem ipsum[^second] dolor sit amet.
+- id: first
+  attributes: []
+  content: Consecutur adisping.[^third]
+- id: second
+  attributes: []
+  content: Sed ut perspiciatis unde omnis.
+- id: third
+  attributes: []
+  content: Sed ut.

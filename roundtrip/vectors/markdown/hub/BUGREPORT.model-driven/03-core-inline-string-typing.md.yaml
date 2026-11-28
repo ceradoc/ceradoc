@@ -1,0 +1,544 @@
+---
+type: DocumentElement
+title: '03: InlineElement string-based format_type vs Block subclass pattern'
+children:
+- type: SectionElement
+  title: '03: InlineElement string-based format_type vs Block subclass pattern'
+  level: 1
+  children: []
+- type: SectionElement
+  title: 'Status: FIXED'
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Typed '
+    - type: MonospaceElement
+      children: []
+      content: InlineElement
+    - type: TextContent
+      text: " subclasses created: "
+    - type: MonospaceElement
+      children: []
+      content: BoldElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: ItalicElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: MonospaceElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: UnderlineElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: StrikethroughElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: SubscriptElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: SuperscriptElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: HighlightElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: LinkElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: XrefElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: StemElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: FootnoteElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: HardLineBreakElement
+    marker: "*"
+    content: 'Typed `InlineElement` subclasses created: `BoldElement`, `ItalicElement`,
+      `MonospaceElement`, `UnderlineElement`, `StrikethroughElement`, `SubscriptElement`,
+      `SuperscriptElement`, `HighlightElement`, `LinkElement`, `XrefElement`, `StemElement`,
+      `FootnoteElement`, `HardLineBreakElement`'
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: FORMAT_TYPE_CLASS_MAP
+    - type: TextContent
+      text: " hash added for string-to-class lookup (backward compatibility)"
+    marker: "*"
+    content: "`FORMAT_TYPE_CLASS_MAP` hash added for string-to-class lookup (backward compatibility)"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: constrained
+    - type: TextContent
+      text: " attribute removed from "
+    - type: MonospaceElement
+      children: []
+      content: InlineElement
+    - type: TextContent
+      text: " (AsciiDoc-only concept)"
+    marker: "*"
+    content: "`constrained` attribute removed from `InlineElement` (AsciiDoc-only concept)"
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Two divergent type lists consolidated into single canonical source on '
+    - type: MonospaceElement
+      children: []
+      content: InlineElement
+    marker: "*"
+    content: Two divergent type lists consolidated into single canonical source on
+      `InlineElement`
+- type: ParagraphBlock
+  children:
+  - type: BoldElement
+    children: []
+    content: 'Severity:'
+  - type: TextContent
+    text: " HIGH  "
+  - type: TextContent
+    text: "\n"
+  - type: BoldElement
+    children: []
+    content: 'Location:'
+  - type: TextContent
+    text: " "
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/inline_element.rb
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/detection.rb
+  content: "**Severity:** HIGH  \n**Location:** `lib/ceradoc/core_model/inline_element.rb`, `lib/ceradoc/core_model/builder/detection.rb`"
+  callouts: []
+- type: SectionElement
+  title: Problem
+  level: 2
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: CoreModel::InlineElement
+  - type: TextContent
+    text: " uses a "
+  - type: MonospaceElement
+    children: []
+    content: format_type
+  - type: TextContent
+    text: " string attribute ("
+  - type: MonospaceElement
+    children: []
+    content: "'bold'"
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "'italic'"
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: "'monospace'"
+  - type: TextContent
+    text: ") to distinguish inline types, while "
+  - type: MonospaceElement
+    children: []
+    content: Block
+  - type: TextContent
+    text: " correctly uses typed subclasses ("
+  - type: MonospaceElement
+    children: []
+    content: SourceBlock < Block
+  - type: TextContent
+    text: ", "
+  - type: MonospaceElement
+    children: []
+    content: QuoteBlock < Block
+  - type: TextContent
+    text: "). This architectural inconsistency forces every consumer to use "
+  - type: MonospaceElement
+    children: []
+    content: case format_type
+  - type: TextContent
+    text: " instead of polymorphic dispatch."
+  content: "`CoreModel::InlineElement` uses a `format_type` string attribute (`'bold'`, `'italic'`, `'monospace'`) to distinguish inline types, while `Block` correctly uses typed subclasses (`SourceBlock < Block`, `QuoteBlock < Block`). This architectural inconsistency forces every consumer to use `case format_type` instead of polymorphic dispatch."
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Additionally, the '
+  - type: MonospaceElement
+    children: []
+    content: constrained
+  - type: TextContent
+    text: " attribute on "
+  - type: MonospaceElement
+    children: []
+    content: InlineElement
+  - type: TextContent
+    text: " is an AsciiDoc-only concept."
+  content: Additionally, the `constrained` attribute on `InlineElement` is an AsciiDoc-only
+    concept.
+  callouts: []
+- type: SectionElement
+  title: Evidence
+  level: 2
+  children: []
+- type: SectionElement
+  title: 3A. String-based `format_type` with divergent type lists
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/inline_element.rb:49-61
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/inline_element.rb:49-61`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    FORMAT_TYPES = %w[
+      bold italic monospace underline strikethrough
+      subscript superscript highlight
+      link xref stem footnote
+      hard_line_break
+    ].freeze
+
+    attribute :format_type, :string
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'The Builder''s '
+  - type: MonospaceElement
+    children: []
+    content: Detection#inline_format_types
+  - type: TextContent
+    text: " ("
+  - type: MonospaceElement
+    children: []
+    content: builder/detection.rb:178-183
+  - type: TextContent
+    text: ") defines a DIFFERENT list:"
+  content: 'The Builder''s `Detection#inline_format_types` (`builder/detection.rb:178-183`)
+    defines a DIFFERENT list:'
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    %i[bold italic monospace superscript subscript highlight span link
+       cross_reference bold_constrained bold_unconstrained
+       italic_constrained italic_unconstrained monospace_constrained
+       monospace_unconstrained]
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Divergence:'
+  content: 'Divergence:'
+  callouts: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: FORMAT_TYPES
+    - type: TextContent
+      text: " has: "
+    - type: MonospaceElement
+      children: []
+      content: underline
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: strikethrough
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: xref
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: stem
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: footnote
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: hard_line_break
+    marker: "*"
+    content: "`FORMAT_TYPES` has: `underline`, `strikethrough`, `xref`, `stem`, `footnote`, `hard_line_break`"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: inline_format_types
+    - type: TextContent
+      text: " has: "
+    - type: MonospaceElement
+      children: []
+      content: span
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: cross_reference
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: "*_constrained"
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: "*_unconstrained"
+    marker: "*"
+    content: "`inline_format_types` has: `span`, `cross_reference`, `*_constrained`, `*_unconstrained`"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: xref
+    - type: TextContent
+      text: " vs "
+    - type: MonospaceElement
+      children: []
+      content: cross_reference
+    - type: TextContent
+      text: " — two names for the same concept"
+    marker: "*"
+    content: "`xref` vs `cross_reference` — two names for the same concept"
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Strings vs symbols inconsistency
+    marker: "*"
+    content: Strings vs symbols inconsistency
+- type: SectionElement
+  title: 3B. Cascading `case`/`when` chains in every transformer
+  level: 3
+  children: []
+- type: ListBlock
+  marker_type: unordered
+  items:
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: ceradoc-html/lib/ceradoc/html/converters/base.rb:109-152
+    - type: TextContent
+      text: " — 20-case chain"
+    marker: "*"
+    content: "`ceradoc-html/lib/ceradoc/html/converters/base.rb:109-152` — 20-case chain"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: ceradoc-adoc/lib/ceradoc/asciidoc/transform/from_core_model.rb:225-260
+    - type: TextContent
+      text: " — 15-case chain"
+    marker: "*"
+    content: "`ceradoc-adoc/lib/ceradoc/asciidoc/transform/from_core_model.rb:225-260` — 15-case chain"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: ceradoc-markdown/lib/ceradoc/markdown/transform/from_core_model.rb:172-206
+    - type: TextContent
+      text: " — 15-case chain"
+    marker: "*"
+    content: "`ceradoc-markdown/lib/ceradoc/markdown/transform/from_core_model.rb:172-206` — 15-case chain"
+  - type: ListItem
+    children:
+    - type: MonospaceElement
+      children: []
+      content: ceradoc-docx/lib/ceradoc/docx/transform/from_core_model.rb:43-57
+    - type: TextContent
+      text: " — catches all InlineElement then re-dispatches"
+    marker: "*"
+    content: "`ceradoc-docx/lib/ceradoc/docx/transform/from_core_model.rb:43-57` — catches all InlineElement then re-dispatches"
+- type: SectionElement
+  title: 3C. `constrained` attribute — AsciiDoc-only concept
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/inline_element.rb:63-66
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/inline_element.rb:63-66`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    # whether the formatting uses constrained syntax (true for *text*, false for **text**)
+    attribute :constrained, :boolean, default: -> { true }
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'Constrained/unconstrained is uniquely AsciiDoc. Markdown uses '
+  - type: MonospaceElement
+    children: []
+    content: "*"
+  - type: TextContent
+    text: " vs "
+  - type: MonospaceElement
+    children: []
+    content: "**"
+  - type: TextContent
+    text: " for italic vs bold — a different semantic. HTML has no such concept."
+  content: Constrained/unconstrained is uniquely AsciiDoc. Markdown uses `*` vs `**`
+    for italic vs bold — a different semantic. HTML has no such concept.
+  callouts: []
+- type: SectionElement
+  title: 3D. Builder detection of `_constrained`/`_unconstrained` AST keys
+  level: 3
+  children: []
+- type: ParagraphBlock
+  children:
+  - type: MonospaceElement
+    children: []
+    content: lib/ceradoc/core_model/builder/detection.rb:126-153
+  - type: TextContent
+    text: ":"
+  content: "`lib/ceradoc/core_model/builder/detection.rb:126-153`:"
+  callouts: []
+- type: SourceBlock
+  children: []
+  content: |-
+    def detect_inline_format(ast)
+      ast.each_key do |key|
+        key_str = key.to_s
+        return key_str if key_str.end_with?('_constrained', '_unconstrained')
+      end
+    end
+
+    def detect_constrained(ast, format_type)
+      if format_type.end_with?('_constrained')
+        return true
+      elsif format_type.end_with?('_unconstrained')
+        return false
+      end
+    end
+  language: ruby
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: These AST key names are artifacts of the AsciiDoc parser's AST structure.
+  content: These AST key names are artifacts of the AsciiDoc parser's AST structure.
+  callouts: []
+- type: SectionElement
+  title: Fix
+  level: 2
+  children: []
+- type: ListBlock
+  marker_type: ordered
+  items:
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Create typed InlineElement subclasses matching the Block pattern: '
+    - type: MonospaceElement
+      children: []
+      content: BoldElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: ItalicElement
+    - type: TextContent
+      text: ", "
+    - type: MonospaceElement
+      children: []
+      content: LinkElement
+    - type: TextContent
+      text: ", etc."
+    marker: '1.'
+    content: 'Create typed InlineElement subclasses matching the Block pattern: `BoldElement`,
+      `ItalicElement`, `LinkElement`, etc.'
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: 'Move '
+    - type: MonospaceElement
+      children: []
+      content: constrained
+    - type: TextContent
+      text: " to the AsciiDoc format gem's own inline model."
+    marker: '1.'
+    content: Move `constrained` to the AsciiDoc format gem's own inline model.
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Consolidate the two divergent type lists into a single canonical source.
+    marker: '1.'
+    content: Consolidate the two divergent type lists into a single canonical source.
+  - type: ListItem
+    children:
+    - type: TextContent
+      text: Transformers use class-based dispatch (
+    - type: MonospaceElement
+      children: []
+      content: when Ceradoc::CoreModel::BoldElement
+    - type: TextContent
+      text: ") instead of string matching."
+    marker: '1.'
+    content: Transformers use class-based dispatch (`when Ceradoc::CoreModel::BoldElement`)
+      instead of string matching.

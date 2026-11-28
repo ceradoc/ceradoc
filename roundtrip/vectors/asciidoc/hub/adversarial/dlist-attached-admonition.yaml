@@ -1,0 +1,29 @@
+---
+type: DocumentElement
+title: ''
+children:
+- type: DefinitionList
+  source_line: 1
+  items:
+  - type: DefinitionItem
+    source_line: 1
+    term: term
+    terms:
+    - term
+    definitions:
+    - def +[NOTE]
+    attached_children: []
+- type: ExampleBlock
+  source_line: 3
+  children:
+  - type: ParagraphBlock
+    source_line: 4
+    children:
+    - type: TextContent
+      text: note
+    content: note
+    callouts: []
+  content: note
+  callouts: []
+attributes:
+  type: Metadata

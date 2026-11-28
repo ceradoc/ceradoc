@@ -1,0 +1,13 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: 'line one  '
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: line two
+  content: "line one  \nline two"
+  callouts: []

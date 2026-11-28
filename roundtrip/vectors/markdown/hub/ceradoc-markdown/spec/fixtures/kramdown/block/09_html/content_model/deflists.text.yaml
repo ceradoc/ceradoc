@@ -1,0 +1,40 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<dl>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<dt>"
+  - type: ItalicElement
+    children: []
+    content: text
+  - type: TextContent
+    text: "</dt>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<dd>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: para
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</dd>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</dl>"
+  content: |-
+    <dl>
+    <dt>*text*</dt>
+    <dd>
+    para
+    </dd>
+    </dl>
+  callouts: []

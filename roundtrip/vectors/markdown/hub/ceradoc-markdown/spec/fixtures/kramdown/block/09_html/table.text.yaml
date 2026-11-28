@@ -1,0 +1,40 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "<table>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<th>test</th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<th></th>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "<td></td>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</tr>"
+  - type: TextContent
+    text: "\n"
+  - type: TextContent
+    text: "</table>"
+  content: |-
+    <table>
+    <tr>
+    <th>test</th>
+    <th></th>
+    <td></td>
+    </tr>
+    </table>
+  callouts: []

@@ -1,0 +1,131 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '14: DOCX from_core_model still uses element_type string dispatch'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`from_core_model.rb` uses `case element.element_type` with string matching"
+    children:
+    - attributes: []
+      text: from_core_model.rb
+    - attributes: []
+      content: " uses "
+    - attributes: []
+      text: case element.element_type
+    - attributes: []
+      content: " with string matching"
+  - attributes: []
+    text: Should use class-based `case element; when DocumentElement` pattern
+    children:
+    - attributes: []
+      content: 'Should use class-based '
+    - attributes: []
+      text: case element; when DocumentElement
+    - attributes: []
+      content: " pattern"
+- attributes: []
+  text: |-
+    **Severity:** MEDIUM
+    **Location:** `ceradoc-docx/lib/ceradoc/docx/transform/from_core_model.rb`
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " MEDIUM"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: ceradoc-docx/lib/ceradoc/docx/transform/from_core_model.rb
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  text: |-
+    Line 85-92: `case element.element_type` matching `'document'`, `'section'`
+    Line 130-139: `case block.element_type` matching `'page_break'`, `'paragraph'`, `'comment'`
+    Line 209-214: `case block.element_type` matching `'page_break'`
+  children:
+  - attributes: []
+    content: 'Line 85-92: '
+  - attributes: []
+    text: case element.element_type
+  - attributes: []
+    content: " matching "
+  - attributes: []
+    text: "'document'"
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: "'section'"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: 'Line 130-139: '
+  - attributes: []
+    text: case block.element_type
+  - attributes: []
+    content: " matching "
+  - attributes: []
+    text: "'page_break'"
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: "'paragraph'"
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: "'comment'"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: 'Line 209-214: '
+  - attributes: []
+    text: case block.element_type
+  - attributes: []
+    content: " matching "
+  - attributes: []
+    text: "'page_break'"
+- attributes: []
+  text: The ADOC and Markdown gems already use class-based dispatch. DOCX should follow
+    the same pattern.
+  children:
+  - attributes: []
+    content: The ADOC and Markdown gems already use class-based dispatch. DOCX should
+      follow the same pattern.
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  text: Replace `case element.element_type` with `case element; when CoreModel::DocumentElement`
+    etc. Replace `case block.element_type` with `case block; when CoreModel::ParagraphBlock`
+    etc.
+  children:
+  - attributes: []
+    content: 'Replace '
+  - attributes: []
+    text: case element.element_type
+  - attributes: []
+    content: " with "
+  - attributes: []
+    text: case element; when CoreModel::DocumentElement
+  - attributes: []
+    content: " etc. Replace "
+  - attributes: []
+    text: case block.element_type
+  - attributes: []
+    content: " with "
+  - attributes: []
+    text: case block; when CoreModel::ParagraphBlock
+  - attributes: []
+    content: " etc."

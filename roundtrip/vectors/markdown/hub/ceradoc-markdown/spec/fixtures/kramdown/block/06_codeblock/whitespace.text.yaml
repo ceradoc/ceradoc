@@ -1,0 +1,11 @@
+---
+type: DocumentElement
+children:
+- type: SourceBlock
+  element_attributes:
+  - type: ElementAttribute
+    name: class
+    value: show-whitespaces
+  children: []
+  content: "This\tis some  \n    whitespace  "
+  callouts: []

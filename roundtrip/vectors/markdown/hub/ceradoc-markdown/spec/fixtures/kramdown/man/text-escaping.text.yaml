@@ -1,0 +1,27 @@
+---
+type: DocumentElement
+children:
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: ". at the start of the line"
+  content: ". at the start of the line"
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: line with \fB backslash symbol
+  content: line with \fB backslash symbol
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: some . other - escaped ' symbols
+  content: some . other - escaped \' symbols
+  callouts: []
+- type: ParagraphBlock
+  children:
+  - type: TextContent
+    text: "."
+  content: "."
+  callouts: []

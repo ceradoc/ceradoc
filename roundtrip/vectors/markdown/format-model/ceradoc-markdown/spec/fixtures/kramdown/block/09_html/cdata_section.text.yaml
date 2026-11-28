@@ -1,0 +1,56 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  text: |-
+    <figure><![CDATA[
+    +-----------------------+
+    | Use XML, be Happy :-) |
+    |_______________________|
+    ]]>
+    </figure>
+  children:
+  - attributes: []
+    content: "<figure><![CDATA["
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "+-----------------------+"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "| Use XML, be Happy :-) |"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "|"
+  - attributes: []
+    content: _______________________
+  - attributes: []
+    content: "|"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "]]>"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    content: "</figure>"
+- attributes: []
+  text: Inline <![CDATA[section <goes>]]> here.
+  children:
+  - attributes: []
+    content: Inline <![CDATA[section <goes>]]> here.
+- attributes: []
+  text: Inline <kbd>test *case* <![CDATA[*section* <goes>]]> here</kbd> end.
+  children:
+  - attributes: []
+    content: 'Inline <kbd>test '
+  - attributes: []
+    text: case
+  - attributes: []
+    content: " <![CDATA["
+  - attributes: []
+    text: section
+  - attributes: []
+    content: " <goes>]]> here</kbd> end."

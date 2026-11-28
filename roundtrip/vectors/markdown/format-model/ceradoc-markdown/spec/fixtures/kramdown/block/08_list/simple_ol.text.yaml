@@ -1,0 +1,43 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: This is a simple list item
+    children:
+    - attributes: []
+      content: This is a simple list item
+  - attributes: []
+    text: Followed by another
+    children:
+    - attributes: []
+      content: Followed by another
+- attributes: []
+  text: '10.	Followed by'
+  children:
+  - attributes: []
+    content: '10.	Followed by'
+- attributes: []
+  code: a para list item
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: and a normal one
+    children:
+    - attributes: []
+      content: and a normal one
+  - attributes: []
+    text: and
+    children:
+    - attributes: []
+      content: and
+- attributes: []
+  code: a para
+- attributes: []
+  text: para
+  children:
+  - attributes: []
+    content: para

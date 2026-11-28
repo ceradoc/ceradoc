@@ -1,0 +1,382 @@
+---
+attributes: []
+blocks:
+- attributes: []
+  level: 1
+  text: '09: AsciiDoc parser stores definition list terms and definitions as raw strings'
+- attributes: []
+  level: 2
+  text: 'Status: FIXED'
+- attributes: []
+  ordered: false
+  items:
+  - attributes: []
+    text: "`dlist_term` parser updated to parse `[[anchor]]` syntax and extract IDs"
+    children:
+    - attributes: []
+      text: dlist_term
+    - attributes: []
+      content: " parser updated to parse "
+    - attributes: []
+      text: "[[anchor]]"
+    - attributes: []
+      content: " syntax and extract IDs"
+  - attributes: []
+    text: Transformer handles `TextElement` case for ID extraction from terms
+    children:
+    - attributes: []
+      content: 'Transformer handles '
+    - attributes: []
+      text: TextElement
+    - attributes: []
+      content: " case for ID extraction from terms"
+  - attributes: []
+    text: ToCoreModel transformer re-parses definition content via `parse_inline_text`
+      and `transform_inline_content`
+    children:
+    - attributes: []
+      content: 'ToCoreModel transformer re-parses definition content via '
+    - attributes: []
+      text: parse_inline_text
+    - attributes: []
+      content: " and "
+    - attributes: []
+      text: transform_inline_content
+  - attributes: []
+    text: Duplicate rule in `list_rules.rb` removed
+    children:
+    - attributes: []
+      content: 'Duplicate rule in '
+    - attributes: []
+      text: list_rules.rb
+    - attributes: []
+      content: " removed"
+  - attributes: []
+    text: "`dlist_definition` parser still uses raw text capture but inline structure is recovered in the ToCoreModel transformer"
+    children:
+    - attributes: []
+      text: dlist_definition
+    - attributes: []
+      content: " parser still uses raw text capture but inline structure is recovered in the ToCoreModel transformer"
+- attributes: []
+  text: |-
+    **Severity:** HIGH
+    **Location:** `ceradoc-adoc/lib/ceradoc/asciidoc/parser/list.rb`, `ceradoc-adoc/lib/ceradoc/asciidoc/transformer/list_rules.rb`
+  children:
+  - attributes: []
+    text: 'Severity:'
+  - attributes: []
+    content: " HIGH"
+  - attributes: []
+    content: "\n"
+  - attributes: []
+    text: 'Location:'
+  - attributes: []
+    content: " "
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/parser/list.rb
+  - attributes: []
+    content: ", "
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/transformer/list_rules.rb
+- attributes: []
+  level: 2
+  text: Test file
+- attributes: []
+  text: "`/Users/mulgogi/src/chinese/cham-format/sections/03-terms.adoc` — contains a definition list with `[[term-cham-file]]CHAM file:: ...See <<file-format>>.` entries, and backtick monospace in descriptions."
+  children:
+  - attributes: []
+    text: "/Users/mulgogi/src/chinese/cham-format/sections/03-terms.adoc"
+  - attributes: []
+    content: " — contains a definition list with "
+  - attributes: []
+    text: "[[term-cham-file]]CHAM file:: ...See <<file-format>>."
+  - attributes: []
+    content: " entries, and backtick monospace in descriptions."
+- attributes: []
+  level: 2
+  text: Problem
+- attributes: []
+  text: The AsciiDoc parser captures definition list terms and definitions as raw
+    strings without processing inline markup. The `[[anchor]]` syntax, `<<cross-reference>>`
+    syntax, and backtick monospace inside definition list items are never parsed into
+    inline model objects. They pass through as literal text.
+  children:
+  - attributes: []
+    content: 'The AsciiDoc parser captures definition list terms and definitions as
+      raw strings without processing inline markup. The '
+  - attributes: []
+    text: "[[anchor]]"
+  - attributes: []
+    content: " syntax, "
+  - attributes: []
+    text: "<<cross-reference>>"
+  - attributes: []
+    content: " syntax, and backtick monospace inside definition list items are never parsed into inline model objects. They pass through as literal text."
+- attributes: []
+  level: 2
+  text: Evidence
+- attributes: []
+  level: 3
+  text: 9A. Parser captures term as raw characters
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/parser/list.rb:109-111`:"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/parser/list.rb:109-111
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def dlist_term(_delimiter)
+      match("[^\n:]").repeat(1)
+                     .as(:dlist_term) >> dlist_delimiter
+    end
+- attributes: []
+  text: This captures everything before `::` as an opaque string. The `[[term-cham-file]]`
+    anchor prefix and any inline formatting in the term text are captured as raw characters.
+  children:
+  - attributes: []
+    content: 'This captures everything before '
+  - attributes: []
+    text: "::"
+  - attributes: []
+    content: " as an opaque string. The "
+  - attributes: []
+    text: "[[term-cham-file]]"
+  - attributes: []
+    content: " anchor prefix and any inline formatting in the term text are captured as raw characters."
+- attributes: []
+  level: 3
+  text: 9B. Parser captures definition as raw text
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/parser/list.rb:114-117`:"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/parser/list.rb:114-117
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    def dlist_definition
+      text # >> empty_line.repeat(0)
+        .as(:definition) >> line_ending >> empty_line.repeat(0)
+    end
+- attributes: []
+  text: The `text` parser atom does not invoke the `inline` sub-parser, so backticks,
+    `<<xref>>`, and other inline markup in the definition are never recognized.
+  children:
+  - attributes: []
+    content: 'The '
+  - attributes: []
+    text: text
+  - attributes: []
+    content: " parser atom does not invoke the "
+  - attributes: []
+    text: inline
+  - attributes: []
+    content: " sub-parser, so backticks, "
+  - attributes: []
+    text: "<<xref>>"
+  - attributes: []
+    content: ", and other inline markup in the definition are never recognized."
+- attributes: []
+  level: 3
+  text: 9C. Transformer converts to raw string
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/transformer/list_rules.rb:65-67`:"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/transformer/list_rules.rb:65-67
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    rule(dlist_term: simple(:term), delimiter: simple(:_delim)) do
+      term.to_s
+    end
+- attributes: []
+  text: The transformer rule calls `.to_s` on the term, producing a plain string.
+    No `Model::Term` object is created with structured content.
+  children:
+  - attributes: []
+    content: 'The transformer rule calls '
+  - attributes: []
+    text: ".to_s"
+  - attributes: []
+    content: " on the term, producing a plain string. No "
+  - attributes: []
+    text: Model::Term
+  - attributes: []
+    content: " object is created with structured content."
+- attributes: []
+  level: 3
+  text: 9D. Transformer stores definition as string
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/transformer/list_rules.rb:100-104`:"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/transformer/list_rules.rb:100-104
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: |-
+    contents = definition.to_s
+    Model::List::DefinitionItem.new(terms: terms, contents: contents)
+- attributes: []
+  text: "`definition.to_s` collapses everything to a flat string."
+  children:
+  - attributes: []
+    text: definition.to_s
+  - attributes: []
+    content: " collapses everything to a flat string."
+- attributes: []
+  level: 3
+  text: 9E. Confirmed parser output
+- attributes: []
+  text: 'Running the parser on `[[term-cham-file]]CHAM file:: A thing. See <<file-format>>.`
+    produces:'
+  children:
+  - attributes: []
+    content: 'Running the parser on '
+  - attributes: []
+    text: "[[term-cham-file]]CHAM file:: A thing. See <<file-format>>."
+  - attributes: []
+    content: " produces:"
+- attributes: []
+  code: |-
+    Item 0: DefinitionItem
+      id: nil
+      terms: ["[[term-cham-file]]CHAM file"]
+      contents: "A thing. See <<file-format>>."
+- attributes: []
+  text: Both the `[[anchor]]` prefix and `<<xref>>` are raw strings. No `Model::Inline::CrossReference`
+    or anchor model exists.
+  children:
+  - attributes: []
+    content: 'Both the '
+  - attributes: []
+    text: "[[anchor]]"
+  - attributes: []
+    content: " prefix and "
+  - attributes: []
+    text: "<<xref>>"
+  - attributes: []
+    content: " are raw strings. No "
+  - attributes: []
+    text: Model::Inline::CrossReference
+  - attributes: []
+    content: " or anchor model exists."
+- attributes: []
+  level: 3
+  text: 9F. Same issue in Admonition model
+- attributes: []
+  text: "`ceradoc-adoc/lib/ceradoc/asciidoc/model/admonition.rb:31`:"
+  children:
+  - attributes: []
+    text: ceradoc-adoc/lib/ceradoc/asciidoc/model/admonition.rb:31
+  - attributes: []
+    content: ":"
+- attributes: []
+  language: ruby
+  code: attribute :content, :string
+- attributes: []
+  text: Admonition content is stored as `:string`, so even if the parser recognized
+    inline markup in NOTE content, the model can't hold it.
+  children:
+  - attributes: []
+    content: 'Admonition content is stored as '
+  - attributes: []
+    text: ":string"
+  - attributes: []
+    content: ", so even if the parser recognized inline markup in NOTE content, the model can't hold it."
+- attributes: []
+  level: 2
+  text: Impact
+- attributes: []
+  text: Any consumer that needs to render cross-references as links, anchors as `id`
+    attributes, or backtick text as monospace gets literal strings instead of structured
+    inline elements. The HTML gem currently works around this by pattern-matching
+    on the rendered HTML text (see Bug 07 for the broader architectural issue).
+  children:
+  - attributes: []
+    content: 'Any consumer that needs to render cross-references as links, anchors
+      as '
+  - attributes: []
+    text: id
+  - attributes: []
+    content: " attributes, or backtick text as monospace gets literal strings instead of structured inline elements. The HTML gem currently works around this by pattern-matching on the rendered HTML text (see Bug 07 for the broader architectural issue)."
+- attributes: []
+  level: 2
+  text: Fix
+- attributes: []
+  ordered: true
+  items:
+  - attributes: []
+    text: "**Parser**: In `dlist_term`, invoke `element_id_inline` before the term text to capture `[[anchor]]` syntax. In `dlist_definition`, invoke the `inline` sub-parser to recognize backticks, cross-references, and other inline markup."
+    children:
+    - attributes: []
+      text: Parser
+    - attributes: []
+      content: ": In "
+    - attributes: []
+      text: dlist_term
+    - attributes: []
+      content: ", invoke "
+    - attributes: []
+      text: element_id_inline
+    - attributes: []
+      content: " before the term text to capture "
+    - attributes: []
+      text: "[[anchor]]"
+    - attributes: []
+      content: " syntax. In "
+    - attributes: []
+      text: dlist_definition
+    - attributes: []
+      content: ", invoke the "
+    - attributes: []
+      text: inline
+    - attributes: []
+      content: " sub-parser to recognize backticks, cross-references, and other inline markup."
+  - attributes: []
+    text: "**Transformer**: Convert the parsed AST into structured model objects. Terms should produce `Model::Term` instances with structured content (not plain strings). Definitions should produce `Model::TextElement` instances with inline content arrays."
+    children:
+    - attributes: []
+      text: Transformer
+    - attributes: []
+      content: ": Convert the parsed AST into structured model objects. Terms should produce "
+    - attributes: []
+      text: Model::Term
+    - attributes: []
+      content: " instances with structured content (not plain strings). Definitions should produce "
+    - attributes: []
+      text: Model::TextElement
+    - attributes: []
+      content: " instances with inline content arrays."
+  - attributes: []
+    text: "**Admonition model**: Change `attribute :content, :string` to support structured content with inline elements, matching the pattern used by `Model::TextElement`."
+    children:
+    - attributes: []
+      text: Admonition model
+    - attributes: []
+      content: ": Change "
+    - attributes: []
+      text: attribute :content, :string
+    - attributes: []
+      content: " to support structured content with inline elements, matching the pattern used by "
+    - attributes: []
+      text: Model::TextElement
+    - attributes: []
+      content: "."
+  - attributes: []
+    text: "**CoreModel**: See report 10 for DefinitionItem model changes needed to receive this structured content."
+    children:
+    - attributes: []
+      text: CoreModel
+    - attributes: []
+      content: ": See report 10 for DefinitionItem model changes needed to receive this structured content."
