@@ -165,9 +165,7 @@ module Ceradoc
 
         raise ArgumentError, "model bindings: rule #{name.inspect} names undeclared hook #{via.inspect}"
       end
-      unless via.is_a?(Hash)
-        raise ArgumentError, "model bindings: rule #{name.inspect} `via` must be a hook name or a verb mapping"
-      end
+      raise ArgumentError, "model bindings: rule #{name.inspect} `via` must be a hook name or a verb mapping" unless via.is_a?(Hash)
 
       verb = via['verb']
       accepted = BindingVerbs::VERBS.fetch(verb) do
@@ -176,14 +174,10 @@ module Ceradoc
       raise ArgumentError, "model bindings: rule #{name.inspect} uses a verb, which needs table version '1.2'" unless version.to_s == '1.2'
 
       unknown = via.keys - accepted - %w[verb then]
-      unless unknown.empty?
-        raise ArgumentError, "model bindings: rule #{name.inspect} verb #{verb.inspect} has unknown config #{unknown.first.inspect}"
-      end
+      raise ArgumentError, "model bindings: rule #{name.inspect} verb #{verb.inspect} has unknown config #{unknown.first.inspect}" unless unknown.empty?
 
       missing = Array(BindingVerbs::VERB_REQUIRED[verb]) - via.keys
-      unless missing.empty?
-        raise ArgumentError, "model bindings: rule #{name.inspect} verb #{verb.inspect} needs `#{missing.first}`"
-      end
+      raise ArgumentError, "model bindings: rule #{name.inspect} verb #{verb.inspect} needs `#{missing.first}`" unless missing.empty?
 
       if verb == 'promote'
         attrs = via['attrs']
