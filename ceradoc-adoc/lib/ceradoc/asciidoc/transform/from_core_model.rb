@@ -177,18 +177,40 @@ module Ceradoc
             )
           end
 
-          # Nested inline structure lives in +children+ (e.g. an
-          # ItalicElement whose single child is a BoldElement);
-          # +content+ is only the flattened display string. Convert the
-          # children through create_text_elements so nesting survives —
-          # raw children (or content) handed to an adoc model
-          # string-interpolate the Ruby object dump into the output and
-          # drop the nested markup (#373).
-          def converted_inline_content(inline)
-            children = Array(inline.children)
-            return inline.content.to_s if children.empty?
+          # Inline subtrees arrive through two carriers: `children` when
+          # the source format parses straight into CoreModel (AsciiDoc,
+          # docx), and `nested_elements` when a converter parks the
+          # subtree there (HTML Markup; ceradoc/ceradoc#372). The writer
+          # walks whichever carrier holds content so markup-wrapped text
+          # is never dropped.
+          def inline_subtree(inline)
+            kids = Array(inline.children)
+            return kids if kids.any?
 
-            create_text_elements(inline.children)
+            Array(inline.nested_elements)
+          end
+
+          # Nested inline structure lives in `children` (e.g. an
+          # ItalicElement whose single child is a BoldElement) or, for
+          # converters that park the subtree there, in `nested_elements`
+          # (#372); `content` is only the flattened display string.
+          # Convert the walked subtree through create_text_elements so
+          # nesting survives - raw children (or content) handed to an
+          # adoc model string-interpolate the Ruby object dump into the
+          # output and drop the nested markup (#373).
+          def converted_inline_content(inline)
+            subtree = inline_subtree(inline)
+            return inline.content.to_s if subtree.empty?
+
+            create_text_elements(subtree)
+          end
+
+          # Content payload for inline serializers that accept either a
+          # flat string or an array of inline models: the converted
+          # subtree when present, else the flat content string.
+          def inline_content_payload(inline)
+            subtree = inline_subtree(inline)
+            subtree.empty? ? inline.content : create_text_elements(subtree)
           end
 
           # String-typed inline models (underline text, link name,
@@ -201,13 +223,13 @@ module Ceradoc
             content.is_a?(Array) ? content.map(&:to_adoc).join : content
           end
 
-          # Build an emphasis-style model from converted children,
-          # defaulting to the constrained marker — the
-          # constrained/unstrained distinction is not carried in
-          # CoreModel, and constrained is the correct rendering for
-          # span-boundary emphasis (#159).
+          # Build an emphasis-style model from the converted subtree,
+          # defaulting to the constrained marker - the constrained/
+          # unconstrained distinction is not carried in CoreModel, and
+          # constrained is the correct rendering for span-boundary
+          # emphasis (#159).
           def inline_model(klass, inline, unconstrained: false)
-            klass.new(content: converted_inline_content(inline),
+            klass.new(content: inline_content_payload(inline),
                       unconstrained: unconstrained)
           end
 
@@ -217,14 +239,16 @@ module Ceradoc
           # bold (or a bold's one italic), rebuild as Bold outer /
           # Italic inner, both constrained.
           def swap_emphasis_nesting(inline, unconstrained: false)
-            children = Array(inline.children)
+            children = inline_subtree(inline)
             return nil unless children.size == 1
 
             only = children.first
             return nil unless only.is_a?(CoreModel::InlineElement)
 
-            inner_kids = Array(only.children)
-            return nil unless inner_kids.empty? || inner_kids.all?(CoreModel::TextContent)
+            inner_kids = inline_subtree(only)
+            return nil unless inner_kids.empty? || inner_kids.all? do |kid|
+                                kid.is_a?(CoreModel::TextContent) || kid.is_a?(CoreModel::TextElement)
+                              end
 
             outer_type = inline.resolve_format_type
             inner_type = only.resolve_format_type
@@ -236,7 +260,7 @@ module Ceradoc
               'italic' => Ceradoc::AsciiDoc::Model::Inline::Italic
             }
             inner = classes[outer_type].new(
-              content: only.children.nil? || only.children.empty? ? only.content.to_s : create_text_elements(only.children),
+              content: inner_kids.empty? ? only.content.to_s : create_text_elements(inner_kids),
               unconstrained: false
             )
             classes[inner_type].new(content: inner, unconstrained: unconstrained)
@@ -290,20 +314,24 @@ module Ceradoc
                 inline_model(Ceradoc::AsciiDoc::Model::Inline::Italic, inline,
                              unconstrained: unconstrained)
             when 'monospace'
-              inline_model(Ceradoc::AsciiDoc::Model::Inline::Monospace, inline,
-                           unconstrained: unconstrained)
+              Ceradoc::AsciiDoc::Model::Inline::Monospace.new(
+                content: inline_content_payload(inline), unconstrained: unconstrained
+              )
             when 'highlight'
-              inline_model(Ceradoc::AsciiDoc::Model::Inline::Highlight, inline,
-                           unconstrained: unconstrained)
+              Ceradoc::AsciiDoc::Model::Inline::Highlight.new(
+                content: inline_content_payload(inline), unconstrained: unconstrained
+              )
             when 'strikethrough'
-              inline_model(Ceradoc::AsciiDoc::Model::Inline::Strikethrough, inline)
+              Ceradoc::AsciiDoc::Model::Inline::Strikethrough.new(
+                content: inline_content_payload(inline)
+              )
             when 'subscript'
               Ceradoc::AsciiDoc::Model::Inline::Subscript.new(
-                content: converted_inline_content(inline)
+                content: inline_content_payload(inline)
               )
             when 'superscript'
               Ceradoc::AsciiDoc::Model::Inline::Superscript.new(
-                content: converted_inline_content(inline)
+                content: inline_content_payload(inline)
               )
             when 'underline'
               Ceradoc::AsciiDoc::Model::Inline::Underline.new(
@@ -348,8 +376,11 @@ module Ceradoc
             when 'hard_line_break'
               Ceradoc::AsciiDoc::Model::Inline::HardLineBreak.new
             else
+              # Unhandled format: fall back to text, but keep any
+              # nested inline subtree as markup instead of dropping it
+              # (#372).
               Ceradoc::AsciiDoc::Model::TextElement.new(
-                content: converted_inline_content(inline)
+                content: inline_content_payload(inline)
               )
             end
           end

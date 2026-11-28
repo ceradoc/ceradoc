@@ -31,6 +31,31 @@ RSpec.describe Ceradoc::CoreModel::InlineContent do
       expect(described_class.text_of([element])).to eq('bold')
     end
 
+    it 'recurses into an InlineElement nested_elements subtree (#372)' do
+      bold = Ceradoc::CoreModel::BoldElement.new(
+        content: '',
+        nested_elements: [Ceradoc::CoreModel::TextElement.new(content: 'world')]
+      )
+      expect(described_class.text_of([bold])).to eq('world')
+    end
+
+    it 'joins flat content and the nested_elements subtree' do
+      bold = Ceradoc::CoreModel::BoldElement.new(
+        content: 'kept',
+        nested_elements: [Ceradoc::CoreModel::TextElement.new(content: ' plus')]
+      )
+      expect(described_class.text_of([bold])).to eq('kept plus')
+    end
+
+    it 'recurses through nested markup elements' do
+      inner = Ceradoc::CoreModel::ItalicElement.new(
+        content: '',
+        nested_elements: [Ceradoc::CoreModel::TextElement.new(content: 'deep')]
+      )
+      bold = Ceradoc::CoreModel::BoldElement.new(content: '', nested_elements: [inner])
+      expect(described_class.text_of([bold])).to eq('deep')
+    end
+
     it 'recurses into StructuralElement children' do
       inline = Ceradoc::CoreModel::InlineElement.new(content: 'nested')
       section = Ceradoc::CoreModel::SectionElement.new(
