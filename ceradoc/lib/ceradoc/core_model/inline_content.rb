@@ -14,7 +14,8 @@ module Ceradoc
         # Extract plain text from a mixed content value.
         #
         # nil → '' / String → itself / Array → text_of mapped + joined /
-        # InlineElement → #content.to_s / StructuralElement → recurse on
+        # InlineElement → #content plus its nested_elements subtree /
+        # StructuralElement → recurse on
         # #children / other Base → #content if String else #title.to_s /
         # anything else → #to_s.
         def text_of(content)
@@ -54,7 +55,12 @@ module Ceradoc
         def text_of_one(item)
           case item
           when String then item
-          when CoreModel::InlineElement then item.content.to_s
+          when CoreModel::InlineElement
+            # A markup element's text may live in its nested_elements
+            # subtree (the HTML Markup converter parks child elements
+            # there, ceradoc/ceradoc#372) — flat content alone reads
+            # empty for markup-wrapped text.
+            item.content.to_s + text_of(Array(item.nested_elements))
           when CoreModel::StructuralElement then text_of(Array(item.children))
           when CoreModel::Block
             item.children.is_a?(Array) && !item.children.empty? ? text_of(item.children) : item.content.to_s
