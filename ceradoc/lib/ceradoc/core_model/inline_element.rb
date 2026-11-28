@@ -129,6 +129,12 @@ module Ceradoc
         "#{content}#{target}"
       end
 
+      # Display text carries the label only — the parsers' `content`
+      # attribute records the visible text, never the destination.
+      def display_text
+        content.to_s
+      end
+
       # The hyperlink Edge this link declares. The address scheme is
       # inferred from the target shape (url / path / anchor).
       def derive_edge

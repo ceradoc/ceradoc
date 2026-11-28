@@ -9,6 +9,11 @@ module Ceradoc
           CoreModel::DocumentElement.new(
             title: attrs&.title,
             id: attrs&.id,
+            attributes: CoreModel::Metadata.new(
+              entries: Array(attrs&.entries).map do |entry|
+                CoreModel::MetadataEntry.new(key: entry.key, value: entry.value)
+              end
+            ),
             children: build_content(node)
           )
         end

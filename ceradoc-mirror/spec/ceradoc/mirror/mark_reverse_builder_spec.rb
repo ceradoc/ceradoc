@@ -38,12 +38,15 @@ RSpec.describe Ceradoc::Mirror::MarkReverseBuilder do
   describe 'build dispatch' do
     let(:context) { Ceradoc::Mirror::MirrorToCoreModel.new }
 
-    it 'wraps inner in BoldElement for strong' do
+    # A single text run reverses to the LEAF shape the forward parse
+    # produces: content-only, no children (the dual-shape content form).
+    it 'wraps inner in a content-only BoldElement for strong' do
       inner = Ceradoc::CoreModel::TextContent.new(text: 'hi')
       mark = Ceradoc::Mirror::Mark::Bold.new
       result = described_class.lookup('strong').new.build(inner, mark)
       expect(result).to be_a(Ceradoc::CoreModel::BoldElement)
-      expect(result.children).to eq([inner])
+      expect(result.content).to eq('hi')
+      expect(result.children.to_a).to be_empty
     end
 
     it 'reads href from Link mark' do
@@ -54,7 +57,8 @@ RSpec.describe Ceradoc::Mirror::MarkReverseBuilder do
       result = described_class.lookup('link').new.build(inner, mark)
       expect(result).to be_a(Ceradoc::CoreModel::LinkElement)
       expect(result.target).to eq('https://x')
-      expect(result.children).to eq([inner])
+      expect(result.content).to eq('click')
+      expect(result.children.to_a).to be_empty
     end
 
     it 'reads target from CrossReference mark' do
@@ -65,6 +69,21 @@ RSpec.describe Ceradoc::Mirror::MarkReverseBuilder do
       result = described_class.lookup('xref').new.build(inner, mark)
       expect(result).to be_a(Ceradoc::CoreModel::CrossReferenceElement)
       expect(result.target).to eq('sec-1')
+    end
+
+    # Multiple runs under one mark reverse to the CONTAINER shape the
+    # forward parse produces: structured children plus derived display
+    # text in content.
+    it 'builds a container with children for multiple runs' do
+      runs = [
+        Ceradoc::CoreModel::TextContent.new(text: 'a '),
+        Ceradoc::CoreModel::BoldElement.new(content: 'b')
+      ]
+      mark = Ceradoc::Mirror::Mark::Italic.new
+      result = described_class.lookup('emphasis').new.build(runs, mark)
+      expect(result).to be_a(Ceradoc::CoreModel::ItalicElement)
+      expect(result.children.to_a).to eq(runs)
+      expect(result.content).to eq('a b')
     end
   end
 

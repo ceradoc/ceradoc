@@ -43,7 +43,11 @@ module Ceradoc
 
         attrs = build_document_attrs(document)
         Node::Document.new(
-          attrs: Node::Document::Attrs.new(title: attrs[:title], id: attrs[:id]),
+          attrs: Node::Document::Attrs.new(
+            title: attrs[:title],
+            id: attrs[:id],
+            entries: metadata_entries(document)
+          ),
           content: partition_structural ? wrap_structural(content) : content
         )
       end
@@ -72,7 +76,10 @@ module Ceradoc
         if children && !children.empty?
           content = []
           children.each { |child| handle_element(child, content) }
-          content.compact
+          # Node content is a flat list of Mirror nodes — splice any
+          # nested arrays a handler returned before assignment (lutaml
+          # rejects nested arrays in typed collections).
+          content.flatten.compact
         elsif element_has_text_content?(element)
           process_inline_content(element)
         else
@@ -86,6 +93,20 @@ module Ceradoc
 
       def text_node(text, marks: [])
         Node::Text.new(text: text, marks: marks)
+      end
+
+      # Document-level attribute entries (`:name: value` lines) as typed
+      # Mirror nodes. Single source of truth for the seam — used by #call
+      # for the document root and by Handlers::Structural.document (which
+      # #call bypasses) so both paths carry the entries on the wire.
+      # Only StructuralElements carry #attributes; a bare Block passed as
+      # the transform root simply has no metadata.
+      def metadata_entries(element)
+        return [] unless element.is_a?(CoreModel::StructuralElement)
+
+        Array(element.attributes&.entries).map do |entry|
+          Node::MetadataEntry.new(key: entry.key, value: entry.value)
+        end
       end
 
       def register_footnote(footnote)

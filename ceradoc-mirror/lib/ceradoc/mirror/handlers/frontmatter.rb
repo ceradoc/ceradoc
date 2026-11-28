@@ -52,10 +52,16 @@ module Ceradoc
               Node::FrontmatterValue.new(value_type: 'float', float_value: value)
             when TrueClass, FalseClass
               Node::FrontmatterValue.new(value_type: 'boolean', boolean_value: value)
-            when Date, DateTime
-              Node::FrontmatterValue.new(value_type: 'date', date_value: value)
-            when Time
+            when DateTime
               Node::FrontmatterValue.new(value_type: 'datetime', datetime_value: value)
+            when Time
+              # Keep Time and DateTime distinct — the codec's ValueBridge
+              # (the forward parse convention) discriminates them by
+              # value_type, and collapsing Time into datetime coarsens
+              # the declared type on the round-trip.
+              Node::FrontmatterValue.new(value_type: 'time', time_value: value)
+            when Date
+              Node::FrontmatterValue.new(value_type: 'date', date_value: value)
             when Symbol
               Node::FrontmatterValue.new(value_type: 'symbol', symbol_value: value.to_s)
             when nil

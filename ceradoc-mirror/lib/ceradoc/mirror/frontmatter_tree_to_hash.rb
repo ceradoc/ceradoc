@@ -30,6 +30,7 @@ module Ceradoc
         when 'boolean'   then value.boolean_value
         when 'date'      then value.date_value
         when 'datetime'  then value.datetime_value
+        when 'time'      then value.time_value
         when 'symbol'    then value.symbol_value&.to_sym
         when 'nil'       then nil
         else value.string_value

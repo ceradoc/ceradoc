@@ -47,7 +47,10 @@ module Ceradoc
 
           def build_table_row(row, context)
             cells = Array(row.cells).map { |c| build_table_cell(c, context) }
-            Node::TableRow.new(content: cells)
+            Node::TableRow.new(
+              attrs: Node::TableRow::Attrs.new(header: row.header || nil),
+              content: cells
+            )
           end
 
           def build_table_cell(cell, context)

@@ -22,9 +22,14 @@ module Ceradoc
 
           children = inline_children_for(element)
 
+          # Splice before assignment: nested dispatch may hand back
+          # arrays-within-arrays (a block child whose handler returns
+          # several nodes, some of them arrays) and lutaml-model rejects
+          # nested arrays in typed collections. Inline content is a FLAT
+          # run list by contract.
           children.flat_map do |child|
             process_child(child, context)
-          end
+          end.flatten
         end
 
         def self.process_child(child, context)

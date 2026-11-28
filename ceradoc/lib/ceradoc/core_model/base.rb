@@ -166,6 +166,21 @@ module Ceradoc
         ''
       end
 
+      # Flatten this element to its DISPLAY text — the convention the
+      # parsers use for the string `content` attribute next to structured
+      # +children+. Differs from #flat_text exactly where flat_text
+      # deliberately carries addressing extras: a link contributes its
+      # label but not its target, an image contributes its alt but not
+      # its src. Everything else flattens identically, so the default
+      # delegates to #flat_text.
+      #
+      # Override sites: Image (alt only), LinkElement (label only).
+      #
+      # @return [String]
+      def display_text
+        flat_text
+      end
+
       # True when this node counts as real body content for empty-body
       # detection and similar structural queries. Default is true;
       # ephemeral and metadata nodes override to false.

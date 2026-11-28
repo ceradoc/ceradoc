@@ -11,7 +11,11 @@ module Ceradoc
         def self.document(element, context:)
           content = context.extract_content(element)
           Node::Document.new(
-            attrs: Node::Document::Attrs.new(title: element.title, id: element.id),
+            attrs: Node::Document::Attrs.new(
+              title: element.title,
+              id: element.id,
+              entries: context.metadata_entries(element)
+            ),
             content: content
           )
         end

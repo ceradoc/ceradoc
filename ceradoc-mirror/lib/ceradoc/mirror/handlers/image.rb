@@ -42,6 +42,7 @@ module Ceradoc
               width: element.width,
               height: element.height,
               role: element.role,
+              link: element.link,
               inline: element.inline
             )
           end
