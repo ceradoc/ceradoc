@@ -8,6 +8,10 @@ module Ceradoc
           class << self
             def transform_document(doc)
               title_text = ToCoreModel.extract_title_text(doc.header&.title)
+              # Recover attribute entries the paragraph rule soft-wrapped
+              # into body paragraphs (#376 kotoshu fixture) before the
+              # document attribute snapshot below is taken.
+              DocumentAttributeEntries.hoist!(doc)
               attributes = ToCoreModel.extract_document_attributes(doc)
               children = ToCoreModel.transform(doc.sections || doc.contents || [])
               children = CalloutMerger.call(children)

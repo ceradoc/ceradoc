@@ -22,6 +22,8 @@ module Ceradoc
     #     inline: true
     #   )
     class Image < Base
+      prepend Ceradoc::CoreModel::EdgeCarrier
+
       # @!attribute src
       #   @return [String, nil] source URL or path to the image
       attribute :src, :string
@@ -58,6 +60,31 @@ module Ceradoc
       #   @return [String, nil] float position ('left', 'right')
       #   @note Not yet wired by any transformer; reserved for future use
       attribute :float, :string
+
+      # @!attribute edges
+      #   @return [Array<Ceradoc::Reference::Edge>] the declared
+      #     image-reference Edge (maintained from +src+ / +alt+)
+      attribute :edges, 'Ceradoc::Reference::Edge', collection: true
+
+      # The image-reference Edge: alt text is the label and is carried
+      # in the options as well. File-like sources are paths; URLs stay
+      # URLs.
+      def derive_edge
+        return if src.nil? || src.empty?
+
+        address = parse_edge_address(
+          src, hint: Ceradoc::Reference::Address.path_or_url_hint(src)
+        )
+        return if address.nil?
+
+        Ceradoc::Reference::Edge.build(
+          kind: :image_ref,
+          address: address,
+          source_id: id,
+          label: alt,
+          options: { alt_text: alt }
+        )
+      end
 
       # Flat text carries the alt text and the source so text-extraction
       # contexts keep the image reference that raw-string paragraphs

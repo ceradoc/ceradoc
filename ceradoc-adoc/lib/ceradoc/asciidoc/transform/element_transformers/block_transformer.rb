@@ -8,12 +8,17 @@ module Ceradoc
           class << self
             def transform_paragraph(para)
               children = ToCoreModel.transform_inline_content(para.content)
-              source_lines = ToCoreModel.extract_source_lines(para.content)
+              # Canonical single-line partition (#376): serialization is
+              # single-line, so `lines` carries the same folded text a
+              # re-parse produces instead of the raw source-line split —
+              # otherwise the split/join boundary differs between the two
+              # parses.
+              text = ToCoreModel.extract_text_content(para.content)
 
               Ceradoc::CoreModel::ParagraphBlock.new(
                 id: para.id,
-                content: ToCoreModel.extract_text_content(para.content),
-                lines: source_lines,
+                content: text,
+                lines: text.empty? ? [] : [text],
                 source_line: para.source_line,
                 children: children
               )
